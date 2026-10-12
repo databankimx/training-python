@@ -1,7 +1,7 @@
 ## Numeric Lists and the `range()` Function
 
-The `range()` function generates a sequence of numbers without storing them
-all in memory at once.
+The `range()` function allows you to access a sequential, numeric list without 
+declaring it as a variable.
 
 Syntax:
 
@@ -11,14 +11,22 @@ range([start,] stop[, step])
 
 Rules:
 
-- `stop` must be one higher than the last value you want - this is "off-by-one" behavior
-- `step` specifies the increment between values
-- With one argument: that value is `stop`; `start` defaults to `0`, `step` to `1`
-- With two arguments: `start` and `stop`; `step` defaults to `1`
+* The `stop` value must be one higher than the last value you want to process
+    * This is known as "off-by-one" behavior
+* The `step` value specifies the increment between one value and the next value
+* If only one parameter is specified:
+    * The specified value is `stop`
+    * The `start` value defaults to `0`
+    * The `step` value defaults to `1`
+* If two parameters are specified
+    * The specified values are `start` and `stop`
+    * The `step` value defaults to `1`
 
 ---
 
-#### Only `stop` specified
+Examples:
+
+#### A `range` with only `stop` specified
 
 ```python
 for i in range(3):
@@ -35,7 +43,7 @@ Output:
 
 ---
 
-#### `start` and `stop` specified
+#### A `range` with `start` and `stop` specified
 
 ```python
 for i in range(1, 4):
@@ -52,7 +60,7 @@ Output:
 
 ---
 
-#### `start`, `stop`, and `step` specified
+#### A `range` with `start`, `stop`, and `step` specified
 
 ```python
 for i in range(2, 7, 2):
@@ -69,7 +77,7 @@ Output:
 
 ---
 
-#### Using `range()` to build a list
+#### A loop using a `range` to create a list
 
 ```python
 squares = []
@@ -82,21 +90,6 @@ Output:
 
 ```
 [1, 4, 9, 16, 25]
-```
-
----
-
-#### Converting `range()` directly to a list
-
-```python
-numbers = list(range(1, 6))
-print(numbers)
-```
-
-Output:
-
-```
-[1, 2, 3, 4, 5]
 ```
 
 ---

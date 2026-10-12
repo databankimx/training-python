@@ -1,27 +1,31 @@
 ## Be Careful with Loops
 
-### Never Modify a Collection You Are Iterating Over
+### Beware!
 
-It's tempting to modify a list while iterating across it, but it will break
-things in ways that don't always produce an error - just a wrong result.
+It's tempting to modify a list while iterating across it, but that will break 
+things...
 
 ---
 
-Consider this example where we try to `pop()` each item as we iterate:
+Consider this example where we're trying to `pop()` each item as we iterate:
 
 ```python
 numbers = [1, 2, 3, 4, 5]
 
+# Try to predict what will happen in this loop
 for number in numbers:
     n = numbers.index(number)
     print(numbers.pop(n))
 print(numbers)
 ```
 
-Try to predict what will happen before reading the output.
+### Surprise!
 
 <details>
-<summary>Output</summary>
+<summary>Open after you make your prediction...</summary>
+<br>
+
+You might be surprised that the output is:
 
 ```
 1
@@ -35,26 +39,34 @@ Try to predict what will happen before reading the output.
 
 ---
 
-If you predicted all five numbers would print and the list would be empty,
-here is why that didn't happen:
+If you predicted that all five numbers would be printed and that the list 
+would be empty after the loop, here's why that didn't happen:
 
-- On the first iteration, `numbers[0]` (value `1`) is popped. The list becomes `[2, 3, 4, 5]`.
-- The Python iterator doesn't know about the change - it was created at the start of the loop.
-- So it moves to `numbers[1]`, which is now `3`. That gets popped, leaving `[2, 4, 5]`.
-- Third iteration moves to `numbers[2]`, which is now `5`. That gets popped, leaving `[2, 4]`.
-- The iterator reaches the end of the list and stops. No error is raised.
+* On the first iteration, we pop `numbers[0]`, which re-indexes the remainder 
+  of the list `[2, 3, 4, 5]`
+* But the Python iterator doesn't know about the change (it was created when 
+  we started the loop)
+* So it just moves on to `numbers[1]`, which is now the value 3.
+  Then it pops `numbers[1]` leaving `[2, 4, 5]`
+* Finally the third iteration moves to `numbers[2]`, which is now the value 5
+* After the three iterations, the loop encounters the end of the list and
+  terminates, but the list still contains the values that got skipped ->
+  `[2, 4]`
 
-| Iteration | List before `pop` | Index | Value | List after `pop` |
+The process (step-by-step) looks like this:
+
+|Iteration|List Before `pop`|Index|Value|List After `pop`|
 |:-:|-|:-:|:-:|-|
-| 1 | `[1, 2, 3, 4, 5]` | 0 | 1 | `[2, 3, 4, 5]` |
-| 2 | `[2, 3, 4, 5]` | 1 | 3 | `[2, 4, 5]` |
-| 3 | `[2, 4, 5]` | 2 | 5 | `[2, 4]` |
+|1|`[1, 2, 3, 4, 5]`|0|1|`[2, 3, 4, 5]`|
+|2|`[2, 3, 4, 5]`|1|3|`[2, 4, 5]`|
+|3|`[2, 4, 5]`|2|5|`[2, 4]`|
 
-No error is thrown - you just get an unexpected result.
+No error is thrown, because the iterator halts upon reaching the end of the 
+list. We just get an unexpected result
 
-> **Moral: NEVER modify the collection you are looping over with `for`.**
+> **Moral**: NEVER modify the collection you are looping over with `for`!
 
-**Foreshadowing:** We will see a correct way to empty a list in a loop in
-lesson 07.04, using a `while` loop instead.
+**Foreshadowing**: We'll see a way to empty the list in a loop without 
+problems in Lesson 07.04 (but it'll be a different kind of loop).
 
 ---

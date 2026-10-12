@@ -1,22 +1,28 @@
 ## Slicing Lists
 
-A slice accesses a portion of a list using index notation.
+Python provides a mechanism, the `slice`, for accessing portions of a list.
 
-Syntax:
+The syntax for a slice behaves like a range, encapsulated as indices:
 
 ```python
-list[start:stop:step]
+slice = list[[start]:[stop][:step]]
 ```
 
-All three fields are optional:
+All of the fields are optional, but the omission of any item affects how the
+slice range behaves.
 
-- Omit `start` - slice begins at index 0
-- Omit `stop` - slice runs to the end of the list
-- Include `step` - always preceded by a second colon, even when `start` or `stop` are omitted
+* If `start` is omitted (`list[:stop]`, e.g), the start is assumed to be 0
+* If `stop` is omitted (`list[start:]`, e.g), the stop is assumed to be the
+  end of the list.
+* If `step` is to be included (`list[start:stop:step]`, e.g.), it will always
+  be preceded by a second colon, even if `start`, `end`, or both are omitted
+  (`list[::step]`, e.g)
 
 ---
 
-### Accessing a Portion of a List
+### Accessing a Part of a List
+
+You can access a portion (slice) of a list all at the same time
 
 ```python
 players = ["charles", "martina", "michael", "florence", "eli"]
@@ -33,6 +39,9 @@ Output:
 
 ### Omitting `start`
 
+If you omit an argument, the slice goes all the way to the omitted end of the 
+list
+
 ```python
 players = ["charles", "martina", "michael", "florence", "eli"]
 print(players[:3])
@@ -47,6 +56,9 @@ Output:
 ---
 
 ### Omitting `stop`
+
+If you omit an argument, the slice goes all the way to the omitted end of the 
+list
 
 ```python
 players = ["charles", "martina", "michael", "florence", "eli"]
@@ -63,6 +75,8 @@ Output:
 
 ### Including `step`
 
+You can specify the increment (`step`) with a third argument
+
 ```python
 players = ["charles", "martina", "michael", "florence", "eli"]
 print(players[::2])
@@ -74,9 +88,12 @@ Output:
 ['charles', 'michael', 'eli']
 ```
 
-Using a negative step slices in reverse:
+---
+
+Using a negative increment, you can slice in reverse order from the end
 
 ```python
+players = ["charles", "martina", "michael", "florence", "eli"]
 print(players[::-2])
 ```
 
@@ -88,9 +105,9 @@ Output:
 
 ---
 
-### Looping over a Slice
+### Looping over Slices
 
-A slice is itself a list, so you can loop over it directly:
+You can loop across a slice (since even a subset of a list is a list)
 
 ```python
 players = ["charles", "martina", "michael", "florence", "eli"]
@@ -108,9 +125,11 @@ michael
 
 ---
 
-### Bonus - Reversing a String
+### BONUS - Reversing a String
 
-Strings support slicing too, which gives us an elegant way to reverse one:
+Even though a string is not technically a list, we can use slicing on a string.
+
+This gives us a really elegant way to reverse a string using the -1 increment.
 
 ```python
 word = "python"

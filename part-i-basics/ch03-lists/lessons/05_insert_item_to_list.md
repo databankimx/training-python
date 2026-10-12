@@ -1,13 +1,19 @@
 ## Insert an Item into a List
 
-`insert()` adds an item at a specific index. The rest of the list shifts right
-and its indices renumber accordingly.
+Sometimes you will want to add an item to the list but not place it at the end.
+
+Python provides the `insert()` function to provide this capability.
+
+You can insert an item at a specific location by specifying the index of the 
+item you're adding
+
+The rest of the list will renumber its indices accordingly.
 
 ```python
 motorcycles = ["honda", "yamaha", "suzuki", "triumph"]
 print(motorcycles)
 print(motorcycles[3])
-motorcycles.insert(3, "ducati")
+motorcycles.insert(3, "ducati") # Insert at index 3
 print(motorcycles[3])
 print(motorcycles[4])
 print(motorcycles)

@@ -1,19 +1,24 @@
 ## Style Guidelines
 
-For the full reference, see [PEP 8](https://peps.python.org/pep-0008/).
+For references on coding style standards, consult the
+[Style Guide (PEP-8)](https://peps.python.org/pep-0008/)
 
 ---
 
-Key rules the team follows:
+Some specific rules to which our team subscribes include:
 
-- All indents should be four spaces
-- Limit code lines to 79 characters (at DataBank we use a 120-character limit)
-- Limit comment lines to 72 characters
-- Use blank lines to group functionally related sections of code - but not excessively
+* All indents should be four spaces
+* Limit code to 79 characters per line (at DataBank, we use a 
+  120-character limit [*usually])
+* Limit comments to 72 characters per line<br>
+  Yes, I have violated this rule in many of the lesson files
+* Use blank lines to group functionally related sections of code
+  (but not to excess)
 
 ---
 
-See [Try-it-Yourself assignment 4.15](../try-it-yourself/00_my_answers.md) for
-instructions on setting tab size and column rulers in VS Code.
+> See
+> ["Try it Yourself" assignment 4.15](../try-it-yourself/00_my_answers.md)
+> for instructions on how to set indents and/or guide-lines.
 
 ---

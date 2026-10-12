@@ -1,24 +1,30 @@
 ## A Word on Constants
 
-Many programs need a variable that holds a value which should never change
-during the program's lifetime. This "variable that isn't variable" is called
-a *constant*.
+There are many cases where you need a variable to contain a value that will
+never be changed (the value stays the same throughout the program runtime).
 
----
+This "variable that isn't variable" idea is called a *constant*.
 
-### Python Does Not Have Constants
+### We Don't Have Constants
 
-Python has no mechanism to enforce that a variable cannot be changed.
-Although some data types are immutable (their contents cannot be modified),
-all variables can be rebound to a different value entirely.
+Python does not have a way to make a variable constant.
 
----
+Although some data types are immutable (which means their values cannot be
+modified), all can be replaced with a different value entirely.
 
 ### Indicating the Intent to be Constant
 
-Because we cannot truly make a variable constant, we instead signal to other
-developers that the value should not be changed by naming it in
-`ALL_CAPS_SNAKE_CASE`.
+Because we cannot actually make a variable constant, we instead indicate to
+other developers that the value should not be changed by naming the variable
+in `ALL_CAPS_SNAKE_CASE`.
+
+Code Sample:
+
+Here, we are defining a constant value for *π* and then computing area of a 
+circle based on two different values for the radius.
+
+Because we never want the value of *π* to change, we name it `PI` instead of 
+`pi`.
 
 ```python
 PI = 3.14159

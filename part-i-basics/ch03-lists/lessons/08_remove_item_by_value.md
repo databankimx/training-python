@@ -1,6 +1,14 @@
-## Remove Items from a List by Value
+## Remove Items from List by Value
 
-When you do not know the index of the item you want to remove, use `remove()`.
+Sometimes, you won't know the index of an item you want to remove and won't be 
+able to use `del`.
+
+---
+
+### Removing an item:
+
+Python lists expose the `remove()` method to allow you to remove items by value
+instead.
 
 ```python
 motorcycles = ["honda", "yamaha", "suzuki", "triumph"]
@@ -20,8 +28,11 @@ Output:
 
 ### Removing Based on a Variable
 
+Of course, you can use a variable to determine what is removed.
+
 ```python
 motorcycles = ["honda", "ducati", "suzuki", "triumph"]
+print(motorcycles)
 too_expensive = "ducati"
 motorcycles.remove(too_expensive)
 print(motorcycles)
@@ -30,29 +41,37 @@ print(motorcycles)
 Output:
 
 ```
+['honda', 'ducati', 'suzuki', 'triumph']
 ['honda', 'suzuki', 'triumph']
 ```
 
 ---
 
-### Warning: Duplicate Values
+### A Warning about Duplicate Values
 
-If the value appears more than once, `remove()` only removes the **first**
-matching element.
+As we already know, lists permit duplicate values.
+
+If a list contains more than one instance of the value you're removing, 
+**only the first matching element will be removed**.
 
 ```python
 motorcycles = ["honda", "ducati", "suzuki", "ducati", "triumph"]
-motorcycles.remove("ducati")
+print(motorcycles)
+too_expensive = "ducati"
+motorcycles.remove(too_expensive)
 print(motorcycles)
 ```
 
 Output:
 
 ```
+['honda', 'ducati', 'suzuki', 'ducati', 'triumph']
 ['honda', 'suzuki', 'ducati', 'triumph']
 ```
 
-When we cover loops and conditionals, we will see how to remove all instances
-of a value.
+Note: Only the first instance of "ducati" was removed.
+
+When we review loops and conditionals, we'll see a way to work around this 
+limitation.
 
 ---

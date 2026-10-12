@@ -1,14 +1,14 @@
 ## List Statistics
 
-Python provides several built-in functions for getting information about a
-numeric list.
+Python provides several functions to expose information about a list.
 
-| Function | Effect |
+
+|Function|Effect|
 |-|-|
-| `len(list)` | Number of elements |
-| `min(list)` | Lowest value |
-| `max(list)` | Highest value |
-| `sum(list)` | Sum of all values |
+|`len(list)`|Returns the number of elements in the list|
+|`min(list)`|Returns the lowest value in the list|
+|`max(list)`|Returns the highest value in the list|
+|`sum(list)`|Returns the sum of the values in the list|
 
 ```python
 digits = list(range(10))
@@ -31,59 +31,79 @@ Sum:          45
 
 ---
 
-### Computing an Average
-
-Division always returns a float in Python, even when the result is a whole
-number:
+Of course, we can take those values and calculate the other information, like a
+mean average.
 
 ```python
 digits = list(range(10))
-print(f"Average: {sum(digits) / len(digits)}")
+print(digits)
+print(f"Average:      {sum(digits) / len(digits)}")
 ```
 
 Output:
 
 ```
-Average: 4.5
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Average:      4.5
 ```
 
 ---
 
-### Using the `statistics` Module
+Because calculating the average uses division, the result is a float, even if
+the value is an integer.
 
-The standard library's `statistics` module provides a `mean()` function that
-returns an integer when the result is whole:
+```python
+tens = list(range(10, 101, 10))
+print(tens)
+print(f"Average:      {sum(tens) / len(tens)}")
+```
+
+Output:
+
+```
+[10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+Average:      55.0
+```
+
+---
+
+We can work around this in one of two ways:
+
+We can import the `statistics` module and use its `mean()` function
 
 ```python
 import statistics
 
 tens = list(range(10, 101, 10))
-print(f"Average: {statistics.mean(tens)}")
+print(tens)
+print(f"Average:      {statistics.mean(tens)}")
 ```
 
 Output:
 
 ```
-Average: 55
+[10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+Average:      55
 ```
 
 ---
 
-### Eliminating the Unnecessary Float Manually
-
-You can also use modulo arithmetic to strip the `.0` when not needed:
+Or we can leverage modulo arithmetic and a conditional (coming in chapters 
+5 and 8) to eliminate the float when it is not needed.
 
 ```python
 tens = list(range(10, 101, 10))
+print(tens)
 avg = sum(tens) / len(tens)
 mean = int(avg) if (avg * 10) % 10 == 0 else avg
-print(f"Average: {mean}")
+print(f"Average:      {mean}")
 ```
 
 Output:
 
 ```
-Average: 55
+[10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+Average:      55
 ```
 
 ---

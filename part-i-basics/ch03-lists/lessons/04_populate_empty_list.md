@@ -1,7 +1,7 @@
 ## Populate an Empty List
 
-A common pattern is to start with an empty list and append items to it during
-program execution.
+One common way of populating lists is to initialize an empty list `[]` and 
+then add items to it during the program execution.
 
 ```python
 motorcycles = []

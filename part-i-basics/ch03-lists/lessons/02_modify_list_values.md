@@ -6,7 +6,7 @@ the item at a given index.
 ```python
 motorcycles = ["honda", "yamaha", "suzuki"]
 print(motorcycles)
-motorcycles[2] = "triumph"
+motorcycles[2] = "triumph" # Modify the value in-place
 print(motorcycles)
 ```
 
