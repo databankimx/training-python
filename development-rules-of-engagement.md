@@ -39,6 +39,7 @@ These rules apply to all client-specific custom development, including but not l
 - Import processors
 - Workflow scripts
 - SQL scripts
+- Python scripts
 - PowerShell scripts
 - Command-line utilities
 - Desktop utilities
@@ -80,6 +81,7 @@ The developer is responsible for:
 - Responding to review feedback.
 - Ensuring required tests, scans, and CI checks pass before delivery.
 - Raising concerns about scope, security, licensing, unclear requirements, or support risk.
+- Providing appropriate documentation and explanations for the code they deliver (comments, documents, SDK projects, etc.)
 
 ### Reviewer
 
@@ -161,6 +163,7 @@ development leadership approves otherwise:
 - Code migration
 - Source-code preparation and delivery
 - Documentation beyond normal support notes
+- Fixes associated with a change or update to an OS or third-party software
 
 Code-related support issues should be visible to development leadership when they involve custom
 code, potential code changes, unclear ownership, or supportability risk.
@@ -282,7 +285,7 @@ development work unless development leadership approves otherwise.
 
 Before using third-party or open-source dependencies in custom code, developers must confirm that:
 
-- The license permits closed-source commercial use.
+- The license permits closed-source commercial use. (typically MIT or Apache)
 - The dependency does not introduce unacceptable security risk.
 - The dependency is appropriate for client delivery and long-term support.
 - Any required approval has been obtained.
