@@ -106,8 +106,6 @@ the expression the same as:
 
 ### A note on Python Integers
 
-Integers in Python are not fixed-size like they are in other languages.
-Because of this, the maximum value for a Python integer is limited only by 
-the available system RAM.
+> Integers in Python are not fixed-size like they are in other languages. Because of this, the maximum value for a Python integer is limited only by the available system RAM.
 
 ---

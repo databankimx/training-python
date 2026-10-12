@@ -26,7 +26,7 @@ Rules:
 
 Examples:
 
-#### A `range` with only `stop` specified
+### A `range` with only `stop` specified
 
 ```python
 for i in range(3):
@@ -43,7 +43,7 @@ Output:
 
 ---
 
-#### A `range` with `start` and `stop` specified
+### A `range` with `start` and `stop` specified
 
 ```python
 for i in range(1, 4):
@@ -60,7 +60,7 @@ Output:
 
 ---
 
-#### A `range` with `start`, `stop`, and `step` specified
+### A `range` with `start`, `stop`, and `step` specified
 
 ```python
 for i in range(2, 7, 2):
@@ -77,7 +77,7 @@ Output:
 
 ---
 
-#### A loop using a `range` to create a list
+### A loop using a `range` to create a list
 
 ```python
 squares = []

@@ -6,6 +6,8 @@ in a single line of code.
 Using comprehensions where they can logically replace more verbose code is
 often seen as a mark of competency for newer Python developers.
 
+> Note: Hiring managers often look for candidates who can write concise and readable code, and list comprehensions are a common way to demonstrate this skill.
+
 ---
 
 Up to now, we have used loops to populate lists.

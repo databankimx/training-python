@@ -6,7 +6,7 @@ print("Chapter 8:")
 print("Exercise 11 - Importing a Module")
 
 pizza.make_pizza(16, "pepperoni")
-pizza.make_pizza(12, "mushrooms", "green pepper")
+pizza.make_pizza(12, "mushrooms", "green pepper") #NOSONAR
 
 # pylint: disable=wrong-import-position
 from pizza import make_pizza

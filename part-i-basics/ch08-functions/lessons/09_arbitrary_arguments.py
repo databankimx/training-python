@@ -25,7 +25,7 @@ make_pizza_simple("mushrooms", "green peppers", "extra cheese")
 make_pizza_simple(*["mushrooms", "sausage", "black olives"])
 
 pause()
-    
+
 make_pizza(16, "pepperoni")
 make_pizza(12, "mushrooms", "green peppers", "extra cheese")
 

@@ -2,7 +2,7 @@
 
 # Summing a Million: Make a list of the numbers from one to one million,
 #                    and then use min(), max(), and sum() to verify and
-#                    summarise the list.
+#                    summarize the list.
 
 print("Try-it-Yourself:")
 print("Assignment 4.5")

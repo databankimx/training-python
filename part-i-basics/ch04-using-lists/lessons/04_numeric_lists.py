@@ -8,7 +8,7 @@ for value in range(1, 6):
 
 nums = []
 for i in range(1, 6):
-    nums.append(i)
+    nums.append(i) #NOSONAR
 print(nums)
 
 numbers = list(range(1, 6))

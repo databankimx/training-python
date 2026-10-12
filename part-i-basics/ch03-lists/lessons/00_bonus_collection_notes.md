@@ -10,9 +10,7 @@ The rules are:
 * Collections with the **Add/Remove** behavior permit items to be added to or 
   removed from the collection.
 * Collections with the **Duplicates** behavior can have multiple instances of
-  the same collection value.<br>
-  Note: Dictionaries technically *can* have duplicate values, but they *cannot*
-  contain duplicate keys.
+  the same collection value.
 
 ---
 
@@ -26,6 +24,13 @@ Python collection types.
 |Set|`{1, 2, 3}`|||X||
 |Dictionary|`{'a': 1, 'b': 2, 'c': 3}`|X|X|X||
 |||||||
+
+> Notes:
+> 
+> * Dictionaries technically *can* have duplicate values, but they *cannot* contain duplicate keys.
+> * Dictionaries prior to Python 3.7 did not maintain insertion order, so in older versions, they do not possess the **Ordered** behavior.
+
+---
 
 This brief code sample illustrates each of these behaviors using a list:
 

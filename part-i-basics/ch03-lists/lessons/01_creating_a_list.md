@@ -63,7 +63,7 @@ Regardless of list length.
 > Instead, the `list` itself is the most fundamental type of collection. And
 > unlike an array, this is what's called a *linked list*, meaning that each
 > element contains not only a value but a link to the next element in the list.
-> This is necessary since the list can composed of different data types, many
+> This is necessary since the list can be composed of different data types, many
 > of which are not static sized.
 > 
 > The first element, however, is still located at the start location of the

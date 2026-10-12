@@ -18,7 +18,7 @@ import album as a
 from album import make_album
 from album import make_album as ma
 # pylint: disable=wildcard-import
-from album import *
+from album import * #NOSONAR
 
 print("Try-it-Yourself:")
 print("Assignment 8.16")

@@ -3,7 +3,7 @@
 print("Chapter 8:")
 print("Exercise 13 - Bonus Lesson - Type Hints")
 
-def calculate(operation: str, x: int|float, y: int|float) -> int|float:
+def calculate(operation: str, x: int|float, y: int|float) -> int|float|None:
     """
     Perform selected arithmetic calculation
 

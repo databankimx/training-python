@@ -1,7 +1,7 @@
 """Lesson 8.16"""
 
 # pylint: disable=dangerous-default-value
-def my_bad_function(my_arg: list[str]=[]) -> list[str]:
+def my_bad_function(my_arg: list[str]=[]) -> list[str]: # NOSONAR
     """Demonstrate the result of a default mutable argument"""
     print("Using an empty list as a default argument:")
     my_arg.append("new item")

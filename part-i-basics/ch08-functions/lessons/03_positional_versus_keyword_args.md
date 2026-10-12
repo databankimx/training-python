@@ -59,7 +59,7 @@ My fido's name is Dog.
 When we pass the arguments as keywords, the order doesn't matter.
 
 Using the same function we defined earlier, we simply include the parameter
-names (which must match exactly) in our arguments, and even when we pass them 
+names (which is case-sensitive and must match exactly) in our arguments, and even when we pass them 
 out of order...
 
 ```python

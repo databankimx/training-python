@@ -183,7 +183,7 @@ documentation.
 Here is the function with the return type added:
 
 ```python
-def calculate(operation: str, x: int|float, y: int|float) -> int|float:
+def calculate(operation: str, x: int|float, y: int|float) -> int|float|None:
     """
     Perform selected arithmetic calculation
 

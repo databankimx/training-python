@@ -6,6 +6,7 @@ print("Exercise 8 - Numerical Operators")
 x = 3
 y = 2
 z = 4
+
 # Operators (Note: PEMDAS precedence order is in effect)
 # Oper | Meaning  | Example
 #   +    add        3 + 2 -> 5
