@@ -74,7 +74,7 @@ iterations.
 
 ### The `StopIteration` Error
 
-If we call `next()`
+There is a problem with simply calling `next()` in a loop without checking if the iterator has more elements.
 
 ```python
 arr = [1, 2, 3]
@@ -100,8 +100,7 @@ Traceback (most recent call last):
 StopIteration
 ```
 
-Once we have exhausted the iterator, calling `next()` will raise a
-`StopIteration` error.
+Once the iterator is exhausted, calling `next()` will raise a `StopIteration` error.
 
 ---
 
