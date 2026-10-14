@@ -2,6 +2,7 @@
     "cSpell.words": [
         "augie",
         "Berners",
+        "blit",
         "bytearray",
         "camaro",
         "cannondale",
@@ -32,8 +33,10 @@
         "pluggy",
         "prine",
         "pygame",
+        "pyperclip",
         "pytest",
         "Pythonic",
+        "Rossum",
         "rstrip",
         "sonarqube"
     ],
@@ -50,6 +53,15 @@
         "nohtyp",
         "ubtract",
         "ultiply",
-        "ivide"
+        "ivide",
+        "tand",
+        "ouble",
+        "ncode",
+        "ecode",
+        "ABCDEFCHIJKLMNOPQRSTUVWXYZ",
+        "cissors",
+        "centinal",
+        "gosper",
+        "onein"
     ]
 }

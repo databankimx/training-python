@@ -1,0 +1,19 @@
+{
+    "Basic Script Template": {
+        "prefix": "&template",
+        "body": [
+            "def my_function(*args: any, **kwargs: any) -> None:",
+            "    \"\"\"Doc string for function\"\"\"",
+            "    pass",
+            "",
+            "def main() -> None:",
+            "    \"\"\"Main process\"\"\"",
+            "    my_function()",
+            "",
+            "if __name__ == \"__main__\":",
+            "    main()",
+            ""
+        ],
+        "description": "Basic Script Template"
+    }
+}

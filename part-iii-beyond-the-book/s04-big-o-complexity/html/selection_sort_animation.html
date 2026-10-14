@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Selection Sort Animation</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles/selection_sort_animation.css">
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="scripts/selection_sort_animation.js"></script>
+    </head>
+    <body>
+        <div id="heading">Selection Sort</div>
+        <div id="stats">
+            <table>
+                <tr id="min_data">
+                    <td>Min:</td>
+                    <td id="min"></td>
+                </tr>
+                <tr id="stats_data">
+                    <td>Steps:</td>
+                    <td id="steps"></td>
+                </tr>
+                <tr>
+                    <td><label for="cb_auto">Automatic:</label></td>
+                    <td><input type="checkbox" id="cb_auto" name="cb_auto"></td>
+                </tr>
+            </table>
+        </div>
+        <div style="text-align: center;">
+            <div id="0" class="cell" style="left: 100px;"></div>
+            <div id="1" class="cell" style="left: 200px;"></div>
+            <div id="2" class="cell" style="left: 300px;"></div>
+            <div id="3" class="cell" style="left: 400px;"></div>
+            <div id="4" class="cell" style="left: 500px;"></div>
+            <div id="5" class="cell" style="left: 600px;"></div>
+            <div id="6" class="cell" style="left: 700px;"></div>
+            <div id="7" class="cell" style="left: 800px;"></div>
+        </div>
+        <div class="i">&darr; i = <span id="i">0</span> &darr;</div>
+        <div class="j">&darr; j = <span id="j">1</span> &darr;</div>
+        <input aria-label="Sort" class="buttons" type="button" id="btn_step" value="sort">
+        <input aria-label="Reset" class="buttons" type="button" id="btn_reset" value="reset">
+    </body>
+</html>

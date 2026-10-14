@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Binary Search Animation</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles/binary_search_animation.css">
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="scripts/binary_search_animation.js"></script>
+    </head>
+    <body>
+        <div id="heading">Binary Search</div>
+        <div id="stats">
+            <table>
+                <tr id="stats_data">
+                    <td>Steps:</td>
+                    <td id="steps"></td>
+                </tr>
+                <tr>
+                    <td><label for="target">Target Value:</label></td>
+                    <td><input type="text" maxlength="1" name="target" id="target" value="3"></td>
+                </tr>
+                <tr>
+                    <td><label for="cb_auto">Automatic:</label></td>
+                    <td><input type="checkbox" id="cb_auto" name="cb_auto"></td>
+                </tr>
+            </table>
+        </div>
+        <div style="text-align: center;">
+            <div id="0" class="cell" style="left: 100px;"></div>
+            <div id="1" class="cell" style="left: 200px;"></div>
+            <div id="2" class="cell" style="left: 300px;"></div>
+            <div id="3" class="cell" style="left: 400px;"></div>
+            <div id="4" class="cell" style="left: 500px;"></div>
+            <div id="5" class="cell" style="left: 600px;"></div>
+            <div id="6" class="cell" style="left: 700px;"></div>
+            <div id="7" class="cell" style="left: 800px;"></div>
+        </div>
+        <div class="i">&darr; i = <span id="i">0</span> &darr;</div>
+        <input aria-label="Search" class="buttons" type="button" id="btn_step" value="search">
+        <input aria-label="Reset" class="buttons" type="button" id="btn_reset" value="reset">
+    </body>
+</html>

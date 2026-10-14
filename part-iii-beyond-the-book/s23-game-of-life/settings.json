@@ -1,0 +1,14 @@
+{
+    "rows": 40,
+    "cols": 80,
+    "dead": [190, 190, 190],
+    "alive": [40, 40, 40],
+    "grid": [0, 0, 0],
+    "width": 800,
+    "height": 400,
+    "wraparound": false,
+    "onein": 4,
+    "preload": "gosper-glider-gun",
+    "debug": false,
+    "framerate": 12
+}

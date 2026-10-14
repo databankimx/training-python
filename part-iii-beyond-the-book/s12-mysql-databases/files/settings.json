@@ -1,0 +1,6 @@
+{
+    "host": "localhost",
+    "username": "python",
+    "password": "training",
+    "schema": "mydatabase"
+}

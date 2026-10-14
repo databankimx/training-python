@@ -1,0 +1,101 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+a {
+    color: navy;
+}
+a:hover {
+    color: red;
+    text-decoration: none;
+}
+div.i, div.j {
+    display: inline-block;
+    margin: 0;
+    z-index: 10;
+    height: 30px;
+    width: 100px;
+    position: absolute;
+    top: 270px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+div.i {
+    left: 100px;
+    background-color: papayawhip;
+    color: orangered;
+}
+div.j {
+    left: 200px;
+    background-color: peachpuff;
+    color: darkslateblue;
+}
+div.cell {
+    display: inline-block;
+    margin: 0;
+    border: 2px solid #333333;
+    border-collapse: collapse;
+    width: 100px;
+    height: 120px;
+    background-color: darkcyan;
+    color: whitesmoke;
+    position: absolute;
+    top: 300px;
+    font-size: 105px;
+    text-align: center;
+}
+div.active {
+    background-color: tomato;
+}
+div.rejected {
+    background-color: slategray;
+}
+div.found {
+    background-color: turquoise;
+}
+div.swapping {
+    color: darkslategray;
+    background-color: gold;
+    font-weight: bolder;
+}
+table {
+    margin-left: 50px;
+    margin-top: 120px;
+    font-size: 20px;
+    border: 2px solid #333333;
+}
+td {
+    padding: 10px;
+}
+.buttons {
+    position: absolute;
+    top: 430px;
+    width: 100px;
+    height: 30px;
+    border: 2px solid #333333;
+    font-size: 20px;
+    z-index: 3;
+}
+.buttons:hover {
+    background-color: #666666;
+    color: whitesmoke;
+    border-style: outset;
+}
+.buttons:active {
+    border-style: inset;
+}
+#btn_step {
+    left: 100px;
+}
+#btn_reset {
+    left: 800px;
+}
+#heading {
+    position: absolute;
+    top: 50px;
+    left: 250px;
+    font-size: 80px;
+    z-index: 2;
+    color:teal;
+}
