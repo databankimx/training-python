@@ -18,7 +18,7 @@ Let's modify a record in our database.
 
 ```python
 if conn.is_connected():
-    sql = "UPDATE customers SET address = 'Canyon 123'" + \
+    sql = "UPDATE customers SET address = 'Canyon 123' " + \
           "WHERE address = 'Valley 345'"
     cursor = conn.cursor()
     cursor.execute(sql)

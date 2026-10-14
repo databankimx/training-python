@@ -5,7 +5,7 @@ forward.
 
 * Spaces and punctuation can be ignored
 * Case can be ignored
-* I will also ignore numeric character for simplicity
+* I will also ignore numeric characters for simplicity
 
 So, we have a couple of tasks in order to check if a string is a palindrome:
 
@@ -65,7 +65,7 @@ else:
 Output:
 
 ```
-'Madam, I'm Adam.' is a palindrome
+madamimadam is a palindrome!
 ```
 
 ---
@@ -116,7 +116,6 @@ Output:
 - 'race car' is a palindrome
 - 'boot' is not a palindrome
 - 'toot' is a palindrome
-- 'civic' is a palindrome
 - 'Madam, I'm Adam.' is a palindrome
 ```
 
@@ -157,7 +156,6 @@ Output:
 - 'race car' is a palindrome
 - 'boot' is not a palindrome
 - 'toot' is a palindrome
-- 'civic' is a palindrome
 - 'Madam, I'm Adam.' is a palindrome
 ```
 

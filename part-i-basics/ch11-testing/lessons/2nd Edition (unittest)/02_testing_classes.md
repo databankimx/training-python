@@ -105,5 +105,9 @@ OK
 Play around changing the expectations or the class behavior to see different
 test results.
 
+> Note: The script in this folder asks whether to run the tests automatically
+> or manually. Choose `m` to run the `language_survey()` function instead, which
+> lets you enter responses from the keyboard and then shows the results.
+
 ---
 

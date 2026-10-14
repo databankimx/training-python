@@ -10,7 +10,7 @@ it will be `False` (to remove the field from the output string).
 
 ### Example Code
 
-Here's an example where we set the `init` value in our `Employee` class:
+Here's an example where we set the `repr` value in our `Employee` class:
 
 ```python
 from dataclasses import dataclass, field
@@ -22,7 +22,7 @@ class Employee:
     emp_id: str
     city: str = field(init=False, default="Dallas")
 
-emp = Employee("Scott", "smclean", 53)
+emp = Employee("Scott", 53, "smclean")
 print(emp)
 ```
 
@@ -36,7 +36,7 @@ Employee(name='Scott', emp_id='smclean', city='Dallas')
 
 ### Effect on `__dataclass_fields__`
 
-Like the other field settings, setting the `init` attribute on a field 
+Like the other field settings, setting the `repr` attribute on a field 
 affects the `__dataclass_fields__`
 
 ```

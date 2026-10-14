@@ -84,7 +84,7 @@ file_path = get_path("alice_missing.txt", "Files")
 file_name = file_path.split("\\")[-1]
 
 try:
-    file = Path(file_name)
+    file = Path(file_path)
     contents = file.read_text()
 except FileNotFoundError:
     print(f"Sorry, the file [{file_name}] does not exist.")

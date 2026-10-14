@@ -41,7 +41,7 @@ Caught an error!
 ```
 
 It worked. We cheated the system. But this is bad practice. Abstracting a
-prohibited call just so we can use embed it in a lambda doesn't gain us
+prohibited call just so we can embed it in a lambda doesn't gain us
 anything functionally. It just proves we can do a "*clever*" thing.
 
 It would be better to refactor the lambda as a function and just raise the

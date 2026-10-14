@@ -4,7 +4,7 @@ Let's have a look at the algorithm for the O(*n*²) **Bubble Sort**.
 
 ---
 
-### Selection Sort Algorithm Pseudocode
+### Bubble Sort Algorithm Pseudocode
 
 In a bubble sort, we iterate across the array looking at each element and the
 one next to it. If the next element is smaller, we swap them and then move on.
@@ -13,7 +13,7 @@ After reaching the end of the array, we move back to the beginning and repeat
 the process. We do this until we iterate across the array once without
 performing any swaps (which means that the array is sorted).
 
-Even though the idea is less obvious than selection sort was, is is actually
+Even though the idea is less obvious than selection sort was, it is actually
 even less efficient (most of the time). There is an edge case where, if the
 array is already sorted (or mostly sorted), bubble sort can be more efficient 
 than selection.
@@ -82,7 +82,7 @@ For the element 0 pass...
 
 Repeat steps 1-3 for every position, with each traversal of the array, moving the next largest element to the last remaining position.
 
-The The sort process will look like this:
+The sort process will look like this:
 
 [ 7 2 5 4 1 6 0 3 ] (start)  
 [<span style="color:cornflowerblue"> ***2 7*** </span>5 4 1 6 0 3 ]  
@@ -196,7 +196,7 @@ Computed complexity: O(n²) - quadratic (polynomial)
 
 Approximate values for reference:
  • n!       = Value omitted - too large to calculate!
- • 2ⁿ       = 1.99 * 10^3009
+ • 2ⁿ       = 1.99 * 10^3010
  • n²       = 100,000,000
  • n log n  = 132,878
  • n        = 10,000

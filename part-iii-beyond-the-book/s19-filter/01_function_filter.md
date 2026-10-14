@@ -26,7 +26,7 @@ We have a couple of ways to obtain the even numbers from the list.
 
 ### Using a Loop
 
-We could use out tried-and-true `for` loop to iterate across the list:
+We could use our tried-and-true `for` loop to iterate across the list:
 
 ```python
 def even_loop(numbers: list[int]) -> list[int]:

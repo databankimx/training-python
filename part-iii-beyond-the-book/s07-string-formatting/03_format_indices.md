@@ -53,11 +53,11 @@ Output:
 
 ```
 Traceback (most recent call last):
-  File "...\02_string_format.py", line 11, in <module>
+  File "...\03_format_indices.py", line 11, in <module>
     main()
-  File "...\02_string_format.py", line 8, in main
+  File "...\03_format_indices.py", line 8, in main
     hello_index()
-  File "...\02_string_format.py", line 5, in hello_index
+  File "...\03_format_indices.py", line 5, in hello_index
     print(template.format("World"))
           ^^^^^^^^^^^^^^^^^^^^^^^^
 IndexError: Replacement index 1 out of range for positional args tuple

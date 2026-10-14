@@ -11,8 +11,9 @@ For this example, I have provided the following text file:
 [pi_million_digits.txt](./Files/pi_million_digits.txt)
 
 Pi is an irrational number, meaning its decimal part continues forever without
-repeating. Because of this, every possible pattern of digits eventually
-occurs in pi. Here, we're going to check if a 6-digit pattern (a birthday)
+repeating. It is widely believed that every possible pattern of digits
+eventually occurs in pi, although this has not been proven. Here, we're going to
+check if a 6-digit pattern (a birthday)
 appears within the first million digits of pi.
 
 > Note: the process to obtain file paths is covered here:  

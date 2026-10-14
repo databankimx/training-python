@@ -23,7 +23,7 @@ main_folder/
 #### Rules:
 
 * All code files must be placed in a folder named `src`
-* The `__init__.py` file must is required and must contain the following:
+* The `__init__.py` file is required and must contain the following:
   ```python
   # The `.` preceding the project name is mandatory
   # `obj_1, obj_2, ...` is a comma delimited list of functions and classes
@@ -101,7 +101,7 @@ classifiers = [
 ]
 ```
 
-You'll need to modify the the `[project] section to match a description
+You'll need to modify the `[project]` section to match a description
 of the project you will be uploading.
 
 In my case, it looks like this:
@@ -113,7 +113,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sm_utils"
-version = "0.2.7"
+version = "0.2.8"
 authors = [
   { name="Scott McLean", email="smclean@databankimx.com" },
 ]

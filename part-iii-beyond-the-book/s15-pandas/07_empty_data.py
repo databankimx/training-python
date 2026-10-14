@@ -12,7 +12,7 @@ def load_from_csv(filepath: str, printout: bool=False) -> pd.DataFrame:
     return df
 
 def remove_rows(df: pd.DataFrame) -> None:
-    """Remove rows with missing columns)"""
+    """Remove rows with missing columns"""
     new_df = df.dropna()
     print("Removed rows with missing columns (new DataFrame):")
     print(new_df.tail(10), "\n")

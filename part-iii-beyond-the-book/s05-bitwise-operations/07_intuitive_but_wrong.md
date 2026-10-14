@@ -12,7 +12,7 @@
 For these illustrations, we'll simplify beyond what the computer uses
 and imagine a 4-bit integer type.
 
-Since this is a signed integer, we'll use the rightmost bit (the 8s
+Since this is a signed integer, we'll use the leftmost bit (the 8s
 place) as our sign bit.
 
 ---

@@ -74,7 +74,7 @@ the following steps:
 \- It's 6, not 3, so we continue
 7. Check if element 6 is 3 - [`------0-`]  
 \- It's 0, not 3, so we continue
-8. Check if element 0 is 3 - [**`-------3`**]  
+8. Check if element 7 is 3 - [**`-------3`**]  
 \- It's 3, so we can quit, having found the target element
 
 That's a worst case example, since I specifically chose the last number in 

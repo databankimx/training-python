@@ -38,8 +38,8 @@ print(emp_2)
 Output:
 
 ```
-Employee(name='Scott', age=54, emp_id='smclean', city='Dallas')     
-Employee(name='Saul', age=47, emp_id='sgoodman', city='Albuquerque')
+Employee(name='Scott', emp_id='smclean', age=53, city='Dallas')
+Employee(name='Saul', emp_id='sgoodman', age=47, city='Albuquerque')
 ```
 
 As you can see, this behaves just like a default value in a function

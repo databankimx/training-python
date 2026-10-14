@@ -1,4 +1,4 @@
-## Using Bit-Shifts (`<<` and`>>`)
+## Using Bit-Shifts (`<<` and `>>`)
 
 <style>
     td, th {
@@ -127,7 +127,7 @@ int main() {
     // Overflow
     x = 64;
     b = x << 3;
-    printf("%d\n", b);
+    printf("%d << 3 = %d\n", x, b);
 
     return 0;
 }

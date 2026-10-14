@@ -21,7 +21,7 @@ The `timeit()` function takes as its arguments:
 * Any imports necessary (as another string)
 * The number of repetitions
 
-So executing achieving our goal with non-lambda code looks like this:
+So achieving our goal with non-lambda code looks like this:
 
 ```python
 from timeit import timeit
@@ -46,7 +46,7 @@ Alternately, we can pass a lambda, which allows us two advantages:
 1. We don't need to conceal the code in a string, so if we have to edit
    it, we can take advantage of the editor's syntax highlighting to avoid
    errors.
-2. We can simply execute the include and avoid passing it as a string at
+2. We can simply execute the code inline and avoid passing it as a string at
    all.
 
 ```python

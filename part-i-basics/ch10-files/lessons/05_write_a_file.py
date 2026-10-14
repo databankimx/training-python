@@ -22,7 +22,7 @@ with open(file_path, "r", encoding="UTF-8") as file:
     print(file.read())
 
 def write_line(write_file_object, text):
-    """Write a line from a file"""
+    """Write a line to a file"""
     write_file_object.write(f"{text}\n")
 
 with open(file_path, "w", encoding="UTF-8") as file:

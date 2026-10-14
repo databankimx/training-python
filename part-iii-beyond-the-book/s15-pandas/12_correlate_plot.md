@@ -29,7 +29,7 @@ those two items.
 
 Pandas exposes the `corr()` function to calculate the correlations in a
 `DataFrame`. This will return a matrix in which each column is compared
-will all other columns and a relationship score is provided.
+with all other columns and a relationship score is provided.
 
 Relationship scores range from -1 to 1, where the farther a score is from 
 zero, the higher the correlation. Negative values imply an inverse

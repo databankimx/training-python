@@ -51,15 +51,17 @@ class Trie:
             if current_node.children[ord(c) - self.offset] is None:
                 return False
             count = 0
-            for i in range(26):
+            for i in range(self.size):
                 if current_node.children[i] is not None:
                     count += 1
             if count > 1:
                 last_branch_node = current_node
                 last_branch_char = c
             current_node = current_node.children[ord(c) - self.offset]
+        if not current_node.word_end:
+            return False
         count = 0
-        for i in range(26):
+        for i in range(self.size):
             if current_node.children[i] is not None:
                 count += 1
         if count > 0:

@@ -55,10 +55,11 @@ our intended database exists.
 
 ```python
 databases = client.list_database_names()
-for db in databases:
-    print(f"• {db}")
-print(f"\n{db_name}", end = " ")
-if db_name in db_names:
+print("Available databases:")
+for database in databases:
+    print(f"• {database}")
+print(f"\n{db_name}", end=" ")
+if db_name in databases:
     print("exists")
 else:
     print("does not exist")
@@ -79,7 +80,7 @@ Available databases:
 It may come as a surprise that the database we created does not appear when
 we call the `list_database_names()` function.
 
-This happens because In MongoDB, a database is not created until it 
+This happens because in MongoDB, a database is not created until it 
 contains some content.
 
 Creating the collection (table) and inserting a record will complete the

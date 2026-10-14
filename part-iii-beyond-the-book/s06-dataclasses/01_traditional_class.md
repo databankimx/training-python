@@ -1,6 +1,6 @@
 ## Review: A Traditional Class
 
-Let's take a look at how we might create a class without using DaatClasses.
+Let's take a look at how we might create a class without using DataClasses.
 
 ---
 
@@ -105,7 +105,7 @@ In the above code, the biggest problem lies in passing the argument in
 `__init__`, `__repr__`, and `__eq__`.
 
 Each time it has to copy its properties and return the object. It is a good 
-way of dealing with a small amounts of data, but suppose we have work with 
+way of dealing with a small amount of data, but suppose we work with 
 large data. It makes your code more complicated.
 
 As you'll soon see, DataClasses can be implemented to simplify coding.

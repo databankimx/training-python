@@ -8,7 +8,7 @@ def throw_from_lambda() -> None:
     """Raise an exception"""
     try:
         # pylint: disable=unnecessary-direct-lambda-call
-        (lambda: throw(Exception("\nCaught an error!\n")))()
+        (lambda: throw(Exception("Caught an error!")))()
     # pylint: disable=broad-except
     except Exception as ex:
         print(ex)

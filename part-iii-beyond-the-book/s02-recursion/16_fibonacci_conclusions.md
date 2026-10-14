@@ -130,7 +130,7 @@ if __name__ == "__main__":
 Run the code, and you can test all the algorithms for yourself:
 
 ```pwsh
-python .\01_recursion.py
+python .\fibonacci_tests.py
 ```
 
 ---

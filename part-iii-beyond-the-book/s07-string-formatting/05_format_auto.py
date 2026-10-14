@@ -10,8 +10,8 @@ def hello_auto() -> None:
     # pylint: disable=consider-using-f-string
     print("Hello, {}!".format("World"))
 
-def price_keywords(item: str, qty: int, price: float) -> None:
-    """Using `string.format()` with Multiple Keywords"""
+def price_auto(item: str, qty: int, price: float) -> None:
+    """Using `string.format()` with Multiple Auto-Matched Arguments"""
     total = round(price * qty, 2)
 
     # template = "{} {} cost ${}"
@@ -24,7 +24,7 @@ def price_keywords(item: str, qty: int, price: float) -> None:
 def main() -> None:
     """Main Program"""
     hello_auto()
-    price_keywords("bananas", 5, 0.39)
+    price_auto("bananas", 5, 0.39)
 
 if __name__ == "__main__":
     main()

@@ -102,7 +102,7 @@ With our array, the process would look like this:
         
     ...
 
-We repeat those three step for each position in the array, each time
+We repeat those three steps for each position in the array, each time
 checking all the elements above the one we're comparing.
 
 The sort process will look like this:
@@ -132,7 +132,7 @@ The sort process will look like this:
 [ 0 1 2 3 4 5 6 7 ] (after 1 final verification comparison - done)
     
 > You can view an
-> [HTML simulation of selection sort](./html/linear_search_animation.html)
+> [HTML simulation of selection sort](./html/selection_sort_animation.html)
 
 ---
 
@@ -166,7 +166,7 @@ Computed complexity: O(n²) - quadratic (polynomial)
 
 Approximate values for reference:
  • n!       = Value omitted - too large to calculate!
- • 2ⁿ       = 1.99 * 10^3009
+ • 2ⁿ       = 1.99 * 10^3010
  • n²       = 100,000,000
  • n log n  = 132,878
  • n        = 10,000

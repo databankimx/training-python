@@ -36,7 +36,7 @@ Find One Record:
 
 ### Retrieve All Records in the Collection
 
-The `find_all()` method retrieves all records from the collection.
+The `find()` method retrieves all records from the collection.
 
 If you are familiar with SQL:
 
@@ -107,7 +107,7 @@ keys and `0` to exclude a field from being returned. By default, all other
 fields in the `projection` contain `1`, so that does not need to be
 specified.
 
-Since our collection contains three fields: `_id`, `_name`, and `address`:
+Since our collection contains three fields: `_id`, `name`, and `address`:
 
 ```sql
 -- `col.find({}, {"_id": 0})` is similar to

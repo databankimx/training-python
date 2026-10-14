@@ -10,7 +10,7 @@ def scrape_page(url: str) -> str:
         return page_bytes.decode("utf-8")
 
 def parse_html_tag(html: str, tag_to_find: str) -> str:
-    """Read content of teh specified HTML tag"""
+    """Read content of the specified HTML tag"""
     pattern = f"<.*?{tag_to_find}.*?>.*?<.*?/{tag_to_find}.*?>.*?"
     matches = re.search(pattern, html, re.IGNORECASE)
     if not matches:

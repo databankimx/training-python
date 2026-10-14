@@ -17,12 +17,12 @@ def connect(settings: dict[str, str]) -> mysql.connector.connection:
 
 def disconnect(conn: mysql.connector.connection) -> None:
     """Disconnect from MySQL Server"""
-    if conn is not None or not conn.is_connected():
+    if conn is not None and conn.is_connected():
         conn.disconnect()
     print("Connection closed")
 
 def inner_join(conn: mysql.connector.connection) -> None:
-    """Retrieve all rows from the `customers` table"""
+    """Join users and products with an inner join"""
     if not conn.is_connected():
         print("No active connection to MySQL Server!")
         return
@@ -36,7 +36,7 @@ def inner_join(conn: mysql.connector.connection) -> None:
     print()
 
 def left_join(conn: mysql.connector.connection) -> None:
-    """Retrieve all rows from the `customers` table"""
+    """Join users and products with a left outer join"""
     if not conn.is_connected():
         print("No active connection to MySQL Server!")
         return
@@ -50,7 +50,7 @@ def left_join(conn: mysql.connector.connection) -> None:
     print()
 
 def right_join(conn: mysql.connector.connection) -> None:
-    """Retrieve all rows from the `customers` table"""
+    """Join users and products with a right outer join"""
     if not conn.is_connected():
         print("No active connection to MySQL Server!")
         return

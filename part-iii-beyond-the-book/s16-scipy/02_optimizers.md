@@ -11,7 +11,7 @@ complex equation that needs to be minimized with the help of given data.
 ### Roots of Equations
 
 NumPy is capable of finding roots for polynomials and linear equations, but
-but it can not find roots for non linear equations, like this one: 
+it cannot find roots for non linear equations, like this one: 
 `x + cos(x)`
 
 For that you can use SciPy's `optimize.root()` function.
@@ -21,7 +21,7 @@ The function takes two required arguments:
 * `fun`: a function representing an equation
 * `x0`: an initial guess for the root
 
-The `root()` function returns a an object containing details about the
+The `root()` function returns an object containing details about the
 root computation, but the important part is that the result object's `x`
 property contains an array of the computed root values.
 

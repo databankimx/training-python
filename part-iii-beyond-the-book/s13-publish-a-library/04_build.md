@@ -4,7 +4,7 @@ Before we can upload, the package must be built.
 
 ---
 
-### Step 7: Build the Project Files
+### 4.1: Build the Project Files
 
 To build the project, with the terminal pointing to your `main_folder`,
 run the following command:
@@ -14,7 +14,7 @@ python.exe -m build
 ```
 
 Once that is completed, a new folder called `dist` will be added to the 
-directory structure containing the `zip` and `wheel` versions of your 
+directory structure containing the source archive (`tar.gz`) and the `wheel` versions of your 
 module for upload:
 
 ```

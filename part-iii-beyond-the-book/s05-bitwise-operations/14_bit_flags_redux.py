@@ -13,9 +13,9 @@ class ProductLicenses(IntFlag):
     collaboration      = 0b0010_0000
     project_management = 0b0100_0000
     publishing         = 0b1000_0000
-    personal = word_processing[0] | email_client[0]
-    work = personal[0] | spreadsheets[0] | presentations[0] | notebook[0] | collaboration[0]
-    ultra_deluxe = work[0] | project_management[0] | publishing[0]
+    personal = word_processing | email_client
+    work = personal | spreadsheets | presentations | notebook | collaboration
+    ultra_deluxe = work | project_management | publishing
 
 def main() -> None:
     """Main function"""

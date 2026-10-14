@@ -68,7 +68,7 @@ Output:
 Traceback (most recent call last):
   ... -- SNIP --
 
-  File "...\01_recursion.py", line 4, in recursion_overflow
+  File "...\01_what_is_recursion.py", line 4, in recursion_overflow
     recursion_overflow()
   [Previous line repeated 995 more times]
 RecursionError: maximum recursion depth exceeded

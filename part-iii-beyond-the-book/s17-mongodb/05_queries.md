@@ -1,6 +1,6 @@
 ## Filtering with Queries
 
-When applying a filter query to a `find()` call, you ca substitute a
+When applying a filter query to a `find()` call, you can substitute a
 dictionary for a value in order to further refine the query.
 
 As usual, in all examples below, we will assume that we have already
@@ -71,7 +71,7 @@ specifying the `$regex` key.
 ```python
 query = {"address": {"$regex": "^S"}}
 proj = {"_id": 0}
-print(f"Performing advanced query: {query}")
+print(f"Performing regex query: {query}")
 for doc in col.find(query, proj):
     print(doc)
 ```

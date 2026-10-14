@@ -141,7 +141,7 @@ AND (`&`) to validate the value of a specific bit position.
 licenses = some_integer_value
 wp = ProductLicenses.word_processing
 
-if licenses & wp != wp
+if licenses & wp != wp:
     raise Exception("Not licensed for Word Processing!")
 
 # -- SNIP --

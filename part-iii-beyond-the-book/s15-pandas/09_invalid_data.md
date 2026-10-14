@@ -5,7 +5,7 @@ wrong, like if someone registered `199` instead of `1.99`.
 
 Sometimes you can spot wrong data by looking at the data set, because you have an expectation of what it should be.
 
-If you take a look at our the same bad data set we have been using, you can see that in row 7, the duration is 450,but for all the other rows the duration is between 30 and 60.
+If you take a look at the same bad data set we have been using, you can see that in row 7, the duration is 450, but for all the other rows the duration is between 30 and 60.
 
 ```
 Obtained bad data:
@@ -22,7 +22,7 @@ Obtained bad data:
 9      60.0  2020/12/10   98.0     124.0     269.0
 ```
 
-It isn't necessarily wrong, but taking in consideration that this is the 
+It isn't necessarily wrong, but taking into consideration that this is the 
 data set of someone's workout sessions, we can safely assume that this 
 person's workout session was probably not seven and a half hours long.
 
@@ -39,7 +39,7 @@ df = pd.read_csv("./data/bad_data.csv")
 ### Removing Invalid Data
 
 Of course, one available strategy is to remove any rows containing bad 
-data. here, we'll assume anything greater than 120 minutes is invalid.
+data. Here, we'll assume anything greater than 120 minutes is invalid.
 
 ```python
 df.drop(df[df["Duration"] > 120].index, inplace=True)

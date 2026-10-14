@@ -172,7 +172,7 @@ elements are already empty in the CSR.
 ### Removing Duplicates
 
 If there are duplicate values in the matrix, we can use the 
-`sum_duplicates()` function to remove them from the matrix but summation.
+`sum_duplicates()` function to combine them by summing their values.
 
 ```python
 import numpy as np

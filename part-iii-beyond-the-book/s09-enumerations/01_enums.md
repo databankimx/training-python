@@ -38,10 +38,10 @@ Enumerations are useful when the set of related values are
 Let's expand the set of global variables we looked at above into an
 `Enum`
 
-To define a new enumeration, you declare a class ann inherit the `Enum`
+To define a new enumeration, you declare a class and inherit the `Enum`
 type from the `enum` library.
 
-The, within the class, you simply define values for each possible 
+Then, within the class, you simply define values for each possible 
 variant.
 
 ```python

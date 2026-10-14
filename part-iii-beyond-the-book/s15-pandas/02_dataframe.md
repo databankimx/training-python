@@ -12,7 +12,7 @@ You can think of a `DataFrame` as a collection of `Series` objects.
 Let's create and view a simple `DataFrame` object. We'll use a dictionary
 to provide the non-tabulated data.
 
-We'll use' the `DataFrame()` constructor, which expects a dictionary as 
+We'll use the `DataFrame()` constructor, which expects a dictionary as 
 its input.
 
 ```python
@@ -97,7 +97,7 @@ Name: 0, dtype: object
 ### Locating Multiple Rows in the DataFrame Table
 
 We can locate multiple rows simultaneously by passing a list of indices to
-the the `loc[]` indexer.
+the `loc[]` indexer.
 
 ```python
 import pandas as pd
@@ -168,11 +168,11 @@ Output:
 
 ```
 Label DataFrame Columns:
-  Person  Years      Home
-0   John     24  New York
-1   Anna     30     Tokyo
-2  Peter     28  New York
-3  Linda     26    London
+      Person  Years      Home
+1st   John     24  New York
+2nd   Anna     30     Tokyo
+3rd  Peter     28  New York
+4th  Linda     26    London
 ```
 
 ---

@@ -9,7 +9,7 @@ Yes, they can get complicated, and sometimes they're very difficult to read,
 but they adhere to a strict set of rules, so you absolutely ***can*** learn 
 them.
 
-Regardless what your peers tell you, regular expressions are just a skill,
+Regardless of what your peers tell you, regular expressions are just a skill,
 not a dive into dark and arcane magic.
 
 All hail Cthulhu... er... let's take a look.
@@ -384,7 +384,7 @@ Output:
 • (713) 483-3111 ext: 42
 ```
 
-We've done it! We matched all of our patterns ans managed to avoid matching
+We've done it! We matched all of our patterns and managed to avoid matching
 the bad pattern.
 
 ---

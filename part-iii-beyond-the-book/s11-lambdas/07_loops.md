@@ -95,7 +95,7 @@ result, we have what's known as a *modified closure*, where the captured
 value has been mutated before it can be used.
 
 In effect, each of the closure lambdas in the `for func in funcs:` loop
-possesses the last captured value `3` by the time it executers.
+possesses the last captured value `3` by the time it executes.
 
 So how do we fix this?
 

@@ -23,7 +23,7 @@ python -m pip install mechanicalsoup
 
 The Real Python sample site includes a login page that requires a 
 username and password to be entered. Following a successful login, the
-browser automatically routed to the profiles page, which we've already
+browser was automatically routed to the profiles page, which we've already
 figured out how to parse.
 
 Let's use `MechanicalSoup` to create a login function to complete our

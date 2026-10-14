@@ -63,7 +63,7 @@ Let's look at the same examples we saw in the previous topic:
 > |$1111_2$|
 
 This gives a result of $1-1=-0$, which isn't perfect (because what
-even is $-0$?), but at least it gibes with reality.
+even is $-0$?), but at least it jibes with reality.
 
 However, if we add 1 to the result:
 
@@ -99,7 +99,7 @@ place)...
 
 We get the right answer of $7-3=4$
 
-Seem's like we might be onto something with this business of adding $1$
+Seems like we might be onto something with this business of adding $1$
 to the result of adding a one's complement negative number.
 
 ---

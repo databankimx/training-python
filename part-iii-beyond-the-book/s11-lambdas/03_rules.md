@@ -21,7 +21,7 @@ print(bad(2))
 Output:
 
 ```
-  File "...\03_rules_arguments.py", line 1
+  File "...\03_rules.py", line 1
     bad = lambda x: assert x == 2
                     ^^^^^^
 SyntaxError: invalid syntax

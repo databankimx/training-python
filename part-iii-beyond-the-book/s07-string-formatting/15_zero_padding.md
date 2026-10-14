@@ -51,7 +51,7 @@ Output:
 
 ### Fills Trump Zero Padding
 
-If you specify bot a fill character and zero padding, the fill character will
+If you specify both a fill character and zero padding, the fill character will
 be used, and the zero padding will be ignored.
 
 ```python

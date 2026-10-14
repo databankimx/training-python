@@ -14,13 +14,12 @@ class DirectoryCrawler():
             path = self.path
         try:
             if depth == 1:
-                print(path.split("\\")[-1])
+                print(os.path.basename(path))
             for item in os.listdir(path):
                 item_path = os.path.join(path, item)
                 bullet = f"{'  ' * depth}" if depth else ""
                 is_dir = os.path.isdir(item_path)
-                name = (item_path).split("\\")[-1] if is_dir \
-                    else os.path.basename(item_path)
+                name = os.path.basename(item_path)
                 print(f"{bullet}{name}{'/' if is_dir else ''}")
                 if name in self.skip_files:
                     if is_dir:
@@ -49,7 +48,7 @@ SKIP_FILES = [".venv", "__pycache__", "12dicts_dictionaries",
 
 def main() -> None:
     """Test file system crawler"""
-    crawler = DirectoryCrawler("C:\\Training\\python-impractical",
+    crawler = DirectoryCrawler(os.path.dirname(os.path.abspath(__file__)),
                                SKIP_FILES)
     crawler.list_directory()
     usage = crawler.disk_usage()

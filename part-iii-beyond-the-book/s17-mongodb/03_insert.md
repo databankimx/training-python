@@ -61,8 +61,8 @@ verify the ID that the record was stored as.
 ```python
 doc = { "name": "John", "address": "Highway 37" }
 
-print(f"Inserting document into collection...\n{data}")
-result = col.insert_one(data)
+print(f"Inserting document into collection...\n{doc}")
+result = col.insert_one(doc)
 id = result.inserted_id
 print(f"Document inserted successfully as ID: `{id}`")
 ```
@@ -104,9 +104,9 @@ docs = [
     { "name": "Viola", "address": "Sideway 1633"}
 ]
 print("Inserting multiple documents into collection...")
-for doc in data:
+for doc in docs:
     print(f"• {doc}")
-_ = col.insert_many(data)
+_ = col.insert_many(docs)
 print("Documents inserted successfully.\n")
 ```
 

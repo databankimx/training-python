@@ -192,7 +192,7 @@ Here is a list of the major Big-O complexities:
     small = [1, 2, 3, 4]
     large = [1, 2, 3, ..., 10_000_000]
 
-    def binary_search(arr: lit[int], target: int, high: int, low: int) -> int:
+    def binary_search(arr: list[int], target: int, low: int, high: int) -> int:
         if high >= low:
             # With each iteration, we cut the array in half
             mid = int(math.floor((high + low) / 2))
@@ -241,8 +241,8 @@ algorithms.
 
 * Sort Algorithms
     * O(*n*²)
-        * [Bubble Sort](./03_bubble_sort.md)
-        * [Selection Sort](./04_selection_sort.md)
+        * [Bubble Sort](./04_bubble_sort.md)
+        * [Selection Sort](./03_selection_sort.md)
         * [Insertion Sort](./05_insertion_sort.md)
     * O(*n* log *n*)
         * [Quick Sort](./06_quick_sort.md)

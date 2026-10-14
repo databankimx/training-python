@@ -32,7 +32,7 @@ We know the first byte represents bits $0$ through $7$, so we can take it
 as-is.
 
 ```python
-num = bytes[0] # 73
+num = bytes[0] # 210
 ```
 
 ---
@@ -46,7 +46,7 @@ decide to add it to the value we've stored:
 
 ```python
 # This won't work
-num += bytes[1] # 75
+num += bytes[1] # 212
 ```
 
 ---
@@ -60,7 +60,7 @@ is set, we can't possibly have a result less than $256$.
 Instead, we need to multiply this byte by $256$ to get the result we expect
 
 ```python
-num += bytes[1] * 256 # 585
+num += bytes[1] * 256 # 722
 ```
 
 ---
@@ -86,7 +86,7 @@ bit-shifting:
 We can modify the code to use the bit-shift like this:
 
 ```python
-num += bytes[1] << 8 # 585
+num += bytes[1] << 8 # 722
 ```
 
 ---

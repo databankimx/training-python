@@ -183,7 +183,7 @@ connection or it is not connected, so we'll check for these conditions
 before disconnecting.
 
 ```python
-if conn is not None or not conn.is_connected():
+if conn is not None and conn.is_connected():
     conn.disconnect()
 ```
 

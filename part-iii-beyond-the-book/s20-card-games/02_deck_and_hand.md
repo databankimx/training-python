@@ -60,8 +60,19 @@ hidden. Each card's `repr()` provides its rank and suit.
 print(repr(hand))
 ```
 
-> Note: this method was broken in an earlier version of the code. It tried
-> to unpack each card directly. Now it uses `enumerate()`, which gives both
-> the index and the card.
+---
+
+### Trying the Deck and Hand
+
+[`test.py`](./test.py) is a short demonstration of this section. It creates a
+poker deck, shows all fifty-two cards in a grid, deals a hand of five cards,
+hides three of them, and prints the hand both ways:
+
+```pwsh
+python test.py
+```
+
+The script pauses between screens, so you can read each one before it clears.
+It also prints the hand's value, counting only the visible cards.
 
 ---

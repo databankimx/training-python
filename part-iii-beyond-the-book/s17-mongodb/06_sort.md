@@ -23,7 +23,7 @@ for doc in col.find({}, {"_id": 0}).sort(field):
     print(doc)
 ```
 
-OUtput:
+Output:
 
 ```
 Sorting documents by field: name

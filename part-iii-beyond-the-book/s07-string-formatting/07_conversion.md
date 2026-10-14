@@ -46,7 +46,7 @@ Output:
 datetime.datetime(2024, 8, 18, 12, 0, 7, 141226)
 ```
 
-Note: If we did not specify a conversion, we would get the same out put as 
+Note: If we did not specify a conversion, we would get the same output as 
 `!s`.
 
 ---
@@ -54,7 +54,7 @@ Note: If we did not specify a conversion, we would get the same out put as
 ### Replacing Invalid Characters
 
 A common issue for programmers is encountering characters that are not in the
-current character ser while parsing text.
+current character set while parsing text.
 
 Using the `ascii()` representation of the string, we can replace non-ASCII 
 characters with their corresponding hexadecimal values:

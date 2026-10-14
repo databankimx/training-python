@@ -14,10 +14,10 @@ Consider these three identical formatted strings:
 
 ```python
 item, qty, price = "bananas", 5, 0.39
-total = round(price * qty)
+total = round(price * qty, 2)
 
 # string-modulo operator
-s = "%d %s cost $%f" % (qty, item, total)
+s = "%d %s cost $%.2f" % (qty, item, total)
 
 # `string.format()` function
 s = "{} {} cost ${}".format(qty, item, total)
@@ -61,7 +61,7 @@ to understand.
 > > if status:
 > >     # Because the print is not executed, the string is not
 > >     # evaluated
-> >     print(f"The status is {}".format(status))
+> >     print("The status is {}".format(status))
 > > ```
 >
 > The behavior in the `string.format()` example is called *lazy 
@@ -96,8 +96,8 @@ Here's an example with multiple variables
 
 ```python
 item, qty, price = "bananas", 5, 0.39
-total = round(price * qty)
-f_string = "{qty} {item} cost ${total}"
+total = round(price * qty, 2)
+f_string = f"{qty} {item} cost ${total}"
 print(f_string)
 ```
 

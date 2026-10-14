@@ -11,7 +11,7 @@ separate topic unto itself.
 ### Width
 
 We can specify the minimum width of the output string by indicating the 
-number of characters wise the string must be:
+number of characters wide the string must be:
 
 ```python
 s = "abc"
@@ -60,7 +60,7 @@ Output:
 'abcde'
 ```
 
-Be carful using this option, as it truncates the string to the set character
+Be careful using this option, as it truncates the string to the set character
 limit.
 
 ---
@@ -100,7 +100,7 @@ To right-justify the string, include a `>` character before the width number.
 
 ```python
 s = "abc"
-print(f"right justify: '{s:<9}'")
+print(f"right justify: '{s:>9}'")
 ```
 
 Output:

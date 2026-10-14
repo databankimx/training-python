@@ -12,7 +12,7 @@ lessons.
 
 ### DataFrame Info
 
-Pandas exposes a the `info()` method to return metadata about the
+Pandas exposes the `info()` method to return metadata about the
 `DataFrame`:
 
 ```python
@@ -67,7 +67,7 @@ print(df.head())
 Output:
 
 ```
-Top 5 rows:
+Top 5 Rows:
    Duration  Pulse  Maxpulse  Calories
 0        60    110       130     409.1
 1        60    117       145     479.0
@@ -94,7 +94,7 @@ print(df.head(10))
 Output:
 
 ```
-Top 10 rows:
+Top 10 Rows:
    Duration  Pulse  Maxpulse  Calories
 0        60    110       130     409.1
 1        60    117       145     479.0
@@ -119,7 +119,7 @@ existing `DataFrame`.
 
 #### Default (5 Rows)
 
-By default, the `tail()` method returns the first five rows
+By default, the `tail()` method returns the last five rows
 
 ```python
 import pandas as pd
@@ -133,7 +133,7 @@ print(df.tail())
 Output:
 
 ```
-Bottom 5 rows:
+Bottom 5 Rows:
      Duration  Pulse  Maxpulse  Calories
 164        60    105       140     290.8
 165        60    110       145     300.4
@@ -160,7 +160,7 @@ print(df.tail(10))
 Output:
 
 ```
-Bottom 10 rows:
+Bottom 10 Rows:
      Duration  Pulse  Maxpulse  Calories
 159        30     80       120     240.9
 160        30     85       120     250.4

@@ -40,7 +40,7 @@ files between executions.
 
 ### How to Work with JSON
 
-Python provides the `json` module in the PSL to expose functions 
+Python provides the `json` module in the Python Standard Library to expose functions 
 for reading and writing JSON files.
 
 ---

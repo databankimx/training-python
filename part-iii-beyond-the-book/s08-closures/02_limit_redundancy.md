@@ -1,6 +1,6 @@
 ## Using an Inner Function to Limit Redundancy
 
-In the section covering [recursion](../S02_Recursion/01_what_is_recursion.md),
+In the section covering [recursion](../s02-recursion/01_what_is_recursion.md),
 we covered the computation of a factorial as an example of a recursive 
 function defined thus:
 

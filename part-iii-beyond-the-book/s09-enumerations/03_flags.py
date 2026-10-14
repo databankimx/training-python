@@ -18,7 +18,7 @@ class Weekday(Flag):
         """Get weekday name of the given date"""
         return cls(2 ** day.weekday())
 
-def show_chores(chores: dict[str: Flag], day: Flag) -> None:
+def show_chores(chores: dict[str, Flag], day: Flag) -> None:
     """Show chores for a given day"""
     print(f"Chores for {day.name.title()}:")
     for chore, days in chores.items():

@@ -23,7 +23,7 @@ class Employee:
     city: str = field(init=False, default="Dallas")
 
 def main() -> None:
-    emp = Employee("Scott", "smclean", 53)
+    emp = Employee("Scott", 53, "smclean")
     print(emp)
 
 if __name__ == "__main__":
@@ -33,7 +33,7 @@ if __name__ == "__main__":
 Output:
 
 ```
-Employee(name='Scott', age='smclean', emp_id=53, city='Dallas')
+Employee(name='Scott', age=53, emp_id='smclean', city='Dallas')
 ```
 
 ---
@@ -55,9 +55,9 @@ Output:
 
 ```
 Traceback (most recent call last):
-  File "...\06_init.py", line 19, in <module>
+  File "...\13_field_init.py", line 19, in <module>
     main()
-  File "...\06_init.py", line 16, in main
+  File "...\13_field_init.py", line 16, in main
     emp_2 = Employee("Saul", "sgoodman", 47, "Albuquerque")
             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 TypeError: Employee.__init__() takes 4 positional arguments but 5 were given
@@ -74,7 +74,7 @@ We can still do something like this:
 ```python
 # -- SNIP --
 
-emp_2 = Employee("Saul", "sgoodman", 47)
+emp_2 = Employee("Saul", 47, "sgoodman")
 emp_2.city = "Albuquerque"
 print(emp_2)
 ```
@@ -82,7 +82,7 @@ print(emp_2)
 Output:
 
 ```
-Employee(name='Saul', age='sgoodman', emp_id=47, city='Albuquerque')
+Employee(name='Saul', age=47, emp_id='sgoodman', city='Albuquerque')
 ```
 
 ---

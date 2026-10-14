@@ -97,7 +97,7 @@ DROP DATABASE IF EXISTS database_name
 
 #### The Code
 
-So, cleaning up our tables will look like this:
+So, cleaning up our database will look like this:
 
 ```python
 if conn.is_connected():

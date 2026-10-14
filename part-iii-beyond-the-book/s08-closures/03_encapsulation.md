@@ -10,7 +10,7 @@ This is another case where inner functions can come in handy.
 ### Limiting Execution of Encapsulated Function
 
 Let's imagine a function that increments a number. We want to limit when that
-function can do it's work. Let's say only when a number is lower than some
+function can do its work. Let's say only when a number is lower than some
 maximum value.
 
 ```python

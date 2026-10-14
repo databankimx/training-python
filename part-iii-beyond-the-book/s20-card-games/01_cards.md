@@ -34,6 +34,8 @@ Unicode has separate symbols for hollow (white) and filled (black) suits. The
 `BACK` for the face-down side of a card.
 
 ```python
+from enum import Enum
+
 class Ranks(Enum):
     """Defines the ranks in a deck of cards"""
     BACK = 0

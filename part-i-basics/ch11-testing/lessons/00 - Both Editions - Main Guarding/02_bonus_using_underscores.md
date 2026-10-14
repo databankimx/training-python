@@ -31,6 +31,7 @@ For example, you might name a variable `class_`
 |`elif`|`in`|`try`|`and`|`else`|`is`|`while`|`as`|`except`|
 |`lambda`|`with`|`assert`|`finally`|`nonlocal`|`yield`|`break`|`for`|`not`|
 |`class`|`from`|`or`|`continue`|`global`|`pass`||||
+|`async`|`await`|||||||
 
 ---
 
@@ -63,7 +64,7 @@ more difficult to access directly.
 
 ```python
 class MyClass:
-    def __init__():
+    def __init__(self):
         self.__name = "value"
 
 # You would need to know the mangled name to access that attribute:

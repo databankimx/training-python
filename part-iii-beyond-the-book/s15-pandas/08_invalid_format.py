@@ -11,19 +11,10 @@ def load_from_csv(filepath: str, printout: bool=False) -> pd.DataFrame:
         print(df.tail(10), "\n")
     return df
 
-def add_missing_quotes(val: str) -> str:
-    """Add missing quotes to string values"""
-    if not val or not isinstance(val, str):
-        return val
-    pre = "" if val.startswith("'") else "'"
-    post = "" if val.endswith("'") else "'"
-    return f"{pre}{val}{post}"
-
-def quote_date_strings(df: pd.DataFrame) -> None:
-    """Quote string values in the Date column"""
-    # pylint: disable=unnecessary-lambda
-    df["Date"].apply(lambda d: add_missing_quotes(d))
-    print("Quoted string values in the Date column:")
+def standardize_quotes(df: pd.DataFrame) -> None:
+    """Remove any stray single quotes so every Date value is plain text"""
+    df["Date"] = df["Date"].str.strip("'")
+    print("Standardized the quotes in the Date column:")
     print(df.tail(10), "\n")
 
 def format_dates(df: pd.DataFrame) -> None:
@@ -41,7 +32,7 @@ def main() -> None:
     """Main function"""
     filepath = file_path("bad_data.csv", "data")
     df = load_from_csv(filepath, printout=True)
-    quote_date_strings(df)
+    standardize_quotes(df)
     format_dates(df)
     add_missing_dates(df)
 

@@ -39,6 +39,8 @@ copy. `copy()` makes a new outer list, but any nested list is still shared
 between the two:
 
 ```python
+from copy import copy
+
 original = [1, 2, [3, 4]]
 shallow = copy(original)
 original[2].append(5)

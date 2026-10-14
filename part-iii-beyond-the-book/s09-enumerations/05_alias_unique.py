@@ -3,7 +3,7 @@
 from enum import Enum, auto, unique
 
 class TiffCompression(Enum):
-    """Defines names for days of the week"""
+    """Defines names for TIFF compression types"""
     NONE = auto()
     LZW = auto()
     ZIP = auto()

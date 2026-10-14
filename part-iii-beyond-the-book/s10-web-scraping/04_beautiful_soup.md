@@ -12,7 +12,7 @@ the content of an HTML page into easily consumable objects, saving us
 the effort of creating all of that functionality.
 
 `BeautifulSoup` is not in the Python Standard Library, so we'll have to
-install in before we can use it. Make sure you're in an active virtual
+install it before we can use it. Make sure you're in an active virtual
 environment, and then run this command in the terminal:
 
 ```

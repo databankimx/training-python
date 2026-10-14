@@ -91,7 +91,7 @@ that file, we create functions that execute the desired test cases.
 Each function is what we call a *unit test*, and the collection of unit tests
 is called a *test case*.
 
-We use the `assert()` function to state a condition representing our assumed 
+We use the `assert` statement to state a condition representing our assumed 
 result. The test passes if the condition asserted is true. Otherwise the test
 fails.
 

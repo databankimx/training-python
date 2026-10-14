@@ -36,7 +36,7 @@ mobile phone and whichever authentication app you use.
 
 ### 2.3: Obtain an API Key
 
-When you use the `twines` module to upload a package, you will use an API
+When you use the `twine` module to upload a package, you will use an API
 key tied to your PyPI account as the password for every upload, so let's
 generate one.
 
@@ -47,7 +47,7 @@ generate one.
 4. Click on [Create Token]
 
 Copy the token and save it somewhere safe! It will never be displayed 
-again, so you must copt it right away.
+again, so you must copy it right away.
 
 In my projects, I save it in a file called tokens.txt and then add that
 filename to my .gitignore file so it won't get added to source control

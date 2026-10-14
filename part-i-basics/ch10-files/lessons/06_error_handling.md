@@ -9,9 +9,8 @@ There are four general kinds of errors (or exceptions) that can occur in
 programs:
 
 * Syntax Errors
-    * Syntax errors are places in your code where you tell the computer to do
-      something invalid, like accessing a variable you haven't defined or
-      misspelling a function name.
+    * Syntax errors are places in your code where the code is not valid Python,
+      like a missing colon, an unmatched bracket, or a misspelled keyword.
     * A syntax error will stop the program from running
 * Compile-Time Errors
     * Python does not compile your running application before execution, but

@@ -37,7 +37,7 @@ def play(self) -> None:
 ```
 
 1. `place_bet()` asks for a bet, or lets the player quit.
-2. `deal_hand()` gives two cards to each side. The dealer's first card is
+2. `deal_hand()` gives two cards to each side. The dealer's second card is
    hidden.
 3. `play_hand()` plays the hand and settles the bet.
 

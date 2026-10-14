@@ -11,7 +11,7 @@ A `trie` (pronounced like "try") is a tree-like data structure used in
 computer science to efficiently store and retrieve strings.
 
 The word "trie" is derived from "tree" (the data structure it is built
-upon) and "reTRIEval" (the function for which is improves efficiency).
+upon) and "reTRIEval" (the function it improves efficiency).
 
 Sometimes called a *digital tree* or *prefix tree*, the trie is made up of 
 nodes, where each node represents a single character step when building a 
@@ -56,8 +56,8 @@ Let's assume that we're using a `list` to contain the words.
 #### Improved Efficiency Using a Trie
 
 On the other hand, we know that with a trie, each search requires only *k*
-operations, so to check our *n* words, we have *n* * *ꝁ* (*ꝁ* is the 
-average of all word lengths *k*) operations, which is O(*n*), since *ꝁ* 
+operations, so to check our *n* words, we have *n* * *k_avg* (*k_avg* is the 
+average of all word lengths *k*) operations, which is O(*n*), since *k_avg* 
 is a constant.
 
 That means that if the average length of the words in the dictionary is 
@@ -65,7 +65,7 @@ smaller than the log (base 2) of the number of words, the trie will always
 be a faster search mechanism, even if the list is sorted.
 
 In the [example dictionary](./data/words.txt) included in this lesson, 
-there are: 370,105 words (note: Log₂(370,105) = 18.05) with an average 
+there are: 370,105 words (note: Log₂(370,105) = 18.5) with an average 
 length of 9 characters.
 
 * O(*n*²) = 136,977,711,025 operations
@@ -73,7 +73,7 @@ length of 9 characters.
 * O(*n*) (*n* * *k*) = 3,330,945 operations
 
 So, the trie is at least twice as fast as a sorted list (and 40,000 times 
-faster that the unsorted list).
+faster than the unsorted list).
 
 Once we take into account the cost of sorting the list (at least another 
 O(*n* log *n*)), the trie is definitely the clear winner.

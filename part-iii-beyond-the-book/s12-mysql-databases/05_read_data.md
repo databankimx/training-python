@@ -17,7 +17,7 @@ The simplest form is just to select all the records, like this:
 SELECT * FROM table_name
 ```
 
-In our code, it'll looks something like this:
+In our code, it'll look something like this:
 
 ```python
 if conn.is_connected():

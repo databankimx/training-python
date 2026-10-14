@@ -162,7 +162,7 @@ UCS-2 before full adoption.
 
 **UTF-8** (Unicode Transformation Format: 8-bit) is a variable-length encoding
 standard in which the smallest unit size is 8 bits. In order to accommodate
-the complete Unicode set, a character can use one, two, or even three of these
+the complete Unicode set, a character can use one, two, three, or four of these
 units.
 
 This ensures that all character sets can be handled but also that bytes of

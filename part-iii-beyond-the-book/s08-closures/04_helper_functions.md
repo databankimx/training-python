@@ -65,7 +65,7 @@ def process_hotspots(file: str | io.TextIOWrapper) -> None:
 ```
 
 This inner function parses the CSV file and makes a list of the WiFi hotspots
-in New York City. It them reports on the provider of the most hotspots.
+in New York City. It then reports on the provider of the most hotspots.
 
 ---
 

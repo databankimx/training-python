@@ -52,6 +52,7 @@ Output:
 
 ```
 Point(1, 2)
+5
 ```
 
 The attempt to change the value of `x` did not change the captured value.

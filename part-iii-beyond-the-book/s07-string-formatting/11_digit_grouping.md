@@ -3,7 +3,7 @@
 When an output number is long, it can be very difficult to quickly identify
 its magnitude. For example, is 2000000000 two billion or two hundred million?
 
-Hovering the mouse and hand-counting zeros should not be necessary is a
+Hovering the mouse and hand-counting zeros should not be necessary in a
 properly designed solution.
 
 When humans write long numbers, we use grouping symbols, like 2,000,000,000.

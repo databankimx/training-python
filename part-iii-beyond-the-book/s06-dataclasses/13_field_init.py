@@ -12,7 +12,7 @@ class Employee:
 
 def main() -> None:
     """Main Function"""
-    emp = Employee("Scott", "smclean", 53)
+    emp = Employee("Scott", 53, "smclean")
     print(emp)
     # pylint: disable=no-member
     print(emp.__dataclass_fields__["city"])
@@ -21,7 +21,7 @@ def main() -> None:
     #     permitted to appear in the constructor
     # emp_2 = Employee("Saul", "sgoodman", 47, "Albuquerque")
 
-    emp_2 = Employee("Saul", "sgoodman", 47)
+    emp_2 = Employee("Saul", 47, "sgoodman")
     emp_2.city = "Albuquerque"
     print(emp_2)
 

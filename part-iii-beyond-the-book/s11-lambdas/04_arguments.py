@@ -33,7 +33,7 @@ def keyword_arbitrary() -> None:
     print((lambda **kwargs: sum(kwargs.values()))(one=1, two=2, three=3), "\n")
 
 def keyword_only() -> None:
-    """Illustrate arbitrary keyword arguments in a lambda"""
+    """Illustrate keyword-only arguments in a lambda"""
     print("Keyword-only arguments:")
     # pylint: disable=unnecessary-direct-lambda-call
     print((lambda x, *, y=0, z=0: x + y + z)(1, y=2, z=3), "\n")

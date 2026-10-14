@@ -86,8 +86,6 @@ The file little_women.txt has about 189079 words.
 
 The output does not mention the missing file.
 
-</details>
-
 ---
 
 ### Logging the Error
@@ -101,22 +99,22 @@ text file.
 import os
 
 ROOT_DIR = os.path.dirname(__file__)
+log_path = os.path.join(ROOT_DIR, "Files", "missing_files.log")
 
-"""Get the approximate word count from a file."""
 def log_words(file_name):
+    """Get the approximate word count from a file."""
     file_path = os.path.join(ROOT_DIR, "Files", file_name)
     try:
         with open(file_path, encoding='utf-8') as f:
             contents = f.read()
     except FileNotFoundError:
-        with open(log_path, "a") as l:
+        with open(log_path, "a", encoding="utf-8") as l:
             l.write(f"Missing File:\n\"{file_path}\"\n\n")
-        pass
     else:
         words = contents.split()
         num_words = len(words)
         print(f"The file {file_name} has about {num_words} words.")
-        
+
 file_names = ["alice.txt", "siddhartha.txt", "moby_dick.txt", "little_women.txt", "missing.txt"]
 for file_name in file_names:
     log_words(file_name)
@@ -141,6 +139,10 @@ Missing File:
 
 Even though the user output doesn't mention the missing file, the data
 is now logged, so the `pass` is less of a crime now.
+
+</details>
+
+---
 
 <details>
 <summary>3rd Edition Method</summary>
@@ -215,6 +217,8 @@ text file.
 from relative_paths import get_path
 from pathlib import Path
 
+log_file = Path(get_path("missing_files.log", "Files"))
+
 def log_words(file_name):
     """Get the approximate word count from a file."""
     file_path = get_path(file_name, "Files")
@@ -222,14 +226,13 @@ def log_words(file_name):
         file = Path(file_path)
         contents = file.read_text(encoding="utf-8")
     except FileNotFoundError:
-        with log_file.open("a") as l:
+        with log_file.open("a", encoding="utf-8") as l:
             l.write(f"Missing File:\n\"{file_path}\"\n\n")
-        pass
     else:
         words = contents.split()
         num_words = len(words)
         print(f"The file {file_name} has about {num_words} words.")
-        
+
 file_names = ["alice.txt", "siddhartha.txt", "alice_missing.txt", "moby_dick.txt", "little_women.txt"]
 for file_name in file_names:
     log_words(file_name)
@@ -257,4 +260,3 @@ is now logged, so the `pass` is less of a crime now.
 </details>
 
 ---
-

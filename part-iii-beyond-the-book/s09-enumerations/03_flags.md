@@ -5,7 +5,7 @@ variants that represent bit-flags.
 
 When using bit-flags, all variant values must be unique powers of two,
 since each represents a single bit in a binary integer. See the topic
-on [Bitwise Operations](../S05_Bitwise_Operations/00_warning.md) for
+on [Bitwise Operations](../s05-bitwise-operations/00_warning.md) for
 more information.
 
 ---
@@ -83,9 +83,10 @@ Weekday.SATURDAY|SUNDAY 96
 Of course, we can also create a combination just by using the numerical 
 value of the combined days.
 
-We know that `Weekday.MONDAY` is 1 and `Weekday.Friday` is 17.
+We know that `Weekday.MONDAY` is 1 and `Weekday.FRIDAY` is 16, so the
+value 17 combines the two.
 
-So, we can get `Weekday.MONDAy|FRIDAY` rhis way:
+So, we can get `Weekday.MONDAY|FRIDAY` this way:
 
 ```python
 first_last_weekdays = 17
@@ -141,7 +142,7 @@ Here's a function that checks a `chores` dictionary for the appropriate
 days:
 
 ```python
-def show_chores(chores: dict[str: Flag], day: Flag) -> None:
+def show_chores(chores: dict[str, Flag], day: Flag) -> None:
     """Show chores for a given day"""
     print(f"Chores for {day.name.title()}:")
     for chore, days in chores.items():

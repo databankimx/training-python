@@ -25,8 +25,7 @@ def x_squared_plus_x_plus_2(x: int|float|ndarray[int|float]) -> int|float:
 def find_minimum() -> int|float:
     """Find the minimum of the equation x² + x + 2"""
     x = minimize(x_squared_plus_x_plus_2, 0, method="BFGS")
-    y = x_squared_plus_x_plus_2(x.x[0])
-    print(f"minimum of x² + x + 2 = ({x.x[0]:.2f}, {y})\n")
+    print(f"minimum of x² + x + 2 = {x.x[0]:.2f}\n")
 
 def main() -> None:
     """Main function"""

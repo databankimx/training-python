@@ -54,7 +54,7 @@ Output:
 ### Including Extra Precision
 
 Limiting a long decimal to a specified precision is certainly important, but
-equally important is enduring we include decimal places that might not 
+equally important is ensuring we include decimal places that might not 
 ordinarily be necessary.
 
 For example, when displaying currency values, we want to show exactly two

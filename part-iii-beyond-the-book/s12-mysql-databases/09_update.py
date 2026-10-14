@@ -17,7 +17,7 @@ def connect(settings: dict[str, str]) -> mysql.connector.connection:
 
 def disconnect(conn: mysql.connector.connection) -> None:
     """Disconnect from MySQL Server"""
-    if conn is not None or not conn.is_connected():
+    if conn is not None and conn.is_connected():
         conn.disconnect()
     print("Connection closed")
 
@@ -26,7 +26,7 @@ def update_rows(conn: mysql.connector.connection) -> None:
     if not conn.is_connected():
         print("No active connection to MySQL Server!")
         return
-    sql = "UPDATE customers SET address = 'Canyon 123'" + \
+    sql = "UPDATE customers SET address = 'Canyon 123' " + \
           "WHERE address = 'Valley 345'"
     cursor = conn.cursor()
     cursor.execute(sql)

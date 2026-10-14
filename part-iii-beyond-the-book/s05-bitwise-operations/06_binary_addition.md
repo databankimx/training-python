@@ -73,7 +73,7 @@ possible scenarios to account for:
 
 #### Case Study
 
-Note: I am using the following symbols for bitwise operationd
+Note: I am using the following symbols for bitwise operations
 
 |Symbol|Operation|
 |:-:|:-:|

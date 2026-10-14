@@ -37,7 +37,7 @@ Output:
 > |`<=`|less than or equal|
 > |`>`|greater than|
 > |`>=`|greater than or equal|
-> |`!=` or `<>`|note equal|
+> |`!=` or `<>`|not equal|
 
 ---
 

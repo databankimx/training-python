@@ -174,21 +174,22 @@ from sm_utils import file_path
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 
-def get_login() -> dict[str,any]:
+def get_settings() -> dict[str,any]:
     """Retrieve MongoDB connection details from secrets.json"""
-    with open(file_path("secrets.json")) as f:
+    with open(file_path("secrets.json"), encoding="utf-8") as f:
         return json.load(f)
 
-def get_client(auth: dict[str,any]=None) -> MongoClient|None:
+def get_client(settings: dict[str,any]=None) -> MongoClient|None:
     """Obtain connection to MongoDB"""
-    if not auth:
-        auth = get_login()
-    local = auth["use_local"]
-    url = auth["local_url"] if local else auth["cloud_url"]
+    if not settings:
+        settings = get_settings()
+    local = settings["use_local"]
+    url = settings["local_url"] if local else settings["cloud_url"]
     try:
         return MongoClient(url)
     except ConnectionFailure:
         print("Failed to connect to MongoDB")
+        return None
 
 def server_connected(client: MongoClient=None) -> bool:
     """Check if MongoDB server is connected"""
@@ -203,7 +204,7 @@ def server_connected(client: MongoClient=None) -> bool:
 In the remaining lesson examples, I will just use this code for connecting:
 
 ```python
-from login.py import get_client, server_connected
+from login import get_client, server_connected
 
 client = get_client()
 connected = server_connected(client)

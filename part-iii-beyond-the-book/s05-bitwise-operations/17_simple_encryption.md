@@ -29,7 +29,7 @@ and do the following:
 > 
 > |||
 > |-:|:-|
-> |$0111~1111_2$|($xx~\^~~y$)|
+> |$0111~1111_2$|($x~\^~~y$)|
 > |$\underline{\^~~~0101~0101_2}$|($y$)|
 > |$0010~1010_2$|($x$)|
 
@@ -163,7 +163,7 @@ As noted, this algorithm is not secure, for a number of reasons including:
 
 That said, the concept of using bitwise XOR with a symmetric key value is 
 used widely as a step in some existing encryption algorithms like DES, 
-AES,  tc.
+AES, etc.
 
 ---
 

@@ -4,7 +4,7 @@ import numpy as np
 from scipy.sparse import csr_matrix
 from scipy.sparse.csgraph import connected_components, dijkstra
 from scipy.sparse.csgraph import floyd_warshall, bellman_ford
-# from scipy.sparse.csgraph import depth_first_order, breadth_first_order
+from scipy.sparse.csgraph import depth_first_order, breadth_first_order
 from utilities import clear_terminal, pause
 
 def create_csr(arr: np.ndarray) -> csr_matrix:
@@ -60,6 +60,23 @@ def find_shortest_path_bellman_ford(csr: csr_matrix) -> None:
     #     print(f"Node {i}: {shortest_path[0][i]}")
     pause()
 
+def find_shortest_path_negative(arr: np.ndarray) -> None:
+    """Bellman-Ford handles a graph with a negative weight"""
+    clear_terminal()
+    csr = csr_matrix(arr)
+    print(f"CSR Matrix with a negative weight:\n{csr}\n")
+    print(bellman_ford(csr, return_predecessors=True, indices=0))
+    pause()
+
+def traverse_graph(arr: np.ndarray) -> None:
+    """Visit the nodes depth-first and breadth-first from node 1"""
+    clear_terminal()
+    csr = csr_matrix(arr)
+    print(f"CSR Matrix:\n{csr}\n")
+    print(f"Depth-first order from node 1: {depth_first_order(csr, 1)}\n")
+    print(f"Breadth-first order from node 1: {breadth_first_order(csr, 1)}")
+    pause()
+
 def main() -> None:
     """Main function"""
     arr = np.array([[0, 1, 2], [1, 0, 0], [2, 0, 0]])
@@ -68,6 +85,8 @@ def main() -> None:
     find_shortest_path(csr)
     find_all_shortest_paths(csr)
     find_shortest_path_bellman_ford(csr)
+    find_shortest_path_negative(np.array([[0, -1, 2], [1, 0, 0], [2, 0, 0]]))
+    traverse_graph(np.array([[0, 1, 0, 1], [1, 1, 1, 1], [2, 1, 1, 0], [0, 1, 0, 1]]))
 
 if __name__ == "__main__":
     main()

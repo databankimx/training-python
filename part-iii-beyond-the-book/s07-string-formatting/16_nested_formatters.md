@@ -126,6 +126,6 @@ Output:
 Et voila! We've solved the variable width problem.
 
 You can use this technique to nest variable values for any of your specifier
-characters,
+characters.
 
 ---

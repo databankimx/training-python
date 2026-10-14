@@ -1,7 +1,7 @@
 ## The DataClass `order` Argument
 
 When the `order` argument is `True` (default value is `False`), the DataClass 
-generates an the following methods automatically
+generates the following methods automatically
 
 * `__gt__()`
 * `__ge__()`

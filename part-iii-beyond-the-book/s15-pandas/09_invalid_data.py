@@ -13,7 +13,7 @@ def load_from_csv(filepath: str, printout: bool=False) -> pd.DataFrame:
 
 def drop_invalid_durations(df: pd.DataFrame) -> None:
     """Drop rows with invalid durations in the DataFrame"""
-    df.drop(df[df["Duration"] > 100].index, inplace=True)
+    df.drop(df[df["Duration"] > 120].index, inplace=True)
     print("Dropped invalid durations:")
     print(df.head(10), "\n")
 

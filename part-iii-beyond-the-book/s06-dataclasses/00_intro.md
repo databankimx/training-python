@@ -13,8 +13,8 @@ DataClasses are like normal classes in Python, but they have some basic
 functions like instantiation, comparing, and printing the classes already 
 implemented.
 
-To install the DataClasses module, run the following command:  
-`python -m pip install dataclasses`
+DataClasses are included in the standard library from Python 3.7 onward, so
+no installation is needed.
 
 Syntax Notes:
 

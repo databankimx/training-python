@@ -40,7 +40,7 @@ Here, we have two base cases:
   `True` without further recursion.
 
 In the condition where `n > 0` we make a recursive call, but we decrement `n`,
-while progresses us towards the base case of `n == 0`.
+which progresses us towards the base case of `n == 0`.
 
 ---
 

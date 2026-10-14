@@ -11,7 +11,7 @@ be called from anywhere.
 
 ### Traditional Closure
 
-We've seen in the [Closures](../S08_Closures/01_nested_functions.md)
+We've seen in the [Closures](../s08-closures/01_nested_functions.md)
 topic how to construct a closure using a traditional function:
 
 ```python

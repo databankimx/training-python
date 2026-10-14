@@ -22,7 +22,7 @@ the various optional format specifiers.
 |align|Specifies the justification of values that don't fill the field width|
 |sign|Controls whether a leading sign is included for numeric values|
 |`#`|Selects an alternate output form for certain presentation types|
-|`0`|Pads with with zeros instead of ASCII space characters|
+|`0`|Pads with zeros instead of ASCII space characters|
 |width|Specifies the minimum width of the output|
 |group|Specifies a grouping character for numeric output|
 |.precision|Specifies number of decimal places for floating-point &<br>maximum width for string output|

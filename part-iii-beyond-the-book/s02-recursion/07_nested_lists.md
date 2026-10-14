@@ -145,7 +145,7 @@ You may be asking why I am showing such an esoteric example and thinking,
 "What's the point? I don't care about leaf-counting on trees structures."
 
 But you're wrong. There is a real-world analog to this that you use every day,
-and figuring out a way to traverse it's contents is a super-common programming
+and figuring out a way to traverse its contents is a super-common programming
 task that you'll eventually have to solve.
 
 #### Folders!

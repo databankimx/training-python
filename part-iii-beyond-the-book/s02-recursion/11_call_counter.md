@@ -17,7 +17,7 @@ example of how to find and improve inefficiencies in our recursive algorithms.
 ### How Will We Keep Track of Efficiency?
 
 For this topic, instead of timing completion (which is still important), we'll
-track the number of recursive calls are necessary for our function to compute
+track the number of recursive calls necessary for our function to compute
 a given solution.
 
 For this purpose, I have provided a special class `CountCalls` that can be
@@ -55,7 +55,7 @@ We implement this in our code by decorating a function thus:
 from count_calls import CountCalls
 
 @CountCalls
-def recursive_function(*args, **kwargs) -> return:
+def recursive_function(*args, **kwargs):
     ...
 
 recursive_function()

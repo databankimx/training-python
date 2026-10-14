@@ -17,12 +17,12 @@ def connect(settings: dict[str, str]) -> mysql.connector.connection:
 
 def disconnect(conn: mysql.connector.connection) -> None:
     """Disconnect from MySQL Server"""
-    if conn is not None or not conn.is_connected():
+    if conn is not None and conn.is_connected():
         conn.disconnect()
     print("Connection closed")
 
 def drop_tables(conn: mysql.connector.connection) -> None:
-    """Retrieve all rows from the `customers` table"""
+    """Drop the customers, users, and products tables"""
     if not conn.is_connected():
         print("No active connection to MySQL Server!")
         return
@@ -49,7 +49,7 @@ def list_tables(conn: mysql.connector.connection) -> None:
     print()
 
 def drop_database(conn: mysql.connector.connection) -> None:
-    """Retrieve all rows from the `customers` table"""
+    """Drop the mydatabase database"""
     if not conn.is_connected():
         print("No active connection to MySQL Server!")
         return

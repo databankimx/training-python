@@ -1,6 +1,6 @@
 ## MySQL Installation and Setup
 
-Before you can proceed with this topic, you'l need to install MySQL.
+Before you can proceed with this topic, you'll need to install MySQL.
 
 If you don't already have MySQL installed, here is a Google Drive share where I have stashed the [MySQL Installers](https://drive.google.com/drive/folders/1Pg3IJB8pEMZmM0VXdPFQLXNaOLnq9piZ?usp=drive_link)
 
@@ -15,9 +15,9 @@ If you don't already have MySQL installed, here is a Google Drive share where I 
           or
         * From the MySQL Command Line Client, run the following:
           ```sql
-          CREATE USER 'python'@'localhost' IDENTIFIED BY 'training'
-          USE MYSQL
-          GRANT ALL ON *.* TO 'python'@'localhost'
+          CREATE USER 'python'@'localhost' IDENTIFIED BY 'training';
+          USE MYSQL;
+          GRANT ALL ON *.* TO 'python'@'localhost';
           ```
 2. Download and install [MySQL Workbench 8.0](https://drive.google.com/file/d/17Try0gyy6Ai0W0ts-SRhLhmXervRp9Gh/view?usp=drive_link)
 

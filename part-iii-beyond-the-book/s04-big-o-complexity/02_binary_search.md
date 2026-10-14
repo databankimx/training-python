@@ -7,7 +7,7 @@ searching our data.
 
 However, there is a caveat: the data must be sorted first. As we'll see in
 later lessons, sorting is generally of much higher complexity than searching.
-Because of this, the developer needs consider the value of fast search
+Because of this, the developer needs to consider the value of fast search
 against the cost of sorting.
 
 ---
@@ -105,7 +105,7 @@ the following steps:
     (3) is the target, so we return the index of the middle element (3)
     
 > You can view an
-> [HTML simulation of binary search](./html/linear_search_animation.html)
+> [HTML simulation of binary search](./html/binary_search_animation.html)
 
 ---
 
@@ -138,7 +138,7 @@ speed, but consider the rate at which the logarithm grows compared to *n*
 | 8 | 3 | | 256 | 8 |
 | 16 | 4 | | 512 | 9 |
 
-By the time we get to, say, an array where *n* is 10,000 elements, log₂*n* is only around 13 (2¹³ = 8196 & 2¹⁴ = 16384)
+By the time we get to, say, an array where *n* is 10,000 elements, log₂*n* is only around 13 (2¹³ = 8192 & 2¹⁴ = 16384)
 
 Even if we assume 14, we still have a comparative speed versus O(*n*) of 10,000/14 : over 700 times faster, and that difference continues to become greater with very large numbers (when *n* is around a million, log₂*n* is about 20 : 50,000 times faster)
 

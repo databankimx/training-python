@@ -1,4 +1,4 @@
-"""Implements the selection sort algorithm"""
+"""Implements the insertion sort algorithm"""
 
 import sys
 from common_functions import file_to_list, efficiency_report, list_to_file, is_sorted

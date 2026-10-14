@@ -2,6 +2,7 @@
 
 from pathlib import Path
 from math import log2, ceil, factorial
+from typing import Any
 from relative_paths import get_path
 
 def file_to_list(file_name: str, folder: str=None) -> list[int]:
@@ -24,7 +25,7 @@ def is_sorted(array: list[int]) -> bool:
             return False
     return True
 
-def complexities(n: int) -> dict[dict[str, any]]:
+def complexities(n: int) -> dict[str, dict[str, Any]]:
     """Calculate predicted operations by complexity"""
     return {
         "fac": {
@@ -96,7 +97,7 @@ def efficiency_report(algorithm: str, size: int, count: int) -> None:
         try:
             s = str(item["count"])
             if len(s) > 20:
-                val = f"{s[0]}.{s[1:3]} * 10^{len(s) - 2}"
+                val = f"{s[0]}.{s[1:3]} * 10^{len(s) - 1}"
             else:
                 val = f"{item['count']:,}"
             print(f" • {item['big_o']: <8} = {val}")

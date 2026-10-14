@@ -20,7 +20,7 @@ to arrive at a solution, not just that the solution is correct.
 For factorial computation, let's compare four approaches:
 
 * Our recursive algorithm
-* Out iterative algorithm
+* Our iterative algorithm
 * An algorithm that uses `functools.reduce()`
     * We did not cover this, but when you search for options to recursive
       functions, you'll run into it as a common approach
@@ -136,8 +136,8 @@ just the time at the start subtracted from the time at the end.
 ### Testing
 
 Now, to test the code, we'll need to select a value to compute, a number of 
-times to test, and which function to run. In Python, all function are
-first-class objects, so we can easily pass them as variable.
+times to test, and which function to run. In Python, all functions are
+first-class objects, so we can easily pass them as variables.
 
 Here's my testing code:
 
@@ -153,7 +153,7 @@ functions = {
     "Using functools.reduce()": factorial_red,
     "Using math.factorial()": factorial_def
 }
-    print(f"Testing {n}! {repeat:,} times for each algorithm...")
+print(f"Testing {n}! {repeat:,} times for each algorithm...")
 for name, func in functions.items():
     dur = check_performance(func, n, repeat) / 1_000_000_000
     print(f"\n{name}:\n{dur} sec")

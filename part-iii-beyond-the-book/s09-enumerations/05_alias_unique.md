@@ -21,7 +21,7 @@ Let's create a `TiffCompression` enum class:
 
 ```python
 class TiffCompression(Enum):
-    """Defines names for days of the week as bit-flags"""
+    """Defines names for TIFF compression types"""
     NONE = auto()
     LZW = auto()
     ZIP = auto()

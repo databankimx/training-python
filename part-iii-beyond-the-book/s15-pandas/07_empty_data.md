@@ -38,7 +38,7 @@ One strategy for dealing with missing data is to simply remove any rows
 that have `null` or empty columns.
 
 It might seem that this is a bad choice, since it is removing otherwise
-meaningful data. However, sing most data sets tend to be quite large, the
+meaningful data. However, since most data sets tend to be quite large, the
 effect on overall computation is usually negligible.
 
 We remove rows from the `DataFrame` using the `dropna()` method.
@@ -112,7 +112,7 @@ This is a little problematic, since the data we inserted for `Date` in row
 > one by adding the `inplace=True` argument:
 >
 > ```python
-> df.fillna(inplace=True)
+> df.fillna(130, inplace=True)
 > ```
 
 ---

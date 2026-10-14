@@ -36,7 +36,7 @@ CSV Tail:
 31      60.0  2020/12/31   92.0     115.0     243.0
 ```
 
-Ignoring missing values, we have a couple of problems with the `Date` 
+Ignoring missing values, we have a couple of problems with the `Date`
 column format:
 
 1. This column data is in the form of string, which need to be converted
@@ -54,41 +54,28 @@ df = pd.read_csv("./data/bad_data.csv", quotechar="'", quoting=2)
 ```
 
 Note the addition of the `quotechar` attribute to specify that items are
-delimited with single-quotes in our CSV file. This is necessary for the
-first step in our cleanup below.
+delimited with single-quotes in our CSV file. This tells the parser to remove
+the quotes around quoted values, so the quoting is consistent before we
+convert the data.
 
 ---
 
-### Fix the Missing Quotation Marks
+### Standardize the Quotes
 
-To perform a task on every item in a column, we use the Pandas `apply()`
-method that takes a lambda as its argument.
-
-First, we'll create a function to add single-quotes surrounding any 
-non-null value that is missing them:
+Any value that still carries a stray single quote can be cleaned with the
+`str.strip()` method, which removes characters from both ends of each string.
+Missing values (`NaN`) are left as they are.
 
 ```python
-def add_missing_quotes(val: str) -> str:
-    """Add missing quotes to string values"""
-    if not val or not isinstance(val, str):
-        return val
-    pre = "" if val.startswith("'") else "'"
-    post = "" if val.endswith("'") else "'"
-    return f"{pre}{val}{post}"
-```
-
-The we'll process the `Date` column:
-
-```python
-df["Date"].apply(lambda d: add_missing_quotes(d))
-print("Quoted string values in the Date column:")
+df["Date"] = df["Date"].str.strip("'")
+print("Standardized the quotes in the Date column:")
 print(df.tail(10))
 ```
 
 Output:
 
 ```
-Quoted string values in the Date column:
+Standardized the quotes in the Date column:
     Duration        Date  Pulse  Maxpulse  Calories
 22      45.0         NaN  100.0     119.0     282.0
 23      60.0  2020/12/23  130.0     101.0     300.0
@@ -106,9 +93,8 @@ Quoted string values in the Date column:
 
 ### Converting to Dates
 
-Now that we have standardized strings `'yyyy-mm-dd'` for all our dates,
-we can use the Pandas `to_datetime()` function to convert the `Date`
-column.
+Now that the strings all have the same format, we can use the Pandas
+`to_datetime()` function to convert the `Date` column.
 
 ```python
 df["Date"] = pd.to_datetime(df["Date"])

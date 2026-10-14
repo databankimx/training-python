@@ -4,7 +4,7 @@ For any recursive solution, there is at least one alternative means of solving
 the same problem iteratively (using a loop instead of recursion).
 
 As programmers, this means that we should not assume that a recursive solution
-is desireable just because it is feasible.
+is desirable just because it is feasible.
 
 ---
 
@@ -67,7 +67,7 @@ the recursive solution to an iterative one?
 Well, the answer is that we can run this:
 
 ```python
-
+print(iterative_factorial(1000))
 ```
 
 Output:
@@ -76,7 +76,7 @@ Output:
 4027896473371708673172461363569269897050 --SNIP-- 000
 ```
 
-This 2,571-character monster proves that we can use our iterative algorithm
+This 2,568-digit monster proves that we can use our iterative algorithm
 for numbers greater than we are able to support using our recursive approach.
 
 ---

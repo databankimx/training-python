@@ -56,6 +56,7 @@ From the database object, we can execute the `list_collection_names()`
 method to provide a list of its collections:
 
 ```python
+collections = db.list_collection_names()
 print(f"Collections in database `{db.name}`:")
 for collection in collections:
     print(f"• {collection}")
@@ -78,6 +79,6 @@ Collection `customers` does not exist
 
 Just like the database is incomplete until a collection is added, the 
 collection is incomplete until it contains at least one record, which is
-why it does not yet appear in the list:
+why it does not yet appear in the list.
 
 ---

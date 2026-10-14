@@ -190,7 +190,7 @@ The only notable item here is that where `IntEnum == int` was `True`,
 ### Checking Inequalities: `>`, `<`, `>=`, `<=`
 
 Inequalities are where we see the most significant difference between
-out `Enum` and `IntEnum` types.
+our `Enum` and `IntEnum` types.
 
 #### Cannot Compare `Enum` Variants with Inequalities
 

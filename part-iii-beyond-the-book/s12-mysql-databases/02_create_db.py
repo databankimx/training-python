@@ -16,7 +16,7 @@ def connect(settings: dict[str, str]) -> mysql.connector.connection:
 
 def disconnect(conn: mysql.connector.connection) -> None:
     """Disconnect from MySQL Server"""
-    if conn is not None or not conn.is_connected():
+    if conn is not None and conn.is_connected():
         conn.disconnect()
 
 def create_database(conn: mysql.connector.connection, name: str) -> None:

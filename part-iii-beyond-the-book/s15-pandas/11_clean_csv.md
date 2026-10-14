@@ -1,76 +1,21 @@
 ## Fully Clean the Data File
 
-For our [bad_data.csv](./data/bad_data.csv) file, we now have the ammunition to clean the file in its entirety for data analysis.
+For our [bad_data.csv](./data/bad_data.csv) file, we now have the tools to clean the file in its entirety for data analysis.
 
 ---
 
 ### The Program
 
-The fully [constructed program](./clean_csv.py) looks like this:
+The cleaning functions from the previous lessons are collected in the support
+module [clean_csv.py](./clean_csv.py). The main function `clean_data_file()`
+runs each step in order:
 
-<details>
-<summary>clean_csv.py</summary>
-
-```python
-import pandas as pd
-
-def load_from_csv(filepath: str, printout: bool=False) -> pd.DataFrame:
-    """Load data from a CSV file into a Pandas DataFrame"""
-    df = pd.read_csv(filepath, quotechar="'", quoting=2)
-    if printout:
-        print("Obtained bad data:")
-        print(df.tail(10), "\n")
-    return df
-
-def drop_duplicates(df: pd.DataFrame) -> None:
-    """Drop duplicate rows from the DataFrame"""
-    df.drop_duplicates(inplace=True)
-
-def add_missing_quotes(val: str) -> str:
-    """Add missing quotes to string values"""
-    if not val or not isinstance(val, str):
-        return val
-    pre = "" if val.startswith("'") else "'"
-    post = "" if val.endswith("'") else "'"
-    return f"{pre}{val}{post}"
-
-def quote_date_strings(df: pd.DataFrame) -> None:
-    """Quote string values in the Date column"""
-    df["Date"].apply(lambda d: add_missing_quotes(d))
-
-def format_dates(df: pd.DataFrame) -> None:
-    """Format date columns to datetime format"""
-    quote_date_strings(df)
-    df["Date"] = pd.to_datetime(df["Date"])
-
-def add_missing_dates(df: pd.DataFrame) -> None:
-    """Add missing date values by interpolating"""
-    df.fillna({"Date": df["Date"].shift() + pd.DateOffset(1)}, inplace=True)
-
-def add_missing_calories(df: pd.DataFrame) -> None:
-    """Add missing calorie values by interpolating"""
-    df.fillna({"Calories": round(df["Calories"].mean(), 2)}, inplace=True)
-
-def fix_invalid_durations(df: pd.DataFrame) -> None:
-    """Fix invalid durations in the DataFrame"""
-    avg_dur = df["Duration"].mean()
-    max_dur = avg_dur * 2
-    for i in df.index:
-        if df.loc[i, "Duration"] > max_dur:
-            df.loc[i, "Duration"] = round(avg_dur)
-
-def clean_data_file(csv: str) -> pd.DataFrame:
-    """Clean data from a CSV file"""
-    df = load_from_csv(csv)
-    drop_duplicates(df)
-    format_dates(df)
-    add_missing_dates(df)
-    add_missing_calories(df)
-    fix_invalid_durations(df)
-    return df
-```
-
-</details>
+1. `load_from_csv()` - read the file, treating `'` as the quote character
+2. `drop_duplicates()` - remove repeated rows
+3. `format_dates()` - remove stray quotes and convert `Date` to datetime
+4. `add_missing_dates()` - fill missing dates from the previous row
+5. `add_missing_calories()` - fill missing calories with the average
+6. `fix_invalid_durations()` - replace durations that are too large with the average
 
 ---
 

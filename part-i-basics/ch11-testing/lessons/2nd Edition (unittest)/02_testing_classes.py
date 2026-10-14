@@ -66,8 +66,8 @@ class AnonymousSurveyTestCase(unittest.TestCase):
 def main():
     """Run the tests"""
     print("Chapter 11:\nExercise 2 - Testing a Class\n")
-    process = input("Test [a]utomatically or [m]anually\n> ")
-    if process[0].lower() == "a":
+    process = input("Test [a]utomatically or [m]anually\n> ")[:1].lower()
+    if process == "a":
         unittest.main()
     else:
         language_survey()

@@ -2,11 +2,11 @@
 
 Drawing from languages like C and C++, there is a long tradition of using
 placeholders composed of a percent sign `%` and a single character 
-representing the data type for which it is holding a place in a string |
+representing the data type for which it is holding a place in a string
 template and then incorporating the values.
 
 In early versions of Python, these were the primary means of incorporating
-variable values into string.
+variable values into a string.
 
 ---
 
@@ -80,7 +80,7 @@ print(template % values)
 Output:
 
 ```
-6 bananas cost $3.90
+10 bananas cost $3.90
 ```
 
 ---

@@ -16,11 +16,14 @@ To remove the collection from the database, we'll use the
 Note: We could also use the `drop()` method on the `Collection` object.
 
 ```python
-print(f"Collections in database `{db.name}`:")
-for col_name in collections:
-    print(f"• {col_name}")
+col_name = settings["col_name"]
 
-print(f"\nRemoving collections: `{col_name}`...")
+print(f"Collections in database `{db.name}`:")
+for name in db.list_collection_names():
+    print(f"• {name}")
+print()
+
+print(f"Removing collection: `{col_name}`...")
 if col_name in db.list_collection_names():
     db.drop_collection(col_name)
     print(f"Collection '{col_name}' removed successfully.")
@@ -29,8 +32,8 @@ else:
 print()
 
 print(f"Collections in database `{db.name}`:")
-for col_name in collections:
-    print(f"• {col_name}")
+for name in db.list_collection_names():
+    print(f"• {name}")
 ```
 
 Output:
@@ -51,21 +54,23 @@ The `customers` collection no longer exists
 
 ### Drop Database
 
-To remove the collection from the database, we'll use the `drop_database()` 
-method on the `MongoClient` object.
+To remove the database, we'll use the `drop_database()` method on the
+`MongoClient` object.
 
 ```python
+db_name = settings["db_name"]
+
 print("Available databases:")
-for db_name in databases:
-    print(f"• {db_name}")
+for name in client.list_database_names():
+    print(f"• {name}")
 
 print(f"Removing database: `{db_name}`...")
 client.drop_database(db_name)
 print(f"Database '{db_name}' removed.\n")
 
 print("Available databases:")
-for db_name in databases:
-    print(f"• {db_name}")
+for name in client.list_database_names():
+    print(f"• {name}")
 ```
 
 Output:
@@ -93,7 +98,7 @@ before we drop it.
 
 ### More Practice
 
-Now, we've restore the system to its original state. You can go back and
+Now, we've restored the system to its original state. You can go back and
 re-run the previous lessons or practice with additional data on your own.
 
 ---

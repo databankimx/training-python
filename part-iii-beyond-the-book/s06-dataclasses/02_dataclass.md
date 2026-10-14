@@ -19,10 +19,10 @@ from dataclasses import dataclass
 @dataclass
 class Employee:
     """Metadata about an employee"""
-	name: str
-	emp_id: str
-	age: int
-	city: str
+    name: str
+    emp_id: str
+    age: int
+    city: str
 ```
 
 Note that we have done the following:

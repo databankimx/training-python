@@ -45,8 +45,8 @@ F(40) = 102,334,155
 call_count =  1
 ```
 
-Even though we're only making one call, we're still doing the a similar 
-amount of work (since the loop iterates *n* times), but it does eliminate
-recursion.
+Even though we're only making one call, the formula still relies on
+floating-point arithmetic, which becomes approximate for large *n*. It does
+eliminate recursion entirely.
 
 ---

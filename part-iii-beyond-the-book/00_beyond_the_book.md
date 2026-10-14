@@ -27,7 +27,7 @@ beginning developer.
 * [Lambda Functions](./s11-lambdas/01_lambdas.md)
 * [MySQL Databases](./s12-mysql-databases/00_mysql_setup.md)
 * [Publishing a Library](./s13-publish-a-library/00_intro.md)
-* [NumPy](./s14-numpy/01_Fundamentals/00_fundamentals.md)
+* [NumPy](./s14-numpy/01-fundamentals/00_fundamentals.md)
 * [Pandas](./s15-pandas/00_intro.md)
 * [SciPy](./s16-scipy/00_intro.md) <span style="color:salmon">*</span>
 * [MongoDB](./s17-mongodb/00_intro.md)

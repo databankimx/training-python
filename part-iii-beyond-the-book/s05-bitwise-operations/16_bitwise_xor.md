@@ -103,15 +103,17 @@ Step 1: ```a = a ^ b```
 ||
 |-:|
 |$0101_2$|
-|$\underline{\^~~~1000_2}$
+|$\underline{\^~~~1000_2}$|
 |$1101_2$|
 
-Step 2: ```b = a ^ b```
+... now $a$ contains both values' bits
+
+Step 2: ```b = b ^ a```
 
 ||
 |-:|
-|$1101_2$|
-|$\underline{\^~~~1000_2}$
+|$1000_2$|
+|$\underline{\^~~~1101_2}$|
 |$0101_2$|
 
 ... now $b$ contains $a$'s original value
@@ -121,8 +123,8 @@ Step 3: ```a = a ^ b```
 ||
 |-:|
 |$1101_2$|
-|$\underline{\^~~~1000_2}$
-|$0101_2$|
+|$\underline{\^~~~0101_2}$|
+|$1000_2$|
 
 ... now $a$ contains $b$'s original value
 

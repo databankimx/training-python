@@ -17,7 +17,7 @@ def connect(settings: dict[str, str]) -> mysql.connector.connection:
 
 def disconnect(conn: mysql.connector.connection) -> None:
     """Disconnect from MySQL Server"""
-    if conn is not None or not conn.is_connected():
+    if conn is not None and conn.is_connected():
         conn.disconnect()
     print("\nConnection closed")
 
@@ -40,7 +40,7 @@ def create_tables(conn: mysql.connector.connection) -> None:
     print()
 
 def add_data(conn: mysql.connector.connection) -> None:
-    """Add a primary key to the `customers` table"""
+    """Insert the sample rows into the users and products tables"""
     if not conn.is_connected():
         print("No active connection to MySQL Server!")
         return

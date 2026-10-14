@@ -87,6 +87,57 @@ exactly two.
 
 ---
 
+### Drawing the Grid
+
+`draw()` turns the grid into pixels. It works out the size of each cell from the
+window size and the grid size, leaving a one-pixel gap between cells. Each cell is
+drawn as a filled rectangle in the alive or dead color from the settings:
+
+```python
+def draw(self):
+    """Draw every cell in the grid"""
+    s = self.settings
+    rows, cols = len(self.grid), len(self.grid[0])
+    cell_w = s["width"] // cols - 1
+    cell_h = s["height"] // rows - 1
+    for r, row in enumerate(self.grid):
+        for c, alive in enumerate(row):
+            x, y = (cell_w + 1) * c + 1, (cell_h + 1) * r + 1
+            color = tuple(s["alive"] if alive else s["dead"])
+            pygame.draw.rect(self.screen, color, pygame.Rect(x, y, cell_w, cell_h))
+    pygame.display.update()
+```
+
+`pygame.display.update()` shows the finished frame. Nothing appears on screen
+until it is called.
+
+---
+
+### The Main Loop
+
+`play()` opens the window, draws the first generation, and then repeats three
+steps until the window is closed:
+
+1. Check the events. A close request stops the game.
+2. Replace the grid with `next_generation()`.
+3. Draw the new grid, then wait so the game runs at the speed set by `framerate`.
+
+```python
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            return
+    self.grid = self.next_generation()
+    self.draw()
+    self.clock.tick(s["framerate"])
+```
+
+`clock.tick()` pauses just long enough to keep the frame rate steady, so a faster
+computer does not run the game faster.
+
+---
+
 ### Starting Patterns
 
 If the `preload` setting names a pattern in `preloads.json`, the game starts

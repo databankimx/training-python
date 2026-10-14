@@ -69,10 +69,10 @@ Then, when checking whether a specific program should run, you could check for m
 
 licenses = 512
 
-wp = (licenses & Products.word_processing == Products.word_processing
-   or licenses & Products.personal == Products.personal
-   or licenses & Products.work == Products.work
-   or licenses & Products.ultra_deluxe == Products.ultra_deluxe)
+wp = (licenses & ProductLicenses.word_processing == ProductLicenses.word_processing
+   or licenses & ProductLicenses.personal == ProductLicenses.personal
+   or licenses & ProductLicenses.work == ProductLicenses.work
+   or licenses & ProductLicenses.ultra_deluxe == ProductLicenses.ultra_deluxe)
 
 if not wp:
     raise Exception("Not licensed for word processing!")

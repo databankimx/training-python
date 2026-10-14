@@ -8,7 +8,7 @@ prior elements (items with lower indices) in the array.
 
 ```pseudocode
 For element indices `i` 1 to n-1
-    For element indices `j` = i+1 to 1 (descending)
+    For element indices `j` = i down to 1
         If array[j-1] is less than array[j]
             break
         Else
@@ -41,7 +41,7 @@ So this algorithm (though faster than selection or bubble sorts) is O(*n*²)
 
 ### Programming an Insertion Sort
 
-Here is an example of how we might code a simple selection sort...
+Here is an example of how we might code a simple insertion sort...
 
 ```python
 def insertion_sort(array: list[int]) -> list[int]:
@@ -159,7 +159,7 @@ Computed complexity: O(n²) - quadratic (polynomial)
 
 Approximate values for reference:
  • n!       = Value omitted - too large to calculate!
- • 2ⁿ       = 1.99 * 10^3009
+ • 2ⁿ       = 1.99 * 10^3010
  • n²       = 100,000,000
  • n log n  = 132,878
  • n        = 10,000

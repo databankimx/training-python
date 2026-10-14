@@ -57,7 +57,7 @@ Output:
 ### Comparing a Function with Its Equivalent Lambda
 
 The `dis` library allows us to view the resulting bytecode when Python
-performs just-in-time compilation.
+compiles the code.
 
 Let's create a function that performs the same task two ways: once with
 and once without using a lambda.
@@ -148,10 +148,10 @@ Output:
 ```
 Error in function...
 Traceback (most recent call last):
-  File "...\02_lambda_usage.py", line 40, in compare_errors
+  File "...\02_usage.py", line 40, in compare_errors
     print(divide_function(x, y))
           ^^^^^^^^^^^^^^^^^^^^^
-  File "...\02_lambda_usage.py", line 29, in divide_function
+  File "...\02_usage.py", line 29, in divide_function
     return x / y
            ~~^~~
 ZeroDivisionError: division by zero
@@ -162,10 +162,10 @@ ZeroDivisionError: division by zero
 
 Error in lambda...
 Traceback (most recent call last):
-  File "...\02_lambda_usage.py", line 49, in compare_errors
+  File "...\02_usage.py", line 49, in compare_errors
     print(divide_lambda(x, y))
           ^^^^^^^^^^^^^^^^^^^
-  File "...\02_lambda_usage.py", line 45, in <lambda>
+  File "...\02_usage.py", line 45, in <lambda>
     divide_lambda = lambda x, y: x / y
                                  ~~^~~
 ZeroDivisionError: division by zero

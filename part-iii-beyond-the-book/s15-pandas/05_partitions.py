@@ -23,7 +23,7 @@ def top_n_rows(df: pd.DataFrame, n: int=10) -> None:
     print(df.head(n), "\n")
 
 def bottom_rows(df: pd.DataFrame) -> None:
-    """Display the first 5 rows of the DataFrame"""
+    """Display the last 5 rows of the DataFrame"""
     print("Bottom 5 rows:")
     print(df.tail(), "\n")
 

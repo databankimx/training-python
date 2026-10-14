@@ -101,7 +101,7 @@ Output:
 Since we can pass a function as an argument, it stands to reason that we can
 also return them from functions.
 
-Here, we have a functions that creates and returns another function. This
+Here, we have a function that creates and returns another function. This
 type of function (where the result retains the locally scoped variables) is
 also called a *closure*, which we'll learn about in section 5.
 

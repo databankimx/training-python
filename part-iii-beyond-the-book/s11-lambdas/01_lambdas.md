@@ -2,7 +2,7 @@
 
 Based on Alonzo Church's "lambda calculus," (a stateless but 
 Turing-complete computational system invented in the 1930s), the lambda 
-concept allow the abstraction of functions.
+concept allows the abstraction of functions.
 
 Unlike languages like Lisp, Haskell, and F#, Python is not natively a 
 *functional* programming language. Instead, it is an object-oriented 

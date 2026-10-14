@@ -36,7 +36,7 @@ Example:
 ```python
 import pandas as pd
 
-df = pd.read_csv(./data/bad_data.csv)
+df = pd.read_csv("./data/bad_data.csv")
 print("Obtained bad data:")
 print(df.tail(10), "\n")
 ```

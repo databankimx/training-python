@@ -69,7 +69,7 @@ b = 0b10011100
 n = ~b
 
 # Note: This doesn't give the expected answer
-print(f{"n:>08b"})  # -10011101  (*wrong answer)
+print(f"{n:>08b}")  # -10011101  (*wrong answer)
 ```
 
 ---

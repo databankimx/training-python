@@ -3,7 +3,7 @@
 It's both annoying and error-prone to have the programmer be responsible
 for setting the values in a `Flag` enum.
 
-The `enum` library provides a mechanism fo automatically setting those
+The `enum` library provides a mechanism for automatically setting those
 values.
 
 ---
