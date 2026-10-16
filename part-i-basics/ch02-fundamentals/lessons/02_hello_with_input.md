@@ -1,4 +1,4 @@
-## Ch 2 - Lesson 2: "Hello `name`" with User Input
+## "Hello `name`" with User Input
 
 ### Get input from the user
 

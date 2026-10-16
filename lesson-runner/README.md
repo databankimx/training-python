@@ -1,43 +1,44 @@
-# Lesson Runner (Python)
+# Lesson Runner (Qt WebEngine)
 
-A tkinter port of the WPF `LessonRunner` app, for the Python training lessons in
-`part-i-basics` and `part-iii-beyond-the-book`. Part II is not included.
-
-## Running it
-
-Use the interpreter that has `sm_utils` installed (the one you run the lessons with):
-
-```pwsh
-cd C:\Development\training\training-python\lesson-runner
-python app.py
-```
-
-Each step runs in its own child process, in the step's folder, with the same
-interpreter. Pauses and `input()` prompts are routed to the window.
-
-## Files
+The Qt version of the lesson runner. It has everything it needs in this folder.
 
 | File | Purpose |
 |---|---|
-| `app.py` | The main window: navigation, title bar, args, output, source, lesson |
+| `app.py` | The main window: navigation, title bar, output, source and lesson |
 | `discovery.py` | Finds chapters and steps under Part I and Part III |
 | `runner.py` | Starts a step in a child process and passes its events to the window |
-| `wrapper.py` | Runs inside the child process. Routes `pause`, `clear_terminal`, and `input` |
+| `wrapper.py` | Runs inside the child process; routes pause, clear and input |
+| `syntax.py` | Python token colouring for the source editor |
+| `logo.py` | The DataBank logo, as polygons for the nav header and window icon |
+| `render.py` | Renders lesson Markdown to HTML (MathJax maths, Prism code) |
+| `vendor/` | MathJax and Prism, loaded by the lesson pages (see setup) |
 
-## What a step is
+## Setup
 
-Part I: a step is a runnable `.py` file in a folder. A file is runnable if its
-name is numbered (`01_command_args.py`), it is `main.py`, or it has an
-`if __name__ == "__main__":` guard. Support modules such as `utilities.py` and
-`trie.py` are not steps. The lesson text for a step is the `.md` file with the
-same name.
+The `vendor` folder must contain `node_modules` with MathJax and Prism. It should
+look like this:
 
-Part III: every lesson `.md` file in a folder is a step, in file-name order.
+```
+vendor\
+  node_modules\mathjax\es5\tex-svg.js
+  node_modules\prismjs\prism.js
+```
 
-- A lesson with a matching `.py` script is a runnable step.
-- A lesson with no script shows `# No source script for this lesson` and has no Run.
-- A lesson with a matching `.c` sample shows the C code read-only, with no Run.
-- A script with no lesson file is still a runnable step.
+If it's missing, install it once (needs Node.js):
+
+```pwsh
+cd C:\Development\training\training-python\lesson-runner\vendor
+npm init -y
+npm install mathjax@3 prismjs@1
+```
+
+Then install the Python packages and run the app:
+
+```pwsh
+cd C:\Development\training\training-python\lesson-runner
+python -m pip install -r requirements.txt
+python app.py
+```
 
 ## Shortcuts
 
@@ -46,17 +47,16 @@ Part III: every lesson `.md` file in a folder is a step, in file-name order.
 | F5 | Run the current step |
 | Escape | Cancel a run, or reset the editor when it has edits |
 | Ctrl+Shift+Enter | Continue past a pause |
-| Up / Down | Move between steps when the step list has focus |
 
 ## Status
 
-Done: discovery, running, output and errors, args, input dialog, pause and
-Continue, editable source with highlighting, line numbers, dirty state and reset,
-dark and light themes, copy for output, source and lesson, rendered lesson
-Markdown, and the pop-out lesson window (Pop out / Dock).
+Built: the chapter tree and step list (60/40), title bar with theme switch and
+Run, args, output with Continue, Copy and Clear, source editor with line numbers,
+highlighting and reset, rendered lessons (MathJax maths, Prism code in Visual
+Studio colours), pop-out lesson window with dock control, input dialog, and pause
+handling.
 
-Not yet done: the Copy confirmation is a label change on the button rather than
-a toast, and the source tab has no dot (the edited marker is in the reset bar).
+The tkinter version of the runner is kept in `lesson-runner-tk` for reference.
 
-Not carried over: the visualization button and browser steps. The Python lessons
-have neither.
+Not yet checked on your machine: the pop-out and dock controls, the first-lesson
+flash, and the copy tick.

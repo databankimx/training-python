@@ -1,4 +1,4 @@
-## Ch 2 - Lesson 5: Whitespace Escape Characters
+## Whitespace Escape Characters
 
 Sometimes there is a need to include characters in a string that are
 otherwise used by the programming language or that cannot easily be

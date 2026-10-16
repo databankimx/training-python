@@ -3,10 +3,10 @@
 Markdown is parsed with markdown-it-py (CommonMark plus tables, and raw HTML
 passed through, so the lesson's own <style> block applies). $...$ and $$...$$
 maths is left for MathJax to typeset in the page. Code blocks are highlighted
-by Prism.
+by Prism, and the token colours follow the Visual Studio palette.
 
-The spike loads MathJax and Prism from a CDN. Before the real build they will
-be bundled with the app so the runner works offline.
+MathJax and Prism are loaded from the app's vendor folder, so the app works
+offline once that folder is in place.
 """
 
 from __future__ import annotations
@@ -25,6 +25,7 @@ h1, h2, h3 { color: #569CD6; }
 h1 { font-size: 26px; } h2 { font-size: 21px; } h3 { font-size: 17px; }
 p { margin: 8px 0; }
 code { font-family: Consolas, monospace; font-size: 13px; color: #D7BA7D; }
+h1 code, h2 code, h3 code { font-size: inherit; }
 pre { background: #0A0A0A; border-radius: 8px; padding: 14px 18px; margin: 12px 10px;
       overflow-x: auto; }
 pre code { color: #D4D4D4; background: none; font-size: 14px; }
@@ -57,6 +58,7 @@ h1, h2, h3 { color: #0451A5; }
 h1 { font-size: 26px; } h2 { font-size: 21px; } h3 { font-size: 17px; }
 p { margin: 8px 0; }
 code { font-family: Consolas, monospace; font-size: 13px; color: #795E26; }
+h1 code, h2 code, h3 code { font-size: inherit; }
 pre { background: #F5F5F5; border-radius: 8px; padding: 14px 18px; margin: 12px 10px;
       overflow-x: auto; }
 pre code { color: #1E1E1E; background: none; font-size: 14px; }
@@ -87,7 +89,7 @@ HEAD = """<!doctype html>
 <style>__CSS__</style>
 <script>
 window.MathJax = {
-  tex: { macros: { Larr: '\\\\leftarrow', Rarr: '\\\\rightarrow' }, inlineMath: [['$', '$'], ['\\\\(', '\\\\)']],
+  tex: { macros: { Larr: '\\\\leftarrow', Rarr: '\\\\rightarrow', Z: '\\\\mathbb{Z}', N: '\\\\mathbb{N}', R: '\\\\mathbb{R}', Q: '\\\\mathbb{Q}' }, inlineMath: [['$', '$'], ['\\\\(', '\\\\)']],
          displayMath: [['$$', '$$'], ['\\\\[', '\\\\]']],
          processEscapes: true },
   svg: { fontCache: 'global' }
@@ -147,13 +149,24 @@ _PARSER = make_parser()
 EMPTY_HEADER = re.compile(r"<thead>\s*<tr>(?:\s*<th[^>]*></th>)+\s*</tr>\s*</thead>")
 
 
+MATH_SPAN = re.compile(r"\$\$[^$]+\$\$|\$[^$\n]+\$")
+
+
+def math_symbols(markdown_text: str) -> str:
+    """Swap symbols that LaTeX doesn't define for their maths equivalents, inside maths only.
+
+    \\^ is the XOR operator in these lessons, shown as \\oplus. Code blocks are left alone.
+    """
+    return MATH_SPAN.sub(lambda m: m.group(0).replace("\\^", "\\oplus"), markdown_text)
+
+
 def render_lesson(markdown_text: str, vendor_dir: Path, dark: bool = True) -> str:
     """Return a complete HTML page for one lesson, in the dark or light theme.
 
     vendor_dir is the folder holding node_modules (MathJax and Prism). It is
     given as an absolute file URL, because the page's base URL is the lesson's
-    own folder, not the spike's.
+    own folder, not the app's.
     """
-    body = EMPTY_HEADER.sub("", _PARSER.render(markdown_text))
+    body = EMPTY_HEADER.sub("", _PARSER.render(math_symbols(markdown_text)))
     head = HEAD.replace("VENDOR_URL", vendor_dir.as_uri()).replace("__CSS__", CSS if dark else LIGHT_CSS)
     return head + body + TAIL

@@ -22,6 +22,10 @@ This *exclusive* OR operation follows the truth table below:
 |$0$|$1$|$1$|
 |$0$|$0$|$0$|
 
+> Note: In the maths below, the XOR operator is shown as $\oplus$ rather than
+> the `^` character used in Python code. They are the same operator. The
+> caret is avoided in the maths because it means "superscript" there.
+
 ---
 
 ### An Example

@@ -1,4 +1,4 @@
-## Ch 2 - Lesson 3: Examples of String Literals
+## Examples of String Literals
 
 In Python, a string (a series of characters) can be surrounded by either
 double quotes (`"`) or single quotes (`'`)

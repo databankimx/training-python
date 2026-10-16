@@ -1,35 +1,55 @@
-"""DataBank IMX Developer Training - Python lesson runner (tkinter).
+"""DataBank IMX - Python Training (Qt version).
 
-Run from the lesson-runner folder with the same interpreter that runs the
-training lessons (the one with ``sm_utils`` installed):
+Same features as the tkinter runner, with lessons shown in Qt WebEngine.
 
-    python app.py
+Run:  python app.py
+
+Shared code, imported from the sibling folders for now:
+  lesson-runner           discovery.py, runner.py, syntax.py, logo.py
+  lesson-runner-qt-spike  render.py and vendor/ (MathJax and Prism)
 """
 
 from __future__ import annotations
 
-import builtins
-import io
-import keyword
+import json
 import queue
 import shlex
-import tkinter as tk
-import tokenize
-from tkinter import ttk
+import sys
+import traceback
+from pathlib import Path
 
-import discovery
-import logo
-from discovery import Chapter, Step
-from runner import StepRun
-from lesson_view import LessonWindow, MarkdownText
-from syntax import SYNTAX_TAGS, python_spans
+HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
+
+import discovery  # noqa: E402  pylint: disable=wrong-import-position
+import logo  # noqa: E402  pylint: disable=wrong-import-position
+from render import render_lesson  # noqa: E402  pylint: disable=wrong-import-position
+from runner import StepRun  # noqa: E402  pylint: disable=wrong-import-position
+from syntax import SYNTAX_TAGS, c_spans, python_spans  # noqa: E402  pylint: disable=wrong-import-position
+
+#pylint: disable=no-name-in-module
+from PySide6.QtCore import Qt, QPointF, QRect, QRectF, QSize, QTimer, QUrl
+#pylint: disable=no-name-in-module
+from PySide6.QtGui import (QColor, QFont, QFontDatabase, QIcon, QKeySequence, QPainter,
+                           QPainterPath, QPen, QPixmap, QPolygonF, QShortcut,
+                           QSyntaxHighlighter, QTextCharFormat, QTextCursor)
+#pylint: disable=no-name-in-module
+from PySide6.QtWidgets import (QAbstractButton, QApplication, QFrame, QHBoxLayout, QInputDialog,
+                               QLabel, QLineEdit, QListWidget, QListWidgetItem, QMainWindow,
+                               QPlainTextEdit, QPushButton, QSplitter, QStackedWidget,
+                               QStyledItemDelegate, QTabWidget, QToolButton, QTreeWidget, QTreeWidgetItem,
+                               QVBoxLayout, QWidget)
+#pylint: disable=no-name-in-module
+from PySide6.QtWebEngineCore import QWebEngineSettings
+#pylint: disable=no-name-in-module
+from PySide6.QtWebEngineWidgets import QWebEngineView
+
+VENDOR = HERE / "vendor"
 
 DARK = {
     "bg": "#1E1E1E", "panel": "#252526", "border": "#3F3F46", "fg": "#D4D4D4",
     "accent": "#007ACC", "accent_hover": "#1C97EA", "success": "#4EC9B0",
     "error": "#F44747", "muted": "#858585", "selection": "#264F78",
-    "row_hover": "#2A2D2E", "white": "#FFFFFF",
-    "heading": "#569CD6", "code_bg": "#0A0A0A", "code_fg": "#D4D4D4", "rule": "#3F3F46",
     "kw": "#569CD6", "ctl": "#C586C0", "str": "#CE9178", "com": "#6A9955", "num": "#B5CEA8",
     "typ": "#4EC9B0", "fn": "#DCDCAA", "var": "#9CDCFE",
 }
@@ -37,632 +57,816 @@ LIGHT = {
     "bg": "#FFFFFF", "panel": "#F3F3F3", "border": "#CCCEDB", "fg": "#1E1E1E",
     "accent": "#007ACC", "accent_hover": "#1C97EA", "success": "#007F5F",
     "error": "#CC0000", "muted": "#717171", "selection": "#ADD6FF",
-    "row_hover": "#E8E8E8", "white": "#FFFFFF",
-    "heading": "#0451A5", "code_bg": "#F5F5F5", "code_fg": "#1E1E1E", "rule": "#CCCEDB",
     "kw": "#0000FF", "ctl": "#AF00DB", "str": "#A31515", "com": "#008000", "num": "#098658",
     "typ": "#267F99", "fn": "#795E26", "var": "#001080",
 }
 
-BUILTIN_NAMES = set(dir(builtins))
-
-UI_FONT = ("Segoe UI", 10)
-UI_BOLD = ("Segoe UI", 10, "bold")
-CODE_FONT = ("Consolas", 11)
-
-
-class ToggleSwitch(tk.Canvas):
-    """Pill-shaped light/dark switch, matching the WPF title bar toggle."""
-
-    def __init__(self, master: tk.Misc, command) -> None:
-        super().__init__(master, width=40, height=20, highlightthickness=0, bd=0, cursor="hand2")
-        self.command = command
-        self.light = False
-        self.bind("<Button-1>", lambda _event: self.command())
-
-    def set_state(self, light: bool, colors: dict) -> None:
-        """Redraw the switch for the given state and palette."""
-        self.light = light
-        self.delete("all")
-        track = colors["accent"] if light else colors["border"]
-        self.create_oval(0, 0, 20, 20, fill=track, outline=track)
-        self.create_oval(20, 0, 40, 20, fill=track, outline=track)
-        self.create_rectangle(10, 0, 30, 20, fill=track, outline=track)
-        x = 22 if light else 2
-        self.create_oval(x, 2, x + 16, 18, fill=colors["white"], outline=colors["white"])
+CODE_FAMILIES = ["Cascadia Mono", "Cascadia Code", "JetBrains Mono", "Consolas"]
+UI_FAMILY = "Segoe UI"
+FLUSH_ROLE = int(Qt.ItemDataRole.UserRole) + 1  # marks tree items to shift left to the arrow column
+C_NOTE = "// Note: this runner does not support compiling or executing C code.\n"
 
 
-class App(tk.Tk):
-    """Main window: chapter and step navigation, step title, output, and source."""
+def code_font(size: int) -> QFont:
+    """The first installed monospace font from CODE_FAMILIES, with a fixed-pitch fallback."""
+    installed = set(QFontDatabase.families())
+    family = next((name for name in CODE_FAMILIES if name in installed), "Consolas")
+    font = QFont(family, size)
+    font.setStyleHint(QFont.StyleHint.Monospace)
+    font.setFixedPitch(True)
+    return font
+
+
+def draw_icon(kind: str, colour: str, size: int = 18) -> QIcon:
+    """Vector icons, drawn in code so they don't depend on any font."""
+    pixmap = QPixmap(size, size)
+    pixmap.fill(Qt.GlobalColor.transparent)
+    painter = QPainter(pixmap)
+    painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+    pen = QPen(QColor(colour), 1.6)
+    pen.setCapStyle(Qt.PenCapStyle.RoundCap)
+    pen.setJoinStyle(Qt.PenJoinStyle.RoundJoin)
+    painter.setPen(pen)
+    painter.setBrush(Qt.BrushStyle.NoBrush)
+    s = size / 18.0
+    if kind == "copy":
+        painter.drawRoundedRect(QRectF(3.5 * s, 5.5 * s, 9 * s, 9.5 * s), 2 * s, 2 * s)
+        painter.drawRoundedRect(QRectF(6.5 * s, 2.5 * s, 9 * s, 9.5 * s), 2 * s, 2 * s)
+    elif kind == "popout":
+        painter.drawLine(QPointF(5 * s, 13 * s), QPointF(13 * s, 5 * s))
+        painter.drawLine(QPointF(7 * s, 5 * s), QPointF(13 * s, 5 * s))
+        painter.drawLine(QPointF(13 * s, 5 * s), QPointF(13 * s, 11 * s))
+    elif kind == "dock":
+        painter.drawLine(QPointF(13 * s, 5 * s), QPointF(5 * s, 13 * s))
+        painter.drawLine(QPointF(5 * s, 7 * s), QPointF(5 * s, 13 * s))
+        painter.drawLine(QPointF(5 * s, 13 * s), QPointF(11 * s, 13 * s))
+    elif kind == "check":
+        painter.drawPolyline(QPolygonF([QPointF(3.5 * s, 9.5 * s), QPointF(7.5 * s, 13.5 * s),
+                                        QPointF(14.5 * s, 5.5 * s)]))
+    elif kind == "sun":
+        painter.drawEllipse(QPointF(9 * s, 9 * s), 3.5 * s, 3.5 * s)
+        for angle in range(0, 360, 45):
+            import math  # pylint: disable=import-outside-toplevel
+            rad = math.radians(angle)
+            inner = QPointF(9 * s + 6 * s * math.cos(rad), 9 * s + 6 * s * math.sin(rad))
+            outer = QPointF(9 * s + 8 * s * math.cos(rad), 9 * s + 8 * s * math.sin(rad))
+            painter.drawLine(inner, outer)
+    elif kind == "moon":
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(QColor(colour))
+        outer = QPainterPath()
+        outer.addEllipse(QPointF(9 * s, 9 * s), 6.5 * s, 6.5 * s)
+        cut = QPainterPath()
+        cut.addEllipse(QPointF(12.5 * s, 6.5 * s), 5.5 * s, 5.5 * s)
+        painter.drawPath(outer.subtracted(cut))
+    painter.end()
+    return QIcon(pixmap)
+
+
+def logo_pixmap(size: int, colour: str) -> QPixmap:
+    """The DataBank logo as a transparent, antialiased pixmap."""
+    pixmap = QPixmap(size, size)
+    pixmap.fill(Qt.GlobalColor.transparent)
+    painter = QPainter(pixmap)
+    painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+    painter.setPen(Qt.PenStyle.NoPen)
+    painter.setBrush(QColor(colour))
+    scale = size / logo.SIZE
+    for polygon in logo.shapes():
+        painter.drawPolygon(QPolygonF([QPointF(x * scale, y * scale) for x, y in polygon]))
+    painter.end()
+    return pixmap
+
+
+class ThemeSwitch(QAbstractButton):
+    """Sliding dark/light switch. Checked means light."""
 
     def __init__(self) -> None:
         super().__init__()
-        self.title("DataBank IMX - Python Training")
-        self.icon_image = logo.icon_photo(self, 32, DARK["accent"])
-        self.iconphoto(True, self.icon_image)
-        self.geometry("1280x768")
-        self.minsize(800, 500)
+        self.setCheckable(True)
+        self.setCursor(Qt.CursorShape.PointingHandCursor)
+        self.setFixedSize(44, 22)
+        self.track_colour = QColor("#3F3F46")
+        self.checked_colour = QColor("#007ACC")
 
-        self.theme = "dark"
+    def set_colors(self, track: str, checked: str) -> None:
+        """Colours for the unchecked and checked track."""
+        self.track_colour = QColor(track)
+        self.checked_colour = QColor(checked)
+        self.update()
+
+    def paintEvent(self, event) -> None:  # pylint: disable=invalid-name
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+        painter.setPen(Qt.PenStyle.NoPen)
+        width, height = self.width(), self.height()
+        painter.setBrush(self.checked_colour if self.isChecked() else self.track_colour)
+        painter.drawRoundedRect(0, 0, width, height, height / 2, height / 2)
+        thumb_x = width - height + 2 if self.isChecked() else 2
+        painter.setBrush(QColor("#FFFFFF"))
+        painter.drawEllipse(thumb_x, 2, height - 4, height - 4)
+        painter.end()
+
+
+def stylesheet(c: dict) -> str:
+    """Application stylesheet for one palette. Fonts are set in code, not here."""
+    return f"""
+    QMainWindow, QWidget#root {{ background: {c['bg']}; }}
+    QWidget {{ color: {c['fg']}; }}
+    QLabel#title {{ font-size: 14pt; font-weight: bold; }}
+    QLabel#subtitle, QLabel#section {{ color: {c['muted']}; }}
+    QLabel#section {{ font-size: 8pt; font-weight: bold; padding: 4px 10px; }}
+    QFrame#header {{ background: {c['accent']}; }}
+    QLabel#headerText {{ color: white; font-size: 13pt; font-weight: bold; }}
+    QTreeWidget, QListWidget {{ background: {c['panel']}; border: none; outline: 0; }}
+    QTreeWidget::item {{ padding: 0px 2px; }}
+    QTreeWidget::item:selected, QListWidget::item:selected {{
+        background: {c['accent']}; color: white; }}
+    QListWidget::item {{ padding: 0px 10px; }}
+    QPlainTextEdit {{ background: {c['bg']}; border: none; }}
+    QLineEdit {{ background: {c['bg']}; border: 1px solid {c['border']}; padding: 3px 6px; }}
+    QPushButton {{ background: transparent; border: none; color: {c['muted']}; padding: 4px 8px; }}
+    QPushButton#run {{ background: {c['accent']}; color: white; font-weight: bold;
+                       padding: 6px 16px; border-radius: 3px; }}
+    QPushButton#run:disabled {{ background: {c['border']}; color: {c['fg']}; }}
+    QPushButton#continue {{ background: {c['accent']}; color: white; font-weight: bold;
+                            padding: 4px 12px; }}
+    QToolButton {{ background: transparent; border: none; padding: 4px; border-radius: 3px; }}
+    QToolButton:hover {{ background: {c['border']}; }}
+    QTabWidget::pane {{ border: none; }}
+    QTabBar::tab {{ background: {c['panel']}; color: {c['muted']}; padding: 6px 14px; }}
+    QTabBar::tab:selected {{ background: {c['bg']}; color: {c['fg']}; font-weight: bold; }}
+    QFrame#resetBar {{ background: {c['panel']}; }}
+    QSplitter::handle {{ background: {c['border']}; }}
+    """
+
+
+class PythonHighlighter(QSyntaxHighlighter):
+    """Colours the source editor using the shared Python token rules."""
+
+    def __init__(self, document, colors: dict) -> None:
+        super().__init__(document)
+        self.formats: dict[str, QTextCharFormat] = {}
+        self._text: str | None = None
+        self._spans: list = []
+        self.language = "python"
+        self.apply_palette(colors)
+
+    def apply_palette(self, colors: dict) -> None:
+        """Rebuild the text formats for a new theme."""
+        self.formats = {}
+        for tag in SYNTAX_TAGS:
+            fmt = QTextCharFormat()
+            fmt.setForeground(QColor(colors[tag]))
+            self.formats[tag] = fmt
+        self._text = None
+        self.rehighlight()
+
+    def set_language(self, language: str) -> None:
+        """Highlight the source as Python or C."""
+        self.language = language
+        self._text = None
+        self.rehighlight()
+
+    def highlightBlock(self, text: str) -> None:  # pylint: disable=invalid-name
+        document_text = self.document().toPlainText()
+        if document_text != self._text:
+            self._text = document_text
+            self._spans = (c_spans if self.language == "c" else python_spans)(document_text)
+        row = self.currentBlock().blockNumber() + 1
+        for (start_row, start_col), (end_row, end_col), tag in self._spans:
+            if not start_row <= row <= end_row:
+                continue
+            start = start_col if start_row == row else 0
+            end = end_col if end_row == row else len(text)
+            if end > start:
+                self.setFormat(start, end - start, self.formats[tag])
+
+
+class LineGutter(QWidget):
+    """The line-number strip beside the source editor. The editor does the painting."""
+
+    def __init__(self, editor) -> None:
+        super().__init__(editor)
+        self.editor = editor
+
+    def paintEvent(self, event) -> None:  # pylint: disable=invalid-name
+        self.editor.paint_gutter(event)
+
+
+class SourceEditor(QPlainTextEdit):
+    """Code editor with a line-number gutter."""
+
+    def __init__(self, colors: dict) -> None:
+        super().__init__()
+        self.colors = colors
+        self.setFont(code_font(11))
+        self.setLineWrapMode(QPlainTextEdit.LineWrapMode.WidgetWidth)
+        self.gutter = LineGutter(self)
+        self.blockCountChanged.connect(self.update_margin)
+        self.updateRequest.connect(self.update_gutter)
+        self.update_margin()
+
+    def gutter_width(self) -> int:
+        """Width of the line-number gutter, based on the number of lines."""
+        digits = max(3, len(str(max(1, self.blockCount()))))
+        return 12 + self.fontMetrics().horizontalAdvance("9") * digits
+
+    def update_margin(self) -> None:
+        """Reserve space for the gutter on the left of the text."""
+        self.setViewportMargins(self.gutter_width(), 0, 0, 0)
+
+    def update_gutter(self, rect, dy) -> None:
+        """Scroll or repaint the gutter with the text."""
+        if dy:
+            self.gutter.scroll(0, dy)
+        else:
+            self.gutter.update(0, rect.y(), self.gutter.width(), rect.height())
+        if rect.contains(self.viewport().rect()):
+            self.update_margin()
+
+    def resizeEvent(self, event) -> None:  # pylint: disable=invalid-name
+        super().resizeEvent(event)
+        contents = self.contentsRect()
+        self.gutter.setGeometry(QRect(contents.left(), contents.top(),
+                                      self.gutter_width(), contents.height()))
+
+    def paint_gutter(self, event) -> None:
+        """Draw the line numbers for the visible lines."""
+        from PySide6.QtGui import QPainter as _Painter  # pylint: disable=import-outside-toplevel
+        painter = _Painter(self.gutter)
+        painter.fillRect(event.rect(), QColor(self.colors["bg"]))
+        painter.setFont(self.font())
+        painter.setPen(QColor(self.colors["muted"]))
+        block = self.firstVisibleBlock()
+        number = block.blockNumber()
+        top = round(self.blockBoundingGeometry(block).translated(self.contentOffset()).top())
+        bottom = top + round(self.blockBoundingRect(block).height())
+        while block.isValid() and top <= event.rect().bottom():
+            if block.isVisible() and bottom >= event.rect().top():
+                painter.drawText(0, top, self.gutter.width() - 6, self.fontMetrics().height(),
+                                 Qt.AlignmentFlag.AlignRight, str(number + 1))
+            block = block.next()
+            top = bottom
+            bottom = top + round(self.blockBoundingRect(block).height())
+            number += 1
+        painter.end()
+
+
+class TreeDelegate(QStyledItemDelegate):
+    """Moves flagged items one indent step left, so their names line up with the nesting arrows."""
+
+    def __init__(self, tree) -> None:
+        super().__init__(tree)
+        self.tree = tree
+
+    def initStyleOption(self, option, index) -> None:  # pylint: disable=invalid-name
+        super().initStyleOption(option, index)
+        if index.data(FLUSH_ROLE):
+            option.rect = option.rect.adjusted(-self.tree.indentation(), 0, 0, 0)
+
+
+class PopoutWindow(QWidget):
+    """The pop-out lesson window, with a dock control. Closing it also docks the lesson."""
+
+    def __init__(self, on_dock) -> None:
+        super().__init__()
+        self.on_dock = on_dock
+        layout = QVBoxLayout(self)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(0)
+        bar = QHBoxLayout()
+        bar.setContentsMargins(8, 4, 8, 4)
+        bar.addStretch(1)
+        dock = QToolButton()
+        dock.setIcon(draw_icon("dock", DARK["muted"]))
+        dock.setToolTip("Dock lesson back into the main window")
+        dock.clicked.connect(self.on_dock)
+        bar.addWidget(dock)
+        layout.addLayout(bar)
+        self.view = QWebEngineView()
+        self.view.settings().setAttribute(
+            QWebEngineSettings.WebAttribute.LocalContentCanAccessFileUrls, True)
+        layout.addWidget(self.view, 1)
+
+    def closeEvent(self, event) -> None:  # pylint: disable=invalid-name
+        self.on_dock()
+        super().closeEvent(event)
+
+
+class MainWindow(QMainWindow):
+    """Chapters and steps on the left; title, output, source and lesson on the right."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.setWindowTitle("DataBank IMX - Python Training")
+        self.setWindowIcon(QIcon(logo_pixmap(64, DARK["accent"])))
+        self.resize(1280, 820)
+        self.dark = True
         self.colors = DARK
-        self.paint: list[tuple[tk.Misc, dict[str, str]]] = []
         self.scopes = discovery.discover()
-        self.chapters: dict[str, Chapter] = {}
-        self.chapter: Chapter | None = None
-        self.step: Step | None = None
+        self.chapter: discovery.Chapter | None = None
+        self.step: discovery.Step | None = None
         self.original_source = ""
-        self.run: StepRun | None = None
-        self.waiting_for_continue = False
-        self.suppress_modified = False
         self.lesson_markdown = ""
-        self.popout: LessonWindow | None = None
+        self.run: StepRun | None = None
+        self.popout: PopoutWindow | None = None
+        self.output_log: list[tuple[str, str]] = []
+        self.output_formats: dict[str, QTextCharFormat] = {}
 
-        self.style = ttk.Style(self)
-        self.style.theme_use("clam")
-
-        self.build_layout()
+        self.build_ui()
         self.populate_tree()
         self.bind_keys()
         self.apply_theme()
-        self.after(150, self.set_chapter_split)
 
-    # ------------------------------------------------------------------
-    # Layout
-    # ------------------------------------------------------------------
+    # ------------------------------------------------------------------ layout
 
-    def set_chapter_split(self) -> None:
-        """Give the chapter tree 60% of the left panel's height and the step list 40%."""
-        height = self.left_paned.winfo_height()
-        if height > 1:
-            self.left_paned.sash_place(0, 0, int(height * 0.6))
-        else:
-            self.after(100, self.set_chapter_split)
+    def build_ui(self) -> None:
+        """Create the widgets and lay them out."""
+        root = QWidget()
+        root.setObjectName("root")
+        self.setCentralWidget(root)
+        outer = QHBoxLayout(root)
+        outer.setContentsMargins(0, 0, 0, 0)
+        outer.setSpacing(0)
 
-    def refresh_run_button(self) -> None:
-        """Solid accent with white text when Run is available. When it is not, a neutral
-        background with readable text, so the disabled state does not look like dim text on blue."""
-        c = self.colors
-        enabled = str(self.run_button.cget("state")) == "normal"
-        if enabled:
-            background, foreground = c["accent"], c["white"]
-        else:
-            background, foreground = c["border"], c["fg"]
-        self.run_button.configure(bg=background, fg=foreground, disabledforeground=foreground,
-                                  activebackground=c["accent_hover"] if enabled else background,
-                                  activeforeground=foreground)
+        left_panel = QWidget()
+        left = QVBoxLayout(left_panel)
+        left.setContentsMargins(0, 0, 0, 0)
+        left.setSpacing(0)
+        header = QFrame()
+        header.setObjectName("header")
+        header_layout = QHBoxLayout(header)
+        header_layout.setContentsMargins(12, 10, 12, 10)
+        self.header_logo = QLabel()
+        self.header_logo.setPixmap(logo_pixmap(22, "#FFFFFF"))
+        header_layout.addWidget(self.header_logo)
+        header_text = QLabel("Python Training")
+        header_text.setObjectName("headerText")
+        header_layout.addWidget(header_text)
+        header_layout.addStretch(1)
+        left.addWidget(header)
 
-    def track(self, widget: tk.Misc, **options: str) -> tk.Misc:
-        """Remember which palette keys a widget uses, so the theme can repaint it."""
-        self.paint.append((widget, options))
-        return widget
+        left_splitter = QSplitter(Qt.Orientation.Vertical)
+        self.tree = QTreeWidget()
+        self.tree.setHeaderHidden(True)
+        self.tree.setIndentation(16)
+        self.tree.setItemDelegate(TreeDelegate(self.tree))
+        self.tree.currentItemChanged.connect(self.on_tree_changed)
+        left_splitter.addWidget(self.tree)
 
-    def build_layout(self) -> None:
-        """Create every widget in the window."""
-        self.left = self.track(tk.Frame(self, width=240), bg="panel")
-        self.left.pack(side="left", fill="y")
-        self.left.pack_propagate(False)
+        steps_box = QWidget()
+        steps_layout = QVBoxLayout(steps_box)
+        steps_layout.setContentsMargins(0, 0, 0, 0)
+        steps_layout.setSpacing(0)
+        steps_label = QLabel("STEPS")
+        steps_label.setObjectName("section")
+        steps_layout.addWidget(steps_label)
+        self.step_list = QListWidget()
+        self.step_list.setSpacing(0)
+        self.step_list.currentRowChanged.connect(self.on_step_changed)
+        steps_layout.addWidget(self.step_list, 1)
+        left_splitter.addWidget(steps_box)
 
-        header = self.track(tk.Frame(self.left, padx=10, pady=8), bg="accent")
-        header.pack(fill="x")
-        self.logo_canvas = self.track(tk.Canvas(header, width=22, height=22, bd=0, highlightthickness=0),
-                                      bg="accent")
-        self.logo_canvas.pack(side="left", padx=(0, 8))
-        logo.draw_on_canvas(self.logo_canvas, 22, "#FFFFFF")
-        self.track(tk.Label(header, text="Python Training", font=("Segoe UI", 13, "bold")),
-                   bg="accent", fg="white").pack(side="left")
+        left_splitter.setStretchFactor(0, 6)   # chapters: 60%
+        left_splitter.setStretchFactor(1, 4)   # steps: 40%
+        left.addWidget(left_splitter, 1)
+        left_panel.setMinimumWidth(220)
+        left_panel.setMaximumWidth(340)
+        outer.addWidget(left_panel)
 
-        self.track(tk.Label(self.left, text="CHAPTERS", font=("Segoe UI", 8, "bold"), anchor="w",
-                            padx=10, pady=4), bg="panel", fg="muted").pack(fill="x")
+        right = QWidget()
+        right_layout = QVBoxLayout(right)
+        right_layout.setContentsMargins(0, 0, 0, 0)
+        right_layout.setSpacing(0)
+        right_layout.addWidget(self.build_title_bar())
+        right_layout.addWidget(self.build_args_bar())
 
-        left_paned = tk.PanedWindow(self.left, orient="vertical", sashwidth=4, bd=0, sashrelief="flat")
-        self.left_paned = left_paned
-        self.track(left_paned, bg="border")
-        left_paned.pack(fill="both", expand=True)
+        body = QSplitter(Qt.Orientation.Vertical)
+        body.addWidget(self.build_output())
+        body.addWidget(self.build_tabs())
+        body.setSizes([220, 520])
+        right_layout.addWidget(body, 1)
+        outer.addWidget(right, 1)
 
-        tree_frame = self.track(tk.Frame(left_paned), bg="panel")
-        self.tree = ttk.Treeview(tree_frame, show="tree", selectmode="browse", style="Lesson.Treeview")
-        tree_scroll = ttk.Scrollbar(tree_frame, orient="vertical", command=self.tree.yview)
-        self.tree.configure(yscrollcommand=tree_scroll.set)
-        self.tree.pack(side="left", fill="both", expand=True)
-        tree_scroll.pack(side="right", fill="y")
-        self.tree.bind("<<TreeviewSelect>>", self.on_chapter_selected)
-        left_paned.add(tree_frame, minsize=80)
+        self.timer = QTimer(self)
+        self.timer.setInterval(30)
+        self.timer.timeout.connect(self.poll_run)
 
-        steps_frame = self.track(tk.Frame(left_paned), bg="panel")
-        self.track(tk.Label(steps_frame, text="STEPS", font=("Segoe UI", 8, "bold"), anchor="w",
-                            padx=10, pady=4), bg="panel", fg="muted").pack(fill="x")
-        step_box = tk.Frame(steps_frame)
-        self.step_list = tk.Listbox(step_box, exportselection=False, activestyle="none", borderwidth=0,
-                                    highlightthickness=0, font=UI_FONT)
-        step_scroll = ttk.Scrollbar(step_box, orient="vertical", command=self.step_list.yview)
-        self.step_list.configure(yscrollcommand=step_scroll.set)
-        self.step_list.pack(side="left", fill="both", expand=True)
-        step_scroll.pack(side="right", fill="y")
-        step_box.pack(fill="both", expand=True, padx=(8, 0))
-        self.step_list.bind("<<ListboxSelect>>", self.on_step_selected)
-        self.track(self.step_list, bg="panel", fg="fg", selectbackground="selection",
-                   selectforeground="fg")
-        left_paned.add(steps_frame, minsize=80)
+    def build_title_bar(self) -> QWidget:
+        """Step title on the left; sun, switch, moon and Run on the right."""
+        bar = QFrame()
+        layout = QHBoxLayout(bar)
+        layout.setContentsMargins(12, 8, 12, 8)
+        titles = QVBoxLayout()
+        self.title_label = QLabel("Select a step from the left panel")
+        self.title_label.setObjectName("title")
+        self.subtitle_label = QLabel("")
+        self.subtitle_label.setObjectName("subtitle")
+        titles.addWidget(self.title_label)
+        titles.addWidget(self.subtitle_label)
+        layout.addLayout(titles, 1)
 
-        self.right = self.track(tk.Frame(self), bg="bg")
-        self.right.pack(side="left", fill="both", expand=True)
-        self.build_title_bar()
-        self.build_args_bar()
-        self.build_body()
+        self.moon_label = QLabel()
+        layout.addWidget(self.moon_label)
+        self.theme_switch = ThemeSwitch()
+        self.theme_switch.toggled.connect(self.on_theme_switch)
+        layout.addWidget(self.theme_switch)
+        self.sun_label = QLabel()
+        layout.addWidget(self.sun_label)
+        layout.addSpacing(12)
 
-    def build_title_bar(self) -> None:
-        """Step title on the left; theme switch and Run on the right."""
-        bar = self.track(tk.Frame(self.right, padx=12, pady=8), bg="panel")
-        bar.pack(fill="x")
+        self.run_button = QPushButton("\u25B6  Run")
+        self.run_button.setObjectName("run")
+        self.run_button.setEnabled(False)
+        self.run_button.clicked.connect(self.start_run)
+        layout.addWidget(self.run_button)
+        return bar
 
-        titles = self.track(tk.Frame(bar), bg="panel")
-        titles.pack(side="left", fill="x", expand=True)
-        self.title_text = self.track(tk.Label(titles, text="Select a step from the left panel",
-                                              font=("Segoe UI", 14, "bold"), anchor="w"),
-                                     bg="panel", fg="fg")
-        self.title_text.pack(fill="x")
-        self.subtitle_text = self.track(tk.Label(titles, text="", font=("Segoe UI", 9), anchor="w"),
-                                        bg="panel", fg="muted")
-        self.subtitle_text.pack(fill="x")
+    def build_args_bar(self) -> QWidget:
+        """Command-line arguments passed to the step."""
+        bar = QFrame()
+        layout = QHBoxLayout(bar)
+        layout.setContentsMargins(12, 4, 12, 6)
+        label = QLabel("args:")
+        label.setFont(code_font(10))
+        layout.addWidget(label)
+        self.args_edit = QLineEdit()
+        self.args_edit.setFont(code_font(10))
+        layout.addWidget(self.args_edit, 1)
+        return bar
 
-        controls = self.track(tk.Frame(bar), bg="panel")
-        controls.pack(side="right")
-        self.track(tk.Label(controls, text="\U0001F319", font=("Segoe UI", 10)),
-                   bg="panel", fg="muted").pack(side="left", padx=(0, 4))
-        self.theme_switch = ToggleSwitch(controls, self.toggle_theme)
-        self.theme_switch.configure(bg=self.colors["panel"])
-        self.theme_switch.pack(side="left")
-        self.track(tk.Label(controls, text="\u2600", font=("Segoe UI", 10)),
-                   bg="panel", fg="muted").pack(side="left", padx=(4, 16))
+    def build_output(self) -> QWidget:
+        """Output pane with Continue, Copy and Clear."""
+        box = QWidget()
+        layout = QVBoxLayout(box)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(0)
+        header = QFrame()
+        header_layout = QHBoxLayout(header)
+        header_layout.setContentsMargins(12, 2, 12, 2)
+        section = QLabel("OUTPUT")
+        section.setObjectName("section")
+        header_layout.addWidget(section)
+        header_layout.addStretch(1)
+        self.continue_button = QPushButton("\u25B6  Continue")
+        self.continue_button.setObjectName("continue")
+        self.continue_button.clicked.connect(self.continue_run)
+        self.continue_button.hide()
+        header_layout.addWidget(self.continue_button)
+        self.output_copy = QToolButton()
+        self.output_copy.setToolTip("Copy output")
+        self.output_copy.clicked.connect(lambda: self.copy_text(self.output.toPlainText(), self.output_copy))
+        header_layout.addWidget(self.output_copy)
+        clear = QPushButton("Clear")
+        clear.clicked.connect(self.clear_output)
+        header_layout.addWidget(clear)
+        layout.addWidget(header)
+        self.output = QPlainTextEdit()
+        self.output.setReadOnly(True)
+        self.output.setFont(code_font(10))
+        layout.addWidget(self.output, 1)
+        return box
 
-        self.run_button = tk.Button(controls, text="\u25B6  Run", font=UI_BOLD, state="disabled",
-                                    command=self.start_run, relief="flat", padx=12, pady=4,
-                                    cursor="hand2", bd=0)
-        self.run_button.pack(side="left")
-        self.track(self.run_button, bg="accent", fg="white", activebackground="accent_hover",
-                   activeforeground="white", disabledforeground="muted")
+    def build_tabs(self) -> QWidget:
+        """Source and Lesson tabs. Pop out and Copy sit together in the top-right corner."""
+        self.tabs = QTabWidget()
+        self.tabs.addTab(self.build_source_tab(), "Source")
+        self.tabs.addTab(self.build_lesson_tab(), "Lesson")
 
-    def build_args_bar(self) -> None:
-        """Command-line arguments passed to the step's sys.argv."""
-        bar = self.track(tk.Frame(self.right, padx=12, pady=6), bg="panel")
-        bar.pack(fill="x")
-        self.track(tk.Label(bar, text="args:", font=("Consolas", 10)), bg="panel", fg="muted").pack(side="left")
-        self.args_entry = tk.Entry(bar, font=("Consolas", 10), relief="flat", bd=0, highlightthickness=1)
-        self.args_entry.pack(side="left", fill="x", expand=True, padx=(8, 0), ipady=3)
-        self.track(self.args_entry, bg="bg", fg="fg", insertbackground="fg",
-                   highlightbackground="border", highlightcolor="border")
+        corner = QWidget()
+        corner_layout = QHBoxLayout(corner)
+        corner_layout.setContentsMargins(0, 2, 8, 0)
+        corner_layout.setSpacing(2)
+        self.popout_button = QToolButton()
+        self.popout_button.setToolTip("Pop out lesson")
+        self.popout_button.clicked.connect(self.toggle_popout)
+        corner_layout.addWidget(self.popout_button)
+        self.copy_button = QToolButton()
+        self.copy_button.setToolTip("Copy source or lesson, whichever tab is open")
+        self.copy_button.clicked.connect(self.copy_current_tab)
+        corner_layout.addWidget(self.copy_button)
+        self.tabs.setCornerWidget(corner, Qt.Corner.TopRightCorner)
+        return self.tabs
 
-    def build_body(self) -> None:
-        """Output pane above; Source and Lesson tabs below."""
-        body = tk.PanedWindow(self.right, orient="vertical", sashwidth=4, bd=0, sashrelief="flat")
-        self.track(body, bg="border")
-        body.pack(fill="both", expand=True)
+    def build_source_tab(self) -> QWidget:
+        """Editable source with line numbers, highlighting and a reset bar."""
+        tab = QWidget()
+        layout = QVBoxLayout(tab)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(0)
 
-        output_frame = self.track(tk.Frame(body), bg="bg")
-        header = self.track(tk.Frame(output_frame, padx=12, pady=4), bg="panel")
-        header.pack(fill="x")
-        self.track(tk.Label(header, text="OUTPUT", font=("Segoe UI", 8, "bold")),
-                   bg="panel", fg="muted").pack(side="left")
+        self.reset_bar = QFrame()
+        self.reset_bar.setObjectName("resetBar")
+        reset_layout = QHBoxLayout(self.reset_bar)
+        reset_layout.setContentsMargins(8, 3, 8, 3)
+        self.edited_label = QLabel("\u25CF Code has been edited")
+        reset_layout.addWidget(self.edited_label)
+        reset_layout.addStretch(1)
+        reset = QPushButton("Reset to original")
+        reset.clicked.connect(self.reset_source)
+        reset_layout.addWidget(reset)
+        self.reset_bar.hide()
+        layout.addWidget(self.reset_bar)
 
-        self.clear_button = tk.Button(header, text="Clear", command=self.clear_output, relief="flat",
-                                      bd=0, font=("Segoe UI", 8), padx=6)
-        self.clear_button.pack(side="right")
-        self.track(self.clear_button, bg="panel", fg="muted", activebackground="panel")
-        self.copy_button = tk.Button(header, text="Copy", command=self.copy_output, relief="flat",
-                                     bd=0, font=("Segoe UI", 8), padx=6)
-        self.copy_button.pack(side="right")
-        self.track(self.copy_button, bg="panel", fg="muted", activebackground="panel")
-        self.continue_button = tk.Button(header, text="\u25B6  Continue", command=self.continue_run,
-                                         relief="flat", bd=0, font=UI_BOLD, padx=10, pady=2,
-                                         cursor="hand2")
-        self.track(self.continue_button, bg="accent", fg="white", activebackground="accent_hover",
-                   activeforeground="white")
+        self.editor = SourceEditor(DARK)
+        self.editor.textChanged.connect(self.on_source_changed)
+        self.highlighter = PythonHighlighter(self.editor.document(), DARK)
+        layout.addWidget(self.editor, 1)
+        return tab
 
-        self.output = tk.Text(output_frame, wrap="word", font=CODE_FONT, bd=0, padx=12, pady=8,
-                              highlightthickness=0, state="disabled", height=10)
-        output_scroll = ttk.Scrollbar(output_frame, orient="vertical", command=self.output.yview)
-        self.output.configure(yscrollcommand=output_scroll.set)
-        output_scroll.pack(side="right", fill="y")
-        self.output.pack(fill="both", expand=True)
-        self.track(self.output, bg="bg", fg="fg", insertbackground="fg")
-        body.add(output_frame, minsize=80)
+    def build_lesson_tab(self) -> QWidget:
+        """Rendered lesson. Shows a placeholder while the lesson is popped out."""
+        tab = QWidget()
+        layout = QVBoxLayout(tab)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(0)
 
-        tabs = ttk.Notebook(body, style="Lesson.TNotebook")
-        body.add(tabs, minsize=120)
-        self.build_source_tab(tabs)
-        self.build_lesson_tab(tabs)
-
-    def build_source_tab(self, tabs: ttk.Notebook) -> None:
-        """Editable source with line numbers, highlighting, and a reset bar."""
-        frame = self.track(tk.Frame(tabs), bg="bg")
-        tabs.add(frame, text="Source")
-
-        toolbar = self.track(tk.Frame(frame, padx=8, pady=3), bg="panel")
-        toolbar.pack(fill="x")
-        self.copy_source_button = self.make_copy_button(toolbar, self.copy_source)
-
-        self.reset_bar = self.track(tk.Frame(frame, padx=8, pady=4), bg="panel")
-        self.track(tk.Label(self.reset_bar, text="\u25CF Code has been edited", font=("Segoe UI", 9)),
-                   bg="panel", fg="muted").pack(side="left")
-        self.reset_button = tk.Button(self.reset_bar, text="Reset to original", command=self.reset_source,
-                                      relief="flat", bd=0, font=("Segoe UI", 9), padx=8, pady=2)
-        self.reset_button.pack(side="right")
-        self.track(self.reset_button, bg="panel", fg="fg", activebackground="panel")
-
-        editor = tk.Frame(frame)
-        editor.pack(fill="both", expand=True)
-        self.gutter = self.track(tk.Text(editor, width=4, font=CODE_FONT, bd=0, padx=6, pady=8,
-                                         highlightthickness=0, state="disabled", cursor="arrow",
-                                         takefocus=0), bg="bg", fg="muted")
-        self.gutter.pack(side="left", fill="y")
-        self.gutter.tag_configure("right", justify="right")
-
-        self.source = tk.Text(editor, wrap="word", font=CODE_FONT, bd=0, padx=8, pady=8,
-                              highlightthickness=0, undo=True, maxundo=-1)
-        source_scroll = ttk.Scrollbar(editor, orient="vertical", command=self.scroll_source)
-        self.source.configure(yscrollcommand=lambda first, last: self.on_source_scrolled(source_scroll, first, last))
-        source_scroll.pack(side="right", fill="y")
-        self.source.pack(side="left", fill="both", expand=True)
-        self.track(self.source, bg="bg", fg="fg", insertbackground="fg", selectbackground="selection")
-        self.source.bind("<<Modified>>", self.on_source_modified)
-        self.source_scroll = source_scroll
-
-    def build_lesson_tab(self, tabs: ttk.Notebook) -> None:
-        """Lesson Markdown. Phase 3 replaces this plain view with a rendered one."""
-        frame = self.track(tk.Frame(tabs), bg="bg")
-        tabs.add(frame, text="Lesson")
-        toolbar = self.track(tk.Frame(frame, padx=8, pady=3), bg="panel")
-        toolbar.pack(fill="x")
-        self.copy_lesson_button = self.make_copy_button(toolbar, self.copy_lesson)
-        self.popout_button = self.make_copy_button(toolbar, self.toggle_popout)
-        self.popout_button.configure(text="Pop out")
-        self.lesson_body = self.track(tk.Frame(frame), bg="bg")
-        self.lesson_body.pack(fill="both", expand=True)
-        self.lesson = MarkdownText(self.lesson_body, self.colors)
-        lesson_scroll = ttk.Scrollbar(self.lesson_body, orient="vertical", command=self.lesson.yview)
-        self.lesson.configure(yscrollcommand=lesson_scroll.set)
-        lesson_scroll.pack(side="right", fill="y")
-        self.lesson.pack(fill="both", expand=True)
-
-        self.placeholder = self.track(tk.Frame(frame), bg="bg")
-        self.track(tk.Label(self.placeholder, text="The lesson is open in a separate window.",
-                            font=UI_FONT), bg="bg", fg="muted").pack(pady=(60, 12))
-        self.track(tk.Button(self.placeholder, text="Dock lesson back here", command=self.dock_lesson,
-                             relief="flat", bd=0, font=UI_BOLD, padx=14, pady=6, cursor="hand2"),
-                   bg="accent", fg="white", activebackground="accent_hover").pack()
+        self.lesson_stack = QStackedWidget()
+        self.lesson_view = QWebEngineView()
+        self.lesson_view.page().setBackgroundColor(QColor(DARK["bg"]))
+        self.lesson_view.settings().setAttribute(
+            QWebEngineSettings.WebAttribute.LocalContentCanAccessFileUrls, True)
+        self.lesson_stack.addWidget(self.lesson_view)
+        self.lesson_view.loadFinished.connect(self.on_lesson_loaded)
+        placeholder = QWidget()
+        place_layout = QVBoxLayout(placeholder)
+        place_layout.addStretch(1)
+        note = QLabel("The lesson is open in a separate window.")
+        note.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        place_layout.addWidget(note)
+        dock = QPushButton("Dock lesson back here")
+        dock.setObjectName("continue")
+        dock.clicked.connect(self.dock_lesson)
+        place_layout.addWidget(dock, 0, Qt.AlignmentFlag.AlignCenter)
+        place_layout.addStretch(1)
+        self.lesson_stack.addWidget(placeholder)
+        layout.addWidget(self.lesson_stack, 1)
+        return tab
 
     def bind_keys(self) -> None:
-        """Keyboard shortcuts, matching the WPF app."""
-        self.bind("<F5>", lambda _event: self.start_run() or "break")
-        self.bind("<Escape>", self.on_escape)
-        self.bind("<Control-Shift-Return>", self.on_continue_key)
+        """Keyboard shortcuts, matching the tkinter runner."""
+        QShortcut(QKeySequence("F5"), self, activated=self.start_run)
+        QShortcut(QKeySequence("Escape"), self, activated=self.on_escape)
+        QShortcut(QKeySequence("Ctrl+Shift+Return"), self, activated=self.continue_run)
 
-    # ------------------------------------------------------------------
-    # Theme
-    # ------------------------------------------------------------------
+    # ----------------------------------------------------------------- theme
 
     def apply_theme(self) -> None:
-        """Repaint every tracked widget and the tree and notebook styles."""
+        """Apply the current palette everywhere, including the output log and lesson page."""
         c = self.colors
-        self.configure(bg=c["bg"])
-        for widget, options in self.paint:
-            values = {option: c[key] for option, key in options.items()}
-            try:
-                widget.configure(**values)
-            except tk.TclError:
-                pass
+        self.setStyleSheet(stylesheet(c))
+        self.theme_switch.blockSignals(True)
+        self.theme_switch.setChecked(not self.dark)
+        self.theme_switch.blockSignals(False)
+        self.theme_switch.set_colors(DARK["border"], DARK["accent"])
+        self.sun_label.setPixmap(draw_icon("sun", c["muted"], 18).pixmap(18, 18))
+        self.moon_label.setPixmap(draw_icon("moon", c["muted"], 18).pixmap(18, 18))
+        self.header_logo.setPixmap(logo_pixmap(22, "#FFFFFF"))
+        self.popout_button.setIcon(draw_icon("popout", c["muted"]))
+        self.copy_button.setIcon(draw_icon("copy", c["muted"]))
+        self.output_copy.setIcon(draw_icon("copy", c["muted"]))
+        self.editor.colors = c
+        self.editor.setStyleSheet(f"background: {c['bg']}; color: {c['fg']}; border: none;")
+        self.highlighter.apply_palette(c)
+        self.output.setStyleSheet(f"background: {c['bg']}; color: {c['fg']}; border: none;")
+        self.output_formats = {}
+        for name, colour in (("text", c["fg"]), ("err", c["error"]), ("muted", c["muted"]),
+                             ("echo", c["success"]), ("heading", c["accent"])):
+            fmt = QTextCharFormat()
+            fmt.setForeground(QColor(colour))
+            self.output_formats[name] = fmt
+        self.redraw_output()
+        self.lesson_view.page().setBackgroundColor(QColor(c["bg"]))
+        self.render_lesson_page()
 
-        self.style.configure("Lesson.Treeview", background=c["panel"], fieldbackground=c["panel"],
-                             foreground=c["fg"], rowheight=24, borderwidth=0, font=UI_FONT)
-        self.style.map("Lesson.Treeview", background=[("selected", c["accent"])],
-                       foreground=[("selected", c["white"])])
-        self.style.configure("Lesson.TNotebook", background=c["bg"], borderwidth=0)
-        self.style.configure("Lesson.TNotebook.Tab", background=c["panel"], foreground=c["muted"],
-                             padding=(14, 6), font=("Segoe UI", 9, "bold"), borderwidth=0)
-        self.style.map("Lesson.TNotebook.Tab", background=[("selected", c["bg"])],
-                       foreground=[("selected", c["fg"])])
-        self.style.configure("Vertical.TScrollbar", background=c["border"], troughcolor=c["bg"],
-                             bordercolor=c["bg"], arrowcolor=c["muted"])
-
-        self.continue_button.configure(bg=c["accent"], fg=c["white"])
-        self.refresh_run_button()
-        self.theme_switch.configure(bg=c["panel"])
-        self.theme_switch.set_state(self.theme == "light", c)
-        self.apply_syntax_colors()
-        self.lesson.apply_palette(self.colors)
-        if self.popout is not None:
-            self.popout.apply_palette(self.colors)
-        self.update_gutter()
-
-    def apply_syntax_colors(self) -> None:
-        """Tag colours for highlighted source and the output pane."""
-        for name in SYNTAX_TAGS:
-            self.source.tag_configure(name, foreground=self.colors[name])
-        self.output.tag_configure("err", foreground=self.colors["error"])
-        self.output.tag_configure("muted", foreground=self.colors["muted"])
-        self.output.tag_configure("echo", foreground=self.colors["success"])
-        self.output.tag_configure("heading", foreground=self.colors["accent"], font=UI_BOLD)
-        self.gutter.tag_configure("right", foreground=self.colors["muted"])
-
-    def toggle_theme(self) -> None:
-        """Switch between dark and light."""
-        self.theme = "light" if self.theme == "dark" else "dark"
-        self.colors = LIGHT if self.theme == "light" else DARK
+    def on_theme_switch(self, checked: bool) -> None:
+        """The switch was moved: checked means light."""
+        self.dark = not checked
+        self.colors = DARK if self.dark else LIGHT
         self.apply_theme()
 
-    # ------------------------------------------------------------------
-    # Navigation
-    # ------------------------------------------------------------------
+    # ------------------------------------------------------------ navigation
 
     def populate_tree(self) -> None:
-        """Fill the chapter tree from the discovered scopes."""
-        for scope_index, scope in enumerate(self.scopes):
-            scope_id = self.tree.insert("", "end", text=scope.name, open=True)
-            for chapter_index, chapter in enumerate(scope.chapters):
-                iid = f"chapter-{scope_index}-{chapter_index}"
-                self.chapters[iid] = chapter
-                self.tree.insert(scope_id, "end", iid=iid, text=chapter.name)
+        """Fill the chapter tree. Each chapter stores its Chapter object in the item."""
+        for scope in self.scopes:
+            scope_item = QTreeWidgetItem([scope.name])
+            scope_item.setFlags(Qt.ItemFlag.ItemIsEnabled)
+            scope_item.setSizeHint(0, QSize(0, 26))
+            self.tree.addTopLevelItem(scope_item)
+            for chapter in scope.chapters:
+                scope_item.addChild(self.chapter_item(chapter))
+            scope_item.setExpanded(True)
 
-    def on_chapter_selected(self, _event=None) -> None:
-        """Load the chapter's steps when a chapter is clicked."""
-        selection = self.tree.selection()
-        if not selection or selection[0] not in self.chapters:
+    def chapter_item(self, chapter) -> QTreeWidgetItem:
+        """A tree item for a chapter, with its nested children (such as Try it Yourself)."""
+        item = QTreeWidgetItem([chapter.name])
+        item.setData(0, Qt.ItemDataRole.UserRole, chapter)
+        item.setSizeHint(0, QSize(0, 24))
+        for child in chapter.children:
+            item.addChild(self.chapter_item(child))
+        item.setExpanded(False)
+        return item
+
+    def first_child_with_steps(self, item: QTreeWidgetItem) -> QTreeWidgetItem | None:
+        """The first child (searching down) whose chapter has steps of its own."""
+        for index in range(item.childCount()):
+            child = item.child(index)
+            chapter = child.data(0, Qt.ItemDataRole.UserRole)
+            if chapter is not None and chapter.steps:
+                return child
+            found = self.first_child_with_steps(child)
+            if found is not None:
+                return found
+        return None
+
+    def on_tree_changed(self, current, _previous) -> None:
+        """Load the chapter's steps when a chapter is selected."""
+        if current is None:
             return
-        self.load_chapter(self.chapters[selection[0]])
-
-    def load_chapter(self, chapter: Chapter) -> None:
-        """Show a chapter's steps and select the first one."""
+        chapter = current.data(0, Qt.ItemDataRole.UserRole)
+        if chapter is None:
+            return
+        if not chapter.steps:
+            # A chapter with no steps of its own (such as Ch11) moves to its first sub-chapter.
+            first = self.first_child_with_steps(current)
+            if first is not None:
+                current.setExpanded(True)
+                self.tree.setCurrentItem(first)
+                return
         self.chapter = chapter
-        self.step_list.delete(0, "end")
+        self.step_list.blockSignals(True)
+        self.step_list.clear()
         for step in chapter.steps:
-            self.step_list.insert("end", step.title)
+            item = QListWidgetItem(("\u2003\u2003" if step.indented else "") + step.title)
+            item.setSizeHint(QSize(0, 26))
+            self.step_list.addItem(item)
+        self.step_list.blockSignals(False)
         if chapter.steps:
-            self.step_list.selection_clear(0, "end")
-            self.step_list.selection_set(0)
-            self.step_list.activate(0)
-            self.show_step(chapter.steps[0])
+            self.step_list.setCurrentRow(0)
+            self.on_step_changed(0)
 
-    def on_step_selected(self, _event=None) -> None:
-        """Show the step chosen in the list."""
-        if self.chapter is None:
+    def on_step_changed(self, row: int) -> None:
+        """Show the chosen step."""
+        if self.chapter is None or row < 0 or row >= len(self.chapter.steps):
             return
-        selection = self.step_list.curselection()
-        if selection:
-            self.show_step(self.chapter.steps[selection[0]])
+        self.show_step(self.chapter.steps[row])
 
-    def show_step(self, step: Step) -> None:
-        """Load a step's source, lesson text, and title into the window."""
+    def show_step(self, step: discovery.Step) -> None:
+        """Load a step's source, lesson and title into the window."""
         self.step = step
-        self.title_text.configure(text=step.title)
-        self.subtitle_text.configure(text=f"{self.chapter.name}  \u00b7  {(step.code_path or step.lesson_md).name}")
-        self.args_entry.delete(0, "end")
-
-        source = discovery.NO_SOURCE_TEXT if step.code_path is None else step.code_path.read_text(encoding="utf-8")
-        self.set_source(source)
-        self.original_source = self.source.get("1.0", "end-1c")
-        self.set_dirty(False)
-
-        lesson_path = step.lesson_md or (self.chapter.intro_md if self.chapter else None)
-        text = lesson_path.read_text(encoding="utf-8") if lesson_path else "No lesson text for this step."
-        self.set_lesson_text(text)
-
-        self.clear_output()
-        self.hide_continue()
-        self.run_button.configure(state="normal" if step.runnable else "disabled")
-        self.refresh_run_button()
-
-    # ------------------------------------------------------------------
-    # Source editor
-    # ------------------------------------------------------------------
-
-    def set_source(self, text: str) -> None:
-        """Replace the editor text without treating it as an edit."""
-        self.suppress_modified = True
-        self.source.delete("1.0", "end")
-        self.source.insert("1.0", text)
-        self.source.edit_reset()
-        self.source.edit_modified(False)
-        self.suppress_modified = False
-        self.highlight()
-        self.update_gutter()
-
-    def on_source_modified(self, _event=None) -> None:
-        """Runs when the editor's modified flag changes."""
-        if not self.source.edit_modified():
-            return
-        self.source.edit_modified(False)
-        if self.suppress_modified:
-            return
-        self.highlight()
-        self.update_gutter()
-        self.set_dirty(self.source.get("1.0", "end-1c") != self.original_source)
-
-    def set_dirty(self, dirty: bool) -> None:
-        """Show or hide the reset bar, which also carries the edited marker."""
-        if dirty:
-            self.reset_bar.pack(fill="x", before=self.source.master)
+        self.title_label.setText(step.title)
+        name = (step.code_path or step.lesson_md).name
+        self.subtitle_label.setText(f"{self.chapter.name}  \u00b7  {name}")
+        self.args_edit.clear()
+        if step.code_path is None:
+            source = discovery.NO_SOURCE_TEXT
         else:
-            self.reset_bar.pack_forget()
+            source = step.code_path.read_text(encoding="utf-8")
+            if step.kind == "source":
+                # C samples: highlight as C, and say that this runner can't compile or run them.
+                source = C_NOTE + source
+        self.highlighter.set_language("c" if step.kind == "source" else "python")
+        self.editor.blockSignals(True)
+        self.editor.setPlainText(source)
+        self.editor.blockSignals(False)
+        self.original_source = source
+        self.set_dirty(False)
+        lesson_path = step.lesson_md or (self.chapter.intro_md if self.chapter else None)
+        self.lesson_markdown = (lesson_path.read_text(encoding="utf-8") if lesson_path
+                                else "No lesson text for this step.")
+        self.render_lesson_page()
+        self.clear_output()
+        self.run_button.setEnabled(step.runnable)
 
-    def reset_source(self) -> None:
-        """Discard edits and restore the step's original code."""
+    def render_lesson_page(self) -> None:
+        """Render the current lesson in the current theme, into the main view and any pop-out.
+
+        With no lesson selected, a blank page in the theme colour is loaded. This starts the
+        web engine at launch, so the first real lesson doesn't flash white while it starts.
+        """
+        if not self.lesson_markdown:
+            blank = f"<!doctype html><html><body style='background:{self.colors['bg']}'></body></html>"
+            self.lesson_view.setHtml(blank)
+            return
+        try:
+            html = render_lesson(self.lesson_markdown, VENDOR, dark=self.dark)
+            base_folder = self.step.lesson_md.parent if self.step and self.step.lesson_md else HERE
+            base = QUrl.fromLocalFile(str(base_folder) + "/")
+            self.lesson_view.setHtml(html, base)
+            if self.popout is not None:
+                self.popout.view.setHtml(html, base)
+        except Exception:  # pylint: disable=broad-exception-caught
+            # Qt swallows exceptions raised in slots, so report them here.
+            self.append("[Lesson could not be rendered]", "err")
+            self.append(traceback.format_exc(), "err")
+
+    # ---------------------------------------------------------------- source
+
+    def on_lesson_loaded(self, _ok: bool) -> None:
+        """After a lesson loads, scroll to the heading that matches the current step's title.
+
+        Part I chapters share one lesson file, so the step's section is found by its heading.
+        If no heading matches, the page stays where it is.
+        """
         if self.step is None:
             return
-        self.set_source(self.original_source)
+        title = json.dumps(self.step.title)
+        script = (
+            "(function () {"
+            f"  var target = {title}.trim().toLowerCase();"
+            "  var heads = Array.from(document.querySelectorAll('h1,h2,h3,h4,h5,h6'));"
+            "  var hit = heads.find(function (h) { return h.textContent.trim().toLowerCase() === target; });"
+            "  if (hit) { hit.scrollIntoView({block: 'start'}); }"
+            "})();"
+        )
+        self.lesson_view.page().runJavaScript(script)
+
+    def on_source_changed(self) -> None:
+        """Show the edited marker when the code differs from the original."""
+        self.set_dirty(self.editor.toPlainText() != self.original_source)
+
+    def set_dirty(self, dirty: bool) -> None:
+        """Show or hide the reset bar."""
+        self.reset_bar.setVisible(dirty)
+
+    def reset_source(self) -> None:
+        """Restore the original code."""
+        self.editor.setPlainText(self.original_source)
         self.set_dirty(False)
 
-    def highlight(self) -> None:
-        """Colour the source using the shared Python highlighter."""
-        for tag in SYNTAX_TAGS:
-            self.source.tag_remove(tag, "1.0", "end")
-        code = self.source.get("1.0", "end-1c")
-        for start, end, tag in python_spans(code):
-            self.source.tag_add(tag, f"{start[0]}.{start[1]}", f"{end[0]}.{end[1]}")
-
-    def update_gutter(self) -> None:
-        """Line numbers beside the source, right-aligned."""
-        count = int(self.source.index("end-1c").split(".")[0])
-        numbers = "\n".join(str(number) for number in range(1, count + 1))
-        self.gutter.configure(state="normal")
-        self.gutter.delete("1.0", "end")
-        self.gutter.insert("1.0", numbers, "right")
-        self.gutter.configure(state="disabled")
-
-    def scroll_source(self, *args) -> None:
-        """Scrollbar command for the source editor, kept in step with the gutter."""
-        self.source.yview(*args)
-        self.gutter.yview(*args)
-
-    def on_source_scrolled(self, scrollbar: ttk.Scrollbar, first: str, last: str) -> None:
-        """Keep the scrollbar and the gutter in step with the source."""
-        scrollbar.set(first, last)
-        self.gutter.yview_moveto(first)
-
-    def set_lesson_text(self, text: str) -> None:
-        """Show the lesson Markdown in the Lesson tab and, if open, in the pop-out window."""
-        self.lesson_markdown = text
-        self.lesson.set_markdown(text)
-        if self.popout is not None:
-            self.popout.set_markdown(text, self.popout_title())
-
-    def popout_title(self) -> str:
-        """Title for the lesson window."""
-        return f"Lesson - {self.chapter.name}" if self.chapter else "Lesson"
-
-    def toggle_popout(self) -> None:
-        """Pop the lesson out into its own window, or dock it back."""
-        if self.popout is None:
-            self.pop_out_lesson()
+    def copy_current_tab(self) -> None:
+        """Copy the source or the lesson, whichever tab is open."""
+        if self.tabs.currentIndex() == 0:
+            self.copy_text(self.editor.toPlainText(), self.copy_button)
         else:
-            self.dock_lesson()
+            self.copy_text(self.lesson_markdown, self.copy_button)
 
-    def pop_out_lesson(self) -> None:
-        """Open the lesson beside the main window."""
-        self.update_idletasks()
-        width, height = 620, self.winfo_height()
-        x = self.winfo_rootx() + self.winfo_width() + 8
-        if x + width > self.winfo_screenwidth():
-            x = max(0, self.winfo_rootx() - width - 8)
-        y = self.winfo_rooty()
-        self.popout = LessonWindow(self, self.colors, self.popout_title(), self.dock_lesson, self.copy_lesson)
-        self.popout.geometry(f"{width}x{height}+{x}+{y}")
-        self.popout.set_markdown(self.lesson_markdown, self.popout_title())
-        self.lesson_body.pack_forget()
-        self.placeholder.pack(fill="both", expand=True)
-        self.popout_button.configure(text="Dock")
+    # ---------------------------------------------------------------- output
 
-    def dock_lesson(self) -> None:
-        """Close the pop-out window and show the lesson in the Lesson tab again."""
-        if self.popout is None:
-            return
-        self.popout.destroy()
-        self.popout = None
-        self.placeholder.pack_forget()
-        self.lesson_body.pack(fill="both", expand=True)
-        self.popout_button.configure(text="Pop out")
+    def append(self, text: str, kind: str = "text") -> None:
+        """Add one line to the output log and the output pane."""
+        self.output_log.append((text, kind))
+        self.write_output_line(text, kind)
 
-    # ------------------------------------------------------------------
-    # Output
-    # ------------------------------------------------------------------
+    def write_output_line(self, text: str, kind: str) -> None:
+        """Write one line in the colour for its kind."""
+        cursor = self.output.textCursor()
+        cursor.movePosition(QTextCursor.MoveOperation.End)
+        cursor.insertText(text + "\n", self.output_formats.get(kind, self.output_formats["text"]))
+        self.output.setTextCursor(cursor)
+        self.output.ensureCursorVisible()
 
-    def append(self, text: str, tag: str | None = None) -> None:
-        """Add one line to the output pane and scroll to the end."""
-        self.output.configure(state="normal")
-        if tag:
-            self.output.insert("end", text + "\n", tag)
-        else:
-            self.output.insert("end", text + "\n")
-        self.output.configure(state="disabled")
-        self.output.see("end")
+    def redraw_output(self) -> None:
+        """Rewrite the whole output in the current theme's colours."""
+        self.output.clear()
+        for text, kind in self.output_log:
+            self.write_output_line(text, kind)
 
     def clear_output(self) -> None:
-        """Empty the output pane."""
-        self.output.configure(state="normal")
-        self.output.delete("1.0", "end")
-        self.output.configure(state="disabled")
+        """Empty the output pane and its log."""
+        self.output_log = []
+        self.output.clear()
 
-    def make_copy_button(self, parent: tk.Misc, command) -> tk.Button:
-        """A flat Copy button on the right of a tab's toolbar."""
-        button = tk.Button(parent, text="Copy", command=command, relief="flat", bd=0,
-                           font=("Segoe UI", 9), padx=8, pady=1, cursor="hand2")
-        button.pack(side="right")
-        self.track(button, bg="panel", fg="muted", activebackground="panel")
-        return button
-
-    def copy_text(self, button: tk.Button, text: str) -> None:
-        """Copy text to the clipboard and show Copied on the button briefly."""
+    def copy_text(self, text: str, button: QToolButton | None = None) -> None:
+        """Copy text to the clipboard, and show a tick on the button that was pressed."""
         if not text.strip():
             return
-        self.clipboard_clear()
-        self.clipboard_append(text)
-        button.configure(text="Copied")
-        self.after(1500, lambda: button.configure(text="Copy"))
+        QApplication.clipboard().setText(text)
+        if button is not None:
+            button.setIcon(draw_icon("check", "#4EC9B0"))
+            button.setToolTip("Copied")
+            QTimer.singleShot(1500, lambda: self.reset_copy_icon(button))
 
-    def copy_source(self) -> None:
-        """Copy the code in the Source tab."""
-        self.copy_text(self.copy_source_button, self.source.get("1.0", "end-1c"))
+    def reset_copy_icon(self, button: QToolButton) -> None:
+        """Return a copy button to its normal icon."""
+        button.setIcon(draw_icon("copy", self.colors["muted"]))
+        button.setToolTip("Copy")
 
-    def copy_lesson(self) -> None:
-        """Copy the raw Markdown shown in the Lesson tab."""
-        self.copy_text(self.copy_lesson_button, self.lesson_markdown)
-
-    def copy_output(self) -> None:
-        """Copy the whole output pane to the clipboard."""
-        self.copy_text(self.copy_button, self.output.get("1.0", "end-1c"))
-
-    def show_continue(self) -> None:
-        """Show the Continue button for a pause."""
-        self.waiting_for_continue = True
-        self.continue_button.pack(side="right", padx=(0, 6))
-
-    def hide_continue(self) -> None:
-        """Hide the Continue button."""
-        self.waiting_for_continue = False
-        self.continue_button.pack_forget()
-
-    def continue_run(self) -> None:
-        """Resume a step that is waiting at a pause."""
-        if self.run is not None and self.waiting_for_continue:
-            self.hide_continue()
-            self.run.send("")
-
-    def on_continue_key(self, _event=None) -> str:
-        """Ctrl+Shift+Enter continues a pause."""
-        self.continue_run()
-        return "break"
-
-    def on_escape(self, _event=None) -> str:
-        """Cancel a running step, or reset the editor if it has edits."""
-        if self.run is not None:
-            self.run.cancel()
-        elif self.reset_bar.winfo_ismapped():
-            self.reset_source()
-        return "break"
-
-    # ------------------------------------------------------------------
-    # Running
-    # ------------------------------------------------------------------
+    # ----------------------------------------------------------------- running
 
     def start_run(self) -> None:
-        """Run the current step with the editor's code and the args bar."""
+        """Run the current step with the editor's code and the args."""
         if self.step is None or not self.step.runnable or self.run is not None:
             return
         self.clear_output()
         try:
-            args = shlex.split(self.args_entry.get())
+            args = shlex.split(self.args_edit.text())
         except ValueError as error:
             self.append(f"[Bad arguments] {error}", "err")
             return
-
-        self.run = StepRun(self.step.code_path, self.source.get("1.0", "end-1c"), args)
+        self.run = StepRun(self.step.code_path, self.editor.toPlainText(), args)
         self.run.start()
-        self.run_button.configure(text="Running\u2026", state="disabled")
-        self.refresh_run_button()
-        self.after(30, self.poll_run)
+        self.run_button.setText("Running\u2026")
+        self.run_button.setEnabled(False)
+        self.timer.start()
 
     def poll_run(self) -> None:
         """Move events from the runner thread into the window."""
         run = self.run
         if run is None:
+            self.timer.stop()
             return
         while True:
             try:
@@ -677,81 +881,101 @@ class App(tk.Tk):
                 self.clear_output()
             elif kind == "pause":
                 self.append("\u2015\u2015 Click Continue to proceed \u2015\u2015", "muted")
-                self.show_continue()
+                self.continue_button.show()
             elif kind == "input":
                 self.answer_input(str(value))
             elif kind == "done":
                 self.finish_run(*value)
                 return
-        self.after(30, self.poll_run)
 
     def answer_input(self, prompt: str) -> None:
-        """Ask the user for a line of text and send it to the step."""
+        """Ask for a line of text and send it to the step."""
         if self.run is None:
             return
         if not prompt.strip():
             prompt = self.last_output_line()
-        answer = self.ask_text(prompt or "The program is waiting for input:")
+        answer, ok = QInputDialog.getText(self, "Console input", prompt or "Input:")
+        if not ok:
+            answer = ""
         self.append(answer, "echo")
         self.run.send(answer)
 
     def last_output_line(self) -> str:
-        """Return the last non-blank line of output, used as an input prompt."""
-        lines = self.output.get("1.0", "end-1c").splitlines()
-        for line in reversed(lines):
-            if line.strip():
-                return line.strip()
+        """The last non-blank line of output, used as an input prompt."""
+        for text, _kind in reversed(self.output_log):
+            if text.strip():
+                return text.strip()
         return ""
 
-    def ask_text(self, prompt: str) -> str:
-        """Modal dialog that collects one line of text."""
-        dialog = tk.Toplevel(self)
-        dialog.title("Console input")
-        dialog.configure(bg=self.colors["panel"])
-        dialog.transient(self)
-        dialog.resizable(False, False)
+    def continue_run(self) -> None:
+        """Resume a step waiting at a pause."""
+        if self.run is not None and self.continue_button.isVisible():
+            self.continue_button.hide()
+            self.run.send("")
 
-        tk.Label(dialog, text=prompt, font=UI_FONT, bg=self.colors["panel"], fg=self.colors["fg"],
-                 wraplength=460, justify="left", padx=16, pady=12).pack(anchor="w")
-        entry = tk.Entry(dialog, font=CODE_FONT, width=48, relief="flat", bg=self.colors["bg"],
-                         fg=self.colors["fg"], insertbackground=self.colors["fg"])
-        entry.pack(fill="x", padx=16)
-        result = {"value": ""}
-
-        def submit(_event=None) -> None:
-            result["value"] = entry.get()
-            dialog.destroy()
-
-        ok = tk.Button(dialog, text="OK", command=submit, bg=self.colors["accent"], fg="white",
-                       relief="flat", bd=0, padx=16, pady=4, font=UI_BOLD)
-        ok.pack(anchor="e", padx=16, pady=12)
-        entry.bind("<Return>", submit)
-        dialog.protocol("WM_DELETE_WINDOW", submit)
-        dialog.grab_set()
-        entry.focus_set()
-        self.wait_window(dialog)
-        return result["value"]
+    def on_escape(self) -> None:
+        """Cancel a run, or reset the editor when it has edits."""
+        if self.run is not None:
+            self.run.cancel()
+        elif self.reset_bar.isVisible():
+            self.reset_source()
 
     def finish_run(self, returncode: int, seconds: float) -> None:
         """Report the result and restore the Run button."""
         cancelled = self.run is not None and self.run.cancelled
         self.run = None
-        self.hide_continue()
-        self.run_button.configure(text="\u25B6  Run", state="normal")
-        self.refresh_run_button()
+        self.timer.stop()
+        self.continue_button.hide()
+        self.run_button.setText("\u25B6  Run")
+        self.run_button.setEnabled(bool(self.step and self.step.runnable))
         if cancelled:
             self.append("[Run cancelled]", "err")
         elif returncode != 0:
-            self.append("", None)
+            self.append("")
             self.append("\u2500\u2500 Errors " + "\u2500" * 40, "err")
         self.append("")
         self.append(f"\u2500\u2500 Finished in {seconds * 1000:.0f} ms \u2500\u2500", "muted")
 
+    # ----------------------------------------------------------------- pop-out
 
-def main() -> None:
-    """Start the lesson runner."""
-    App().mainloop()
+    def toggle_popout(self) -> None:
+        """Open the lesson in its own window, or dock it back."""
+        if self.popout is None:
+            self.pop_out_lesson()
+        else:
+            self.dock_lesson()
+
+    def pop_out_lesson(self) -> None:
+        """Show the lesson in a separate window beside the main one."""
+        self.popout = PopoutWindow(self.dock_lesson)
+        self.popout.view.page().setBackgroundColor(QColor(self.colors["bg"]))
+        self.popout.setWindowTitle(f"Lesson - {self.chapter.name}" if self.chapter else "Lesson")
+        self.popout.setWindowIcon(QIcon(logo_pixmap(64, DARK["accent"])))
+        self.popout.resize(620, self.height())
+        geometry = self.geometry()
+        self.popout.move(geometry.right() + 8, geometry.top())
+        self.render_lesson_page()
+        self.popout.show()
+        self.lesson_stack.setCurrentIndex(1)
+
+    def dock_lesson(self) -> None:
+        """Close the pop-out window and show the lesson in the main window again."""
+        if self.popout is None:
+            return
+        popout = self.popout
+        self.popout = None
+        self.lesson_stack.setCurrentIndex(0)
+        popout.close()
+
+
+def main() -> int:
+    """Start the application."""
+    app = QApplication(sys.argv)
+    app.setFont(QFont(UI_FAMILY, 10))
+    window = MainWindow()
+    window.show()
+    return app.exec()
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

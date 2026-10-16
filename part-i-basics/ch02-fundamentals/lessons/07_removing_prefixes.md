@@ -1,4 +1,4 @@
-## Ch 2 - Lesson 7: Removing String Prefixes/Suffixes
+## Removing String Prefixes/Suffixes
 
 The 3rd edition textbook introduces two additional string manipulation 
 functions.

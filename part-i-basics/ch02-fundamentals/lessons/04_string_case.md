@@ -1,4 +1,4 @@
-## Ch 2 - Lesson 4: Manipulating String Case
+## Manipulating String Case
 
 It's often necessary to manipulate the case of characters within a string
 for purposes of case-sensitive comparisons, storage standardization, or

@@ -1,4 +1,4 @@
-## Ch 2 - Lesson 1: "Hello World" with a Variable
+## "Hello World" with a Variable
 
 ### The Zen of Python
 

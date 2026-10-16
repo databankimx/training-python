@@ -1,4 +1,4 @@
-## Ch 2 - Lesson 6: Stripping Excess Whitespace
+## Stripping Excess Whitespace
 
 Often data (especially from older systems) can be stored as fixed-length
 blocks of text. Because of this, strings you work with may often contain

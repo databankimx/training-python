@@ -1,4 +1,4 @@
-## Ch 2 - Lesson 8: Numbers
+## Numbers
 
 So far, we've been looking at strings and displaying output to the user.
 While this is important, the main feature of a computer is that is, well,

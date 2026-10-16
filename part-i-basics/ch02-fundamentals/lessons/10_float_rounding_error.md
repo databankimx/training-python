@@ -1,4 +1,4 @@
-## Ch 2 - Lesson 9: Floating-Point Decimals
+## Float Rounding Error
 
 We saw before that we can encounter unexpected rounding errors when
 working with floating point numbers.
@@ -10,7 +10,8 @@ Why?
 ### Binary can only represent approximations for floating point numbers
 
 Any number that can be represented in binary in a computer can always be 
-expressed as an integer multiplied by an integer power of two thus:  
+expressed as an integer multiplied by an integer power of two thus:
+
 $$i=n(2^m)|(m,n)\in\Z$$
 
 This means that:
