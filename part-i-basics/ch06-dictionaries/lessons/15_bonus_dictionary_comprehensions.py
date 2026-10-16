@@ -14,7 +14,7 @@ print(dictionary)
 dictionary = {keys[i]: values[i] for i in range(len(keys))}
 print(dictionary)
 
-dictionary = {key: value for (key, value) in zip(keys, values)}
+dictionary = {key: value for (key, value) in zip(keys, values)} #NOSONAR
 print(dictionary)
 
 odd_dictionary = {key: value for (key, value) in zip(keys, values) if value % 2 == 1}

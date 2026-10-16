@@ -8,8 +8,7 @@ age_1 = 18
 print(age_0 >= 21 and age_1 >= 21)
 age_1 = 21
 print(age_0 >= 21 and age_1 >= 21)
-
-print(age_0 >= 21 and not age_1 < 21)
+print(age_0 >= 21 and not age_1 < 21) #pylint: disable=unnecessary-negation #NOSONAR
 
 age_0 = 22
 age_1 = 18

@@ -39,7 +39,7 @@ def main() -> None:
     print()
     arr = [1, 2, 3]
     show_iteration(arr)
-    show_iteration(42)
+    show_iteration(42) #NOSONAR
     show_iteration(stuff)
 
 if __name__ == "__main__":

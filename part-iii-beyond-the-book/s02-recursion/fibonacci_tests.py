@@ -23,13 +23,12 @@ def main() -> None:
         if option not in options:
             print("Please enter a valid value!")
             continue
-        else:
-            while n < 0 and option != "q":
-                try:
-                    n = int(input("Enter a non-negative integer:\n> "))
-                # pylint: disable=broad-except
-                except Exception:
-                    continue
+        while n < 0 and option != "q":
+            try:
+                n = int(input("Enter a non-negative integer:\n> "))
+            # pylint: disable=broad-except
+            except Exception:
+                continue
         if option == "r":
             # Call naive recursive function
             print(f"\nF({n}) = {fib.fibonacci_recursive(n):,}")
@@ -48,7 +47,7 @@ def main() -> None:
                 suffix = ""
             print("Iterative calculation required " + \
                   f"{fib.fibonacci_iterative.call_count:,} function call{suffix}.")
-        elif option == "f":    
+        elif option == "f":
             # Call formulaic function
             print(f"\nF({n}) = {fib.fibonacci_formulaic(n):,}")
             suffix = "s"

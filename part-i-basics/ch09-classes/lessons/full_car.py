@@ -70,7 +70,7 @@ class Car:
     def check_fuel_level(self) -> None:
         """Get the fuel level"""
         fuel_state = "empty"
-        if self.fuel_level == 1.0:
+        if self.fuel_level == 1.0: #NOSONAR
             fuel_state = "full"
         elif self.fuel_level >= 0.75:
             fuel_state = "three quarters full"
@@ -80,7 +80,7 @@ class Car:
             fuel_state = "one quarter full"
         elif self.fuel_level > 0.0:
             fuel_state = "running on fumes"
-        print(f"Fuel Status: {fuel_state}\n")        
+        print(f"Fuel Status: {fuel_state}\n")
 
 
 class ElectricCar(Car):

@@ -49,13 +49,13 @@ class Admin(User):
         super().__init__(first_name, last_name)
         self.privileges = Privileges(privileges)
 
-class Privileges:
+class Privileges: #pylint: disable=too-few-public-methods
     """Defines a set of privileges"""
 
     def __init__(self, privileges = None):
         """Initialize a new instance of the Privileges class"""
         if privileges is None:
-            self.privileges = ["create", "delete", "modify", "ban"]
+            self.privileges = ["create", "delete", "modify", "ban"] #NOSONAR
         else:
             self.privileges = privileges
 

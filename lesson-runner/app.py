@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import json
 import queue
+import re
 import shlex
 import sys
 import traceback
@@ -49,6 +50,7 @@ from PySide6.QtWebEngineCore import QWebEngineSettings
 from PySide6.QtWebEngineWidgets import QWebEngineView
 
 VENDOR = HERE / "vendor"
+WELCOME_LESSON = discovery.REPO_ROOT / "part-i-basics" / "00_what_is_python.md"
 
 DARK = {
     "bg": "#1E1E1E", "panel": "#252526", "border": "#3F3F46", "fg": "#D4D4D4",
@@ -79,6 +81,24 @@ def code_font(size: int) -> QFont:
     font.setStyleHint(QFont.StyleHint.Monospace)
     font.setFixedPitch(True)
     return font
+
+
+LINT_COMMENT = re.compile(r"#\s*(pylint|nosonar)", re.IGNORECASE)
+
+
+def strip_lint_comments(source: str) -> str:
+    """Remove #pylint and #NOSONAR comments from source shown in the editor.
+
+    A line that is only such a comment is dropped. On other lines, only the comment is cut off.
+    """
+    kept = []
+    for line in source.split("\n"):
+        if LINT_COMMENT.search(line):
+            if line.lstrip().startswith("#"):
+                continue
+            line = re.sub(r"\s*#\s*(pylint|nosonar).*$", "", line, flags=re.IGNORECASE)
+        kept.append(line)
+    return "\n".join(kept)
 
 
 def draw_icon(kind: str, colour: str, size: int = 18) -> QIcon:
@@ -377,7 +397,8 @@ class MainWindow(QMainWindow):
         self.chapter: discovery.Chapter | None = None
         self.step: discovery.Step | None = None
         self.original_source = ""
-        self.lesson_markdown = ""
+        self.lesson_markdown = WELCOME_LESSON.read_text(encoding="utf-8") if WELCOME_LESSON.exists() else ""
+        self.lesson_base = WELCOME_LESSON.parent
         self.run: StepRun | None = None
         self.popout: PopoutWindow | None = None
         self.output_log: list[tuple[str, str]] = []
@@ -387,6 +408,7 @@ class MainWindow(QMainWindow):
         self.populate_tree()
         self.bind_keys()
         self.apply_theme()
+        self.tabs.setCurrentIndex(1)  # open on the Lesson tab, so the welcome lesson shows
 
     # ------------------------------------------------------------------ layout
 
@@ -732,7 +754,7 @@ class MainWindow(QMainWindow):
         if step.code_path is None:
             source = discovery.NO_SOURCE_TEXT
         else:
-            source = step.code_path.read_text(encoding="utf-8")
+            source = strip_lint_comments(step.code_path.read_text(encoding="utf-8"))
             if step.kind == "source":
                 # C samples: highlight as C, and say that this runner can't compile or run them.
                 source = C_NOTE + source
@@ -745,6 +767,7 @@ class MainWindow(QMainWindow):
         lesson_path = step.lesson_md or (self.chapter.intro_md if self.chapter else None)
         self.lesson_markdown = (lesson_path.read_text(encoding="utf-8") if lesson_path
                                 else "No lesson text for this step.")
+        self.lesson_base = lesson_path.parent if lesson_path else HERE
         self.render_lesson_page()
         self.clear_output()
         self.run_button.setEnabled(step.runnable)
@@ -761,8 +784,7 @@ class MainWindow(QMainWindow):
             return
         try:
             html = render_lesson(self.lesson_markdown, VENDOR, dark=self.dark)
-            base_folder = self.step.lesson_md.parent if self.step and self.step.lesson_md else HERE
-            base = QUrl.fromLocalFile(str(base_folder) + "/")
+            base = QUrl.fromLocalFile(str(self.lesson_base) + "/")
             self.lesson_view.setHtml(html, base)
             if self.popout is not None:
                 self.popout.view.setHtml(html, base)

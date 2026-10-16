@@ -28,13 +28,13 @@ def store_favorite_number(filepath):
     print(f"I saved {num} as your favorite number!\n")
     return num
 
-def get_favorite_number(file):
+def get_favorite_number(filepath):
     """Attempt to read user's favorite number from a file"""
-    file = Path(file_path)
+    file = Path(filepath)
     if file.exists():
         num = json.loads(file.read_text(encoding="utf-8"))
         return num
-    return store_favorite_number(file)
+    return store_favorite_number(filepath)
 
 file_name = "favorite_number_remembered.json"
 file_path = get_path(file_name, "Files")

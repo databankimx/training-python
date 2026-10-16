@@ -13,7 +13,7 @@ This repository is provided for training and reference purposes only. DataBank I
 - Python developer training curriculum for DataBank IMX
 - Chapter-by-chapter lesson files, code samples, and exercises covering Python fundamentals through advanced topics, based on the *Python Crash Course* textbook (3rd edition) by Eric Matthes
 - Extended with a substantial "Beyond the Book" supplemental track covering topics not addressed in the textbook
-- Includes a Python/Tkinter lesson runner for navigating and running lessons interactively
+- Includes a Qt-based lesson runner for navigating, reading, and running lessons interactively
 
 ---
 
@@ -100,6 +100,83 @@ pip install sm-utils
 
 You can wait until the relevant chapter to install each library, or install everything up front. There is no harm in installing all of them now.
 
+### Libraries for the lesson runner and Beyond the Book
+
+The lesson runner and the Beyond the Book chapters use the libraries below.
+The Part II libraries are in the table above. Install a library only when you
+get to the chapter that needs it.
+
+#### Lesson runner (`lesson-runner/`)
+
+| Library | Purpose | Install |
+|---|---|---|
+| `PySide6` | Qt for Python: the window, widgets, and the WebEngine that shows lessons | `pip install PySide6` |
+| `markdown-it-py` | Converts lesson Markdown to HTML | `pip install markdown-it-py` |
+| `mdit-py-plugins` | Adds `$...$` and `$$...$$` maths support to `markdown-it-py` | `pip install mdit-py-plugins` |
+| `tkinter` | Standard library. Used by `logo.py`, which the Qt runner imports. Included in the python.org Windows installer | Included with Python |
+| MathJax and Prism | Typesets maths and highlights code in lesson pages. These are Node.js packages, not Python packages | `npm install mathjax@3 prismjs@1`, run in `lesson-runner/vendor/` |
+
+The Python packages for the runner are listed in `lesson-runner/requirements.txt`:
+
+```bash
+python -m pip install -r lesson-runner/requirements.txt
+```
+
+The legacy Tkinter runner in `lesson-runner-tk/` also uses `tkinter`. It can
+also use `matplotlib` for maths, but that is optional.
+
+#### Beyond the Book (`part-iii-beyond-the-book/`)
+
+| Library | Chapter | Install |
+|---|---|---|
+| `sm-utils` | S17 (`login.py`). Other lessons use local copies of the same helpers in `utility_functions.py` | `pip install sm-utils` |
+| `beautifulsoup4` | S10 - Web scraping | `pip install beautifulsoup4` |
+| `requests` | S10 - Web scraping | `pip install requests` |
+| `mechanicalsoup` | S10 - Web scraping | `pip install mechanicalsoup` |
+| `mysql-connector-python` | S12 - MySQL databases. Needs a MySQL server; see `00_mysql_setup.md` | `pip install mysql-connector-python` |
+| `numpy` | S14 - NumPy, and S16 - SciPy | `pip install numpy` |
+| `pandas` | S15 - Pandas | `pip install pandas` |
+| `matplotlib` | S14 and S15 - plotting | `pip install matplotlib` |
+| `seaborn` | S14 - NumPy random distributions | `pip install seaborn` |
+| `scipy` | S16 - SciPy | `pip install scipy` |
+| `pymongo` | S17 - MongoDB. Needs a MongoDB server | `pip install pymongo` |
+| `pygame` | S23 - Game of Life | `pip install pygame` |
+| `pyperclip` | S24 - Built-ins (clipboard example) | `pip install pyperclip` |
+| `build` and `twine` | S13 - Publishing a library | `pip install build twine` |
+
+Several Beyond the Book chapters use only the standard library, including S19
+(`tkinter`). On Linux, tkinter must be installed separately, for example with
+`sudo apt install python3-tk`.
+
+### Licensing of libraries
+
+The libraries in this repository are used under the following conditions.
+
+**Approved for the training repository only.** Development leadership has approved the
+following libraries for use in `training-python`, on the condition that there are no
+liabilities in how the solution is packaged:
+
+* PySide6 (LGPL/GPL, or commercial) - lesson runner
+* mysql-connector-python (GPL-2.0 with FOSS exception) - S12
+* pygame (LGPL-2.1) - S23, and Part II
+
+This approval covers running the tutorial and the lesson runner from this repository.
+It does **not** cover packaged or delivered projects. Do not use these libraries, or
+code that depends on them, in an installer, a PyInstaller or other bundled build, a
+container image, a client deliverable, or any closed-source product. If you want to
+move any code out of this repository, stop and take it to development leadership first.
+The approval does not carry over to the new code.
+
+**Other libraries** in the tables above are under permissive licences (MIT, BSD, or
+Apache 2.0), and can be used in closed-source work under the Development Rules of
+Engagement.
+
+**Vendored files.** MathJax (Apache 2.0) and Prism (MIT) are copied into the lesson
+runner's `vendor/` folder. Keep their licence and notice files with them.
+
+The full policy is in [Development Rules of Engagement](development-rules-of-engagement.md),
+section 12.
+
 ### Pylint (optional)
 
 A linter helps enforce best practices and style guidelines. If you use Pylint in VS Code, the following arguments suppress warnings that would fire on intentional training-repository patterns:
@@ -121,15 +198,59 @@ Add these to your VS Code User Settings JSON (`Ctrl+Shift+P` -> `Preferences: Op
 
 ### Lesson Runner
 
-The lesson runner is a Python/Tkinter desktop application that lets you browse chapters, read lesson notes, and run code examples interactively.
+The lesson runner is a Qt desktop application that lets you browse chapters, read lesson notes, and run code examples interactively. Lessons are rendered with MathJax for maths and Prism for code.
+
+Setup (the `vendor/` MathJax and Prism files, and the Python packages) is in [lesson-runner/README.md](lesson-runner/README.md). Once it's set up, start the runner from the repository root:
 
 ```bash
-python lesson-runner/main.py
+python lesson-runner/app.py
 ```
 
-Select a chapter in the left panel, choose a lesson step, and click Run. The lesson notes and code output appear side by side.
+#### Finding lessons
 
-See [lesson-runner/README.md](lesson-runner/README.md) for full documentation. The lesson runner's own source code is also covered as a supplemental lesson in Part III, making it a practical Tkinter example in its own right.
+The chapter tree on the left lists every chapter:
+
+* **Part I** chapters hold their lessons directly. Each chapter's `try-it-yourself` steps, and the chapter 11 editions, are nested beneath the chapter. Chapters start collapsed. Selecting a chapter with no steps of its own moves to its first sub-chapter.
+* **Part III** chapters hold their lessons directly, and any sub-folders are nested beneath them (for example S13 and S14).
+
+Select a step in the list below the chapters. Steps that share one lesson file are indented under the first one.
+
+#### Reading and running a step
+
+* The **Lesson** tab shows the step's lesson. Maths is typeset, and code blocks are highlighted.
+* The **Source** tab shows the step's code. You can edit it, but edits are not saved to the file. Reset restores the original, and Copy copies whatever tab is open.
+* Press **Run** (or F5) to run the step. Output appears in the Output pane, and errors appear in red.
+* If the step asks for input, a dialog opens. If it pauses, press **Continue** (or Ctrl+Shift+Enter).
+* To pass command-line arguments, type them in the **args** box before running.
+* Press Escape to cancel a run.
+
+#### Steps you won't see as steps
+
+Some folders have lesson text but no runnable code. These show a `# No source script for this lesson` placeholder, and Run is disabled. Helper scripts such as S10's `main.py`, S12's `prep_tables.py`, S17's `login.py`, and S18's `main.py` are not listed as steps.
+
+C code samples (`.c` files) are shown read-only in the Source tab. The runner doesn't compile or run C.
+
+#### Popping out and themes
+
+Press **Pop out** in the top-right corner to open the lesson in its own window beside the main one. Use the dock icon in that window, or close it, to return the lesson to the Lesson tab. Closing the main window also closes a popped-out lesson.
+
+The sun and moon switch in the title bar toggles dark and light themes.
+
+#### Keyboard shortcuts
+
+| Key | Action |
+|---|---|
+| F5 | Run the current step |
+| Escape | Cancel a run, or reset the editor when it has edits |
+| Ctrl+Shift+Enter | Continue past a pause |
+
+#### Troubleshooting
+
+* **A lesson shows "could not be rendered" in the output:** the traceback follows the message. Note the step and the error, and report them.
+* **Maths or code colours are missing:** the `vendor/` folder is probably not set up. See the lesson runner README.
+* **The code font is not Cascadia Mono:** Cascadia Mono is used when installed. Otherwise the runner falls back to Cascadia Code, JetBrains Mono, or Consolas.
+
+The runner's source code is in the `lesson-runner/` folder. The Tkinter version it replaced is in `lesson-runner-tk/` for reference.
 
 ### Running lessons directly
 
@@ -159,10 +280,10 @@ training-python/
 |  |- data-visualization/        - Ch15-17: charts and APIs with matplotlib and plotly
 |  |- web-applications/          - Ch18-20: web development with Django
 |- part-iii-beyond-the-book/     - Supplemental topics beyond the textbook
-|  |- s01-command-line-args/
+|  |- s01-command-line-arguments/
 |  |- s02-recursion/
 |  |- ...                        - 19+ supplemental topics
-|- lesson-runner/                - Python/Tkinter lesson runner application
+|- lesson-runner/                - Qt desktop lesson runner application
 ```
 
 ### Part I - Basics (Chapters 1-11)
@@ -200,7 +321,7 @@ Supplemental topics added by Scott that go beyond what the textbook covers.
 
 | Folder | Topic |
 |---|---|
-| `s01-command-line-args` | Argument parsing with `argparse` |
+| `s01-command-line-arguments` | Argument parsing with `argparse` |
 | `s02-recursion` | Recursive algorithms and call stack mechanics |
 | `s03-regular-expressions` | Pattern matching with the `re` module |
 | `s04-big-o-complexity` | Algorithmic complexity and Big-O notation |
@@ -218,18 +339,18 @@ Supplemental topics added by Scott that go beyond what the textbook covers.
 | `s16-scipy` | SciPy for scientific computing |
 | `s17-mongodb` | MongoDB with `pymongo` |
 | `s18-trie` | Trie data structure implementation |
-| `s19-filter` | The `filter()` function and functional filtering patterns |
+| `s19-tkinter` | Tkinter GUI programming: windows, widgets, layout, events, canvas, and a to-do list |
 | `s20-card-games` | OOP design in practice: Card, Deck, Hand, and a Blackjack implementation |
 | `s21-morse-code` | Trie-based Morse code encoder/decoder |
 | `s22-rochambeau` | Rock-paper-scissors: clean OOP design in a small project |
 | `s23-game-of-life` | Conway's Game of Life: simulation and data-driven design |
-| `s24-useful-builtins` | Useful built-in functions: `copy`, `id`, `setdefault`, and more |
+| `s24-built-ins` | Useful built-in functions: `copy`, `id`, `setdefault`, and more |
 
 ### Lesson Runner
 
 | Folder | Contents |
 |---|---|
-| `lesson-runner/` | Tkinter desktop application for browsing and running lessons interactively |
+| `lesson-runner/` | Qt desktop application for browsing and running lessons interactively |
 
 ---
 

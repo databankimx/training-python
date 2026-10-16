@@ -6,7 +6,7 @@ value, we have to check both conditions.
 
 ---
 
-#### A Less-Than-Optimal Solution
+### A Less-Than-Optimal Solution
 
 We could do this by nesting two if blocks, like this:
 

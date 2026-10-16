@@ -18,7 +18,7 @@ numbers = []
 
 while len(numbers) < 2:
     response = input("Enter a number:\n> ")
-    if response is None or len(response) < 1:
+    if response is None or len(response) < 1: #NOSONAR
         print("You cannot leave the entry blank.")
         continue
     try:

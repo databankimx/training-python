@@ -188,7 +188,7 @@ def folder_steps(folder: Path, include_lessons: bool) -> list[Step]:
     samples = {p.stem: p for p in folder.glob("*.c")} if include_lessons else {}
 
     # Part I: lesson files are only attached to their scripts. Part III: lesson files are steps too.
-    stems = set(scripts) | set(samples) | (set(lessons) if include_lessons else set())
+    stems = set(scripts) | set(samples) | (set(lessons) if include_lessons else {s for s in lessons if "bonus" in s})
     stems = sorted(stems, key=natural_key)
     stems = [stem for stem in stems if f"{folder.name}/{stem}" not in HIDDEN_STEPS]
     steps: list[Step] = []

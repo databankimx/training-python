@@ -11,7 +11,7 @@ def basic_loop(n: int) -> None:
     print(f"Basic loop: numbers from 1 to {n}")
     result = []
     for i in range(1, n + 1):
-        result.append(i)
+        result.append(i) #NOSONAR
     print(result, "\n")
 
 def basic_comprehension(n: int) -> None:
@@ -20,7 +20,7 @@ def basic_comprehension(n: int) -> None:
         print("`n` must be a positive integer!\n")
         return
     print(f"Basic list comprehension: numbers from 1 to {n}")
-    result = [i for i in range(1, n + 1)]
+    result = [i for i in range(1, n + 1)] #NOSONAR
     print(result, "\n")
     pause()
 

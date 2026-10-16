@@ -1,14 +1,14 @@
 """Using underscores in names"""
 
 # pylint: disable=wildcard-import, unused-wildcard-import
-from underscore_module import *
+from underscore_module import * #NOSONAR
 import underscore_module
 
-class MyClass:
+class MyClass: #pylint: disable=too-few-public-methods
     """Demonstrates name mangling"""
 
     def __init__(self):
-        self.__name = "value"
+        self.__name = "value" #pylint: disable=unused-private-member #NOSONAR
 
 def main() -> None:
     """Main function"""
@@ -17,7 +17,7 @@ def main() -> None:
     print(f"  _hidden_name defined: {'_hidden_name' in globals()}")
 
     print("Leading underscore with import module:")
-    print(f"  underscore_module._hidden_name = {underscore_module._hidden_name}")
+    print(f"  underscore_module._hidden_name = {underscore_module._hidden_name}") #pylint: disable=protected-access #NOSONAR
 
     print("Trailing underscore:")
     class_ = "a value that can't use the reserved word"
@@ -33,7 +33,7 @@ def main() -> None:
 
     print("Double leading underscore (name mangling):")
     thing = MyClass()
-    print(f"  thing._MyClass__name = {thing._MyClass__name}")
+    print(f"  thing._MyClass__name = {thing._MyClass__name}") #pylint: disable=protected-access #NOSONAR
     print(f"  hasattr(thing, '__name'): {hasattr(thing, '__name')}")
 
     print("Dunder names:")

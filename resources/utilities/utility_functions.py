@@ -4,6 +4,8 @@ import json
 import os
 import sys
 
+#pylint: disable=global-statement
+
 # Default folder for accessing files
 default_path: str|None = None
 

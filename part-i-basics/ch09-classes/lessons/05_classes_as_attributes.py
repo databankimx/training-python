@@ -47,7 +47,7 @@ class Car:
     def check_fuel_level(self):
         """Check the fuel level"""
         fuel_state = "empty"
-        if self.fuel_level == 1.0:
+        if self.fuel_level == 1.0: #NOSONAR
             fuel_state = "full"
         elif self.fuel_level >= 0.75:
             fuel_state = "three quarters full"
@@ -89,7 +89,7 @@ class Battery:
 
     def get_range(self):
         """Get the range of the battery"""
-        battery_range = "unknown"
+        battery_range = "unknown" #NOSONAR
         if self.battery_size == 75:
             battery_range = 260
         elif self.battery_size == 100:

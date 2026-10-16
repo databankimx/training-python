@@ -296,7 +296,7 @@ When in this mode, the terminal is at the top of the main monitor screen and can
 3. Name the shortcut whatever you want and click [Finish]  
    <img src="./images/quake-name.png" style="width:200px">
 
-4. Now every time you reboot, you'll have a hideable PowerShell terminal at 
+4. Now every time you reboot, you'll have a hidable PowerShell terminal at 
    the top of the screen  
    <img src="./images//quake-term.png" style="width:600px">
 
@@ -501,43 +501,7 @@ Bitbucket and GitHub, so we'll need to install and configure it.
 
 ### <a id="github"></a>Set Up a Source Control Account
 
-#### Option 1: Bitbucket
-
-If you're one of my employees, the development team uses Bitbucket as our 
-source control system for code sharing.
-
-If not, skip to [Option 2: GitHub](#gh-2).
-
-Since I share out development training repositories in the class, you'll need 
-a Bitbucket account.
-
-Note: If you already have a Bitbucket account, skip to the [Set Up Visual 
-Studio Code to Use Source Control](#vsc-git) section
-
-1. In a browser, navigate to [https://bitbucket.org](https://bitbucket.org) 
-   and click on the [Get it free] button.  
-   <img src="./images/bb-get.png" style="width:50px">
-
-2. Click [Next]  
-   <img src="./images/bb-next.png" style="width:70px">
-
-3. Enter your work email address and click on [Sign up]  
-   <img src="./images/bb-email.png" style="width:140px">
-
-4. Check your email for a verification message. In the message, click
-   [Verify your email]  
-   <img src="./images/bb-verify.png" style="width:200px">
-
-5. On the page that pops up, enter your full name and create a password  
-   <img src="./images/bb-pass.png" style="width:160px">
-
-6. On the next screen, create a Bitbucket username  
-   <img src="./images/bb-user.png" style="width:160px">
-
-7. When you reach the survey page, just click on "Skip"  
-   <img src="./images/bb-skip.png" style="width:80px">
-
-#### <a id="gh-2"></a>Option 2: GitHub
+#### <a id="gh-2"></a>GitHub
 
 I have replicated my training repositories on GitHub. If you are not one of my 
 employees and/or are not taking OnBase development training, you may find 
@@ -572,45 +536,7 @@ GitHub easier to access from VS Code, since GitHub functionality is built-in.
 
 ### <a id="vsc-git"></a>Set Up Visual Studio Code to Use Source Control
 
-#### Option 1: Bitbucket
-
-If you chose Bitbucket for source control, you'll need to configure the 
-Bitbucket extension in VS Code in order to properly access the training 
-repository.
-
-If you chose GitHub, skip to [Option 2: GitHub](#sc-gh)
-
-1. Launch Visual Studio Code
-
-2. Click on the "Extensions" icon on the left nav-bar  
-   <img src="./images/vsc-ext.png" style="width:160px">
-
-3. Search for "bitbucket" and install the "Jira and Bitbucket" extension  
-   <img src="./images/vsc-bb.png" style="width:160px">
-
-4. After the extension installs, it will launch a setup wizard. Unselect Jira 
-   and click [Next]  
-   <img src="./images/bb-no-jira.png" style="width:260px">
-
-5. Select the option for "Bitbucket Cloud"  
-   <img src="./images/bb-cloud.png" style="width:140px">
-
-6. You may receive a firewall alert. If you do, click on [Allow Access]  
-   <img src="./images/bb-firewall.png" style="width:220px">
-
-7. You'll be prompted to let VS Code access the Bitbucket URL. Click [Open]  
-   <img src="./images/bb-url.png" style="width:220px">
-
-8. Log in  
-   <img src="./images/bb-login.png" style="width:140px">
-
-9. Click [Grant Access]  
-   <img src="./images/bb-grant.png" style="width:200px">
-
-10. You'll see a success page. You can close the browser after this comes up  
-    <img src="./images/bb-success.png" style="width:120px">
-
-#### <a id="sc-gh"></a>Option 2: GitHub
+#### <a id="sc-gh"></a>GitHub
 
 For GitHub, VS Code credential setup takes place the first time you attempt to 
 access a repository. To do this, take the following steps:

@@ -2,7 +2,7 @@
 
 import sys
 
-def recursion_overflow() -> None:
+def recursion_overflow() -> None: #NOSONAR
     """Demonstrates exceeding max recursion depth"""
     recursion_overflow()
 

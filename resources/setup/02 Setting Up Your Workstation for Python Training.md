@@ -138,25 +138,14 @@ test project and verify that Python is working.
 ### <a id="clone"></a>Clone the Python Training Repository
 
 Finally, you'll need to clone a copy of the repository to work with.
-
-I have two different locations where this repository is stored:
-
-* Bitbucket (for my internal employees):  
-  [https://bitbucket.org/databankimx/python-training](https://bitbucket.org/databankimx/python-training)
 * GitHub (accessible to everyone):  
-  [https://github.com/ZeroKlu/python-crash-course](https://github.com/ZeroKlu/python-crash-course)
+  [https://github.com/databankimx/training-python](https://github.com/databankimx/training-python)
 
 1. For access to either repository, please email me at
-   [zeroklu@protonmail.com](mailto:zeroklu@protonmail.com?subject=Request%20Access%20to%20Python%20Training%20Repository)
-
-   Be sure to indicate whether you need access to Bitbucket or GitHub and 
-   provide the username you use on the selected source control system.
+   [smclean@databankimx.com](mailto:smclean@databankimx.com?subject=Request%20Access%20to%20Python%20Training%20Repository)
 
 2. After I respond granting your access, navigate in your browser to the 
-   repository you selected and make sure you have access.  
-
-    * In Bitbucket, you should see this:  
-      <img src="./images/repo-bb.png" style="width:360px">
+   repository you selected and make sure you have access.
 
     * In GitHub, you should see this:  
       <img src="./images/repo-gh.png" style="width:180px">
@@ -181,17 +170,11 @@ I have two different locations where this repository is stored:
 8. The repository will be copied locally to the path you selected  
    <img src="./images/py-copy.png" style="width:340px">
 
-9. If you are using GitHub, skip to [step 11](#clone11)
-
-10. If you're using Bitbucket, you'll be prompted to log in again.  
-    Grant access again in the web page that opens  
-    <img src="./images/bb-confirm.png" style="width:200px">
-
-11. <a id="clone11"></a>When asked if you want to open the repository, click 
+9. When asked if you want to open the repository, click 
     [Open]  
     <img src="./images/vsc-open.png" style="width:340px">
 
-12. The repository will open, and you should see a number of folders 
+10. The repository will open, and you should see a number of folders 
     containing sample code from the textbook (with samples and commentary from 
     me).  
     <img src="./images/py-repo.png" style="width:140px">
