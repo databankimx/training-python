@@ -36,9 +36,12 @@ Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Lesson runner: Part I chapter tree nests `try-it-yourself` and the chapter 11 editions under each chapter
 - Lesson runner: Part III chapter tree nests sub-folders under their chapter (for example S13 and S14)
 - Lesson runner: helper scripts hidden from the step list (S10 `main.py`, S12 `prep_tables.py`, S17 `login.py`, S18 `main.py`)
+- `part-iii-beyond-the-book/s04-big-o-complexity/visualizations/` - step-through algorithm visualizations for the nine S04 algorithms (player, theme, and one step generator per algorithm), opened from the lesson runner's Visualize button
+- Lesson runner: Visualize button opens a step's algorithm in the browser, for the S04 steps
 
 ### Changed
 
+- `part-iii-beyond-the-book/s04-big-o-complexity/html/` removed and replaced by `visualizations/`. The S04 lessons now point to the Visualize button instead of the old HTML files
 - Lesson runner: the Qt version replaces the Tkinter runner as the main runner. The Tkinter version is kept in `lesson-runner-tk/` for reference
 - Lesson runner: step titles use the lesson's first heading with Markdown markup removed; leading numbers and letter prefixes are dropped from file-name titles
 - Lesson runner: a Python script with a matching lesson file is a step, even without a `__main__` guard

@@ -17,7 +17,7 @@ def permissions_example() -> None:
     read_write = 3
     need_to_write = True
     permissions = read
-    if need_to_write:
+    if need_to_write: #NOSONAR
         permissions |= write
     print(f"{permissions:04b} = {permissions}")
     if permissions == read_write:

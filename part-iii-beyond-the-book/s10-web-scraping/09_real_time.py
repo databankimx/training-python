@@ -17,7 +17,7 @@ def load_multiple_times(dice_url: str, num_loads: int) -> None:
 
 def main() -> None:
     """Main function"""
-    dice_url = "http://olympus.realpython.org/dice"
+    dice_url = "http://olympus.realpython.org/dice" #NOSONAR
     load_multiple_times(dice_url, 5)
 
 if __name__ == "__main__":

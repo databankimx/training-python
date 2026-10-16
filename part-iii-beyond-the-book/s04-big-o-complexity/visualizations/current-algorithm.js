@@ -1,0 +1,1 @@
+window.CURRENT_ALGORITHM = "linear-search";

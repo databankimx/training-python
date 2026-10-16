@@ -43,7 +43,7 @@ class Card():
             return self.rank.value
         match game.lower():
             # pylint: disable=fixme
-            # TODO: Add support for more games
+            # TODO: Add support for more games #NOSONAR
             case "blackjack":
                 return self.rank.value if self.rank.value < 11 else 10
             case "poker":

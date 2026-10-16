@@ -15,7 +15,7 @@ def parse_html_tag(html: str, tag_to_find: str) -> str:
     matches = re.search(pattern, html, re.IGNORECASE)
     if not matches:
         return f"'{tag_to_find}' not found"
-    return re.sub("<.*?>", "", matches.group())
+    return re.sub("<.*?>", "", matches.group()) #NOSONAR
 
 def parse_html_content(html: str, search: str) -> str:
     """Read data from the HTML contents"""
@@ -26,9 +26,9 @@ def parse_html_content(html: str, search: str) -> str:
 def main() -> None:
     """Read web pages and print the titles"""
     pages = [
-        "http://olympus.realpython.org/profiles/aphrodite",
-        "http://olympus.realpython.org/profiles/poseidon",
-        "http://olympus.realpython.org/profiles/dionysus"
+        "http://olympus.realpython.org/profiles/aphrodite", #NOSONAR
+        "http://olympus.realpython.org/profiles/poseidon", #NOSONAR
+        "http://olympus.realpython.org/profiles/dionysus" #NOSONAR
     ]
 
     for page in pages:

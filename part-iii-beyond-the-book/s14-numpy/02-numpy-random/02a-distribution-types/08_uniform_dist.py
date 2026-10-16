@@ -22,7 +22,7 @@ def uniform_compare(uni: ndarray[float64], norm: ndarray[long]) -> None:
 
 def main() -> None:
     """Main function"""
-    rng = random.default_rng()
+    rng = random.default_rng() #NOSONAR
     uni = rng.uniform(size=1000)
     uniform_kde(uni)
     uniform_hist(uni)

@@ -1,5 +1,7 @@
 """Models a hand of cards"""
 
+#pylint: disable=line-too-long
+
 import json
 from card import Card
 from ranks import Ranks

@@ -53,14 +53,17 @@ def shell_sort(array: list[int]) -> list[int]:
     return array
 ```
 
-The `ceil()` and `log2()` functions come from the `math` module. The gap starts
-at `2 ** k - 1` and halves each time through the loop, so the last pass uses a
-gap of 1, which is an ordinary insertion sort on an array that is now nearly
-sorted.
+The `ceil()` and `log2()` functions come from the `math` module. The first gap is
+`2 ** k - 1`, where `k` is `log2(n)` rounded up, so it is the smallest power of two at
+or above `n`, minus one. The gap halves each time through the loop, so the last pass uses
+a gap of 1, which is an ordinary insertion sort on an array that is now nearly sorted.
 
 ---
 
 ### Testing Our Conclusion
+
+Press **Visualize** in the lesson runner to step through the shell sort in your
+browser.
 
 I have prepared a test program that you can run with a larger list:
 

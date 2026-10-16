@@ -33,7 +33,7 @@ def scrape_page(url: str, data: list[str]) -> None:
 
 def main() -> None:
     """Read web pages and scrape data"""
-    base_url = "http://olympus.realpython.org/profiles"
+    base_url = "http://olympus.realpython.org/profiles" #NOSONAR
     links = get_links(base_url)
     data = ["Name", "Hometown", "Favorite Animal", "Favorite Color"]
     for link in links:

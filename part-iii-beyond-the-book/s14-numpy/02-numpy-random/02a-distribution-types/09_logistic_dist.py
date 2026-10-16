@@ -23,7 +23,7 @@ def logistic_compare(log: ndarray[float64],
 
 def main() -> None:
     """Main Function"""
-    rng = random.default_rng()
+    rng = random.default_rng() #NOSONAR
     log = rng.logistic(size=1000)
     logistic_kde(log)
     logistic_hist(log)

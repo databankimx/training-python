@@ -5,7 +5,7 @@ from math import factorial
 
 def timeit_normal() -> float:
     """Using normal code with `timeit`"""
-    return timeit("factorial(999)", "from math import factorial", 
+    return timeit("factorial(999)", "from math import factorial",
                   number=10)
 
 def timeit_with_lambda() -> float:

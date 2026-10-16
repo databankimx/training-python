@@ -1,5 +1,7 @@
 """Morse code encoder/decoder"""
 
+#pylint: disable=line-too-long, too-many-arguments, too-many-positional-arguments
+
 from node import Node
 
 # Each character and its Morse code, where "." is a dot and "-" is a dash

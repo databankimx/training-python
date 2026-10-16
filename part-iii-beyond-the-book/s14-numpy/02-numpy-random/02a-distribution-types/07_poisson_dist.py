@@ -23,7 +23,7 @@ def poisson_compare(poi: ndarray[long], norm: ndarray[long]) -> None:
 
 def main() -> None:
     """Main function"""
-    rng = random.default_rng()
+    rng = random.default_rng() #NOSONAR
     poi = rng.poisson(lam=2, size=1000)
     poisson_kde(poi)
     poisson_hist(poi)

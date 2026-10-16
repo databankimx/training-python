@@ -31,7 +31,7 @@ def use_displot(data: np.ndarray) -> None:
 
 def main() -> None:
     """Main function"""
-    data = np.random.normal(size=1000)
+    data = np.random.normal(size=1000) #NOSONAR
     use_distplot(data)
     use_distplot_no_hist(data)
     use_histplot(data)

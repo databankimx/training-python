@@ -11,7 +11,7 @@ def scrape_with_soup(url: str) -> BeautifulSoup:
 
 def main() -> None:
     """Read web page and print the HTML"""
-    url = "http://olympus.realpython.org/profiles"
+    url = "http://olympus.realpython.org/profiles" #NOSONAR
     soup = scrape_with_soup(url)
     print(soup.prettify())
 

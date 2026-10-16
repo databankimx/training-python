@@ -44,7 +44,7 @@ def ordinal(n: int) -> str:
             return "nd"
         if n % 10 == 3:
             return "rd"
-    return "th" 
+    return "th"
 
 def main() -> None:
     """Main Function"""

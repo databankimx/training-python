@@ -9,7 +9,7 @@ def sort_list() -> None:
 def map_format() -> None:
     """Use a lambda to modify a map"""
     tup = ("cat", "dog", "turtle")
-    print(list(map(lambda x: x.capitalize(), tup)))
+    print(list(map(lambda x: x.capitalize(), tup))) #NOSONAR
     print([x.capitalize() for x in tup])
     print()
 

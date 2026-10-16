@@ -18,11 +18,11 @@ def indices_1d_by_value() -> None:
     print(f"Array: {arr}")
     n = 4
     print(f"Search Value: {n}")
-    indices = np.where(arr == n)
+    indices = np.where(arr == n) #NOSONAR
     print(f"Found {n} at indices:", indices, "\n")
 
 # pylint: disable=fixme
-# TODO: Research how to use np.where() for 2D arrays
+# TODO: Research how to use np.where() for 2D arrays #NOSONAR
 #       This does not work as expected
 # def indices_2d_by_value() -> None:
 #     """Get the index of a value in a 2D array"""
@@ -36,8 +36,8 @@ def indices_1d_by_formula() -> None:
     """Get the index of a calculated value in a 1D array"""
     arr = np.array([1, 2, 3, 4, 5, 6, 7, 8])
     print(f"Array: {arr}")
-    odds = np.where(arr % 2 == 1)
-    evens = np.where(arr % 2 == 0)
+    odds = np.where(arr % 2 == 1) #NOSONAR
+    evens = np.where(arr % 2 == 0) #NOSONAR
     print(f"Found Odd values at indices: {odds}")
     print(f"Found Even values at indices: {evens}\n")
 
@@ -68,7 +68,7 @@ def search_sorted_multiple() -> None:
     print(f"Search Values: {np.array(vals)}")
     l = np.searchsorted(arr, vals)
     r = np.searchsorted(arr, vals, side="right")
-    for i, left in enumerate(l):
+    for i, left in enumerate(l): #NOSONAR
         if left == r[i]:
             print(f"Can insert {vals[i]} at index {l[i]}")
             continue

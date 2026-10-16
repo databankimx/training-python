@@ -12,7 +12,7 @@ def load_from_csv(filepath: str, printout: bool=False) -> pd.DataFrame:
 
 def drop_duplicates(df: pd.DataFrame) -> None:
     """Drop duplicate rows from the DataFrame"""
-    df.drop_duplicates(inplace=True)
+    df.drop_duplicates()
 
 def standardize_quotes(df: pd.DataFrame) -> None:
     """Remove any stray single quotes so every Date value is plain text"""

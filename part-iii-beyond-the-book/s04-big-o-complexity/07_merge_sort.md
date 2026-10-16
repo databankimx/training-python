@@ -72,6 +72,10 @@ still has elements.
 
 ### Testing Our Conclusion
 
+> Press **Visualize** to watch merge sort step by step. The visualization merges in
+> place, writing each merge back into the same positions, so its steps are not the
+> same as the code above.
+
 I have prepared a test program that you can run with a larger list:
 
 [merge_sort.py](./07_merge_sort.py)

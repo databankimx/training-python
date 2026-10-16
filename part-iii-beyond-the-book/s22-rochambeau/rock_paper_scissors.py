@@ -1,5 +1,7 @@
 """Rochambeau (Rock, Paper, Scissors) Game"""
 
+#pylint: disable=line-too-long
+
 from random import choice, getrandbits
 
 # Each action maps to the action it beats; BEATEN_BY is the inverse

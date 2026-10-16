@@ -35,7 +35,7 @@ from syntax import SYNTAX_TAGS, c_spans, python_spans  # noqa: E402  pylint: dis
 #pylint: disable=no-name-in-module
 from PySide6.QtCore import Qt, QPointF, QRect, QRectF, QSize, QTimer, QUrl
 #pylint: disable=no-name-in-module
-from PySide6.QtGui import (QColor, QFont, QFontDatabase, QIcon, QKeySequence, QPainter,
+from PySide6.QtGui import (QColor, QDesktopServices, QFont, QFontDatabase, QIcon, QKeySequence, QPainter,
                            QPainterPath, QPen, QPixmap, QPolygonF, QShortcut,
                            QSyntaxHighlighter, QTextCharFormat, QTextCursor)
 #pylint: disable=no-name-in-module
@@ -51,6 +51,20 @@ from PySide6.QtWebEngineWidgets import QWebEngineView
 
 VENDOR = HERE / "vendor"
 WELCOME_LESSON = discovery.REPO_ROOT / "part-i-basics" / "00_what_is_python.md"
+
+# Steps that have a step-through visualization, as "folder/stem" -> algorithm name.
+# The player in each chapter's visualizations/ folder loads the matching algorithm script.
+VISUALIZATIONS = {
+    "s04-big-o-complexity/01_linear_search": "linear-search",
+    "s04-big-o-complexity/02_binary_search": "binary-search",
+    "s04-big-o-complexity/03_selection_sort": "selection-sort",
+    "s04-big-o-complexity/04_bubble_sort": "bubble-sort",
+    "s04-big-o-complexity/05_insertion_sort": "insertion-sort",
+    "s04-big-o-complexity/06_quick_sort": "quick-sort",
+    "s04-big-o-complexity/07_merge_sort": "merge-sort",
+    "s04-big-o-complexity/08_heap_sort": "heap-sort",
+    "s04-big-o-complexity/09_shell_sort": "shell-sort",
+}
 
 DARK = {
     "bg": "#1E1E1E", "panel": "#252526", "border": "#3F3F46", "fg": "#D4D4D4",
@@ -507,6 +521,12 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.sun_label)
         layout.addSpacing(12)
 
+        self.visualize_button = QPushButton("Visualize")
+        self.visualize_button.setToolTip("Open this algorithm's step-through visualization in the browser")
+        self.visualize_button.setEnabled(False)
+        self.visualize_button.clicked.connect(self.open_visualization)
+        layout.addWidget(self.visualize_button)
+        layout.addSpacing(8)
         self.run_button = QPushButton("\u25B6  Run")
         self.run_button.setObjectName("run")
         self.run_button.setEnabled(False)
@@ -771,6 +791,7 @@ class MainWindow(QMainWindow):
         self.render_lesson_page()
         self.clear_output()
         self.run_button.setEnabled(step.runnable)
+        self.visualize_button.setEnabled(self.visualization_key() is not None)
 
     def render_lesson_page(self) -> None:
         """Render the current lesson in the current theme, into the main view and any pop-out.
@@ -976,6 +997,25 @@ class MainWindow(QMainWindow):
         if popout is not None:
             popout.close()
         super().closeEvent(event)
+
+    def visualization_key(self) -> str | None:
+        """The VISUALIZATIONS key for the current step, or None if it has no visualization."""
+        if self.step is None or self.step.code_path is None:
+            return None
+        key = f"{self.step.code_path.parent.name}/{self.step.code_path.stem}"
+        return key if key in VISUALIZATIONS else None
+
+    def open_visualization(self) -> None:
+        """Open the current step's algorithm in the visualization player, in the default browser."""
+        key = self.visualization_key()
+        if key is None:
+            return
+        visualizations = self.step.code_path.parent / "visualizations"
+        # Windows drops the query string when a file:// address is opened, so the chosen
+        # algorithm is written to current-algorithm.js, which the player reads.
+        (visualizations / "current-algorithm.js").write_text(
+            f'window.CURRENT_ALGORITHM = "{VISUALIZATIONS[key]}";\n', encoding="utf-8")
+        QDesktopServices.openUrl(QUrl.fromLocalFile(str(visualizations / "player.html")))
 
     def toggle_popout(self) -> None:
         """Open the lesson in its own window, or dock it back."""

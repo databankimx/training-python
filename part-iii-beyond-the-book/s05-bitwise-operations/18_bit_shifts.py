@@ -22,12 +22,12 @@ def main() -> None:
 
     flag = 0b01010101
     print(f"In value [{flag}], the following bits are set:")
-    currentValue = 1
+    current_value = 1
     while flag > 0:
         if flag & 1:
-            print(currentValue)
+            print(current_value)
         flag >>= 1
-        currentValue <<= 1
+        current_value <<= 1
 
 if __name__ == "__main__":
     main()

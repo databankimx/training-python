@@ -7,7 +7,7 @@ def shuffle_array() -> None:
     """Shuffle an array"""
     arr = np.array(range(1, 11))
     print(f"Original Array: {arr}")
-    random.shuffle(arr)
+    random.shuffle(arr) #NOSONAR
     print(f"Shuffled Array: {arr}")
     print(f"Original Array: {arr}\n")
 
@@ -15,7 +15,7 @@ def permute_array() -> None:
     """Permute an array"""
     arr = np.array(range(1, 11))
     print(f"Original Array: {arr}")
-    new_arr = random.permutation(arr)
+    new_arr = random.permutation(arr) #NOSONAR
     print(f"Permuted Array: {new_arr}")
     print(f"Original Array: {arr}\n")
 

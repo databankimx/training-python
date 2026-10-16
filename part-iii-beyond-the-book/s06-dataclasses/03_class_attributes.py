@@ -20,7 +20,7 @@ def main() -> None:
     print(emp)
 
     try:
-        emp.nickname = "Scott"
+        emp.nickname = "Scott" #pylint: disable=attribute-defined-outside-init #NOSONAR
     except AttributeError:
         print("Cannot add a new attribute to a slotted class")
 

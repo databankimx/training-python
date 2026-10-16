@@ -1,7 +1,7 @@
 """Pandas DataFrame"""
 
-import pandas as pd
 import json
+import pandas as pd
 
 def simple_dataframe(data: dict[str,list[any]]) -> None:
     """Create and display a simple DataFrame"""

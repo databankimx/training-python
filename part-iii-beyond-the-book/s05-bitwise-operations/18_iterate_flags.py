@@ -14,12 +14,12 @@ def main() -> None:
     """Main program"""
     settings = randint(0, 15)
     print(f"With Settings: {settings}, the following bits are set:")
-    currentValue = 1
+    current_value = 1
     while settings > 0:
         if settings & 1:
-            print(f"- {Settings(currentValue).name}")
+            print(f"- {Settings(current_value).name}")
         settings >>= 1
-        currentValue <<= 1
+        current_value <<= 1
 
 if __name__ == "__main__":
     main()

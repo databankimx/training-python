@@ -177,7 +177,7 @@ def speed_constants() -> None:
     print("speed_of_light:", sc.speed_of_light) #299792458.0
     print("c:             ", sc.c)              #299792458.0
     pause()
-    
+
 def temperature_constants() -> None:
     """Display temperature constants."""
     clear_terminal()

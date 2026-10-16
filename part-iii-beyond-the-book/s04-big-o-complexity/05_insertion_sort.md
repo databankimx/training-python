@@ -15,7 +15,7 @@ For element indices `i` 1 to n-1
             Swap elements array[j] and array[j-1]
 ```
 
-#### Complexity Review
+### Complexity Review
 
 Given an array of size *n* elements...
 
@@ -63,7 +63,7 @@ def insertion_sort(array: list[int]) -> list[int]:
 We will just use a simple example with an unsorted array including the 
 numbers 0 through 7:
 
-## <center>[ 7  2  5  4  1  6  0  3 ]</center>
+## <p style="text-align: center;">[ 7  2  5  4  1  6  0  3 ]</p>
 
 With our array, the process would look like this:
 
@@ -125,11 +125,11 @@ The sort process will look like this:
 [0, 1, 2, <span style="color:cornflowerblue">***3***</span>, 4, 5, 6, 7]  
 [0, 1, 2, 3, 4, 5, 6, 7]
 
-HTML simulation of insertion sort coming soon!
+Press **Visualize** in the lesson runner to step through this sort in your browser.
 
 ---
 
-#### Complexity Review:
+### Complexity Review:
 
 Here we had:
 

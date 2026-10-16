@@ -15,9 +15,9 @@ def log_in(url: str, un: str, pw: str) -> str:
 
 def main() -> None:
     """Retrieve the profiles page HTML after logging in"""
-    url = "http://olympus.realpython.org/login"
+    url = "http://olympus.realpython.org/login" #NOSONAR
     username = "zeus"
-    password = "ThunderDude"
+    password = "ThunderDude" #NOSONAR
     html = log_in(url, username, password)
     print(html)
 

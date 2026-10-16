@@ -16,7 +16,7 @@ def get_links(url: str) -> list[str]:
 
 def main() -> None:
     """Read web page and get the hyperlinks"""
-    base_url = "http://olympus.realpython.org/profiles"
+    base_url = "http://olympus.realpython.org/profiles" #NOSONAR
     links = get_links(base_url)
     for link in links:
         url = base_url + "/" + link.split("/")[-1]

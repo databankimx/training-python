@@ -189,7 +189,7 @@ On Python 3.12, `IntWeekday.MONDAY is 1` is `True`, while `Weekday.MONDAY is 1` 
 > the same object is an implementation detail, so `is` with a literal (such as
 > `is 1`) is not reliable. Code analysis tools (SonarQube rule S5795) flag it for
 > that reason. Use `==` to compare values. The `# NOSONAR` comments in the script
-> mark the lines that are here only to show this behaviour.
+> mark the lines that are here only to show this behavior.
 
 ---
 

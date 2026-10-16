@@ -24,9 +24,9 @@ class Suits(Enum):
     @classmethod
     def name(cls, suit: Enum) -> str:
         """Gets the name of the suit"""
-        return suit._name_.title()
+        return suit._name_.title() #pylint: disable=protected-access
 
     @classmethod
     def initial(cls, suit: Enum) -> str:
         """Gets the first letter of the suit for abbreviating a card name"""
-        return suit._name_[0]
+        return suit._name_[0] #pylint: disable=protected-access

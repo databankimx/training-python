@@ -33,7 +33,7 @@ def download_image(url: str) -> None:
 def scrape_images(url: str, soup: BeautifulSoup) -> None:
     """Extract all images from the page"""
     print(" - Images:")
-    base_url = "http://" + url.split("/")[2]
+    base_url = "http://" + url.split("/")[2] #NOSONAR
     for img in soup.find_all("img"):
         source = img["src"]
         print("   -", source)
@@ -53,7 +53,7 @@ def scrape_page(url: str, data: list[str]) -> None:
 
 def main() -> None:
     """Read web pages and scrape images"""
-    base_url = "http://olympus.realpython.org/profiles"
+    base_url = "http://olympus.realpython.org/profiles" #NOSONAR
     links = get_links(base_url)
     data = ["Name", "Hometown", "Favorite Animal", "Favorite Color"]
     for link in links:

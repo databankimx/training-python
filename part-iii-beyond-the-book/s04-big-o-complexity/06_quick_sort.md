@@ -64,6 +64,10 @@ they can be compared with the other algorithms.
 
 ### Testing Our Conclusion
 
+> Press **Visualize** to watch quick sort step by step. The visualization uses the
+> in-place version, which partitions the array without building new lists, so its
+> steps are not the same as the code above.
+
 I have prepared a test program that you can run with a larger list:
 
 [quick_sort.py](./06_quick_sort.py)

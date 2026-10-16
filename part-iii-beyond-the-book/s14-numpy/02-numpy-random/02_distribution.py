@@ -8,7 +8,7 @@ def distribution_1d(dist_data: dict[int, float]) -> None:
     data = np.array(list(dist_data.keys()))
     prob = np.array(list(dist_data.values()))
     ar_sz = 100
-    arr = random.choice(data, p=prob, size=ar_sz)
+    arr = random.choice(data, p=prob, size=ar_sz) #NOSONAR
     print(f"1D array with distribution:\n{arr}")
     u, c = np.unique(arr, return_counts=True)
     counter = dict(zip(u, c))
@@ -24,7 +24,7 @@ def distribution_2d(dist_data: dict[int, float]) -> None:
     data = np.array(list(dist_data.keys()))
     prob = np.array(list(dist_data.values()))
     ar_sz = (10, 10)
-    arr = random.choice(data, p=prob, size=ar_sz)
+    arr = random.choice(data, p=prob, size=ar_sz) #NOSONAR
     print(f"2D array with distribution:\n{arr}")
     u, c = np.unique(arr, return_counts=True)
     counter = dict(zip(u, c))

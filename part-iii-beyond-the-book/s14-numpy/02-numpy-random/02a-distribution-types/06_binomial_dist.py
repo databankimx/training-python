@@ -24,7 +24,7 @@ def binomial_vs_normal(binom: ndarray[long], norm: ndarray[long]) -> None:
 
 def main() -> None:
     """Main function"""
-    my_rng = random.default_rng()
+    my_rng = random.default_rng() #NOSONAR
     binom = my_rng.binomial(n=10, p=0.5, size=1000)
     binomial_kde(binom)
     binomial_hist(binom)

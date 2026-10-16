@@ -80,8 +80,8 @@ the following steps:
 That's a worst case example, since I specifically chose the last number in 
 the array as my target, but big-O computations are all about the worst-case.
 
-> You can view an
-> [HTML simulation of linear search](./html/linear_search_animation.html)
+> Press **Visualize** in the lesson runner to step through this search in your
+> browser, one comparison at a time.
 
 ---
 

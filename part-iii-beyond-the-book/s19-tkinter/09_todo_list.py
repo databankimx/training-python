@@ -21,7 +21,7 @@ def main() -> None:
     tasks = tk.Listbox(window, font=("Segoe UI", 11))
     tasks.grid(row=1, column=0, sticky="nsew", padx=10)
 
-    def add_task(event: tk.Event | None = None) -> None:
+    def add_task(event: tk.Event | None = None) -> None: # pylint: disable=unused-argument
         """Add the typed text to the list and clear the box"""
         text = task_entry.get().strip()
         if text:

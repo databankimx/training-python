@@ -34,11 +34,11 @@ class Ranks(Enum):
     @classmethod
     def name(cls, rank: Enum) -> str:
         """Returns the rank name"""
-        return rank._name_.title()
+        return rank._name_.title() #pylint: disable=protected-access
 
     @classmethod
     def initial(cls, rank: Enum) -> str:
         """Gets the first letter of the rank for abbreviating a card name"""
         if 1 < rank.value < 11:
             return str(rank.value)
-        return rank._name_[0]
+        return rank._name_[0] #pylint: disable=protected-access

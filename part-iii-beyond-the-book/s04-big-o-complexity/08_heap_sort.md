@@ -73,6 +73,9 @@ def make_heap(array: list[int], n: int, i: int) -> None:
 
 ### Testing Our Conclusion
 
+Press **Visualize** in the lesson runner to step through the heap operations in your
+browser.
+
 I have prepared a test program that you can run with a larger list:
 
 [heap_sort.py](./08_heap_sort.py)

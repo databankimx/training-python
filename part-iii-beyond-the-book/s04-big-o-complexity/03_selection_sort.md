@@ -83,7 +83,7 @@ def selection_sort(array: list[int]) -> list[int]:
 We will just use a simple example with an unsorted array including the 
 numbers 0 through 7:
 
-## <center>[ 7  2  5  4  1  6  0  3 ]</center>
+## <p style="text-align: center;">[ 7  2  5  4  1  6  0  3 ]</p>
 
 With our array, the process would look like this:
 
@@ -131,12 +131,12 @@ The sort process will look like this:
   comparisons)  
 [ 0 1 2 3 4 5 6 7 ] (after 1 final verification comparison - done)
     
-> You can view an
-> [HTML simulation of selection sort](./html/selection_sort_animation.html)
+> Press **Visualize** in the lesson runner to step through this sort in your
+> browser, one comparison and swap at a time.
 
 ---
 
-#### Complexity Review:
+### Complexity Review:
 
 Here we had:
 

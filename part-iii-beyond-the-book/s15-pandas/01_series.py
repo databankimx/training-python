@@ -48,9 +48,9 @@ def main() -> None:
     series = create_series(data, True, names)
     view_named(series, names)
     data_dict = dict(zip(names, data))
-    series = create_series_from_dict(data_dict)
+    series = create_series_from_dict(data_dict) #NOSONAR
     sift = ["a", "c", "e"]
-    series = create_series_from_dict(data_dict, sift)
+    series = create_series_from_dict(data_dict, sift) #NOSONAR
 
 if __name__ == "__main__":
     main()

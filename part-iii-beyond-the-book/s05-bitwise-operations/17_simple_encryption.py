@@ -11,11 +11,11 @@ def main() -> None:
     text = "Hello World!"
     print(f"Plain Text:     {text}")
 
-    cipherText = encrypt_decrypt(text, key)
-    print(f"Encrypted Text: {cipherText}")
+    ciphertext = encrypt_decrypt(text, key)
+    print(f"Encrypted Text: {ciphertext}")
 
-    plainText = encrypt_decrypt(cipherText, key)
-    print(f"Decrypted Text: {plainText}")
+    plaintext = encrypt_decrypt(ciphertext, key)
+    print(f"Decrypted Text: {plaintext}")
 
 if __name__ == "__main__":
     main()

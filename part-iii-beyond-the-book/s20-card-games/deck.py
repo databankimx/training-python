@@ -10,7 +10,7 @@ from hand import Hand
 class Deck(object):
     """Models a deck of playing cards"""
     # pylint: disable=fixme
-    # TODO: Add support for jokers
+    # TODO: Add support for jokers #NOSONAR
 
     def __init__(self, game: str=None, color: Colors=Colors.WHITE) -> None:
         """Initialize the deck"""

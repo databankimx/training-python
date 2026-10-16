@@ -85,7 +85,7 @@ numbers 0 through 7
 
 ---
 
-# <center>[ 0  1  2  3  4  5  6  7 ]</center>
+## <p style="text-align: center;">[ 0  1  2  3  4  5  6  7 ]</p>
 
 Imagine that the target value is 3. Following our algorithm, we would take 
 the following steps:
@@ -103,12 +103,12 @@ the following steps:
 6. Compare the value there.
     (3) is the target, so we return the index of the middle element (3)
     
-> You can view an
-> [HTML simulation of binary search](./html/binary_search_animation.html)
+> Press **Visualize** in the lesson runner to step through this search in your
+> browser, one comparison at a time.
 
 ---
 
-#### Complexity Review:
+### Complexity Review:
 
 Here we had:
 

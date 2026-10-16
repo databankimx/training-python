@@ -23,7 +23,6 @@ def set_path(folder: str|None=None) -> None:
     # pylint: disable=global-statement
     global default_path
     default_path = data["default_path"]
-    return
 
 set_path()
 
