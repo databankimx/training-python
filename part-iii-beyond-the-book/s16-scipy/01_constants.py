@@ -70,9 +70,9 @@ def mass_constants() -> None:
     print("troy_ounce: ", sc.troy_ounce)  #0.031103476799999998
     print("troy_pound: ", sc.troy_pound)  #0.37324172159999996
     print("carat:      ", sc.carat)       #0.0002
-    print("atomic_mass:", sc.atomic_mass) #1.66053904e-27
-    print("m_u:        ", sc.m_u)         #1.66053904e-27
-    print("u:          ", sc.u)           #1.66053904e-27
+    print("atomic_mass:", sc.atomic_mass) #1.66053906892e-27
+    print("m_u:        ", sc.m_u)         #1.66053906892e-27
+    print("u:          ", sc.u)           #1.66053906892e-27
     pause()
 
 def angular_constants() -> None:
@@ -119,10 +119,10 @@ def distance_constants() -> None:
     print("fermi:            ", sc.fermi)             #1e-15
     print("angstrom:         ", sc.angstrom)          #1e-10
     print("micron:           ", sc.micron)            #1e-06
-    print("au:               ", sc.au)                #149597870691.0
-    print("astronomical_unit:", sc.astronomical_unit) #149597870691.0
+    print("au:               ", sc.au)                #149597870700.0
+    print("astronomical_unit:", sc.astronomical_unit) #149597870700.0
     print("light_year:       ", sc.light_year)        #9460730472580800.0
-    print("parsec:           ", sc.parsec)            #3.0856775813057292e+16
+    print("parsec:           ", sc.parsec)            #3.085677581491367e+16
     pause()
 
 def pressure_constants() -> None:
@@ -192,8 +192,8 @@ def energy_constants() -> None:
     clear_terminal()
     print("Energy Constants (in J):")
     print("-----------------------")
-    print("eV:           ", sc.eV)            #1.6021766208e-19
-    print("electron_volt:", sc.electron_volt) #1.6021766208e-19
+    print("eV:           ", sc.eV)            #1.602176634e-19
+    print("electron_volt:", sc.electron_volt) #1.602176634e-19
     print("calorie:      ", sc.calorie)       #4.184
     print("calorie_th:   ", sc.calorie_th)    #4.184
     print("calorie_IT:   ", sc.calorie_IT)    #4.1868

@@ -26,12 +26,96 @@ python main.py
 
 ---
 
-### The Rules
+### Setup and Settings
 
-* A living cell with fewer than two living neighbors dies.
-* A living cell with two or three living neighbors lives on.
-* A living cell with more than three living neighbors dies.
-* A dead cell with exactly three living neighbors comes alive.
+`game.py` starts by importing what it needs and finding its own folder. The
+settings and patterns are stored as JSON files beside the module, so the
+program reads them from that folder, whatever the current directory is:
+
+```python
+import json
+import os
+from random import randrange
+
+import pygame
+
+ROOT_DIR = os.path.dirname(__file__)
+
+def load_json(name):
+    """Load a JSON file stored alongside this module"""
+    with open(os.path.join(ROOT_DIR, name), encoding="utf-8") as f:
+        return json.load(f)
+```
+
+`load_json()` is used for both `settings.json` and `preloads.json`. The
+settings are a dictionary, and the game reads these keys:
+
+* `rows`, `cols`: the size of the grid, in cells
+* `width`, `height`: the size of the window, in pixels
+* `onein`: controls how dense a random starting grid is (see below)
+* `preload`: the name of a pattern in `preloads.json`, or `"none"`
+* `wraparound`: whether the edges of the grid connect to each other
+* `alive`, `dead`, `grid`: the colors of living cells, dead cells, and the background
+* `framerate`: how many generations are drawn each second
+* `debug`: whether to print the settings and show each cell's neighbor count
+
+The rules are written as comments at the top of the file, so they sit next to
+the code that implements them.
+
+---
+
+### The `GameOfLife` Class
+
+The game keeps its state in a `GameOfLife` object:
+
+```python
+class GameOfLife:
+    """Implements Conway's Game of Life"""
+
+    def __init__(self):
+        self.settings = load_json("settings.json")
+        if self.settings["debug"]:
+            print(self.settings)
+        self.preload = self.settings["preload"]
+        self.grid = self.create_grid()
+        self.screen = None
+        self.clock = pygame.time.Clock()
+```
+
+* `self.settings` holds the dictionary loaded from `settings.json`.
+* `self.grid` is the current generation, a list of rows, where each cell is
+  `True` (alive) or `False` (dead).
+* `self.screen` is `None` until `play()` opens the window.
+* `self.clock` is a `pygame` clock. It is used later to control the speed.
+
+---
+
+### Creating the Grid
+
+`create_grid()` builds the first generation. It uses a preloaded pattern when
+one is named, and otherwise fills the grid at random:
+
+```python
+def create_grid(self):
+    """Use a preloaded pattern if available, otherwise a random grid"""
+    s = self.settings
+    if self.preload.lower() != "none":
+        preloads = load_json("preloads.json")
+        pattern = preloads.get(self.preload)
+        if pattern is not None:
+            return [[cell == 1 for cell in row] for row in pattern]
+        self.preload = "none"
+    return [[randrange(s["onein"]) == 0 for _ in range(s["cols"])]
+            for _ in range(s["rows"])]
+```
+
+* The patterns in `preloads.json` are lists of `0` and `1`. The comprehension
+  converts each `1` to `True` and each `0` to `False`.
+* If the name is not in `preloads.json`, the function falls back to a random
+  grid and sets `preload` to `"none"`. The window caption then shows that the
+  grid is random.
+* `randrange(onein)` returns a number from `0` to `onein - 1`, so each cell
+  starts alive with a 1-in-`onein` chance. A larger `onein` gives a sparser grid.
 
 ---
 
@@ -63,6 +147,15 @@ read naturally and save a line.
 
 ---
 
+### The Rules
+
+* A living cell with fewer than two living neighbors dies.
+* A living cell with two or three living neighbors lives on.
+* A living cell with more than three living neighbors dies.
+* A dead cell with exactly three living neighbors comes alive.
+
+---
+
 ### One Generation at a Time
 
 `next_generation()` builds a new grid from the current one. Every cell's new
@@ -83,7 +176,8 @@ def survives(alive, neighbors):
 
 `survives()` puts all four rules in one expression. A cell is alive in the next
 generation if it has exactly three neighbors, or if it is already alive and has
-exactly two.
+exactly two. The `@staticmethod` decorator means `survives()` doesn't use
+`self`, so it can be called without an object.
 
 ---
 
@@ -100,23 +194,56 @@ def draw(self):
     rows, cols = len(self.grid), len(self.grid[0])
     cell_w = s["width"] // cols - 1
     cell_h = s["height"] // rows - 1
+    font = pygame.font.SysFont("Arial", 16) if s["debug"] else None
     for r, row in enumerate(self.grid):
         for c, alive in enumerate(row):
             x, y = (cell_w + 1) * c + 1, (cell_h + 1) * r + 1
             color = tuple(s["alive"] if alive else s["dead"])
             pygame.draw.rect(self.screen, color, pygame.Rect(x, y, cell_w, cell_h))
+            if font:
+                neighbors = count_neighbors(self.grid, r, c, s["wraparound"])
+                self.screen.blit(font.render(str(neighbors), True, (200, 0, 0)), (x + 1, y + 2))
     pygame.display.update()
 ```
 
-`pygame.display.update()` shows the finished frame. Nothing appears on screen
-until it is called.
+* When `debug` is on, a small font is created and each cell's neighbor count
+  is drawn in red at the top left of the cell. This is how the "Try It" section
+  below shows the neighbor counts.
+* `pygame.display.update()` shows the finished frame. Nothing appears on screen
+  until it is called.
+
+---
+
+### Starting the Game
+
+`play()` prepares the window before the main loop begins:
+
+```python
+def play(self):
+    """Run the game until the window is closed"""
+    s = self.settings
+    pygame.init()
+    self.screen = pygame.display.set_mode((s["width"], s["height"]))
+    name = self.preload if self.preload != "none" else f"random 1/{s['onein']}"
+    pygame.display.set_caption(f"Conway's Game of Life ({name})")
+    self.screen.fill(tuple(s["grid"]))
+    self.draw()
+```
+
+* `pygame.init()` starts the library.
+* `set_mode()` opens a window of the size in the settings. The `screen` object
+  is what the drawing code paints onto.
+* The caption shows which pattern is running, or the random density when no
+  pattern is loaded.
+* The background is filled with the `grid` color, and the first generation is
+  drawn.
 
 ---
 
 ### The Main Loop
 
-`play()` opens the window, draws the first generation, and then repeats three
-steps until the window is closed:
+After the window is set up, `play()` repeats three steps until the window is
+closed:
 
 1. Check the events. A close request stops the game.
 2. Replace the grid with `next_generation()`.
@@ -141,9 +268,9 @@ computer does not run the game faster.
 ### Starting Patterns
 
 If the `preload` setting names a pattern in `preloads.json`, the game starts
-from that pattern. Otherwise it creates a random grid, where each cell has a
-1-in-`onein` chance of starting alive. Try changing `preload` to `"pulsar"`,
-`"cross"`, or `"figure-eight"`, or set it to `"none"` for a random start.
+from that pattern. Otherwise `create_grid()` makes a random grid, as described
+above. Try changing `preload` to `"pulsar"`, `"cross"`, or `"figure-eight"`, or
+set it to `"none"` for a random start.
 
 ---
 

@@ -34,6 +34,9 @@ The `simplices` attribute is a list of triangles. Each row holds the indices of
 the three points that form one triangle. The triangles are listed by index,
 not by coordinates, so use the indices to look up the points.
 
+The point list above contains `[1, 2]` twice, at indices 5 and 8. Delaunay treats
+the repeated point as the same location, so index 8 does not appear in any triangle.
+
 ---
 
 ### Convex Hull

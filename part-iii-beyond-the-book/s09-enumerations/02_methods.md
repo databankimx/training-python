@@ -26,9 +26,9 @@ class Weekday(Enum):
     SUNDAY = 7
 
     @classmethod
-    def from_date(cls, date: date) -> Enum:
+    def from_date(cls, day: date) -> Enum:
         """Get weekday name of the given date"""
-        return cls(date.isoweekday())
+        return cls(day.isoweekday())
 ```
 
 Two notes:

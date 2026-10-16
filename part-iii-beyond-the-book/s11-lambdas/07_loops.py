@@ -23,7 +23,7 @@ def call_wrapped_lambda() -> None:
     funcs = []
     for n in numbers:
         # pylint: disable=cell-var-from-loop
-        funcs.append(lambda: print(n, end=" "))
+        funcs.append(lambda: print(n, end=" "))  # NOSONAR
     for func in funcs:
         func()
     print()

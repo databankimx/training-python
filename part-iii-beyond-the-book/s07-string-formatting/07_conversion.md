@@ -67,7 +67,7 @@ print("{!a}".format(invalid_string))
 Output
 
 ```
-'This\xf6 string\xf6 had\xf6 invalid\xf6 characters\xf6.'
+'This\xf6 string\xf6 ha\xf6 invalid\xf6 characters\xf6.'
 ```
 
 ---

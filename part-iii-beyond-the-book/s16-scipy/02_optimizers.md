@@ -118,6 +118,8 @@ First, we create a function that computes the equation:
 ```python
 def x_squared_plus_x_plus_2(x: int|float|ndarray[int|float]) -> int|float:
     """Compute x² + x + 2"""
+    if isinstance(x, ndarray):
+        x = x[0]
     return x ** 2 + x + 2
 ```
 

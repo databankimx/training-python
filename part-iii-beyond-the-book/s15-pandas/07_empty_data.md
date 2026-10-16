@@ -112,8 +112,13 @@ This is a little problematic, since the data we inserted for `Date` in row
 > one by adding the `inplace=True` argument:
 >
 > ```python
-> df.fillna(130, inplace=True)
+> # Pandas 3.0+ raises a TypeError if the integer 130 is placed in the text
+> # Date column, so fill only the numeric columns in place
+> numeric_cols = df.select_dtypes("number").columns
+> df.fillna(dict.fromkeys(numeric_cols, 130), inplace=True)
 > ```
+>
+> The `Date` value in row 22 stays missing, which the next section handles.
 
 ---
 

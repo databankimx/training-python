@@ -17,11 +17,12 @@ def remove_rows(df: pd.DataFrame) -> None:
     print("Removed rows with missing columns (new DataFrame):")
     print(new_df.tail(10), "\n")
 
-def remove_in_place(df: pd.DataFrame) -> None:
+def remove_in_place(df: pd.DataFrame) -> pd.DataFrame:
     """Remove rows with missing columns"""
-    df.dropna(inplace=True)
+    df = df.dropna()
     print("Removed rows with missing columns (in place):")
     print(df.tail(10), "\n")
+    return df
 
 def fill_rows(df: pd.DataFrame) -> None:
     """Fill missing column values"""
@@ -30,9 +31,10 @@ def fill_rows(df: pd.DataFrame) -> None:
     print(new_df.tail(10), "\n")
 
 def fill_in_place(df: pd.DataFrame) -> None:
-    """Fill missing column values"""
-    df.fillna(130, inplace=True)
-    print("Filled missing column values with 130 (in place):")
+    """Fill missing numeric column values"""
+    numeric_cols = df.select_dtypes("number").columns
+    df.fillna(dict.fromkeys(numeric_cols, 130), inplace=True)
+    print("Filled missing numeric column values with 130 (in place):")
     print(df.tail(10), "\n")
 
 def fill_specific(df: pd.DataFrame) -> None:

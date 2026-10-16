@@ -140,9 +140,9 @@ import pandas as pd
 print("Create a filtered Series from a dictionary:")
 data = { "a": 1, "b": 2, "c": 3, "d": 4, "e": 5 }
 print(f"Dictionary: {data}")
-filter = ["a", "c", "e"]
-print(f"Filter: {filter}")
-series = pd.Series(data, index=filter)
+sift = ["a", "c", "e"]
+print(f"Filter: {sift}")
+series = pd.Series(data, index=sift)
 print(f"Series:\n{series}")
 ```
 

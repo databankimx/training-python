@@ -26,3 +26,18 @@ To insert a word (also called a *key*), starting from the *root* node:
 ```
 
 ---
+
+### Trying It
+
+The code for this example is in [03_insert.py](./03_insert.py). It inserts
+"and", then "ant", and checks the nodes along the way:
+
+```
+Node for 'a' exists: True
+Node for 'an' exists: True
+'and' is a word end: True
+'ant' is a word end: True
+'an' is a word end: False
+```
+
+---

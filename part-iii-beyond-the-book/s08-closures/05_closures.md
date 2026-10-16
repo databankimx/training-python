@@ -86,7 +86,7 @@ retain the value for `exponent` that was in place when it was created.
 squared = generate_power(2)
 cubed = generate_power(3)
 for n in range(1, 6):
-    print(f"{n}² = {cubed(n)}")
+    print(f"{n}³ = {cubed(n)}")
 print()
 for n in range(1, 6):
     print(f"{n}² = {squared(n)}")

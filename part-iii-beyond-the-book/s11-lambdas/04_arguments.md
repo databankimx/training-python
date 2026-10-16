@@ -44,6 +44,23 @@ Output:
 
 ---
 
+### Positional and Keyword Arguments
+
+A lambda can be called with some arguments by position and one by keyword,
+just like a regular function:
+
+```python
+print((lambda x, y, z: x + y + z)(1, 2, z=3))
+```
+
+Output:
+
+```
+6
+```
+
+---
+
 ### Arbitrary Positional Arguments
 
 We can also include an arbitrary number of positional arguments.

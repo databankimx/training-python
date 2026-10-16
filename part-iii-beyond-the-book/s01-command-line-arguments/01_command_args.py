@@ -18,7 +18,7 @@ def greet_user() -> None:
 
     if len(sys.argv) < 3:
         print("Usage: filename.py first_name last_name")
-        exit()
+        sys.exit()
 
     first_name = sys.argv[1].title()
     last_name = sys.argv[2].title()

@@ -47,7 +47,8 @@ print(emp.__dataclass_fields__)
         _field_type=_FIELD
     ),
     'emp_id': Field(
-        name='emp_id',type=<class 'str'>,
+        name='emp_id',
+        type=<class 'str'>,
         default=<dataclasses._MISSING_TYPE object at 0x00000179393A5050>,
         default_factory=<dataclasses._MISSING_TYPE object at 0x00000179393A5050>,
         init=True,
@@ -68,8 +69,8 @@ print(emp.__dataclass_fields__)
         hash=None,
         compare=True,
         metadata=mappingproxy({}),
-        kw_only=False
-        ,_field_type=_FIELD
+        kw_only=False,
+        _field_type=_FIELD
     ),
     'city': Field(
         name='city',

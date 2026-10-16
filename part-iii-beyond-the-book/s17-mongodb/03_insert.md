@@ -131,6 +131,12 @@ Documents inserted successfully.
 
 ---
 
+> Note: This script has no duplicate check. Each time you run it, it adds the
+> same 13 documents again, so the collection will contain duplicates. Empty the
+> collection first if you want to start over.
+
+---
+
 ### Validation
 
 Make sure to go back and re-run the previous two lessons:

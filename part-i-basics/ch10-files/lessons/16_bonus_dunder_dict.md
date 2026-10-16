@@ -48,8 +48,10 @@ Output:
 
 ```
 Traceback (most recent call last):
-  File "...\16_bonus_dunder_dict.py", line 26, in <module>
+  File "...\16_bonus_dunder_dict.py", line 32, in <module>
     main()
+  File "...\16_bonus_dunder_dict.py", line 18, in main
+    print(json.dumps(my_thing, indent=4))
   ...
   -- SNIP --
   ...
@@ -97,7 +99,7 @@ my_thing = Thing("Large", "Blue")
 print(json.dumps(
     {
         "type": "Thing",
-        "name": "thing",
+        "name": "my_thing",
         "attributes": my_thing.__dict__
     },
     indent=4

@@ -21,14 +21,14 @@ import pandas as pd
 # -- SNIP --
 
 print(f"DataFrame Info:")
-print(df.info())
+df.info()  # info() prints its own output and returns None
 ```
 
 Output:
 
 ```
 DataFrame Info:
-<class 'pandas.core.frame.DataFrame'>
+<class 'pandas.DataFrame'>
 Index: 169 entries, 0 to 168
 Data columns (total 4 columns):
  #   Column    Non-Null Count  Dtype
@@ -39,8 +39,10 @@ Data columns (total 4 columns):
  3   Calories  164 non-null    float64
 dtypes: float64(1), int64(3)
 memory usage: 6.6 KB
-None
 ```
+
+Pandas 3.0 prints the class as `pandas.DataFrame`. Pandas 2.x prints
+`pandas.core.frame.DataFrame`, so your output may show either form.
 
 ---
 
@@ -60,14 +62,14 @@ import pandas as pd
 
 # -- SNIP --
 
-print(f"Top 5 Rows:")
+print("Top 5 rows:")
 print(df.head())
 ```
 
 Output:
 
 ```
-Top 5 Rows:
+Top 5 rows:
    Duration  Pulse  Maxpulse  Calories
 0        60    110       130     409.1
 1        60    117       145     479.0
@@ -87,14 +89,14 @@ import pandas as pd
 
 # -- SNIP --
 
-print(f"Top 10 Rows:")
+print(f"Top 10 rows:")
 print(df.head(10))
 ```
 
 Output:
 
 ```
-Top 10 Rows:
+Top 10 rows:
    Duration  Pulse  Maxpulse  Calories
 0        60    110       130     409.1
 1        60    117       145     479.0
@@ -126,14 +128,14 @@ import pandas as pd
 
 # -- SNIP --
 
-print(f"Bottom 5 Rows:")
+print("Bottom 5 rows:")
 print(df.tail())
 ```
 
 Output:
 
 ```
-Bottom 5 Rows:
+Bottom 5 rows:
      Duration  Pulse  Maxpulse  Calories
 164        60    105       140     290.8
 165        60    110       145     300.4
@@ -153,14 +155,14 @@ import pandas as pd
 
 # -- SNIP --
 
-print(f"Bottom 10 Rows:")
+print(f"Bottom 10 rows:")
 print(df.tail(10))
 ```
 
 Output:
 
 ```
-Bottom 10 Rows:
+Bottom 10 rows:
      Duration  Pulse  Maxpulse  Calories
 159        30     80       120     240.9
 160        30     85       120     250.4

@@ -27,6 +27,7 @@ for d, r in zip(lst, np.radians(lst)):
 Output:
 
 ```
+Degrees to Radians:
  45° = 0.25πᶜ
  90° = 0.50πᶜ
 135° = 0.75πᶜ
@@ -81,6 +82,7 @@ def print_out(txt: str, lbl: str, lst: list[int], arr: np.ndarray) -> None:
     for d, r in zip(lst, arr):
         if round(d) == 0: d = 0.0
         if round(r) == 0: r = 0.0
+        if abs(d) > 1000000: d = np.inf
         if r > 1000000: r = np.inf
         if isinstance(d, int):
             print(f"{lbl}({d:>3}) = {r:>5.2f}")
@@ -183,14 +185,14 @@ arccos( 0.71) =  0.79
 arccos( 1.00) =  0.00
 
 Arctangent:
-arctan( 0.71) =  0.79
-arctan( 0.00) =  1.57
-arctan(-0.71) = -0.79
-arctan(-1.00) =  0.00
-arctan(-0.71) =  0.79
-arctan( 0.00) =  1.57
-arctan( 0.71) = -0.79
-arctan( 1.00) =  0.00
+arctan( 1.00) =  0.79
+arctan(  inf) =  1.57
+arctan(-1.00) = -0.79
+arctan( 0.00) =  0.00
+arctan( 1.00) =  0.79
+arctan(  inf) =  1.57
+arctan(-1.00) = -0.79
+arctan( 0.00) =  0.00
 ```
 
 ---

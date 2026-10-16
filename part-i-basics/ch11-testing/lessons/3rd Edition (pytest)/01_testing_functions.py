@@ -9,13 +9,13 @@ def main() -> None:
 
     while True:
         first = input("\nPlease give me a first name: ")
-        if first and first.lower() == "quit":
+        if first.lower() == "q":
             break
         middle = input("Please give me a middle name (optional): ")
-        if middle and middle.lower() == "quit":
+        if middle.lower() == "q":
             break
         last = input("Please give me a last name: ")
-        if last and last.lower() == "quit":
+        if last.lower() == "q":
             break
         if not middle:
             middle = None

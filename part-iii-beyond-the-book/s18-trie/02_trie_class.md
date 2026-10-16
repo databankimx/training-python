@@ -49,3 +49,16 @@ structure.
 * [Delete](./05_delete.md)
 
 ---
+
+### Trying It
+
+The code for this example is in [02_trie_class.py](./02_trie_class.py):
+
+```
+Size: 26
+Offset: 97
+Root children: 26
+Root is empty: True
+```
+
+---

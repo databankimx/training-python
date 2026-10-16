@@ -77,7 +77,7 @@ There are many places where it's useful to check if a number is odd or even.
 Typically, most of us have been taught to do that using a modulo (or 
 remainder) computation like this:
 
-See [even_numbers.py](./11_even_numbers.py)
+See [even_numbers.py](./11_even_numbers.py) and the [even numbers lesson](./11_even_numbers.md)
 
 ```python
 def is_even(n: int) -> bool:

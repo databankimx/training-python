@@ -75,10 +75,6 @@ Output:
 1,234,567.89    1_234_567.89
 ```
 
-As you can see, when we exclude the type parameter, Python is smart enough to
-remove unnecessary trailing zeros, but when it is included, those zeros are
-present.
-
 > Rule of Thumb: 
 >
 > * Include the `f` type indicator along with decimal precision when you want

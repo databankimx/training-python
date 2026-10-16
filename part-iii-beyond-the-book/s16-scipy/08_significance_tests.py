@@ -37,7 +37,8 @@ def describe_data() -> None:
     v = rng.normal(size=100)
     desc = describe(v)
     print(f"Observations: {desc.nobs}")
-    print(f"Min and max: {desc.minmax}")
+    minimum, maximum = desc.minmax
+    print(f"Min and max: {minimum:.4f}, {maximum:.4f}")
     print(f"Mean: {desc.mean:.4f}")
     print(f"Variance: {desc.variance:.4f}")
     print(f"Skewness: {desc.skewness:.4f}")

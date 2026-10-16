@@ -21,7 +21,7 @@ def print_out(txt: str, lbl: str, lst: list[int], arr: np.ndarray) -> None:
 def do_trig_h(lst: list[int]) -> None:
     """Perform hyperbolic functions"""
     rad = np.radians(lst)
-    s = np.sin(rad)
+    s = np.sinh(rad)
     print_out("hyperbolic sine", "sinh", lst, s)
     c = np.cosh(rad)
     print_out("hyperbolic cosine", "cosh", lst, c)
@@ -32,7 +32,7 @@ def do_trig_h(lst: list[int]) -> None:
     a_c = np.arccosh(c)
     print_out("hyperbolic arccosine", "arccosh", c, a_c)
     a_t = np.arctanh(t)
-    print_out("hyperbolic arctangent", "arctanh", c, a_t)
+    print_out("hyperbolic arctangent", "arctanh", t, a_t)
 
 def main() -> None:
     """Main function"""

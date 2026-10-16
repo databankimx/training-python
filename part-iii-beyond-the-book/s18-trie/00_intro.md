@@ -188,3 +188,16 @@ In the following lessons, we'll implement the trie in Python and add the
 necessary functions.
 
 ---
+
+### Trying It
+
+The code for this example is in [00_intro.py](./00_intro.py). It builds a trie
+from four words and checks prefixes and words:
+
+```
+'an' is a prefix: True
+'anbx' is a prefix: False
+'do' is a word: True
+```
+
+---

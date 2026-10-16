@@ -1,4 +1,4 @@
-## Shell Sort - O(*n* log *n*) to O(*n*²)
+## Shell Sort - depends on the gap sequence (worst case O(*n*^(3/2)) with 2ᵏ - 1 gaps)
 
 Let's look at the algorithm for **Shell Sort**. Its complexity depends on the
 gap sequence it uses, so it sits between the O(*n*²) and O(*n* log *n*) sorts.

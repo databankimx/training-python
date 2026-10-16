@@ -35,8 +35,8 @@ print(f"call_count = {fibonacci.call_count:,}")
 Output:
 
 ```
-F(40) = 102,334,155
-call_count =  79
+Calculated F(40) = 102,334,155
+call_count = 79
 ```
 
 This time, our call finished in under a second and only required 79 calls: 

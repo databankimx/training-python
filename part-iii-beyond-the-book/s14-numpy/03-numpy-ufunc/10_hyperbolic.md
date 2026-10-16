@@ -46,14 +46,14 @@ Output:
 
 ```
 Hyperbolic Sine:
-sinh( 45) =  0.71
-sinh( 90) =  1.00
-sinh(135) =  0.71
-sinh(180) =  0.00
-sinh(225) = -0.71
-sinh(270) = -1.00
-sinh(315) = -0.71
-sinh(360) =  0.00
+sinh( 45) =  0.87
+sinh( 90) =  2.30
+sinh(135) =  5.23
+sinh(180) = 11.55
+sinh(225) = 25.37
+sinh(270) = 55.65
+sinh(315) = 122.07
+sinh(360) = 267.74
 
 Hyperbolic Cosine:
 cosh( 45) =  1.32
@@ -76,14 +76,14 @@ tanh(315) =  1.00
 tanh(360) =  1.00
 
 Hyperbolic Arcsine:
-arcsinh(  0.71) =  0.66
-arcsinh(  1.00) =  0.88
-arcsinh(  0.71) =  0.66
-arcsinh(  0.00) =  0.00
-arcsinh( -0.71) = -0.66
-arcsinh( -1.00) = -0.88
-arcsinh( -0.71) = -0.66
-arcsinh(  0.00) =  0.00
+arcsinh(  0.87) =  0.79
+arcsinh(  2.30) =  1.57
+arcsinh(  5.23) =  2.36
+arcsinh( 11.55) =  3.14
+arcsinh( 25.37) =  3.93
+arcsinh( 55.65) =  4.71
+arcsinh(122.07) =  5.50
+arcsinh(267.74) =  6.28
 
 Hyperbolic Arccosine:
 arccosh(  1.32) =  0.79
@@ -96,14 +96,14 @@ arccosh(122.08) =  5.50
 arccosh(267.75) =  6.28
 
 Hyperbolic Arctangent:
-arctanh(  1.32) =  0.79
-arctanh(  2.51) =  1.57
-arctanh(  5.32) =  2.36
-arctanh( 11.59) =  3.14
-arctanh( 25.39) =  3.93
-arctanh( 55.66) =  4.71
-arctanh(122.08) =  5.50
-arctanh(267.75) =  6.28
+arctanh(  0.66) =  0.79
+arctanh(  0.92) =  1.57
+arctanh(  0.98) =  2.36
+arctanh(  1.00) =  3.14
+arctanh(  1.00) =  3.93
+arctanh(  1.00) =  4.71
+arctanh(  1.00) =  5.50
+arctanh(  1.00) =  6.28
 ```
 
 ---

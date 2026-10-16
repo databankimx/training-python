@@ -24,7 +24,7 @@ runs each step in order:
 We can test the program like this:
 
 ```python
-from utility_functions import file_path
+from utilities import file_path
 from clean_csv import clean_data_file
 
 filepath = file_path("bad_data.csv", "data")

@@ -5,12 +5,16 @@ from math import log2, ceil
 from common_functions import file_to_list, efficiency_report, list_to_file, is_sorted
 from sm_utils import timer
 
-# pylint: disable=fixme
-
 # Pseudocode Algorithm:
 # --------------------------------------------------------------
-# O(n log n)
-# TODO: Describe algorithm
+# Choose a sequence of gaps, largest first (here, 2^k - 1)
+# For each gap:
+#     For each element from the gap to the end:
+#         Insert it into its place among the elements that are
+#         gap positions apart, moving larger values one gap to the right
+#
+# Complexity: depends on the gap sequence. With gaps of 2^k - 1, the
+# worst case is O(n^(3/2)), and it is faster on partly sorted data
 # --------------------------------------------------------------
 
 folder = "data"

@@ -27,9 +27,9 @@ Output:
 
 ```
 Traceback (most recent call last):
-  File "...\09_kw_only.py", line 19, in <module>
+  File "...\09_kw_only.py", line 22, in <module>
     main()
-  File "...\09_kw_only.py", line 13, in main
+  File "...\09_kw_only.py", line 16, in main
     emp = Employee("Scott McLean", "smclean", 54, "Dallas")
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 TypeError: Employee.__init__() takes 1 positional argument but 5 were given

@@ -18,8 +18,8 @@ from dataclasses import dataclass, field
 
 def get_emp_id():
     """Factory Function"""
-    id = "smclean"
-    return id
+    new_id = "smclean"
+    return new_id
 
 @dataclass
 class Employee:

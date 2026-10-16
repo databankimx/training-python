@@ -97,14 +97,14 @@ value in an integer enum.
 from enum import IntFlag
 
 class ProductLicenses(IntFlag):
-    unlicensed         = 0,
-    word_processing    = 1,
-    spreadsheets       = 2,
-    presentations      = 4,
-    email_client       = 8,
-    notebook           = 16,
-    collaboration      = 32,
-    project_management = 64,
+    unlicensed         = 0
+    word_processing    = 1
+    spreadsheets       = 2
+    presentations      = 4
+    email_client       = 8
+    notebook           = 16
+    collaboration      = 32
+    project_management = 64
     publishing         = 128
 ```
 
@@ -117,14 +117,14 @@ more obvious.
 from enum import IntFlag
 
 class ProductLicenses(IntFlag):
-    unlicensed         = 0b0000_0000,
-    word_processing    = 0b0000_0001,
-    spreadsheets       = 0b0000_0010,
-    presentations      = 0b0000_0100,
-    email_client       = 0b0000_1000,
-    notebook           = 0b0001_0000,
-    collaboration      = 0b0010_0000,
-    project_management = 0b0100_0000,
+    unlicensed         = 0b0000_0000
+    word_processing    = 0b0000_0001
+    spreadsheets       = 0b0000_0010
+    presentations      = 0b0000_0100
+    email_client       = 0b0000_1000
+    notebook           = 0b0001_0000
+    collaboration      = 0b0010_0000
+    project_management = 0b0100_0000
     publishing         = 0b1000_0000
 ```
 
@@ -199,14 +199,14 @@ See [bit_flags.py](./12_bit_flags.py)
 from enum import IntFlag
 
 class ProductLicenses(IntFlag):
-    unlicensed         = 0b0000_0000,
-    word_processing    = 0b0000_0001,
-    spreadsheets       = 0b0000_0010,
-    presentations      = 0b0000_0100,
-    email_client       = 0b0000_1000,
-    notebook           = 0b0001_0000,
-    collaboration      = 0b0010_0000,
-    project_management = 0b0100_0000,
+    unlicensed         = 0b0000_0000
+    word_processing    = 0b0000_0001
+    spreadsheets       = 0b0000_0010
+    presentations      = 0b0000_0100
+    email_client       = 0b0000_1000
+    notebook           = 0b0001_0000
+    collaboration      = 0b0010_0000
+    project_management = 0b0100_0000
     publishing         = 0b1000_0000
 
 def main() -> None:

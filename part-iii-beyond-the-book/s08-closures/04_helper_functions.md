@@ -93,6 +93,12 @@ def process_hotspots(file: str | io.TextIOWrapper) -> None:
 Here, either path calls the inner function, but when the input value is a
 string (path only), we open the file, so either path passes a file object.
 
+> Note: The inner function uses `with file_obj as csv_file`, which closes the file
+> when it finishes. If the caller passes in a file object, that file is closed as
+> well, so the caller can't read from it again afterwards. If you need the file
+> to stay open, have the caller close it, or read the file without the `with`
+> block.
+
 ---
 
 ### Testing

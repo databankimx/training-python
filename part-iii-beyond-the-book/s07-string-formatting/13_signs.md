@@ -54,7 +54,7 @@ width allocated:
 ```python
 nums = [1, -7, 42]
 for n in nums:
-    print(f"[=+5d]  '{n:=+5d}'")
+    print(f"[=+5d] '{n:=+5d}'")
 ```
 
 Output:

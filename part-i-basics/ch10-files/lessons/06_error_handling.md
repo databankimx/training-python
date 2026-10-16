@@ -122,8 +122,8 @@ for i in range(100):
         print(f"{x} / {y} = {x / y}")
     except ZeroDivisionError:
         print("Caught attempt to divide by zero...")
-        print("Halting program!")
-        exit()
+        print("Halting loop!\n")
+        break
 ```
 
 Output:
@@ -132,10 +132,10 @@ Output:
 -- SNIP -- May be some successful iterations before an exception is thrown
 
 Caught attempt to divide by zero...
-Halting program!
+Halting loop!
 ```
 
-We've ended the program gracefully instead of crashing
+We've stopped the loop gracefully instead of crashing
 
 ---
 

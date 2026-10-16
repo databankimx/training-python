@@ -46,12 +46,14 @@ with open(file_path) as file_object:
         pi_string += line.strip()
 
 print(pi_string)
+print(f"pi_string is {len(pi_string)} characters long.\n")
 ```
 
 Output:
 
 ```
 3.141592653589793238462643383279
+pi_string is 32 characters long.
 ```
 
 ---
@@ -74,12 +76,14 @@ with open(file_path) as file_object:
     pi_string = "".join(l.strip() for l in file_object)
 
 print(pi_string)
+print(f"pi_string is {len(pi_string)} characters long.\n")
 ```
 
 Output:
 
 ```
 3.141592653589793238462643383279
+pi_string is 32 characters long.
 ```
 
 ---
@@ -145,12 +149,14 @@ for line in lines:
     pi_string += line.strip()
 
 print(pi_string)
+print(f"pi_string is {len(pi_string)} characters long.\n")
 ```
 
 Output:
 
 ```
 3.141592653589793238462643383279
+pi_string is 32 characters long.
 ```
 
 ---
@@ -175,12 +181,14 @@ text = path_object.read_text()
 pi_string = "".join(l.strip() for l in text.splitlines())
 
 print(pi_string)
+print(f"pi_string is {len(pi_string)} characters long.\n")
 ```
 
 Output:
 
 ```
 3.141592653589793238462643383279
+pi_string is 32 characters long.
 ```
 
 ---
@@ -217,4 +225,3 @@ pi_string is 1,000,002 characters long.
 </details>
 
 ---
-

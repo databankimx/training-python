@@ -52,6 +52,7 @@ def decode_code(self, code):
     """Follow a dot or dash path from the root to find one character"""
     node = self.tree
     for symbol in code:
+        assert symbol in ".-"
         node = node.left if symbol == "." else node.right
     return node.value
 ```

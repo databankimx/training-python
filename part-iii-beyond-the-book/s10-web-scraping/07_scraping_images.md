@@ -62,6 +62,13 @@ def initialize(debug: bool | None=False) -> None:
 </details>
 <br>
 
+This function uses the `requests` library, which is not part of the Python
+Standard Library. Install it in your active virtual environment with:
+
+```
+python -m pip install requests
+```
+
 ```python
 import requests
 from pathlib import Path
@@ -69,7 +76,7 @@ from relative_paths import get_path
 
 def download_image(url: str) -> None:
     """Store an image file"""
-    image = requests.get(url).content
+    image = requests.get(url, timeout=10).content
     filename = url.split("/")[-1]
     filepath = Path(get_path(filename, "images"))
     filepath.write_bytes(image)

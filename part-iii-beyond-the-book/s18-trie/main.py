@@ -25,12 +25,24 @@ def main() -> None:
     while True:
         clear_terminal()
         word = input("\nEnter a word to search (letters only)" + \
-                     " or press <ENTER> to quit:\n> ").lower()
+                     ", -word to delete it, or press <ENTER> to quit:\n> ").lower()
         print()
-        if word is None or word == "":
+        if word == "":
             clear_terminal()
             print("\nGoodbye...\n")
             break
+        if word.startswith("-"):
+            target = word[1:]
+            if not target.isalpha():
+                print("\nPlease enter letters only!\n")
+                pause()
+                continue
+            if t.delete(target):
+                print(f"'{target}' has been deleted from the trie...\n")
+            else:
+                print(f"'{target}' is not in the trie, so nothing was deleted...\n")
+            pause()
+            continue
         if not word.isalpha():
             print("\nPlease enter letters only!\n")
             pause()

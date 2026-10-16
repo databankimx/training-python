@@ -110,6 +110,8 @@ Output:
 0011 = 3
 ```
 
+The script then checks the result against `read_write`, so it also prints `Success!`.
+
 Using a bitwise OR added on the `write` permission while retaining the 
 `read` permission, resulting in the `read_write` permission.
 

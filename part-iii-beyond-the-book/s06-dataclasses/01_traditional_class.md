@@ -83,7 +83,7 @@ Now we can compare two instances:
 # -- SNIP --
 
 emp_1 = Employee("Scott", "smclean", 53, "Dallas")
-emp_2 = Employee("John", "Smith", 30, "Cleveland")
+emp_2 = Employee("John Smith", "jsmith", 30, "Cleveland")
 emp_3 = Employee("Scott", "smclean", 53, "Dallas")
 
 print(f"emp_1 == emp_2? {emp_1 == emp_2}")

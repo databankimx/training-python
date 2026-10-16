@@ -36,7 +36,7 @@ Here is an example using multiple auto-matched arguments:
 
 ```python
 qty, item, price = 5, "bananas", 0.39
-total = qty * price
+total = round(qty * price, 2)
 template = "{} {} cost ${}"
 values = (qty, item, total)
 print(template.format(*values))
@@ -46,7 +46,7 @@ or
 
 ```python
 qty, item, price = 5, "bananas", 0.39
-total = qty * price
+total = round(qty * price, 2)
 print("{} {} cost ${}".format(qty, item, total))
 ```
 

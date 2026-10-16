@@ -27,9 +27,10 @@ Output:
 
 ```
 Traceback (most recent call last):
-  File "...\04_init.py", line 17, in <module>    main()
+  File "...\04_init.py", line 17, in <module>
+    main()
   File "...\04_init.py", line 12, in main    
-    emp = Employee("Scott", "smclean", 53, "Dallas")
+    emp = Employee("Scott", "smclean", 54, "Dallas")
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 TypeError: Employee() takes no arguments
 ```

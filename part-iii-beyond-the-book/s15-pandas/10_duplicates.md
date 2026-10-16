@@ -91,15 +91,15 @@ Duplicate date rows found:
 Once identified, it is simple to remove the duplicates:
 
 ```python
-df.drop_duplicates(inplace=True)
-print("Duplicate rows dropped (in place):")
+df = df.drop_duplicates()
+print("Duplicate rows dropped:")
 print(df.loc[10:20])
 ```
 
 Output:
 
 ```
-Duplicate rows dropped (in place):
+Duplicate rows dropped:
     Duration          Date  Pulse  Maxpulse  Calories
 10        60  '2020/12/11'    103       147     329.3
 11        60  '2020/12/12'    100       120     250.7

@@ -64,3 +64,20 @@ word.
 ```
 
 ---
+
+### Trying It
+
+The code for this example is in [04_search.py](./04_search.py). Each call to
+`search()` prints its execution time before the result, because it is wrapped
+in the `@timer` decorator. The timings will differ on your machine:
+
+```
+Execution Time: 1.2 µs
+True
+Execution Time: 0.9 µs
+False
+True
+False
+```
+
+---

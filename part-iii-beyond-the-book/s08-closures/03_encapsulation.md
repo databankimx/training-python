@@ -16,8 +16,8 @@ maximum value.
 ```python
 def increment(n: int) -> int:
     """Increment an integer by 1"""
-    max = 10
-    if n >= max:
+    max_n = 10
+    if n >= max_n:
         return n
     def inner_increment():
         """Encapsulated function"""
@@ -83,9 +83,9 @@ Output:
 
 ```
 Traceback (most recent call last):
-  File ...\03_encapsulation.py", line 24, in <module>
+  File "...\03_encapsulation.py", line 26, in <module>
     main()
-  File "...\03_encapsulation.py", line 16, in main
+  File "...\03_encapsulation.py", line 21, in main
     print(f"{n}++ = {inner_increment(n)}")
                      ^^^^^^^^^^^^^^^
 NameError: name 'inner_increment' is not defined

@@ -107,11 +107,11 @@ Output:
 
 ```
 Traceback (most recent call last):
-  File "...\05_alias_unique.py", line 14, in <module>
+  File "...\05_alias_unique.py", line 3, in <module>
     @unique
      ^^^^^^
   File "...\enum.py", line 1586, in unique
-    raise ValueError('duplicate values found in %r: %s' %)
+    raise ValueError(...)
 ValueError: duplicate values found in <enum 'NoRepeats'>: TRES -> THREE
 ```
 

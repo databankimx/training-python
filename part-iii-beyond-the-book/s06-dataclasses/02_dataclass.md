@@ -42,10 +42,10 @@ Let's test this code:
 ```python
 # -- SNIP --
 
-emp_1 = Employee("Scott", "smclean", 53, "Dallas")
-emp_2 = Employee("John", "Smith", 30, "Cleveland")
+emp_1 = Employee("Scott McLean", "smclean", 53, "Dallas")
+emp_2 = Employee("John Smith", "jsmith", 30, "Cleveland")
 
-emp_3 = Employee("Scott", "smclean", 53, "Dallas")
+emp_3 = Employee("Scott McLean", "smclean", 53, "Dallas")
 
 print(emp_1)
 print(emp_2)
@@ -57,8 +57,8 @@ print(f"emp_1 == emp_3? {emp_1 == emp_3}")
 Output:
 
 ```
-Employee(name='Scott', emp_id='smclean', age=53, city='Dallas')
-Employee(name='John', emp_id='Smith', age=30, city='Cleveland')
+Employee(name='Scott McLean', emp_id='smclean', age=53, city='Dallas')
+Employee(name='John Smith', emp_id='jsmith', age=30, city='Cleveland')
 emp_1 == emp_2? False
 emp_1 == emp_3? True
 ```

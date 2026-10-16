@@ -65,7 +65,7 @@ print(df.to_string())
 ```python
 # -- SNIP --
 
-pd.options.display_max_rows = 200
+pd.options.display.max_rows = 200
 print(df)
 ```
 

@@ -92,3 +92,30 @@ for future use in Python, so we probably shouldn't.
 
 ---
 
+### Running the Example
+
+The code for this lesson is in
+[02_bonus_using_underscores.py](./02_bonus_using_underscores.py). It imports
+[underscore_module.py](./underscore_module.py), which defines one public name and
+one underscore name. Its output is:
+
+```
+Leading underscore with import *:
+  visible_name defined: True
+  _hidden_name defined: False
+Leading underscore with import module:
+  underscore_module._hidden_name = hidden value
+Trailing underscore:
+  class_ = a value that can't use the reserved word
+Single underscore:
+  loop ran 3 times
+  var1 = important, var2 = important
+Double leading underscore (name mangling):
+  thing._MyClass__name = value
+  hasattr(thing, '__name'): False
+Dunder names:
+  __name__ = __main__
+```
+
+---
+

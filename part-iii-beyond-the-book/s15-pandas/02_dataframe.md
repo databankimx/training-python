@@ -168,11 +168,14 @@ Output:
 
 ```
 Label DataFrame Columns:
-      Person  Years      Home
-1st   John     24  New York
-2nd   Anna     30     Tokyo
-3rd  Peter     28  New York
-4th  Linda     26    London
+  Person  Years      Home
+0   John     24  New York
+1   Anna     30     Tokyo
+2  Peter     28  New York
+3  Linda     26    London
 ```
+
+> Note: When you run the script, this example starts from a new DataFrame built
+> from the original data, so its row labels are `0` to `3` again.
 
 ---

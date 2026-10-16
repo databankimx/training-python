@@ -32,7 +32,7 @@ Output:
 (iteration 19883) - I'm just gonna run forever...
 (iteration 19884) - I'm just gonna run forever...
 Traceback (most recent call last):
-  File "...\15_bonus_why_pass_is_bad.py", line 7, in <module>
+  File "...\15_bonus_why_pass_is_bad.py", line 10, in <module>
     print(f"(iteration {i}) - I'm just gonna run forever...")
 KeyboardInterrupt
 ```
@@ -138,10 +138,7 @@ Output:
 
 (iteration 19883) - I'm just gonna run forever...
 (iteration 19884) - I'm just gonna run forever...
-Traceback (most recent call last):
-  File "...\15_bonus_why_pass_is_bad.py", line 7, in <module>
-    print(f"(iteration {i}) - I'm just gonna run forever...")
-KeyboardInterrupt
+OK... I'll stop... :(
 ```
 
 ---

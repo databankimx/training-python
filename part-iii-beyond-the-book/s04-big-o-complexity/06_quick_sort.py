@@ -4,12 +4,19 @@ import sys
 from common_functions import file_to_list, efficiency_report, list_to_file, is_sorted
 from sm_utils import timer
 
-# pylint: disable=fixme
-
 # Pseudocode Algorithm:
 # --------------------------------------------------------------
-# O(n log n)
-# TODO: Describe algorithm
+# If the array has 0 or 1 elements
+#     It is already sorted, so return it
+# Choose a pivot element (the last element in this implementation)
+# Partition the remaining elements into:
+#     lesser  - elements less than the pivot
+#     equal   - elements equal to the pivot
+#     greater - elements greater than the pivot
+# Quick sort the lesser and greater groups
+# Return lesser + equal + greater
+#
+# Complexity: O(n log n) on average, O(n^2) in the worst case
 # --------------------------------------------------------------
 
 folder = "data"

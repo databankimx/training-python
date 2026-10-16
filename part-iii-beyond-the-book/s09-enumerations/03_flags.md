@@ -28,9 +28,9 @@ class Weekday(Flag):
     SUNDAY = 64
 
     @classmethod
-    def from_date(cls, date: date) -> Flag:
+    def from_date(cls, day: date) -> Flag:
         """Get weekday name of the given date"""
-        return cls(2 ** date.weekday())
+        return cls(2 ** day.weekday())
 ```
 
 > Note: I have modified the `from_date()` method to use a power of two.

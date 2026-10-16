@@ -22,7 +22,7 @@ def main():
     # print(json.dumps(
     #     {
     #         "type": "Thing",
-    #         "name": "thing",
+    #         "name": "my_thing",
     #         "attributes": my_thing.__dict__
     #     },
     #     indent=4

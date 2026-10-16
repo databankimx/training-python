@@ -60,9 +60,9 @@ Obtained bad data:
 
 Looking at the last 10 rows of the data, we can see several bad values
 
-* Line 22: No Date (CSV contains `null`)
-* Line 26: Missing quotes around Date
-* Line 28: Missing Calories (CSV contains `null`)
+* Row 22: No Date (CSV contains `null`)
+* Row 26: Missing quotes around Date
+* Row 28: Missing Calories (CSV contains `null`)
 
 If we tried to process this data for statistics, our results would be off.
 

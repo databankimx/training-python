@@ -159,7 +159,7 @@ for name, func in functions.items():
     print(f"\n{name}:\n{dur} sec")
 ```
 
-Output:
+Output (your timings will differ):
 
 ```
 Testing 10! 1,000,000 times for each algorithm...
@@ -186,7 +186,8 @@ recursive function and measurably faster than the `reduce()` alternative as
 well.
 
 That said, it's clear that it's pretty inefficient overall, since Python's
-`math.factorial()` is more than ten times faster.
+`math.factorial()` is by far the fastest of the four. The exact ratio depends
+on your machine, so the timings you see will differ from the example output.
 
 That's because the `math.factorial()` method is:
 

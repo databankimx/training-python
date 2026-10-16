@@ -40,11 +40,11 @@ We can now wrap a function in a decorator using this syntax:
 `new_func = decorator_name(function)`
 
 ```python
-def sum(a: int, b: int) -> int:
+def compute_sum(a: int, b: int) -> int:
     """Sum two numbers"""
     return a + b
 
-total = debug(sum)
+total = debug(compute_sum)
 
 total(1, 2)
 total(3, b=4)
@@ -55,8 +55,8 @@ total(3, b=4)
 Output:
 
 ```
-sum(args: (1, 2), kwargs: {}) -> 3
-sum(args: (3,), kwargs: {'b': 4}) -> 7
+compute_sum(args: (1, 2), kwargs: {}) -> 3
+compute_sum(args: (3,), kwargs: {'b': 4}) -> 7
 ```
 
 ---

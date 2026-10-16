@@ -73,11 +73,9 @@ Output:
 
 ```
 Traceback (most recent call last):
-  File "...\16_nested_formatters.py", line 21, in <module>
-    main()
-  File "...\16_nested_formatters.py", line 18, in main
+  File "...\16_nested_formatters.py", line 12, in <module>
     align_numbers(numbers)
-  File "...", line 12, in align_numbers     
+  File "...", line 7, in align_numbers     
     print(f"{lead}{numbers[i]:>width}")
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ValueError: Invalid format specifier '>width' for object of type 'int'
@@ -114,13 +112,13 @@ Output:
 > Note: Your numbers will vary (they're random after all)
 
 ```
-      2
-    356
-     27
-    251
-+  1000
--------
-   1636
+     2
+   356
+    27
+   251
++ 1000
+------
+  1636
 ```
 
 Et voila! We've solved the variable width problem.

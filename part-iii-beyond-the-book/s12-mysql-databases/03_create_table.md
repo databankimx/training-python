@@ -98,6 +98,10 @@ if conn.is_connected():
     cursor.execute(sql)
 ```
 
+> Note: Running the `ALTER TABLE ... ADD COLUMN id` statement a second time fails,
+> because the column already exists. The script checks the column list first and
+> skips this step if `id` is already there.
+
 ---
 
 ### Verification

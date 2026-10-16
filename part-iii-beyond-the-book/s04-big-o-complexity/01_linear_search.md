@@ -124,12 +124,13 @@ Linear Search performed 8,961 comparisons to search 10,000 numbers.
 Computed complexity: O(n) - linear
 
 Approximate values for reference:
- · n!       = Value omitted - too large to calculate!
- · 2ⁿ       = Value omitted - too large to calculate!
- · n²       = 100,000,000
- · n log(n) = 132,878
- · n        = 10,000
- · log(n)   = 14
+ • n!       = Value omitted - too large to calculate!
+ • 2ⁿ       = 1.99 * 10^3010
+ • n²       = 100,000,000
+ • n log n  = 132,878
+ • n        = 10,000
+ • log n    = 14
+ • const    = 1
 ```
 
 Run the program a few times and see what output you get.

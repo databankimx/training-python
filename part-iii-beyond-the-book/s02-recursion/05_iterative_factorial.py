@@ -12,7 +12,7 @@ def iterative_factorial(n: int) -> int | None:
 
 def main() -> None:
     """Main program"""
-    # print(iterative_factorial(1001))
+    # print(iterative_factorial(1000))
     for n in range(10):
         print(f"{n}! = {iterative_factorial(n)}")
 

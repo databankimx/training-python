@@ -79,6 +79,73 @@ def computer_choice(self):
 
 ---
 
+### Starting the Game
+
+`main.py` asks whether the computer should use a strategy, and passes the
+answer to the game:
+
+```python
+answer = input("Should the computer use a strategy? (Y|N)\n> ")[:1].lower()
+RockPaperScissors({"y": True, "n": False}.get(answer)).play()
+```
+
+`dict.get()` returns `None` for any answer other than `y` or `n`. The game
+then flips a coin, in `__init__()`:
+
+```python
+self.use_strategy = bool(getrandbits(1)) if use_strategy is None else use_strategy
+```
+
+`getrandbits(1)` returns `0` or `1`, and `bool()` turns that into `False` or
+`True`. The constructor also sets `last_result` to `"ties"`. That makes the
+first turn behave like a tie, so the strategy conditions are false and the
+computer picks at random.
+
+---
+
+### Playing a Round
+
+`play()` repeats until the player quits. Each choice is checked before it is
+used:
+
+```python
+while True:
+    player = ""
+    while player not in ("r", "p", "s", "q"):
+        player = input("Enter your choice: ([r]ock, [p]aper, [s]cissors, [q]uit\n> ")[:1].lower()
+    if player == "q":
+        break
+    self.turn(player)
+```
+
+* `[:1]` keeps only the first character, so `rock`, `r`, and `R` all count as
+  `r`.
+* The inner `while` asks again until the answer is one of the four valid
+  letters.
+* `q` leaves the outer loop, which ends the game.
+
+---
+
+### Names and Random Choices
+
+`NAMES` turns each letter back into a word for the message that `turn()`
+prints:
+
+```python
+print(f"Computer chooses {NAMES[computer]} and {self.last_result}\n")
+```
+
+When the strategy is off, the computer's choice comes from:
+
+```python
+return choice(list(BEATS))
+```
+
+`list()` is needed because `choice()` picks from a sequence, and a dictionary's
+keys can't be indexed directly. Each of `r`, `p`, and `s` is equally likely.
+
+---
+
 ### Try It
 
 Play a few games with and without a strategy. The strategy is built around a

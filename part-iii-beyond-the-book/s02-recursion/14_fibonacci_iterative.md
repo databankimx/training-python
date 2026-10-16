@@ -36,8 +36,8 @@ print(f"call_count = {fibonacci.call_count:,}")
 Output:
 
 ```
-F(40) = 102,334,155
-call_count =  1
+Calculated F(40) = 102,334,155
+call_count = 1
 ```
 
 This completes in milliseconds, regardless how large *n* is (provided you have

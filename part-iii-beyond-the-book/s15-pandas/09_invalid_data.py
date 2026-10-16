@@ -11,11 +11,12 @@ def load_from_csv(filepath: str, printout: bool=False) -> pd.DataFrame:
         print(df.head(10), "\n")
     return df
 
-def drop_invalid_durations(df: pd.DataFrame) -> None:
+def drop_invalid_durations(df: pd.DataFrame) -> pd.DataFrame:
     """Drop rows with invalid durations in the DataFrame"""
-    df.drop(df[df["Duration"] > 120].index, inplace=True)
+    df = df.drop(df[df["Duration"] > 120].index)
     print("Dropped invalid durations:")
     print(df.head(10), "\n")
+    return df
 
 def fix_invalid_durations(df: pd.DataFrame) -> None:
     """Fix invalid durations in the DataFrame"""

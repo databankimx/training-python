@@ -55,7 +55,7 @@ class GameOfLife:
             if pattern is not None:
                 return [[cell == 1 for cell in row] for row in pattern]
             self.preload = "none"
-        return [[randrange(s["onein"] + 1) == 0 for _ in range(s["cols"])]
+        return [[randrange(s["onein"]) == 0 for _ in range(s["cols"])]
                 for _ in range(s["rows"])]
 
     def next_generation(self):

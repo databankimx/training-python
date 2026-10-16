@@ -177,13 +177,19 @@ Output:
 Weekday.MONDAY is IntWeekday.MONDAY: False
 Weekday.MONDAY.value is IntWeekday.MONDAY.value: True
 Weekday.MONDAY is 1: False
-IntWeekday.MONDAY is 1: False
+IntWeekday.MONDAY is 1: True
 Weekday.MONDAY.value is 1: True
 IntWeekday.MONDAY.value is 1: True
 ```
 
-The only notable item here is that where `IntEnum == int` was `True`,
-`IntEnum is int` is `False`
+On Python 3.12, `IntWeekday.MONDAY is 1` is `True`, while `Weekday.MONDAY is 1` is
+`False`. Those are the only two `is` results that differ between the enum types.
+
+> Note: `is` compares object identity, not value. Whether two integer objects are
+> the same object is an implementation detail, so `is` with a literal (such as
+> `is 1`) is not reliable. Code analysis tools (SonarQube rule S5795) flag it for
+> that reason. Use `==` to compare values. The `# NOSONAR` comments in the script
+> mark the lines that are here only to show this behaviour.
 
 ---
 

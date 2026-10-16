@@ -29,3 +29,15 @@ There's not much else to say on this class. Being a data model, it does not
 require any additional functionality.
 
 ---
+
+### Trying It
+
+The code for this example is in [01_trie_node.py](./01_trie_node.py):
+
+```
+Children: 26
+First child: None
+Word end: False
+```
+
+---

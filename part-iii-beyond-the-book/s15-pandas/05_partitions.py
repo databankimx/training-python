@@ -10,7 +10,8 @@ def load_from_json(filepath: str) -> pd.DataFrame:
 def show_info(df: pd.DataFrame) -> None:
     """Display information about the DataFrame"""
     print("DataFrame Info:")
-    print(df.info(), "\n")
+    df.info()  # info() prints its own output and returns None
+    print()
 
 def top_rows(df: pd.DataFrame) -> None:
     """Display the first 5 rows of the DataFrame"""

@@ -38,9 +38,14 @@ def add_primary_key(conn: mysql.connector.connection) -> None:
     if not conn.is_connected():
         print("No active connection to MySQL Server!")
         return
+    cursor = conn.cursor()
+    cursor.execute("SHOW COLUMNS in customers")
+    existing = [column[0] for column in cursor.fetchall()]
+    if "id" in existing:
+        print("Column `id` already exists!\n")
+        return
     sql = "ALTER TABLE customers " + \
           "ADD COLUMN id INT AUTO_INCREMENT PRIMARY KEY"
-    cursor = conn.cursor()
     cursor.execute(sql)
     conn.commit()
     print("Column `id` added successfully!\n")

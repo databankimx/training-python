@@ -23,7 +23,7 @@ def timer(func: callable) -> callable:
         end = timeit.default_timer()
         delta = end - start
 
-        if delta > 60:\
+        if delta > 60:
             ex_time = f"{int(delta // 60)} m : {round(delta % 60, 4)} s"
         elif delta * 1_000_000 < 1:
             ex_time = f"{round(delta * 1_000_000_000, 4)} ns"

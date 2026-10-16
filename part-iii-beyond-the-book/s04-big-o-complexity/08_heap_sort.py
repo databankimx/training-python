@@ -4,12 +4,15 @@ import sys
 from common_functions import file_to_list, efficiency_report, list_to_file, is_sorted
 from sm_utils import timer
 
-# pylint: disable=fixme
-
 # Pseudocode Algorithm:
 # --------------------------------------------------------------
-# O(n log n)
-# TODO: Describe algorithm
+# Build a max-heap from the whole array
+# For each position from the last element back to the second:
+#     Swap the top of the heap (the largest value) with that position
+#     Shrink the heap by one element
+#     Fix the heap from the top
+#
+# Complexity: O(n log n) in every case
 # --------------------------------------------------------------
 
 folder = "data"

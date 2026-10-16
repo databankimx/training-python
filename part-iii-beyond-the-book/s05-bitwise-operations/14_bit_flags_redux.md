@@ -48,17 +48,17 @@ larger integer type and add values for each package
 from enum import IntFlag
 
 class ProductLicenses(IntFlag):
-    unlicensed         = 0,
-    word_processing    = 1,
-    spreadsheets       = 2,
-    presentations      = 4,
-    email_client       = 8,
-    notebook           = 16,
-    collaboration      = 32,
-    project_management = 64,
-    publishing         = 128,
-    personal           = 256,
-    work               = 512,
+    unlicensed         = 0
+    word_processing    = 1
+    spreadsheets       = 2
+    presentations      = 4
+    email_client       = 8
+    notebook           = 16
+    collaboration      = 32
+    project_management = 64
+    publishing         = 128
+    personal           = 256
+    work               = 512
     ultra_deluxe       = 1024
 ```
 
@@ -136,7 +136,7 @@ from enum import IntFlag
 class ProductLicenses(IntFlag):    
     # -- SNIP --
 
-    personal = 9,
+    personal = 9
 ```
 
 ---
@@ -150,10 +150,7 @@ from enum import IntFlag
 class ProductLicenses(IntFlag):    
     # -- SNIP --
 
-    # Note: The enum values are stored as tuples, so we have to
-    #       get the `value[0]` element for the integer value
-    #       when accessing them inside the enum
-    personal = word_processing[0] | email_client[0],
+    personal = word_processing | email_client
 ```
 
 ---
@@ -173,10 +170,10 @@ from enum import IntFlag
 class ProductLicenses(IntFlag):    
     # -- SNIP --
 
-    personal = word_processing[0] | email_client[0],
-    work = personal[0] | spreadsheets[0] | presentations[0] \
-         | notebook[0] | collaboration[0],
-    ultra_deluxe = work[0] | project_management[0] | publishing[0]
+    personal = word_processing | email_client
+    work = personal | spreadsheets | presentations \
+         | notebook | collaboration
+    ultra_deluxe = work | project_management | publishing
 ```
 
 ---
@@ -189,19 +186,19 @@ So your final enumeration looks like this:
 from enum import IntFlag
 
 class ProductLicenses(IntFlag):
-    unlicensed         = 0b0000_0000,
-    word_processing    = 0b0000_0001,
-    spreadsheets       = 0b0000_0010,
-    presentations      = 0b0000_0100,
-    email_client       = 0b0000_1000,
-    notebook           = 0b0001_0000,
-    collaboration      = 0b0010_0000,
-    project_management = 0b0100_0000,
-    publishing         = 0b1000_0000,
-    personal = word_processing[0] | email_client[0],
-    work = personal[0] | spreadsheets[0] | presentations[0] \
-         | notebook[0] | collaboration[0],
-    ultra_deluxe = work[0] | project_management[0] | publishing[0]
+    unlicensed         = 0b0000_0000
+    word_processing    = 0b0000_0001
+    spreadsheets       = 0b0000_0010
+    presentations      = 0b0000_0100
+    email_client       = 0b0000_1000
+    notebook           = 0b0001_0000
+    collaboration      = 0b0010_0000
+    project_management = 0b0100_0000
+    publishing         = 0b1000_0000
+    personal = word_processing | email_client
+    work = personal | spreadsheets | presentations \
+         | notebook | collaboration
+    ultra_deluxe = work | project_management | publishing
 ```
 
 And now, you can continue using your original, simple licensing check,
@@ -253,19 +250,19 @@ See [bit_flags_redux.py](./14_bit_flags_redux.py)
 from enum import IntFlag
 
 class ProductLicenses(IntFlag):
-    unlicensed         = 0b0000_0000,
-    word_processing    = 0b0000_0001,
-    spreadsheets       = 0b0000_0010,
-    presentations      = 0b0000_0100,
-    email_client       = 0b0000_1000,
-    notebook           = 0b0001_0000,
-    collaboration      = 0b0010_0000,
-    project_management = 0b0100_0000,
-    publishing         = 0b1000_0000,
-    personal = word_processing[0] | email_client[0],
-    work = personal[0] | spreadsheets[0] | presentations[0] | \
-           notebook[0] | collaboration[0],
-    ultra_deluxe = work[0] | project_management[0] | publishing[0]
+    unlicensed         = 0b0000_0000
+    word_processing    = 0b0000_0001
+    spreadsheets       = 0b0000_0010
+    presentations      = 0b0000_0100
+    email_client       = 0b0000_1000
+    notebook           = 0b0001_0000
+    collaboration      = 0b0010_0000
+    project_management = 0b0100_0000
+    publishing         = 0b1000_0000
+    personal = word_processing | email_client
+    work = personal | spreadsheets | presentations \
+         | notebook | collaboration
+    ultra_deluxe = work | project_management | publishing
 
 def main() -> None:
     licenses = ProductLicenses.work

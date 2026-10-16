@@ -61,10 +61,9 @@ Here is an example of how we might code a simple binary search...
 > Consider constructing that version of the function as a study assignment.
 
 ```python
-def binary_search(array: list[int], target: int, low: int=-1, high: int=-1) -> int:
+def binary_search(array: list[int], target: int, low: int=0, high: int | None=None) -> int:
     """Find the index where the target value is stored"""
-    if low == -1: low = 0
-    if high == -1: high = len(array) - 1
+    if high is None: high = len(array) - 1
     
     if high >= low:
         mid = (high + low) // 2
@@ -157,19 +156,22 @@ I have prepared a test program that you can run with a larger list:
 Here is an example of its output:
 
 ```
+Execution Time: 6.8 µs
+
 Index of target [2110]: i = [7109]
 
 Binary Search performed 13 comparisons to search 10,000 numbers.
 
-Computed complexity: O(log(n)) - logarithmic
+Computed complexity: O(log n) - logarithmic
 
 Approximate values for reference:
- · n!       = Value omitted - too large to calculate!
- · 2ⁿ       = Value omitted - too large to calculate!
- · n²       = 100,000,000
- · n log(n) = 132,878
- · n        = 10,000
- · log(n)   = 14
+ • n!       = Value omitted - too large to calculate!
+ • 2ⁿ       = 1.99 * 10^3010
+ • n²       = 100,000,000
+ • n log n  = 132,878
+ • n        = 10,000
+ • log n    = 14
+ • const    = 1
  ```
 
 Run the program a few times and see what output you get.

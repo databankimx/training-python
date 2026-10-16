@@ -160,7 +160,7 @@ Here is an example of its output:
 ```
 Execution Time: 2.9979 s
 
-Selection Sort performed 49,995,000 operations to sort 10,000 numbers
+Selection Sort performed 50,004,999 operations to sort 10,000 numbers
 
 Computed complexity: O(n²) - quadratic (polynomial)
 
@@ -175,6 +175,9 @@ Approximate values for reference:
 
 Check file: ./data/sorted_integers.txt to validate results
 ```
+
+> Note: The count includes one step for each pass of the outer loop, which adds
+> `n - 1` (9,999 here) to the inner comparisons: 49,995,000 + 9,999 = 50,004,999.
 
 Run the program a few times and see what output you get.
 

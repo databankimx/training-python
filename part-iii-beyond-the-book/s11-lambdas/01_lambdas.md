@@ -162,9 +162,10 @@ A lambda can have multiple parameters, which are comma-separated just
 like in a traditional function.
 
 ```python
-a, b = 21, 21
+a = 21
+b = a
 sum_args = lambda x, y: x + y
-print(f"sum_args(a, b)  returns: {sum_args(a, b)}")
+print(f"sum_args(a, b) returns: {sum_args(a, b)}")
 print(f"(lambda x, y: x + y)(a, b) returns: {(lambda x, y: x + y)(a, b)}")
 ```
 

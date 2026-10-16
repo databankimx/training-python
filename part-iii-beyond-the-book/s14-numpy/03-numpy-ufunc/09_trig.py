@@ -23,6 +23,8 @@ def print_out(txt: str, lbl: str, lst: list[int], arr: np.ndarray) -> None:
             d = 0.0
         if round(r) == 0:
             r = 0.0
+        if abs(d) > 1000000:
+            d = np.inf
         if r > 1000000:
             r = np.inf
         if isinstance(d, int):
@@ -45,7 +47,7 @@ def do_trig(lst: list[int]) -> None:
     a_c = np.arccos(c)
     print_out("arccosine", "arccos", c, a_c)
     a_t = np.arctan(t)
-    print_out("arctangent", "arctan", c, a_t)
+    print_out("arctangent", "arctan", t, a_t)
 
 def main() -> None:
     """Run the program"""

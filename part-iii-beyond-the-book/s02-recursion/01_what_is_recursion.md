@@ -62,13 +62,16 @@ def recursion_overflow() -> None:
 recursion_overflow()
 ```
 
-Output:
+Output (from the full script, `01_what_is_recursion.py`):
 
 ```
+Max recursion depth: 1000
 Traceback (most recent call last):
-  ... -- SNIP --
-
-  File "...\01_what_is_recursion.py", line 4, in recursion_overflow
+  File "...\01_what_is_recursion.py", line 15, in <module>
+    main()
+  File "...\01_what_is_recursion.py", line 12, in main
+    recursion_overflow()
+  File "...\01_what_is_recursion.py", line 7, in recursion_overflow
     recursion_overflow()
   [Previous line repeated 995 more times]
 RecursionError: maximum recursion depth exceeded

@@ -43,7 +43,7 @@ As a result, we see this...
 Output:
 
 ```
-1, 2, 3
+1 2 3
 ```
 
 ... which is exactly what we expect.

@@ -12,10 +12,10 @@ class Employee:
 
 def main() -> None:
     """Main Function"""
-    emp_1 = Employee("Scott", "smclean", 53, "Dallas")
-    emp_2 = Employee("John", "Smith", 30, "Cleveland")
+    emp_1 = Employee("Scott McLean", "smclean", 53, "Dallas")
+    emp_2 = Employee("John Smith", "jsmith", 30, "Cleveland")
 
-    emp_3 = Employee("Scott", "smclean", 53, "Dallas")
+    emp_3 = Employee("Scott McLean", "smclean", 53, "Dallas")
 
     print(emp_1)
     print(emp_2)

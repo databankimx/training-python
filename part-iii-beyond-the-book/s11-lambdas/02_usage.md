@@ -91,15 +91,15 @@ Output:
 ```
 Analyzing add_function...
 Type: <class 'function'> (<function add_function at 0x0000023DAA7356C0>)
-  7           0 RESUME                   0
-  9           2 LOAD_FAST                0 (x)
+ 11           0 RESUME                   0
+ 13           2 LOAD_FAST                0 (x)
               4 LOAD_FAST                1 (y)
               6 BINARY_OP                0 (+)
              10 RETURN_VALUE
 
 Analyzing add_lambda...
 Type: <class 'function'> (<function compare_bytecode.<locals>.<lambda> at 0x0000023DAA734F40>)
- 20           0 RESUME                   0
+ 25           0 RESUME                   0
               2 LOAD_FAST                0 (x)
               4 LOAD_FAST                1 (y)
               6 BINARY_OP                0 (+)
@@ -148,10 +148,10 @@ Output:
 ```
 Error in function...
 Traceback (most recent call last):
-  File "...\02_usage.py", line 40, in compare_errors
+  File "...\02_usage.py", line 44, in compare_errors
     print(divide_function(x, y))
           ^^^^^^^^^^^^^^^^^^^^^
-  File "...\02_usage.py", line 29, in divide_function
+  File "...\02_usage.py", line 33, in divide_function
     return x / y
            ~~^~~
 ZeroDivisionError: division by zero
@@ -162,10 +162,10 @@ ZeroDivisionError: division by zero
 
 Error in lambda...
 Traceback (most recent call last):
-  File "...\02_usage.py", line 49, in compare_errors
+  File "...\02_usage.py", line 55, in compare_errors
     print(divide_lambda(x, y))
           ^^^^^^^^^^^^^^^^^^^
-  File "...\02_usage.py", line 45, in <lambda>
+  File "...\02_usage.py", line 51, in <lambda>
     divide_lambda = lambda x, y: x / y
                                  ~~^~~
 ZeroDivisionError: division by zero

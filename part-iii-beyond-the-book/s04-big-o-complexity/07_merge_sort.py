@@ -4,12 +4,20 @@ import sys
 from common_functions import file_to_list, efficiency_report, list_to_file, is_sorted
 from sm_utils import timer
 
-# pylint: disable=fixme
-
 # Pseudocode Algorithm:
 # --------------------------------------------------------------
-# O(n log n)
-# TODO: Describe algorithm
+# If the array has 1 element
+#     It is already sorted, so return it
+# Split the array into a left half and a right half
+# Merge sort the left half
+# Merge sort the right half
+# Merge the two sorted halves:
+#     Compare the first unused element of each half
+#     Add the smaller one to the result
+#     Repeat until one half is empty
+#     Add the remaining elements of the other half
+#
+# Complexity: O(n log n) in every case
 # --------------------------------------------------------------
 
 folder = "data"

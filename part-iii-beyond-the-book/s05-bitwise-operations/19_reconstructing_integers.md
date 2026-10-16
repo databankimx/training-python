@@ -41,7 +41,7 @@ num = bytes[0] # 210
 
 The second byte, however, represents bits $8$ through $15$.
 
-The value of $0000_0010_2$ in isolation is $2_{10}$, and we might naively 
+The value of $0000~0010_2$ in isolation is $2_{10}$, and we might naively 
 decide to add it to the value we've stored:
 
 ```python

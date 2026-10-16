@@ -57,9 +57,7 @@ Output:
 
 ```
 Traceback (most recent call last):
-  File "...\08_match_args.py", line 16, in <module>
-    main()
-  File "...\08_match_args.py", line 13, in main
+  File "...\08_match_args.py", line 12, in <module>
     print(emp.__match_args__)
           ^^^^^^^^^^^^^^^^^^
 AttributeError: 'Employee' object has no attribute '__match_args__'

@@ -36,7 +36,7 @@ Let's test the function:
 
 ```python
 for n in range(10):
-    print(f"{n}! = {factorial(n)}")
+    print(f"{n}! = {iterative_factorial(n)}")
 ```
 
 Output:
@@ -73,7 +73,7 @@ print(iterative_factorial(1000))
 Output:
 
 ```
-4027896473371708673172461363569269897050 --SNIP-- 000
+4023872600770937 --SNIP-- 000
 ```
 
 This 2,568-digit monster proves that we can use our iterative algorithm

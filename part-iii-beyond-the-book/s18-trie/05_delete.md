@@ -74,6 +74,8 @@ deleted by mistake. Without it, deleting "an" from a trie that only holds
 
 ### Trying It
 
+The code for this example is in [05_delete.py](./05_delete.py).
+
 Build a small trie, then delete words and check the results:
 
 ```python
@@ -89,17 +91,25 @@ print(t.search("anyone"))  # True: "anyone" still exists
 print(t.search("any"))     # False: "any" is no longer a word
 ```
 
-Output:
+Output (the two `search()` calls print their timing first, and those values
+will differ on your machine):
 
 ```
 False
 True
+Execution Time: 1.2 µs
 True
+Execution Time: 0.9 µs
 False
 ```
 
-> Note: `search()` is wrapped in the `@timer` decorator, so each call to it also
-> prints an execution time line before its result. Those lines are left out of
-> the output above.
+> Note: `search()` is wrapped in the `@timer` decorator, so each call to it prints
+> an execution time line before its result.
+
+The interactive program in [main.py](./main.py) also supports deletion. Enter a
+word with a leading `-`, such as `-any`, and the program removes that word from
+the trie for the rest of the session. The change is only in memory: the
+dictionary file is not changed, so the word comes back the next time the
+program starts.
 
 ---

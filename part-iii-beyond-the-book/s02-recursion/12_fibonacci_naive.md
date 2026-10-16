@@ -30,8 +30,8 @@ print(f"call_count = {fibonacci.call_count:,}")
 Output:
 
 ```
-F(40) = 102,334,155
-call_count =  331,160,281
+Calculated F(40) = 102,334,155
+call_count = 331,160,281
 ```
 
 > Note: You may have to wait several minutes for this computation to complete.

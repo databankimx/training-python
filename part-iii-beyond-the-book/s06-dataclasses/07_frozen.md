@@ -28,9 +28,9 @@ Output:
 
 ```
 Traceback (most recent call last):
-  File "...\07_frozen.py", line 18, in <module>
+  File "...\07_frozen.py", line 23, in <module>
     main()
-  File "...\07_frozen.py", line 14, in main
+  File "...\07_frozen.py", line 19, in main
     emp.age = 54
     ^^^^^^^
   File "<string>", line 4, in __setattr__

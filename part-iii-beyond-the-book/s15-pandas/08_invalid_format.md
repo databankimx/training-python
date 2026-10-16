@@ -58,6 +58,10 @@ delimited with single-quotes in our CSV file. This tells the parser to remove
 the quotes around quoted values, so the quoting is consistent before we
 convert the data.
 
+> Note: `quoting=2` tells the reader that unquoted fields are non-numeric, so
+> unquoted numbers such as `45` are read as floats (`45.0`). That's why the
+> `Duration` and `Pulse` columns show decimals below.
+
 ---
 
 ### Standardize the Quotes
@@ -137,7 +141,7 @@ df.dropna(subset=["Date"], inplace=True)
 Or we could replace it with a static date:
 
 ```python
-df.fillna({"Date": "'12/22/2024'"}, inplace=True)
+df.fillna({"Date": pd.Timestamp("2024-12-22")}, inplace=True)
 ```
 
 But let's get a little clever, using the `shift()` function, which takes

@@ -57,8 +57,10 @@ func = UnivariateSpline(xs, ys)
 print(func(2.5))
 ```
 
-The estimate is close to the true value of `2.5 ** 2 + sin(2.5) + 1`. The gap
-between the two is the error of the interpolation.
+The estimates do not match the true values closely. By default, `UnivariateSpline`
+smooths the curve, so it does not pass exactly through the known points. The script's output shows the spline estimates between 0.17 and 0.64 below the
+true values in this range. Passing `s=0` forces the curve through every known point, which gives
+exact interpolation at the known points.
 
 ---
 

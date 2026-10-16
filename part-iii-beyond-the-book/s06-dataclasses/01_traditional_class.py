@@ -14,7 +14,7 @@ class Employee:
         """String representation of an employee"""
         return f"Employee (name: {self.name}, id: {self.emp_id}, " + \
             f"age: {self.age}, city: {self.city})"
-    
+
     def __eq__(self, value: object) -> bool:
         """Check if two Employee objects contain the same data"""
         return (self.name, self.emp_id, self.age, self.city) == \
@@ -22,13 +22,13 @@ class Employee:
 
 def main() -> None:
     """Main Function"""
-    emp_1 = Employee("Scott", "smclean", 53, "Dallas")
-    emp_2 = Employee("John", "Smith", 30, "Cleveland")
+    emp_1 = Employee("Scott McLean", "smclean", 53, "Dallas")
+    emp_2 = Employee("John Smith", "jsmith", 30, "Cleveland")
 
     print(emp_1)
     print(emp_2)
 
-    emp_3 = Employee("Scott", "smclean", 53, "Dallas")
+    emp_3 = Employee("Scott McLean", "smclean", 53, "Dallas")
 
     print(f"emp_1 == emp_2? {emp_1 == emp_2}")
     print(f"emp_1 == emp_3? {emp_1 == emp_3}")

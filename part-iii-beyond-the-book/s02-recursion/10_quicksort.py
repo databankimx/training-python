@@ -44,5 +44,5 @@ def main() -> None:
 if __name__ == "__main__":
     nums = [randint(-100, 100) for _ in range(10)]
     print(f"Unsorted: {nums}")
-    print(f"Sorted: {quicksort(nums)}")
+    print(f"Sorted:   {quicksort(nums)}")
     # main()

@@ -104,7 +104,7 @@ We can also plot a graph comparing one column to another.
 Here, we can see the high correlation between `Duration` and `Calories`
 
 ```python
-df.plot.scatter(x="Duration", y="Calories")
+df.plot.scatter(x="Duration", y="Calories", s=5)
 plt.show()
 ```
 
@@ -117,7 +117,7 @@ Output:
 ... or the low correlation between `Duration` and `Maxpulse`
 
 ```python
-df.plot.scatter(x="Duration", y="Maxpulse")
+df.plot.scatter(x="Duration", y="Maxpulse", s=5)
 plt.show()
 ```
 
@@ -131,8 +131,8 @@ If we're only interested in one datum (`Duration` for example), a histogram
 plot may be the best choice:
 
 ```python
-  df["Duration"].plot.hist()
-  plt.show()
+df["Duration"].plot.hist()
+plt.show()
 ```
 
 Output:

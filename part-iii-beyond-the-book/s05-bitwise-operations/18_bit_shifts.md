@@ -230,16 +230,16 @@ Let's imagine that we have a bit-flag enum for our program settings.
 from enum import IntFlag
 
 class Settings(IntFlag):
-    DebugMode = 1,
-    InteractiveMode = 2,
-    RememberSettings = 4,
+    DebugMode = 1
+    InteractiveMode = 2
+    RememberSettings = 4
     Optimize = 8
 ```
 
 In a scenario where we want to check all of the settings, we can do something
 like this:
 
-See [iterate_flags.py](./18_iterate_flags.py)
+See [iterate_flags.py](./18_iterate_flags.py) and the [iterate flags lesson](./18_iterate_flags.md)
 
 ```python
 from random import randint

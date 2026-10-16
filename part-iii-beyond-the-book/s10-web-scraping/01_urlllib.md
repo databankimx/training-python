@@ -20,9 +20,9 @@ from urllib.request import urlopen
 
 def scrape_page(url: str) -> str:
     """Returns the HTML content of a web page"""
-    page = urlopen(url)
-    page_bytes = page.read()
-    return page_bytes.decode("utf-8")
+    with urlopen(url) as page:
+        page_bytes = page.read()
+        return page_bytes.decode("utf-8")
 ```
 
 Then we can test it like so:
@@ -111,6 +111,7 @@ print(title)
 Output:
 
 ```
+
 <head>
 <title >Profile: Poseidon
 ```
@@ -120,6 +121,10 @@ space in the `<title >` tag.
 
 This isn't an error when a browser renders the HTML, but it broke our 
 naive parser.
+
+The blank line at the start of the output comes from the parser. The search
+for `<title>` returns -1, so the slice starts at index 6, which is the newline
+right after `<html>`.
 
 In the next lesson, we'll look at a way to improve this using regular
 expressions.

@@ -64,6 +64,7 @@ def add_data(conn: mysql.connector.connection) -> None:
     }
     cursor = conn.cursor()
     for name, cols in columns.items():
+        cursor.execute(f"TRUNCATE TABLE {name}")
         placeholder = "%s" + (", %s" * (len(data[name][0]) - 1))
         sql = f"INSERT INTO {name} ({cols}) VALUES ({placeholder})"
         print(sql)

@@ -102,12 +102,14 @@ Output:
 2006
 2005
 Traceback (most recent call last):
-
--- SNIP --
-[Previous line repeated 992 more times]
-  File "...\02_stopping_recursion.py", line 11, in countdown
-    print(n)
-RecursionError: maximum recursion depth exceeded while calling a Python object
+  File "...\02_stopping_recursion.py", line 26, in <module>
+    main()
+  File "...\02_stopping_recursion.py", line 20, in main
+    if countdown(n):
+  File "...\02_stopping_recursion.py", line 15, in countdown
+    return countdown(n - 1)
+  [Previous line repeated 995 more times]
+RecursionError: maximum recursion depth exceeded
 ```
 
 Even though we have a base case and progressively move toward it, our 

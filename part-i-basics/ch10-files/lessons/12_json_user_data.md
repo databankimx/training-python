@@ -76,9 +76,10 @@ Content of `user.json` file:
 
 ### Retrieving a Remembered User
 
-To retrieve data from a remembered user, we can create a function that
-checks for the JSON file containing the user data and returns the user
-data if the file exists.
+To retrieve data from a remembered user, we open the same JSON file and load
+its contents back into a dictionary. Here, the code reads the file directly,
+without a separate function. In the next lesson, we'll move this logic into
+functions.
 
 ```python
 with open(file_path) as f:
@@ -121,7 +122,6 @@ print(f"We'll remember you when you come back, {user['username']}")
 Output:
 
 ```
-
 We'll remember you when you come back, JSMITH
 ```
 
@@ -135,9 +135,10 @@ Content of `user.json` file:
 
 ### Retrieving a Remembered User
 
-To retrieve data from a remembered user, we can create a function that
-checks for the JSON file containing the user data and returns the user
-data if the file exists.
+To retrieve data from a remembered user, we read the same JSON file with
+`pathlib` and load its contents back into a dictionary. Here, the code reads
+the file directly, without a separate function. In the next lesson, we'll move
+this logic into functions.
 
 ```python
 user = json.loads(file.read_text())
@@ -153,4 +154,3 @@ Welcome back, JSMITH
 </details>
 
 ---
-

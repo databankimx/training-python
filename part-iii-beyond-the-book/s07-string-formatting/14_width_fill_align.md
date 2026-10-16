@@ -83,13 +83,13 @@ To left-justify the string, include a `<` character before the width number.
 
 ```python
 s = "abc"
-print(f"left justify: '{s:<9}'")
+print(f"left justify:  '{s:<9}'")
 ```
 
 Output:
 
 ```
-left justify: 'abc      '
+left justify:  'abc      '
 ```
 
 ---
@@ -117,13 +117,13 @@ To center the string, include a `^` character before the width number.
 
 ```python
 s = "abc"
-print(f"center: '{s:^9}'")
+print(f"center:        '{s:^9}'")
 ```
 
 Output:
 
 ```
-center: '   abc   '
+center:        '   abc   '
 ```
 
 ---

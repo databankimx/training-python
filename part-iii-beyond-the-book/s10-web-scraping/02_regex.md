@@ -36,7 +36,7 @@ We can test this with our formerly "bad" URL:
 ```python
 url = "http://olympus.realpython.org/profiles/poseidon"
 html = scrape_page(url)
-title = parse_html(html, "title")
+title = parse_html_tag(html, "title")
 print(title)
 ```
 

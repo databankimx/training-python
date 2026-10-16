@@ -34,9 +34,9 @@ from bs4 import BeautifulSoup
 
 def scrape_with_soup(url: str) -> BeautifulSoup:
     """Returns soup object"""
-    page = urlopen(url)
-    html = page.read().decode("utf-8")
-    return BeautifulSoup(html, "html.parser")
+    with urlopen(url) as page:
+        html = page.read().decode("utf-8")
+        return BeautifulSoup(html, "html.parser")
 ```
 
 Let's test this on the profiles page of the Real Python sample site:

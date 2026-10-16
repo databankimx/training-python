@@ -36,7 +36,7 @@ def initialize(debug: bool | None=False) -> None:
     """
     # pylint: disable=global-statement
     global ROOT_DIR
-    if ROOT_DIR is None:
+    if ROOT_DIR is not None:
         return
     ROOT_DIR = path.dirname(__file__)
     if debug:

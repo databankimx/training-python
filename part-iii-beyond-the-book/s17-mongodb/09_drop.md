@@ -23,7 +23,7 @@ for name in db.list_collection_names():
     print(f"• {name}")
 print()
 
-print(f"Removing collection: `{col_name}`...")
+print(f"Removing collections: `{col_name}`...")
 if col_name in db.list_collection_names():
     db.drop_collection(col_name)
     print(f"Collection '{col_name}' removed successfully.")

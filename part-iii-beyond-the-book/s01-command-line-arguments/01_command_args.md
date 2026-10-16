@@ -126,7 +126,7 @@ def greet_user() -> None:
 
     if len(sys.argv) < 3:
         print("Usage: filename.py first_name last_name")
-        exit()
+        sys.exit()
 
     first_name = sys.argv[1].title()
     last_name = sys.argv[2].title()
@@ -161,5 +161,9 @@ Output:
 ```
 Hello, John Smith
 ```
+
+> Note: `title()` capitalizes the first letter of each word and lowercases the rest.
+> A name written with a capital inside it, such as `McLean`, is printed as
+> `Mclean`. Keep this in mind when you choose how to format user input.
 
 ---

@@ -29,11 +29,12 @@ def check_duplicate_dates(df: pd.DataFrame) -> None:
         print("Duplicate date rows found:")
         print(duplicates, "\n")
 
-def drop_duplicates(df: pd.DataFrame) -> None:
+def drop_duplicates(df: pd.DataFrame) -> pd.DataFrame:
     """Drop duplicate rows from the DataFrame"""
-    df.drop_duplicates(inplace=True)
-    print("Duplicate rows dropped (in place):")
+    df = df.drop_duplicates()
+    print("Duplicate rows dropped:")
     print(df.loc[10:20], "\n")
+    return df
 
 def main() -> None:
     """Main function"""

@@ -26,12 +26,10 @@ from common_functions import file_to_list, efficiency_report
 folder = "data"
 file_name = "ordered_integers.txt"
 
-def binary_search(array: list[int], target: int, low: int=-1,
-                  high: int=-1, count: int=0) -> tuple[int, int]:
+def binary_search(array: list[int], target: int, low: int=0,
+                  high: int | None=None, count: int=0) -> tuple[int, int]:
     """Find the index where the target value is stored"""
-    if low == -1:
-        low = 0
-    if high == -1:
+    if high is None:
         high = len(array) - 1
     count += 1
 

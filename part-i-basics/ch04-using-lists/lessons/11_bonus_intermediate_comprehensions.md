@@ -136,7 +136,7 @@ from sm_utils import timer
 
 @timer
 def timed_for_loop(n: int) -> list[int]:
-    """Calculate squares of numbers from 1 to n using a for loop"""
+    """Calculate the square of numbers from 0 to n using a for loop"""
     result = []
     for i in range(n):
         result.append(i ** 2)
@@ -144,7 +144,7 @@ def timed_for_loop(n: int) -> list[int]:
 
 @timer
 def timed_list_comprehension(n: int) -> list[int]:
-    """Calculate squares of numbers from 1 to n using list comprehension"""
+    """Calculate the square of numbers from 0 to n using list comprehension"""
     return [i ** 2 for i in range(n)]
 
 n = 10 ** 6
@@ -167,8 +167,9 @@ Using list_comprehension...
 Execution Time: 41.93 ms
 ```
 
-Consistently, the list comprehension requires around 20% less time than the
-explicit loop to complete the task.
+In one test run, the list comprehension was slightly faster than the explicit
+loop. The gap is small and changes from run to run, so run the example yourself
+to see your own timings.
 
 ---
 

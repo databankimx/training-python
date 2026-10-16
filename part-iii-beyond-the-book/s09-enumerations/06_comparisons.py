@@ -31,7 +31,7 @@ def check_types():
           type(Weekday.MONDAY))
     print("isinstance(Weekday.MONDAY, int):",
           isinstance(Weekday.MONDAY, int))
-    print("type(Weekday.MONDAY.value):", 
+    print("type(Weekday.MONDAY.value):",
         type(Weekday.MONDAY.value))
     print("isinstance(Weekday.MONDAY.value, int):",
         isinstance(Weekday.MONDAY.value, int))
@@ -39,7 +39,7 @@ def check_types():
           type(IntWeekday.MONDAY))
     print("isinstance(IntWeekday.MONDAY, int):",
           isinstance(IntWeekday.MONDAY, int))
-    print("type(IntWeekday.MONDAY.value):", 
+    print("type(IntWeekday.MONDAY.value):",
         type(IntWeekday.MONDAY.value))
     print("isinstance(IntWeekday.MONDAY.value, int):",
         isinstance(IntWeekday.MONDAY.value, int))
@@ -67,13 +67,13 @@ def check_identity():
     print("Weekday.MONDAY.value is IntWeekday.MONDAY.value:",
           Weekday.MONDAY.value is IntWeekday.MONDAY.value)
     print("Weekday.MONDAY is 1:",
-          Weekday.MONDAY is 1)
+          Weekday.MONDAY is 1)  # NOSONAR
     print("IntWeekday.MONDAY is 1:",
-          IntWeekday.MONDAY is 1)
+          IntWeekday.MONDAY is 1)  # NOSONAR
     print("Weekday.MONDAY.value is 1:",
-          Weekday.MONDAY.value is 1)
+          Weekday.MONDAY.value is 1)  # NOSONAR
     print("IntWeekday.MONDAY.value is 1:",
-          IntWeekday.MONDAY.value is 1)
+          IntWeekday.MONDAY.value is 1)  # NOSONAR
 
 def check_inequalities() -> None:
     """Perform inequality `>`, `<`, `>=`, `<=`, comparisons"""

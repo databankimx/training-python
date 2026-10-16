@@ -24,4 +24,37 @@ The following attributes are supported:
 
 I will cover most of these settings in following lessons
 
+### Trying Three of the Settings
+
+The script [03_class_attributes.py](./03_class_attributes.py) uses `slots`,
+`unsafe_hash`, and the default `repr` in a short example:
+
+```python
+from dataclasses import dataclass
+
+@dataclass(slots=True)
+class Employee:
+    name: str
+    emp_id: str
+
+@dataclass(unsafe_hash=True)
+class Point:
+    x: int
+    y: int
+```
+
+* `slots=True` stores the attributes in a fixed set of slots instead of a
+  per-object dictionary. This means that a new attribute cannot be added to
+  the instance.
+* `unsafe_hash=True` generates `__hash__()`, so the instance can be used as a
+  dictionary key or in a set, even though it is mutable.
+
+Output:
+
+```
+Employee(name='Scott McLean', emp_id='smclean')
+Cannot add a new attribute to a slotted class
+Point hash is an integer? True
+```
+
 ---
