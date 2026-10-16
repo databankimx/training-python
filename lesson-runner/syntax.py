@@ -1,4 +1,4 @@
-"""Source colouring for the source editor and lesson code blocks.
+"""Source coloring for the source editor and lesson code blocks.
 
 Python uses the tokenize module. C uses a small set of patterns, which covers the
 C samples in the lessons: comments, strings, preprocessor lines, numbers,

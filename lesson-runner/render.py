@@ -18,6 +18,8 @@ from pathlib import Path
 from markdown_it import MarkdownIt
 from mdit_py_plugins.dollarmath import dollarmath_plugin
 
+#pylint: disable=unused-argument, line-too-long
+
 CSS = """
 body { background: #1E1E1E; color: #D4D4D4; font-family: "Segoe UI", sans-serif;
        font-size: 15px; line-height: 1.5; margin: 0; padding: 16px 24px; }

@@ -23,6 +23,8 @@ import threading
 import time
 from pathlib import Path
 
+#pylint: disable=attribute-defined-outside-init, line-too-long, too-many-instance-attributes
+
 WRAPPER = Path(__file__).resolve().with_name("wrapper.py")
 CONTROL = "##LRUN##"
 NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0)

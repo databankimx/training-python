@@ -10,6 +10,8 @@ Shared code, imported from the sibling folders for now:
 """
 
 #pylint: disable=line-too-long, wrong-import-position, unused-argument, attribute-defined-outside-init
+#pylint: disable=too-many-public-methods, too-few-public-methods
+#pylint: disable=too-many-instance-attributes, too-many-statements
 
 from __future__ import annotations
 
@@ -492,8 +494,8 @@ class MainWindow(QMainWindow):
 
     def build_args_bar(self) -> QWidget:
         """Command-line arguments passed to the step."""
-        bar = QFrame()
-        layout = QHBoxLayout(bar)
+        args_bar = QFrame()
+        layout = QHBoxLayout(args_bar)
         layout.setContentsMargins(12, 4, 12, 6)
         label = QLabel("args:")
         label.setFont(code_font(10))
@@ -501,7 +503,7 @@ class MainWindow(QMainWindow):
         self.args_edit = QLineEdit()
         self.args_edit.setFont(code_font(10))
         layout.addWidget(self.args_edit, 1)
-        return bar
+        return args_bar
 
     def build_output(self) -> QWidget:
         """Output pane with Continue, Copy and Clear."""

@@ -51,7 +51,7 @@ def _clear(*_args: object, **_kwargs: object) -> None:
 def _patch_sm_utils() -> None:
     """Route the sm_utils helpers used by the lessons to the runner."""
     try:
-        import sm_utils
+        import sm_utils #pylint: disable=import-outside-toplevel
     except ImportError:
         return
     sm_utils.pause = _pause
@@ -73,8 +73,9 @@ def main() -> int:
     code = compile(source, original, "exec")
     namespace = {"__name__": "__main__", "__file__": original, "__builtins__": builtins}
     try:
+        #pylint: disable=exec-used
         exec(code, namespace)  # noqa: S102 - running lesson code is the purpose of this tool
-    except SystemExit as exit_request:
+    except SystemExit as exit_request: #pylint: disable=catching-non-exception
         code_value = exit_request.code
         return code_value if isinstance(code_value, int) else 0
     return 0

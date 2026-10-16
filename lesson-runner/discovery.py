@@ -17,6 +17,7 @@ A Python script is a step when its name is numbered (``01_command_args.py``),
 it is ``main.py``, or it has an ``if __name__ == "__main__":`` guard. Support
 modules such as ``utilities.py`` and ``trie.py`` are not steps.
 """
+#pylint: disable=line-too-long
 
 from __future__ import annotations
 
@@ -52,8 +53,8 @@ HIDDEN_STEPS = {
 
 GUARD = re.compile(r"""if\s+__name__\s*==\s*["']__main__["']""")
 NUMBERED = re.compile(r"^\d")
-HEADING = re.compile(r"^#{1,3}\s+(.+?)\s*$", re.MULTILINE)
-CHAPTER_FOLDER = re.compile(r"^(ch|s)(\d+)[-_]?(.*)$", re.IGNORECASE)
+HEADING = re.compile(r"^#{1,3}\s+(.+?)\s*$", re.MULTILINE) #NOSONAR
+CHAPTER_FOLDER = re.compile(r"^(ch|s)(\d+)[-_]?(.*)$", re.IGNORECASE) #NOSONAR
 
 
 @dataclass
@@ -112,7 +113,7 @@ def is_step(path: Path) -> bool:
 
 def clean_heading(text: str) -> str:
     """Plain text for a heading: drop closing hashes and inline markup such as `code` or **bold**."""
-    text = re.sub(r"\s+#+\s*$", "", text)
+    text = re.sub(r"\s+#+\s*$", "", text) #NOSONAR
     text = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", text)
     text = re.sub(r"`([^`]*)`", r"\1", text)
     text = re.sub(r"\*\*(.+?)\*\*", r"\1", text)

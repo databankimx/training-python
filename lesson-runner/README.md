@@ -8,7 +8,7 @@ The Qt version of the lesson runner. It has everything it needs in this folder.
 | `discovery.py` | Finds chapters and steps under Part I and Part III |
 | `runner.py` | Starts a step in a child process and passes its events to the window |
 | `wrapper.py` | Runs inside the child process; routes pause, clear and input |
-| `syntax.py` | Python token colouring for the source editor |
+| `syntax.py` | Python token coloring for the source editor |
 | `logo.py` | The DataBank logo, as polygons for the nav header and window icon |
 | `render.py` | Renders lesson Markdown to HTML (MathJax maths, Prism code) |
 | `vendor/` | MathJax and Prism, loaded by the lesson pages (see setup) |
