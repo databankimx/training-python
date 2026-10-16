@@ -9,6 +9,8 @@ Shared code, imported from the sibling folders for now:
   lesson-runner-qt-spike  render.py and vendor/ (MathJax and Prism)
 """
 
+#pylint: disable=line-too-long, wrong-import-position, unused-argument, attribute-defined-outside-init
+
 from __future__ import annotations
 
 import json
@@ -156,6 +158,7 @@ class ThemeSwitch(QAbstractButton):
         self.update()
 
     def paintEvent(self, event) -> None:  # pylint: disable=invalid-name
+        """Paint the theme switch."""
         painter = QPainter(self)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
         painter.setPen(Qt.PenStyle.NoPen)
@@ -229,6 +232,7 @@ class PythonHighlighter(QSyntaxHighlighter):
         self.rehighlight()
 
     def highlightBlock(self, text: str) -> None:  # pylint: disable=invalid-name
+        """Apply syntax highlighting to the current block of text."""
         document_text = self.document().toPlainText()
         if document_text != self._text:
             self._text = document_text
@@ -251,6 +255,7 @@ class LineGutter(QWidget):
         self.editor = editor
 
     def paintEvent(self, event) -> None:  # pylint: disable=invalid-name
+        """Paint the line-number gutter."""
         self.editor.paint_gutter(event)
 
 
@@ -286,6 +291,7 @@ class SourceEditor(QPlainTextEdit):
             self.update_margin()
 
     def resizeEvent(self, event) -> None:  # pylint: disable=invalid-name
+        """Handle the resize event to adjust the gutter geometry."""
         super().resizeEvent(event)
         contents = self.contentsRect()
         self.gutter.setGeometry(QRect(contents.left(), contents.top(),
@@ -293,8 +299,7 @@ class SourceEditor(QPlainTextEdit):
 
     def paint_gutter(self, event) -> None:
         """Draw the line numbers for the visible lines."""
-        from PySide6.QtGui import QPainter as _Painter  # pylint: disable=import-outside-toplevel
-        painter = _Painter(self.gutter)
+        painter = QPainter(self.gutter)
         painter.fillRect(event.rect(), QColor(self.colors["bg"]))
         painter.setFont(self.font())
         painter.setPen(QColor(self.colors["muted"]))
@@ -321,6 +326,7 @@ class TreeDelegate(QStyledItemDelegate):
         self.tree = tree
 
     def initStyleOption(self, option, index) -> None:  # pylint: disable=invalid-name
+        """Adjust the style option for items that should be flushed with the nesting arrows."""
         super().initStyleOption(option, index)
         if index.data(FLUSH_ROLE):
             option.rect = option.rect.adjusted(-self.tree.indentation(), 0, 0, 0)
@@ -335,21 +341,22 @@ class PopoutWindow(QWidget):
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
-        bar = QHBoxLayout()
-        bar.setContentsMargins(8, 4, 8, 4)
-        bar.addStretch(1)
+        dock_bar = QHBoxLayout()
+        dock_bar.setContentsMargins(8, 4, 8, 4)
+        dock_bar.addStretch(1)
         dock = QToolButton()
         dock.setIcon(draw_icon("dock", DARK["muted"]))
         dock.setToolTip("Dock lesson back into the main window")
         dock.clicked.connect(self.on_dock)
-        bar.addWidget(dock)
-        layout.addLayout(bar)
+        dock_bar.addWidget(dock)
+        layout.addLayout(dock_bar)
         self.view = QWebEngineView()
         self.view.settings().setAttribute(
             QWebEngineSettings.WebAttribute.LocalContentCanAccessFileUrls, True)
         layout.addWidget(self.view, 1)
 
     def closeEvent(self, event) -> None:  # pylint: disable=invalid-name
+        """Closing the pop-out window also docks the lesson back into the main window."""
         self.on_dock()
         super().closeEvent(event)
 
@@ -455,8 +462,8 @@ class MainWindow(QMainWindow):
 
     def build_title_bar(self) -> QWidget:
         """Step title on the left; sun, switch, moon and Run on the right."""
-        bar = QFrame()
-        layout = QHBoxLayout(bar)
+        title_bar = QFrame()
+        layout = QHBoxLayout(title_bar)
         layout.setContentsMargins(12, 8, 12, 8)
         titles = QVBoxLayout()
         self.title_label = QLabel("Select a step from the left panel")
@@ -481,7 +488,7 @@ class MainWindow(QMainWindow):
         self.run_button.setEnabled(False)
         self.run_button.clicked.connect(self.start_run)
         layout.addWidget(self.run_button)
-        return bar
+        return title_bar
 
     def build_args_bar(self) -> QWidget:
         """Command-line arguments passed to the step."""
@@ -937,6 +944,14 @@ class MainWindow(QMainWindow):
         self.append(f"\u2500\u2500 Finished in {seconds * 1000:.0f} ms \u2500\u2500", "muted")
 
     # ----------------------------------------------------------------- pop-out
+
+    def closeEvent(self, event) -> None:  # pylint: disable=invalid-name
+        """Closing the main window also closes a popped-out lesson."""
+        popout = self.popout
+        self.popout = None
+        if popout is not None:
+            popout.close()
+        super().closeEvent(event)
 
     def toggle_popout(self) -> None:
         """Open the lesson in its own window, or dock it back."""
