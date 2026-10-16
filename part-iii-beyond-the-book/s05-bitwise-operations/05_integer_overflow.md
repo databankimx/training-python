@@ -64,6 +64,7 @@ have available in a fixed-size, $8$-bit value.
 In the computer, the binary math is computed the same way as real-world
 arithmetic, but when the carry value of 1 moves to the 9th bit, it is 
 simply lost, the result of which is that we see  
+
 $$255+1=0$$
 
 > |||

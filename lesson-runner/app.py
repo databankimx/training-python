@@ -22,26 +22,27 @@ import logo
 from discovery import Chapter, Step
 from runner import StepRun
 from lesson_view import LessonWindow, MarkdownText
+from syntax import SYNTAX_TAGS, python_spans
 
 DARK = {
     "bg": "#1E1E1E", "panel": "#252526", "border": "#3F3F46", "fg": "#D4D4D4",
     "accent": "#007ACC", "accent_hover": "#1C97EA", "success": "#4EC9B0",
     "error": "#F44747", "muted": "#858585", "selection": "#264F78",
     "row_hover": "#2A2D2E", "white": "#FFFFFF",
-    "heading": "#569CD6", "code_bg": "#1A1A2E", "code_fg": "#9CDCFE", "rule": "#3F3F46",
+    "heading": "#569CD6", "code_bg": "#0A0A0A", "code_fg": "#D4D4D4", "rule": "#3F3F46",
+    "kw": "#569CD6", "ctl": "#C586C0", "str": "#CE9178", "com": "#6A9955", "num": "#B5CEA8",
+    "typ": "#4EC9B0", "fn": "#DCDCAA", "var": "#9CDCFE",
 }
 LIGHT = {
     "bg": "#FFFFFF", "panel": "#F3F3F3", "border": "#CCCEDB", "fg": "#1E1E1E",
     "accent": "#007ACC", "accent_hover": "#1C97EA", "success": "#007F5F",
     "error": "#CC0000", "muted": "#717171", "selection": "#ADD6FF",
     "row_hover": "#E8E8E8", "white": "#FFFFFF",
-    "heading": "#0451A5", "code_bg": "#F5F5F5", "code_fg": "#0451A5", "rule": "#CCCEDB",
+    "heading": "#0451A5", "code_bg": "#F5F5F5", "code_fg": "#1E1E1E", "rule": "#CCCEDB",
+    "kw": "#0000FF", "ctl": "#AF00DB", "str": "#A31515", "com": "#008000", "num": "#098658",
+    "typ": "#267F99", "fn": "#795E26", "var": "#001080",
 }
 
-SYNTAX = {
-    "dark": {"kw": "#569CD6", "str": "#CE9178", "com": "#6A9955", "num": "#B5CEA8", "bi": "#4EC9B0"},
-    "light": {"kw": "#0000FF", "str": "#A31515", "com": "#008000", "num": "#098658", "bi": "#267F99"},
-}
 BUILTIN_NAMES = set(dir(builtins))
 
 UI_FONT = ("Segoe UI", 10)
@@ -115,6 +116,19 @@ class App(tk.Tk):
             self.left_paned.sash_place(0, 0, int(height * 0.6))
         else:
             self.after(100, self.set_chapter_split)
+
+    def refresh_run_button(self) -> None:
+        """Solid accent with white text when Run is available. When it is not, a neutral
+        background with readable text, so the disabled state does not look like dim text on blue."""
+        c = self.colors
+        enabled = str(self.run_button.cget("state")) == "normal"
+        if enabled:
+            background, foreground = c["accent"], c["white"]
+        else:
+            background, foreground = c["border"], c["fg"]
+        self.run_button.configure(bg=background, fg=foreground, disabledforeground=foreground,
+                                  activebackground=c["accent_hover"] if enabled else background,
+                                  activeforeground=foreground)
 
     def track(self, widget: tk.Misc, **options: str) -> tk.Misc:
         """Remember which palette keys a widget uses, so the theme can repaint it."""
@@ -350,7 +364,7 @@ class App(tk.Tk):
                              bordercolor=c["bg"], arrowcolor=c["muted"])
 
         self.continue_button.configure(bg=c["accent"], fg=c["white"])
-        self.run_button.configure(bg=c["accent"], fg=c["white"])
+        self.refresh_run_button()
         self.theme_switch.configure(bg=c["panel"])
         self.theme_switch.set_state(self.theme == "light", c)
         self.apply_syntax_colors()
@@ -361,9 +375,8 @@ class App(tk.Tk):
 
     def apply_syntax_colors(self) -> None:
         """Tag colours for highlighted source and the output pane."""
-        palette = SYNTAX[self.theme]
-        for name, colour in palette.items():
-            self.source.tag_configure(name, foreground=colour)
+        for name in SYNTAX_TAGS:
+            self.source.tag_configure(name, foreground=self.colors[name])
         self.output.tag_configure("err", foreground=self.colors["error"])
         self.output.tag_configure("muted", foreground=self.colors["muted"])
         self.output.tag_configure("echo", foreground=self.colors["success"])
@@ -435,6 +448,7 @@ class App(tk.Tk):
         self.clear_output()
         self.hide_continue()
         self.run_button.configure(state="normal" if step.runnable else "disabled")
+        self.refresh_run_button()
 
     # ------------------------------------------------------------------
     # Source editor
@@ -477,30 +491,12 @@ class App(tk.Tk):
         self.set_dirty(False)
 
     def highlight(self) -> None:
-        """Colour keywords, strings, comments, numbers, and builtins."""
-        for tag in ("kw", "str", "com", "num", "bi"):
+        """Colour the source using the shared Python highlighter."""
+        for tag in SYNTAX_TAGS:
             self.source.tag_remove(tag, "1.0", "end")
         code = self.source.get("1.0", "end-1c")
-        try:
-            for token in tokenize.generate_tokens(io.StringIO(code).readline):
-                tag = None
-                if token.type == tokenize.COMMENT:
-                    tag = "com"
-                elif token.type == tokenize.STRING:
-                    tag = "str"
-                elif token.type == tokenize.NUMBER:
-                    tag = "num"
-                elif token.type == tokenize.NAME:
-                    if keyword.iskeyword(token.string):
-                        tag = "kw"
-                    elif token.string in BUILTIN_NAMES:
-                        tag = "bi"
-                if tag:
-                    start = f"{token.start[0]}.{token.start[1]}"
-                    end = f"{token.end[0]}.{token.end[1]}"
-                    self.source.tag_add(tag, start, end)
-        except (tokenize.TokenError, SyntaxError):
-            pass
+        for start, end, tag in python_spans(code):
+            self.source.tag_add(tag, f"{start[0]}.{start[1]}", f"{end[0]}.{end[1]}")
 
     def update_gutter(self) -> None:
         """Line numbers beside the source, right-aligned."""
@@ -660,6 +656,7 @@ class App(tk.Tk):
         self.run = StepRun(self.step.code_path, self.source.get("1.0", "end-1c"), args)
         self.run.start()
         self.run_button.configure(text="Running\u2026", state="disabled")
+        self.refresh_run_button()
         self.after(30, self.poll_run)
 
     def poll_run(self) -> None:
@@ -741,6 +738,7 @@ class App(tk.Tk):
         self.run = None
         self.hide_continue()
         self.run_button.configure(text="\u25B6  Run", state="normal")
+        self.refresh_run_button()
         if cancelled:
             self.append("[Run cancelled]", "err")
         elif returncode != 0:

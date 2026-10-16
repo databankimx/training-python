@@ -88,14 +88,24 @@ def is_step(path: Path) -> bool:
     return GUARD.search(text) is not None
 
 
+def clean_heading(text: str) -> str:
+    """Plain text for a heading: drop closing hashes and inline markup such as `code` or **bold**."""
+    text = re.sub(r"\s+#+\s*$", "", text)
+    text = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", text)
+    text = re.sub(r"`([^`]*)`", r"\1", text)
+    text = re.sub(r"\*\*(.+?)\*\*", r"\1", text)
+    text = re.sub(r"\*(.+?)\*", r"\1", text)
+    return text.strip()
+
+
 def first_heading(md_path: Path) -> str | None:
-    """Return the first heading in a Markdown file, or None."""
+    """Return the first heading in a Markdown file as plain text, or None."""
     try:
         text = md_path.read_text(encoding="utf-8")
     except (OSError, UnicodeDecodeError):
         return None
     match = HEADING.search(text)
-    return match.group(1).strip() if match else None
+    return clean_heading(match.group(1)) if match else None
 
 
 def prettify(stem: str) -> str:
