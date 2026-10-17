@@ -19,5 +19,5 @@ ax.axis([0, 1_000, 0, 1_000_000])
 ax.ticklabel_format(style="plain")
 
 # To save as an image, use plt.savefig() instead of plt.show()
-plt.savefig(get_path("squares_graph.png"), bbox_inches="tight")
+plt.savefig(get_path("images/squares_graph.png"), bbox_inches="tight")
 print("File saved...")

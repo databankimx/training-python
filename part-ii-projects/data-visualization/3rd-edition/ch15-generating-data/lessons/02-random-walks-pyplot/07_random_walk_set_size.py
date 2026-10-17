@@ -9,7 +9,7 @@ while True:
 
     plt.style.use("classic")
     # Pass the figsize argument to set the figure dimensions
-    fix, ax = plt.subplots(figsize=(24, 13))
+    fig, ax = plt.subplots(figsize=(24, 13))
     # pylint: disable=no-member
     ax.scatter(rw.x_values, rw.y_values, s=5, c=range(rw.num_points),
                cmap=plt.cm.viridis, edgecolors="none")

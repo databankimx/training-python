@@ -38,5 +38,5 @@ heading = f"Results of rolling {settings['num']} D{dice[1].num_sides} " + \
     f"{settings['rolls']} time{suffix}"
 my_layout = Layout(title = heading, xaxis = x_axis_config, yaxis = y_axis_config)
 ROOT_DIR = os.path.dirname(__file__)
-file_path = os.path.join(ROOT_DIR, "Files", f"sum_{settings['num']}_d{settings['sides']}.html")
+file_path = os.path.join(ROOT_DIR, "files", f"sum_{settings['num']}_d{settings['sides']}.html")
 offline.plot({"data": data, "layout": my_layout}, filename = file_path)

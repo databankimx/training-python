@@ -2,7 +2,7 @@
 
 from die import Die
 import plotly.express as px
-# python -m pip install plotly.express
+# python -m pip install plotly
 
 die = Die()
 

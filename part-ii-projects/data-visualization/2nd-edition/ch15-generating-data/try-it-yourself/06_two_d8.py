@@ -45,5 +45,5 @@ heading = f"Results of rolling two D{dice[0].num_sides} {roll_count} times"
 my_layout = Layout(title=heading, xaxis=x_axis_config, yaxis=y_axis_config)
 ROOT_DIR = os.path.dirname(__file__)
 file_path = os.path.join(
-    ROOT_DIR, "Files", f"D{dice[0].num_sides}_D{dice[1].num_sides}.html")
+    ROOT_DIR, "files", f"D{dice[0].num_sides}_D{dice[1].num_sides}.html")
 offline.plot({"data": data, "layout": my_layout}, filename=file_path)

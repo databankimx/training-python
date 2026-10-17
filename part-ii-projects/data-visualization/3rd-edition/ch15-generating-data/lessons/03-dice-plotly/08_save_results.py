@@ -31,7 +31,7 @@ fig.update_layout(xaxis_dtick=1)
 # Create a filename with extension "html"
 filename = "d6d10_visualization.html"
 # Get a path (just like we did in the ch 10)
-filepath = get_path(filename, "Files")
+filepath = get_path(filename, "files")
 
 # Write the figure to an HTML file
 # Note: If you have plotly 5.12 installed, this will generate an encoding error.

@@ -1,11 +1,12 @@
 """Lesson 3.3 - Visualizing Results with Plotly Express"""
 
+#pylint: disable=line-too-long
+
 from die import Die
 import plotly.express as px
 # python -m pip install pandas
 # python -m pip install plotly
-# python -m pip --upgrade plotly      (make sure this one is v5.13 or higher due to a bug in 5.12)
-# python -m pip install plotly.express
+# python -m pip install --upgrade plotly      (make sure this one is v5.13 or higher due to a bug in 5.12)
 
 die = Die()
 

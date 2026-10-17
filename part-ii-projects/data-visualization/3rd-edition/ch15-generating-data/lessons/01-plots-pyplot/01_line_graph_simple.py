@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 # Create some data to graph
 squares = [1, 4, 9, 16, 25]
 
-# fig is the standard abbreviation for the figure, and ax for the axes.
+# fig is the standard abbreviation for the figure,line-graph-simple and ax for the axes.
 fig, ax = plt.subplots()
 
 # Now we plot the values (points are x=index and y=value from the list being plotted)

@@ -42,5 +42,5 @@ heading = f"Results of rolling {settings['num']} D{dice[1].num_sides} " + \
 my_layout = Layout(title=heading, xaxis=x_axis_config, yaxis=y_axis_config)
 ROOT_DIR = os.path.dirname(__file__)
 file_path = os.path.join(
-    ROOT_DIR, "Files", f"multiply_{settings['num']}_D{settings['sides']}.html")
+    ROOT_DIR, "files", f"multiply_{settings['num']}_D{settings['sides']}.html")
 offline.plot({"data": data, "layout": my_layout}, filename=file_path)

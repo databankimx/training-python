@@ -9,7 +9,7 @@ while True:
     rw.fill_walk()
 
     plt.style.use("classic")
-    fix, ax = plt.subplots()
+    fig, ax = plt.subplots()
     # pylint: disable=no-member
     ax.scatter(rw.x_values, rw.y_values, s=5, c=range(rw.num_points),
                cmap=plt.cm.viridis, edgecolors="none")

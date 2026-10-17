@@ -1,4 +1,7 @@
 """Assignment 15.04"""
+
+#pylint: disable=line-too-long
+
 # Modified Random Walks: In the RandomWalk class, x_step and y_step are generated from the same set of conditions.
 #                        The direction is chosen randomly from the list [1, -1] and the distance from the list [0, 1, 2, 3, 4].
 #                        Modify the values in these lists to see what happens to the overall shape of your walks.
