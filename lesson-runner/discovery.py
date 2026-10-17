@@ -70,6 +70,7 @@ class Step:
     lesson_md: Path | None
     code_path: Path | None
     indented: bool = False
+    note: str = ""
 
     @property
     def runnable(self) -> bool:
@@ -302,8 +303,87 @@ def part_three_tree(root: Path, steps_by_folder: dict[Path, list[Step]]) -> list
     return list(chapters.values())
 
 
+PLACEHOLDER_NOTE = (
+    "# Not yet implemented\n\n"
+    "{name} is not yet implemented. Its material hasn't been moved into this training repo yet, "
+    "so there are no lessons or code to show here.\n"
+)
+
+EDITION = re.compile(r"^(\d+)(st|nd|rd|th)-edition$")
+
+
+def placeholder_chapter(name: str, folder: Path) -> Chapter:
+    """A chapter that is not migrated yet: one step that explains this."""
+    step = Step(title="Not yet implemented", number=None, kind="lesson", lesson_md=None,
+                code_path=None, note=PLACEHOLDER_NOTE.format(name=name))
+    return Chapter(name=name, folder=folder, steps=[step])
+
+
+def edition_title(folder_name: str) -> str:
+    """'2nd-edition' -> '2nd Edition'."""
+    match = EDITION.match(folder_name)
+    return f"{match.group(1)}{match.group(2)} Edition" if match else prettify(folder_name)
+
+
+def part_two_chapter(chapter_folder: Path) -> Chapter | None:
+    """One Part II chapter: its lesson sub-folders, then Try it Yourself.
+
+    Lesson sub-folders become child nodes, as in Part III. Try-it-yourself scripts are shown
+    as in Part I: the answers file is the lesson text for them, not a step of its own.
+    """
+    node = Chapter(name=pretty_folder(chapter_folder.name), folder=chapter_folder, steps=[])
+    lessons = chapter_folder / "lessons"
+    if lessons.is_dir():
+        node.steps = folder_steps(lessons, include_lessons=False)
+        if node.steps:
+            node.intro_md = intro_for(lessons)
+        for sub in sorted((p for p in lessons.iterdir() if p.is_dir()), key=lambda p: natural_key(p.name)):
+            steps = folder_steps(sub, include_lessons=False)
+            if steps:
+                node.children.append(Chapter(name=tidy_name(sub.name), folder=sub, steps=steps,
+                                             intro_md=intro_for(sub)))
+    tiy = chapter_folder / "try-it-yourself"
+    if tiy.is_dir():
+        steps = folder_steps(tiy, include_lessons=False)
+        if steps:
+            node.children.append(Chapter(name=TRY_IT_NAME, folder=tiy, steps=steps,
+                                         intro_md=intro_for(tiy)))
+    return node if node.steps or node.children else None
+
+
+def data_visualization_chapter(folder: Path) -> Chapter:
+    """Data Visualization: one group per edition, each holding its chapters."""
+    node = Chapter(name="Data Visualization", folder=folder, steps=[])
+    setup_md = folder / "github-token-setup.md"
+    if setup_md.exists():
+        setup_step = Step(title=step_title("github-token-setup", setup_md), number=None, kind="lesson",
+                          lesson_md=setup_md, code_path=None)
+        node.children.append(Chapter(name="Setup", folder=folder, steps=[setup_step]))
+    editions = (p for p in folder.iterdir() if p.is_dir() and p.name.endswith("-edition"))
+    for edition in sorted(editions, key=lambda p: natural_key(p.name)):
+        group = Chapter(name=edition_title(edition.name), folder=edition, steps=[])
+        chapters = (p for p in edition.iterdir() if p.is_dir() and p.name.startswith("ch"))
+        for chapter_folder in sorted(chapters, key=lambda p: natural_key(p.name)):
+            chapter = part_two_chapter(chapter_folder)
+            if chapter is not None:
+                group.children.append(chapter)
+        if group.children:
+            node.children.append(group)
+    return node
+
+
+def part_two_scope() -> Scope:
+    """Part II: the two chapters not yet migrated, and Data Visualization."""
+    root = REPO_ROOT / "part-ii-projects"
+    return Scope(name="Part II - Projects", chapters=[
+        placeholder_chapter("Making a Game", root / "making-a-game"),
+        data_visualization_chapter(root / "data-visualization"),
+        placeholder_chapter("Web Applications", root / "web-applications"),
+    ])
+
+
 def discover() -> list[Scope]:
-    """Return the Part I and Part III scopes with their chapters and steps."""
+    """Return the Part I, Part II and Part III scopes with their chapters and steps."""
     scopes: list[Scope] = []
     for scope_name, root, include_lessons in SCOPES:
         steps_by_folder: dict[Path, list[Step]] = {}
@@ -322,4 +402,5 @@ def discover() -> list[Scope]:
         else:
             scope.chapters = part_one_tree(root, steps_by_folder)
         scopes.append(scope)
+    scopes.insert(1, part_two_scope())
     return scopes

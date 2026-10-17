@@ -41,8 +41,47 @@ reset time is easy to read.
 The terminal prints the rate limit details as indented JSON. The numbers change as you make requests, so your
 output will differ from this example.
 
-```
-[sample output to be added]
+```json
+{
+    "resources": {
+        "code_search": {
+            "limit": 60,
+            "remaining": 60,
+            "reset": 1792249120,
+            "used": 0
+        },
+        "core": {
+            "limit": 60,
+            "remaining": 60,
+            "reset": 1792249120,
+            "used": 0
+        },
+        "graphql": {
+            "limit": 0,
+            "remaining": 0,
+            "reset": 1792249120,
+            "used": 0
+        },
+        "integration_manifest": {
+            "limit": 5000,
+            "remaining": 5000,
+            "reset": 1792249120,
+            "used": 0
+        },
+        "search": {
+            "limit": 10,
+            "remaining": 10,
+            "reset": 1792245580,
+            "used": 0
+        }
+    },
+    "rate": {
+        "limit": 60,
+        "remaining": 60,
+        "reset": 1792249120,
+        "used": 0
+    }
+}
 ```
 
 ---

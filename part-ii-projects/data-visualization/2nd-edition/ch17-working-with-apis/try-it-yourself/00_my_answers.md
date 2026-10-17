@@ -232,6 +232,7 @@ Solution:
 
 ```python
 import os
+import sys
 import unittest
 import requests
 from plotly import offline
@@ -291,8 +292,9 @@ def get_github_data(response_dict):
     offline.plot(fig, filename = html_path)
 
 def main():
-    """Run the main function."""
-    unittest.main()
+    """Run the tests. unittest.main() searches __main__, which is the runner here, so load this module's tests directly."""
+    suite = unittest.defaultTestLoader.loadTestsFromTestCase(GithubTest)
+    unittest.TextTestRunner(stream=sys.stdout, verbosity=2).run(suite)
 
 class GithubTest(unittest.TestCase):
     """Unit tests for `python_repos.py`."""
@@ -306,7 +308,8 @@ class GithubTest(unittest.TestCase):
         self.assertEqual(r.status_code, 200)
 
         response_dict = r.json()
-        self.assertGreater(len(response_dict), 1)
+        self.assertEqual(len(response_dict["items"]), 30)
+        self.assertGreater(response_dict["total_count"], 1000)
 
         get_github_data(response_dict)
 

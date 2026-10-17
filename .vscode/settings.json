@@ -48,6 +48,7 @@
         "cmap",
         "COBYLA",
         "colorama",
+        "coloraxis",
         "colorbar",
         "colorscale",
         "colours",

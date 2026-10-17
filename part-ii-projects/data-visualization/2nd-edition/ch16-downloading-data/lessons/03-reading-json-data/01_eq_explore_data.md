@@ -143,11 +143,11 @@ little at a time is a good way to check that you're reading the right values bef
 The terminal prints a few values from each list:
 
 ```
-Last 10 magnitudes:
+First 10 magnitudes:
 [0.96, 1.2, 4.3, 3.6, 2.1, 4, 1.06, 2.3, 4.9, 1.8]
-Last 5 longitudes:
+First 5 longitudes:
 [-116.7941667, -148.9865, -74.2343, -161.6801, -118.5316667]
-Last 5 latitudes:
+First 5 latitudes:
 [33.4863333, 64.6673, -12.1025, 54.2232, 35.3098333]
 ```
 

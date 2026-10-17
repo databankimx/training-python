@@ -64,7 +64,32 @@ the list easy to scan.
 The terminal prints the summary, then the name, owner, stars, link, and description of each repository:
 
 ```
-[sample output to be added]
+Status code: 200
+Success:
+- Total repositories: 1038
+- Complete results: True
+Repositories returned: 30
+
+Selected information about each repository:
+Name: public-apis
+- Owner: public-apis
+- Stars: 489641
+- Repository: https://github.com/public-apis/public-apis
+- Description: A collective list of free APIs
+
+Name: free-programming-books
+- Owner: EbookFoundation
+- Stars: 399307
+- Repository: https://github.com/EbookFoundation/free-programming-books
+- Description: :books: Freely available programming books
+
+...
+
+Name: DeepSeek-V3
+- Owner: deepseek-ai
+- Stars: 104504
+- Repository: https://github.com/deepseek-ai/DeepSeek-V3
+- Description: None
 ```
 
 ---

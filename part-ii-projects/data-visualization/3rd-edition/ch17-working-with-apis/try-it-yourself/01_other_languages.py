@@ -4,6 +4,7 @@
 #                  showing the most popular projects in other languages. Try languages
 #                  such as JavaScript, Ruby, C, Java, Perl, Haskell, and Go.
 
+import os  # for the GITHUB_TRAINING_TOKEN environment variable
 import sys
 from random import randint
 import requests
@@ -18,6 +19,9 @@ url = "https://api.github.com/search/repositories"
 query_string = f"?q=language:{sel_lang}+sort:stars+stars:>10000"
 request_url = url + query_string
 headers = {"Accept": "application/vnd.github.v3+json"}
+# An authenticated request gets a higher limit. See github-token-setup.md.
+if os.environ.get("GITHUB_TRAINING_TOKEN"):
+    headers["Authorization"] = f"Bearer {os.environ['GITHUB_TRAINING_TOKEN']}"
 
 response = requests.get(request_url, headers=headers, timeout=10)
 response_dict = response.json()

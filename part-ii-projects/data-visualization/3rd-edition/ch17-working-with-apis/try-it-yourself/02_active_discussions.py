@@ -28,7 +28,7 @@ if response.status_code != 200:
 
 submission_ids = response.json()
 submission_dicts = []
-# Get more info on first five submissions
+# Get more info on each of the top submissions
 for submission_id in submission_ids[:MAX_RETRIEVE]:
     # Call the API to get the specific article
     try:
@@ -36,7 +36,7 @@ for submission_id in submission_ids[:MAX_RETRIEVE]:
         response = requests.get(url, timeout=10)
     # pylint: disable=broad-except
     except Exception as e:
-        input(e, "\nPress <ENTER> to continue...")
+        input(f"{e}\nPress <ENTER> to continue...")
         continue
 
     if response.status_code != 200:
@@ -75,7 +75,7 @@ title = f"Top {ITEM_COUNT} Most Active Hacker-News Articles"
 labels = {"x": "Article", "y": "Comments"}
 fig = px.bar(
     x=articles, y=comments, title=title, labels=labels, hover_name=hover_texts,
-    # Here, I am assigning "stars" as the color value and using a gradient for the bar colors
+    # Here, I am assigning "comments" as the color value and using a gradient for the bar colors
     color=comments, color_continuous_scale="Viridis"
 )
 fig.update_layout(title_font_size=28, xaxis_title_font_size=20,

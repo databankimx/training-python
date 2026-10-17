@@ -6,6 +6,8 @@ This lesson starts a series that uses the GitHub API to explore the Python proje
 shows how to make an API request, check that it worked, and read the response, in a form that is easy to
 build on in the later lessons.
 
+Set up a GitHub token before you start, so the exercises aren't held back by GitHub's rate limit. The steps are in `github-token-setup.md`, in the `data-visualization` folder.
+
 The `requests` library makes the call. Install it first if you haven't already:
 
 ```bash
@@ -79,7 +81,9 @@ number of repositories.
 The terminal prints the status code, then the result of the checks:
 
 ```
-[sample output to be added]
+Status code: 200
+Success:
+ - Total repositories: 1038
 ```
 
 ---

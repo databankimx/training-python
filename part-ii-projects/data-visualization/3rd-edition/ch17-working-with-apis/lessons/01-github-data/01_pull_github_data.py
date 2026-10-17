@@ -1,5 +1,6 @@
 """Lesson 1.1 - GitHub Data"""
 
+import os  # for the GITHUB_TRAINING_TOKEN environment variable
 import sys
 # We use the requests library to perform API calls over the internet.
 import requests
@@ -17,6 +18,9 @@ request_url = url + query_string
 # We use a dictionary to define the headers we will include in the request.
 #     Not all APIs require the same headers.
 headers = {"Accept": "application/vnd.github.v3+json"}
+# An authenticated request gets a higher limit. See github-token-setup.md.
+if os.environ.get("GITHUB_TRAINING_TOKEN"):
+    headers["Authorization"] = f"Bearer {os.environ['GITHUB_TRAINING_TOKEN']}"
 
 # We'll make a request to our URL with the specified headers
 response = requests.get(request_url, headers=headers, timeout=10)

@@ -18,6 +18,9 @@ print(f"Retrieving data for [{sel_lang}]...")
 
 url = f"https://api.github.com/search/repositories?q=language:{sel_lang}&sort=stars"
 headers = {"Accept": "application/vnd.github.v3+json"}
+# An authenticated request gets a higher limit. See github-token-setup.md.
+if os.environ.get("GITHUB_TRAINING_TOKEN"):
+    headers["Authorization"] = f"Bearer {os.environ['GITHUB_TRAINING_TOKEN']}"
 r = requests.get(url, headers=headers, timeout=10)
 
 if r.status_code != 200:

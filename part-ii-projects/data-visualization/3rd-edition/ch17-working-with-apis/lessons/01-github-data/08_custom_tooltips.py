@@ -1,5 +1,6 @@
 """Lesson 1.8 - Custom Tooltips"""
 
+import os  # for the GITHUB_TRAINING_TOKEN environment variable
 import sys
 import requests
 import plotly.express as px
@@ -8,6 +9,9 @@ url = "https://api.github.com/search/repositories"
 query_string = "?q=language:python+sort:stars+stars:>10000"
 request_url = url + query_string
 headers = {"Accept": "application/vnd.github.v3+json"}
+# An authenticated request gets a higher limit. See github-token-setup.md.
+if os.environ.get("GITHUB_TRAINING_TOKEN"):
+    headers["Authorization"] = f"Bearer {os.environ['GITHUB_TRAINING_TOKEN']}"
 
 response = requests.get(request_url, headers=headers, timeout=10)
 response_dict = response.json()

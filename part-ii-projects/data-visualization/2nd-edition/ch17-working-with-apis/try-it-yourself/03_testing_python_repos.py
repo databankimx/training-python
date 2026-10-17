@@ -8,6 +8,7 @@
 #                          repositories is greater than a certain amount.
 
 import os
+import sys
 import unittest
 import requests
 from plotly import offline
@@ -67,8 +68,9 @@ def get_github_data(response_dict):
     offline.plot(fig, filename = html_path)
 
 def main():
-    """Run the main function."""
-    unittest.main()
+    """Run the tests. unittest.main() searches __main__, which is the runner here, so load this module's tests directly."""
+    suite = unittest.defaultTestLoader.loadTestsFromTestCase(GithubTest)
+    unittest.TextTestRunner(stream=sys.stdout, verbosity=2).run(suite)
 
 class GithubTest(unittest.TestCase):
     """Unit tests for `python_repos.py`."""
@@ -77,12 +79,16 @@ class GithubTest(unittest.TestCase):
         # Make an API call and store the response.
         url = "https://api.github.com/search/repositories?q=language:python&sort=stars"
         headers = {"Accept": "application/vnd.github.v3+json"}
+        # An authenticated request gets a higher limit. See github-token-setup.md.
+        if os.environ.get("GITHUB_TRAINING_TOKEN"):
+            headers["Authorization"] = f"Bearer {os.environ['GITHUB_TRAINING_TOKEN']}"
 
         r = requests.get(url, headers=headers, timeout=10)
         self.assertEqual(r.status_code, 200)
 
         response_dict = r.json()
-        self.assertGreater(len(response_dict), 1)
+        self.assertEqual(len(response_dict["items"]), 30)
+        self.assertGreater(response_dict["total_count"], 1000)
 
         get_github_data(response_dict)
 

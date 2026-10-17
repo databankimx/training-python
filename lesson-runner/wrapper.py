@@ -18,8 +18,12 @@ import builtins
 import json
 import os
 import sys
+import traceback
 
 CONTROL = "##LRUN##"
+# Written to stderr just before an uncaught error's traceback, so the runner can show it
+#     in the error color.
+ERROR_MARK = CONTROL + json.dumps({"kind": "error"})
 
 
 def _emit(kind: str, **fields: str) -> None:
@@ -70,14 +74,19 @@ def main() -> int:
 
     with open(source_file, encoding="utf-8") as handle:
         source = handle.read()
-    code = compile(source, original, "exec")
     namespace = {"__name__": "__main__", "__file__": original, "__builtins__": builtins}
     try:
+        code = compile(source, original, "exec")
         #pylint: disable=exec-used
         exec(code, namespace)  # noqa: S102 - running lesson code is the purpose of this tool
     except SystemExit as exit_request: #pylint: disable=catching-non-exception
         code_value = exit_request.code
         return code_value if isinstance(code_value, int) else 0
+    except BaseException:  # pylint: disable=broad-exception-caught
+        sys.stderr.write(ERROR_MARK + "\n")
+        sys.stderr.flush()
+        traceback.print_exc()
+        return 1
     return 0
 
 

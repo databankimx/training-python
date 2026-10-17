@@ -41,7 +41,7 @@ for submission_id in submission_ids[:5]:
     submission_dict = {
         "title": response_dict["title"],
         "hn_link": f"https://news.ycombinator.com/item?id={submission_id}",
-        "comments": response_dict["descendants"]
+        "comments": response_dict["descendants"] if "descendants" in response_dict.keys() else 0
     }
     submission_dicts.append(submission_dict)
 
@@ -64,9 +64,9 @@ request is printed as it goes.
 **Sorting.** `sorted()` with `itemgetter("comments")` orders the stories by their comment counts, and `reverse=True`
 puts the largest first.
 
-**A possible failure.** The code reads `descendants`, the comment count, directly. A story with no comments doesn't have
-that field, so the script stops with a `KeyError` if one of the first five has none. The 2nd edition of this
-course handles that case with a default value of zero, so it's worth knowing about here.
+**Missing comment counts.** Some stories have no `descendants` field, which means they have no comments yet. The
+code checks for the field and uses zero when it's missing, so those stories are still listed, at the bottom of the sorted
+list.
 
 ---
 
@@ -75,7 +75,32 @@ course handles that case with a default value of zero, so it's worth knowing abo
 The terminal prints the status of each request, then the five stories, most discussed first:
 
 ```
-[sample output to be added]
+Response Status: 200
+50129121 Status: 200
+50106747 Status: 200
+50112657 Status: 200
+50131256 Status: 200
+50127979 Status: 200
+
+Title: Tesla Roadster
+Discussion Link: https://news.ycombinator.com/item?id=50112657
+Comments: 2747
+
+Title: DeepSeek: DeepSeek v4.1 Flash 1017
+Discussion Link: https://news.ycombinator.com/item?id=50129121
+Comments: 168
+
+Title: Ultramarine 1 Flash
+Discussion Link: https://news.ycombinator.com/item?id=50106747
+Comments: 100
+
+Title: Show HN: Llmspeed – feel how fast a local LLM runs before you buy the hardware
+Discussion Link: https://news.ycombinator.com/item?id=50127979
+Comments: 51
+
+Title: Solar surpasses nuclear power globally for first time – pv magazine Global
+Discussion Link: https://news.ycombinator.com/item?id=50131256
+Comments: 2
 ```
 
 ---

@@ -4,10 +4,11 @@
 #                          to make sure the API call was successful. Write a program
 #                          called test_python_repos.py that uses unittest to assert that
 #                          the value of status_code is 200. Figure out some other
-#                          assertions you can make — for example, that the number
+#                          assertions you can make - for example, that the number
 #                          of items returned is expected and that the total number
 #                          of repositories is greater than a certain amount.
 
+import os  # for the GITHUB_TRAINING_TOKEN environment variable
 import requests
 
 def query_repos() -> requests.Response:
@@ -16,12 +17,15 @@ def query_repos() -> requests.Response:
     query_string = "?q=language:python+sort:stars+stars:>10000"
     request_url = url + query_string
     headers = {"Accept": "application/vnd.github.v3+json"}
+    # An authenticated request gets a higher limit. See github-token-setup.md.
+    if os.environ.get("GITHUB_TRAINING_TOKEN"):
+        headers["Authorization"] = f"Bearer {os.environ['GITHUB_TRAINING_TOKEN']}"
     response = requests.get(request_url, headers=headers, timeout=10)
     assert response.status_code == 200, \
         f"API connection to [{url}] failed\n\twith status code: {response.status_code}"
     return response if response.status_code == 200 else None
 
-def get_repo_data(response: requests.Response) -> list[dict]:
+def get_repo_data(response: requests.Response) -> list[dict]|None:
     """Parse the results and return a list of repository dictionaries"""
     if response is None or response.status_code != 200:
         return None

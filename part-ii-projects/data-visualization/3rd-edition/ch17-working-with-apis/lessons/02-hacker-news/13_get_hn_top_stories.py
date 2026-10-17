@@ -28,7 +28,7 @@ for submission_id in submission_ids[:5]:
     submission_dict = {
         "title": response_dict["title"],
         "hn_link": f"https://news.ycombinator.com/item?id={submission_id}",
-        "comments": response_dict["descendants"]
+        "comments": response_dict["descendants"] if "descendants" in response_dict.keys() else 0
     }
     submission_dicts.append(submission_dict)
 

@@ -100,6 +100,12 @@ pip install sm-utils
 
 You can wait until the relevant chapter to install each library, or install everything up front. There is no harm in installing all of them now.
 
+### GitHub token for chapter 17
+
+The chapter 17 scripts call the GitHub API. Without a token, GitHub allows 60 requests per hour, which the chapter's exercises can use up. With a token, the limit is 5,000 per hour.
+
+Create a classic token with no scopes, and set it as a user environment variable named `GITHUB_TRAINING_TOKEN`. The scripts read the variable, so the token never goes in the code. The full steps are in [github-token-setup.md](part-ii-projects/data-visualization/github-token-setup.md). The same guide is in the lesson runner, under **Part II - Projects > Data Visualization > Setup**.
+
 ### Libraries for the lesson runner and Beyond the Book
 
 The lesson runner and the Beyond the Book chapters use the libraries below.
@@ -112,9 +118,9 @@ get to the chapter that needs it.
 |---|---|---|
 | `PySide6` | Qt for Python: the window, widgets, and the WebEngine that shows lessons | `pip install PySide6` |
 | `markdown-it-py` | Converts lesson Markdown to HTML | `pip install markdown-it-py` |
-| `mdit-py-plugins` | Adds `$...$` and `$$...$$` maths support to `markdown-it-py` | `pip install mdit-py-plugins` |
+| `mdit-py-plugins` | Adds `$...$` and `$$...$$` math support to `markdown-it-py` | `pip install mdit-py-plugins` |
 | `tkinter` | Standard library. Used by `logo.py`, which the Qt runner imports. Included in the python.org Windows installer | Included with Python |
-| MathJax and Prism | Typesets maths and highlights code in lesson pages. These are Node.js packages, not Python packages | `npm install mathjax@3 prismjs@1`, run in `lesson-runner/vendor/` |
+| MathJax and Prism | Typesets math and highlights code in lesson pages. These are Node.js packages, not Python packages | `npm install mathjax@3 prismjs@1`, run in `lesson-runner/vendor/` |
 
 The Python packages for the runner are listed in `lesson-runner/requirements.txt`:
 
@@ -123,7 +129,7 @@ python -m pip install -r lesson-runner/requirements.txt
 ```
 
 The legacy Tkinter runner in `lesson-runner-tk/` also uses `tkinter`. It can
-also use `matplotlib` for maths, but that is optional.
+also use `matplotlib` for math, but that is optional.
 
 #### Beyond the Book (`part-iii-beyond-the-book/`)
 
@@ -167,12 +173,12 @@ container image, a client deliverable, or any closed-source product. If you want
 move any code out of this repository, stop and take it to development leadership first.
 The approval does not carry over to the new code.
 
-**Other libraries** in the tables above are under permissive licences (MIT, BSD, or
+**Other libraries** in the tables above are under permissive licenses (MIT, BSD, or
 Apache 2.0), and can be used in closed-source work under the Development Rules of
 Engagement.
 
 **Vendored files.** MathJax (Apache 2.0) and Prism (MIT) are copied into the lesson
-runner's `vendor/` folder. Keep their licence and notice files with them.
+runner's `vendor/` folder. Keep their license and notice files with them.
 
 The full policy is in [Development Rules of Engagement](development-rules-of-engagement.md),
 section 12.
@@ -198,7 +204,7 @@ Add these to your VS Code User Settings JSON (`Ctrl+Shift+P` -> `Preferences: Op
 
 ### Lesson Runner
 
-The lesson runner is a Qt desktop application that lets you browse chapters, read lesson notes, and run code examples interactively. Lessons are rendered with MathJax for maths and Prism for code.
+The lesson runner is a Qt desktop application that lets you browse chapters, read lesson notes, and run code examples interactively. Lessons are rendered with MathJax for math and Prism for code.
 
 Setup (the `vendor/` MathJax and Prism files, and the Python packages) is in [lesson-runner/README.md](lesson-runner/README.md). Once it's set up, start the runner from the repository root:
 
@@ -211,6 +217,7 @@ python lesson-runner/app.py
 The chapter tree on the left lists every chapter:
 
 * **Part I** chapters hold their lessons directly. Each chapter's `try-it-yourself` steps, and the chapter 11 editions, are nested beneath the chapter. Chapters start collapsed. Selecting a chapter with no steps of its own moves to its first sub-chapter.
+* **Part II** chapters are grouped by project. Data Visualization comes first, with its 2nd and 3rd Editions, each holding Ch15 to Ch17 with their lessons and try-it-yourself steps. The **Setup** entry at the top of Data Visualization has the GitHub token instructions. Making a Game and Web Applications are placeholders for chapters not yet migrated.
 * **Part III** chapters hold their lessons directly, and any sub-folders are nested beneath them (for example S13 and S14).
 
 Select a step in the list below the chapters. Steps that share one lesson file are indented under the first one.
@@ -223,6 +230,10 @@ Select a step in the list below the chapters. Steps that share one lesson file a
 * If the step asks for input, a dialog opens. If it pauses, press **Continue** (or Ctrl+Shift+Enter).
 * To pass command-line arguments, type them in the **args** box before running.
 * Press Escape to cancel a run.
+* Badges under the step title say what the step does: **Window** (opens a matplotlib window), **Browser** (opens a chart or an algorithm animation in the browser), **Saves file**, **Internet** (calls an API), and **Input** (asks for a typed reply). Each has a tooltip.
+* The **Visualize** button appears only on algorithm steps, and opens the step-through animation in the browser.
+* For a step that saves a file, the **View file** button opens the newest file the run wrote. Text files such as `.json` open in Notepad.
+* Warnings from a run, such as unittest summaries, appear in amber. Uncaught errors appear in red.
 
 #### Steps you won't see as steps
 
@@ -247,7 +258,7 @@ The sun and moon switch in the title bar toggles dark and light themes.
 #### Troubleshooting
 
 * **A lesson shows "could not be rendered" in the output:** the traceback follows the message. Note the step and the error, and report them.
-* **Maths or code colours are missing:** the `vendor/` folder is probably not set up. See the lesson runner README.
+* **Math or code colors are missing:** the `vendor/` folder is probably not set up. See the lesson runner README.
 * **The code font is not Cascadia Mono:** Cascadia Mono is used when installed. Otherwise the runner falls back to Cascadia Code, JetBrains Mono, or Consolas.
 
 The runner's source code is in the `lesson-runner/` folder. The Tkinter version it replaced is in `lesson-runner-tk/` for reference.

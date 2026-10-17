@@ -2,8 +2,8 @@
 
 Markdown is parsed with markdown-it-py (CommonMark plus tables, and raw HTML
 passed through, so the lesson's own <style> block applies). $...$ and $$...$$
-maths is left for MathJax to typeset in the page. Code blocks are highlighted
-by Prism, and the token colours follow the Visual Studio palette.
+math is left for MathJax to typeset in the page. Code blocks are highlighted
+by Prism, and the token colors follow the Visual Studio palette.
 
 MathJax and Prism are loaded from the app's vendor folder, so the app works
 offline once that folder is in place.
@@ -29,7 +29,7 @@ p { margin: 8px 0; }
 code { font-family: Consolas, monospace; font-size: 13px; color: #D7BA7D; }
 h1 code, h2 code, h3 code { font-size: inherit; }
 pre { background: #0A0A0A; border-radius: 8px; padding: 14px 18px; margin: 12px 10px;
-      overflow-x: auto; }
+      white-space: pre-wrap; overflow-wrap: anywhere; overflow-x: hidden; }
 pre code { color: #D4D4D4; background: none; font-size: 14px; }
 table { border-collapse: collapse; margin: 12px 0; }
 th, td { padding: 4px 10px; border: 1px solid #3F3F46; }
@@ -37,8 +37,9 @@ a { color: #3794FF; }
 blockquote { color: #858585; border-left: 3px solid #3F3F46; margin: 8px 0;
              padding-left: 12px; }
 hr { border: 0; border-top: 1px solid #3F3F46; }
+img { max-width: 100%; height: auto; }
 
-/* Prism tokens, Visual Studio Dark+ colours. */
+/* Prism tokens, Visual Studio Dark+ colors. */
 .token.comment, .token.prolog, .token.doctype, .token.cdata { color: #6A9955; }
 .token.string, .token.char, .token.attr-value { color: #CE9178; }
 .token.number, .token.boolean { color: #B5CEA8; }
@@ -62,7 +63,7 @@ p { margin: 8px 0; }
 code { font-family: Consolas, monospace; font-size: 13px; color: #795E26; }
 h1 code, h2 code, h3 code { font-size: inherit; }
 pre { background: #F5F5F5; border-radius: 8px; padding: 14px 18px; margin: 12px 10px;
-      overflow-x: auto; }
+      white-space: pre-wrap; overflow-wrap: anywhere; overflow-x: hidden; }
 pre code { color: #1E1E1E; background: none; font-size: 14px; }
 table { border-collapse: collapse; margin: 12px 0; }
 th, td { padding: 4px 10px; border: 1px solid #CCCEDB; }
@@ -70,8 +71,9 @@ a { color: #0451A5; }
 blockquote { color: #717171; border-left: 3px solid #CCCEDB; margin: 8px 0;
              padding-left: 12px; }
 hr { border: 0; border-top: 1px solid #CCCEDB; }
+img { max-width: 100%; height: auto; }
 
-/* Prism tokens, Visual Studio Light+ colours. */
+/* Prism tokens, Visual Studio Light+ colors. */
 .token.comment, .token.prolog, .token.doctype, .token.cdata { color: #008000; }
 .token.string, .token.char, .token.attr-value { color: #A31515; }
 .token.number, .token.boolean { color: #098658; }
@@ -108,7 +110,7 @@ window.MathJax = {
 TAIL = """
 <script>
 if (window.Prism) {
-  // Control-flow keywords get their own colour, as in Visual Studio.
+  // Control-flow keywords get their own color, as in Visual Studio.
   var CONTROL = new Set(['if', 'else', 'for', 'while', 'do', 'return', 'break', 'continue',
     'switch', 'case', 'default', 'goto', 'elif', 'try', 'except', 'finally', 'raise', 'with',
     'pass', 'import', 'from', 'as', 'in', 'is', 'not', 'and', 'or', 'lambda', 'async', 'await',
@@ -124,9 +126,9 @@ if (window.Prism) {
 
 
 def make_parser() -> MarkdownIt:
-    """CommonMark with tables, raw HTML and $...$ maths.
+    """CommonMark with tables, raw HTML and $...$ math.
 
-    The maths plugin wraps formulas in span tags without delimiters, so MathJax
+    The math plugin wraps formulas in span tags without delimiters, so MathJax
     can't find them. These render rules write \\(...\\) and \\[...\\] instead,
     which MathJax is configured to typeset.
     """
@@ -155,7 +157,7 @@ MATH_SPAN = re.compile(r"\$\$[^$]+\$\$|\$[^$\n]+\$")
 
 
 def math_symbols(markdown_text: str) -> str:
-    """Swap symbols that LaTeX doesn't define for their maths equivalents, inside maths only.
+    """Swap symbols that LaTeX doesn't define for their math equivalents, inside math only.
 
     \\^ is the XOR operator in these lessons, shown as \\oplus. Code blocks are left alone.
     """

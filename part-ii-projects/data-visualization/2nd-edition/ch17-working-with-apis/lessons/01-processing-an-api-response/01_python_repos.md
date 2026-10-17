@@ -9,6 +9,8 @@ back the data, usually as JSON.
 This lesson calls the GitHub API to ask for the most-starred Python projects. It reads the response, which
 is a dictionary, and prints some of the details about each project. The `requests` library makes the call.
 
+Set up a GitHub token before you start, so the exercises aren't held back by GitHub's rate limit. The steps are in `github-token-setup.md`, in the `data-visualization` folder.
+
 Install `requests` before running this lesson:
 
 ```bash

@@ -66,7 +66,20 @@ listed in the last lesson.
 The terminal prints the summary, then the key details of the first repository:
 
 ```
-[sample output to be added]
+Status code: 200
+Success:
+- Total repositories: 1038
+- Complete results: True
+Repositories returned: 30
+
+Selected information about first repository:
+- Name: public-apis
+- Owner: public-apis
+- Stars: 489641
+- Repository: https://github.com/public-apis/public-apis
+- Created: 2016-03-20T23:49:42Z
+- Updated: 2026-10-17T13:51:09Z
+- Description: A collective list of free APIs
 ```
 
 ---

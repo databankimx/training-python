@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from relative_paths import get_path
 
 folder = "data"
-# Switch to the full year CSV
+# Switch to the file covering all of 2021
 file_name = "sitka_weather_2021_simple.csv"
 file_path = get_path(file_name, folder)
 

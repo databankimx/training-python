@@ -56,6 +56,14 @@ walk. The red dot marks where the walk finished.
 The path is still colored from purple to yellow, with a bright green dot at the origin and a red dot
 at the end of the walk.
 
+**Warning:** Running this lesson prints a warning. The script is still correct, and the chart still shows. The warning is about the green start dot, which passes its color as `c=(0, .9, 0)`. Matplotlib reads a single RGB tuple given to `c` as a list of values to map to colors, so it warns that the `color` keyword is the right choice for a single color.
+
+```
+...04_random_walk_start_end.py:17: UserWarning: *c* argument looks like a single numeric RGB or RGBA sequence, which should be avoided as value-mapping will have precedence in case its length matches with *x* & *y*. Please use the *color* keyword-argument or provide a 2D array with a single row if you intend to specify the same RGB or RGBA value for all points.
+```
+
+To remove the warning, change `c=(0, .9, 0)` to `color=(0, .9, 0)` in the green-dot line. The rest of the lesson stays the same.
+
 ![Output of lesson 2.4: a colored random walk with a green start point at the origin and a red end point](images/random-walk-start-end.png)
 
 ---

@@ -4,7 +4,8 @@ The window polls ``StepRun.events`` on the Tk thread. Each event is a
 ``(kind, value)`` tuple:
 
 * ``("out", text)``: a line of normal output
-* ``("err", text)``: a line of error output
+* ``("warn", text)``: a line of warning output, such as a unittest summary or a warning
+* ``("err", text)``: a line of error output, such as an uncaught traceback
 * ``("clear", "")``: clear the output pane
 * ``("pause", "")``: the step is waiting for Continue
 * ``("input", prompt)``: the step is waiting for a line of text
@@ -42,6 +43,7 @@ class StepRun:
         self._proc: subprocess.Popen | None = None
         self._started = 0.0
         self.cancelled = False
+        self._in_error = False
 
     def start(self) -> None:
         """Write the source to a temporary file and launch the wrapper."""
@@ -101,6 +103,12 @@ class StepRun:
 
     def _on_stdout(self, line: str) -> None:
         if not line.startswith(CONTROL):
+            # ESC c is the terminal "clear screen" code. The output pane clears instead of printing it.
+            if "\x1bc" in line:
+                self.events.put(("clear", ""))
+                line = line.rpartition("\x1bc")[2]
+                if not line:
+                    return
             self.events.put(("out", line))
             return
         try:
@@ -117,7 +125,11 @@ class StepRun:
             self.events.put(("clear", ""))
 
     def _on_stderr(self, line: str) -> None:
-        self.events.put(("err", line))
+        if line.startswith(CONTROL):
+            # An uncaught error: its traceback follows, and is shown in the error color.
+            self._in_error = True
+            return
+        self.events.put(("err" if self._in_error else "warn", line))
 
     def _wait(self) -> None:
         returncode = self._proc.wait()

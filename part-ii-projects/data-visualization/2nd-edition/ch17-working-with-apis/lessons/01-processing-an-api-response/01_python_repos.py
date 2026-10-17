@@ -3,11 +3,15 @@
 # Note: You'll probably need to install the requests plug-in
 # > python -m pip install requests
 
+import os  # for the GITHUB_TRAINING_TOKEN environment variable
 import requests
 
 # Make an API call and store the response.
 url = "https://api.github.com/search/repositories?q=language:python&sort=stars"
 headers = {"Accept": "application/vnd.github.v3+json"}
+# An authenticated request gets a higher limit. See github-token-setup.md.
+if os.environ.get("GITHUB_TRAINING_TOKEN"):
+    headers["Authorization"] = f"Bearer {os.environ['GITHUB_TRAINING_TOKEN']}"
 r = requests.get(url, headers=headers, timeout=10)
 print(f"Status code: {r.status_code}")
 

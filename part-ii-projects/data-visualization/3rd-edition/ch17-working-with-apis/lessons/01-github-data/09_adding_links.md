@@ -76,9 +76,7 @@ two different things is worth avoiding.
 
 ### Output
 
-The bars are labeled with the repository names as HTML links. Whether a click on a label opens the repository depends
-on how plotly draws tick labels in your version, so check this when you run the lesson. The link tags are in the
-labels either way.
+The bars are labeled with clickable repository names. Clicking a name opens that repository's page on GitHub.
 
 ![Output of lesson 1.9: a bar chart with clickable repository names along the x-axis](images/17-3-09-adding-links.png)
 

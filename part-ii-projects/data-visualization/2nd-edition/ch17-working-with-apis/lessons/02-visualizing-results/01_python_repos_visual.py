@@ -10,6 +10,9 @@ ROOT_DIR = os.path.dirname(__file__)
 # Make an API call and store the response.
 url = "https://api.github.com/search/repositories?q=language:python&sort=stars"
 headers = {"Accept": "application/vnd.github.v3+json"}
+# An authenticated request gets a higher limit. See github-token-setup.md.
+if os.environ.get("GITHUB_TRAINING_TOKEN"):
+    headers["Authorization"] = f"Bearer {os.environ['GITHUB_TRAINING_TOKEN']}"
 
 r = requests.get(url, headers=headers, timeout=10)
 if r.status_code != 200:
