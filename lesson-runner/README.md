@@ -2,28 +2,49 @@
 
 The Qt version of the lesson runner. It has everything it needs in this folder.
 
+The code is in three packages, all in this folder:
+
+| Path | Purpose |
+|---|---|
+| `app.py` | Entry point: the main window class, which combines the `ui` mixins, and `main()` |
+| `config.py` | Paths, color palettes, code fonts and the visualization table |
+| `core/` | Logic that does not depend on the window (below) |
+| `ui/` | The window and its widgets (below) |
+| `render/` | Lesson rendering (below) |
+| `vendor/` | MathJax and Prism, loaded by the lesson pages (see setup) |
+
+`core/`:
+
 | File | Purpose |
 |---|---|
-| `app.py` | Entry point: the main window class, which combines the mixins below, and `main()` |
-| `config.py` | Paths, color palettes, code fonts and the visualization table |
-| `theme.py` | Fonts and the application stylesheet |
-| `icons.py` | Vector icons and the DataBank logo |
+| `discovery.py` | Finds chapters and steps under Part I, Part II and Part III |
+| `runner.py` | Starts a step in a child process and passes its events to the window |
+| `wrapper.py` | Runs inside the child process; routes pause, clear and input |
+| `files_watch.py` | Finds the files a run writes, and opens text files in Notepad |
 | `source_tools.py` | Strips lint comments from source; works out a step's badges |
-| `widgets.py` | Theme switch, syntax highlighter, source editor, tree delegate, pop-out window |
+
+`ui/`:
+
+| File | Purpose |
+|---|---|
 | `window_layout.py` | Builds the window's widgets and shortcuts (`LayoutMixin`) |
 | `theming.py` | Applies the dark or light palette (`ThemeMixin`) |
 | `navigation.py` | Chapter tree and step list (`NavigationMixin`) |
 | `source_panel.py` | Loads a step into the editor and lesson; badges, reset, visualize (`SourcePanelMixin`) |
 | `output_panel.py` | Output pane, clear and copy (`OutputMixin`) |
 | `run_control.py` | Runs a step, answers input and pauses, reports the result (`RunMixin`) |
-| `lesson_view.py` | Renders lessons, scrolls to the step, pop-out lesson (`LessonMixin`) |
-| `discovery.py` | Finds chapters and steps under Part I, Part II and Part III |
-| `runner.py` | Starts a step in a child process and passes its events to the window |
-| `wrapper.py` | Runs inside the child process; routes pause, clear and input |
-| `syntax.py` | Python token coloring for the source editor |
+| `lesson_view.py` | Shows lessons, scrolls to the step, pop-out lesson (`LessonMixin`) |
+| `widgets.py` | Theme switch, syntax highlighter, source editor, tree delegate, pop-out window |
+| `theme.py` | Fonts and the application stylesheet |
+| `icons.py` | Vector icons and the DataBank logo |
+| `syntax.py` | Python and C token coloring for the source editor |
 | `logo.py` | The DataBank logo, as polygons for the nav header and window icon |
-| `render.py` | Renders lesson Markdown to HTML (MathJax maths, Prism code) |
-| `vendor/` | MathJax and Prism, loaded by the lesson pages (see setup) |
+
+`render/`:
+
+| File | Purpose |
+|---|---|
+| `render.py` | Renders lesson Markdown to HTML (MathJax math, Prism code) |
 
 ## Setup
 

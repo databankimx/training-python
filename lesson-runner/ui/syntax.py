@@ -4,8 +4,8 @@ Python uses the tokenize module. C uses a small set of patterns, which covers th
 C samples in the lessons: comments, strings, preprocessor lines, numbers,
 keywords and function calls.
 
-The tags follow Visual Studio's default colours (Dark+ and Light+). The palette
-for each theme is defined in app.py under the same keys as the tags below.
+The tags follow Visual Studio's default colors (Dark+ and Light+). The palette
+for each theme is defined in config.py under the same keys as the tags below.
 """
 
 from __future__ import annotations
@@ -17,10 +17,10 @@ import keyword
 import re
 import tokenize
 
-# Tags the highlighter can produce. Each must be configured with a colour.
+# Tags the highlighter can produce. Each must be configured with a color.
 SYNTAX_TAGS = ("kw", "ctl", "str", "com", "num", "typ", "fn", "var")
 
-# Keywords shown in the control-flow colour, as in Visual Studio.
+# Keywords shown in the control-flow color, as in Visual Studio.
 CONTROL = {
     "if", "elif", "else", "for", "while", "break", "continue", "return", "yield",
     "try", "except", "finally", "raise", "with", "pass", "import", "from", "as",

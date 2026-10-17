@@ -10,9 +10,9 @@ from PySide6.QtGui import QColor, QIcon #pylint: disable=no-name-in-module #NOSO
 from PySide6.QtCore import QUrl #pylint: disable=no-name-in-module #NOSONAR
 
 from config import DARK, VENDOR
-from icons import logo_pixmap
-from render import render_lesson
-from widgets import PopoutWindow
+from render.render import render_lesson
+from ui.icons import logo_pixmap
+from ui.widgets import PopoutWindow
 
 #pylint: disable=line-too-long
 

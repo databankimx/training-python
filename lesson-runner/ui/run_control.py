@@ -10,8 +10,8 @@ from PySide6.QtCore import QUrl #pylint: disable=no-name-in-module #NOSONAR
 from PySide6.QtGui import QDesktopServices #pylint: disable=no-name-in-module #NOSONAR
 from PySide6.QtWidgets import QInputDialog #pylint: disable=no-name-in-module #NOSONAR
 
-from files_watch import TEXT_SUFFIXES, open_in_text_editor, snapshot, written_since
-from runner import StepRun
+from core.files_watch import TEXT_SUFFIXES, open_in_text_editor, snapshot, written_since
+from core.runner import StepRun
 
 #pylint: disable=line-too-long
 

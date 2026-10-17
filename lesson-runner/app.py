@@ -4,23 +4,16 @@ Same features as the tkinter runner, with lessons shown in Qt WebEngine.
 
 Run:  python app.py
 
-The window is split across modules in this folder:
+The code is split into three packages, next to this file:
   config.py           paths, palettes, fonts, visualization table
-  theme.py            fonts and the stylesheet
-  icons.py            vector icons and the logo
-  source_tools.py     lint-comment stripping and step badges
-  widgets.py          theme switch, highlighter, source editor, pop-out window
-  window_layout.py    builds the widgets (LayoutMixin)
-  theming.py          applies dark or light (ThemeMixin)
-  navigation.py       chapter tree and step list (NavigationMixin)
-  source_panel.py     loads a step into the editor and lesson (SourcePanelMixin)
-  output_panel.py     output pane and copy (OutputMixin)
-  run_control.py      running a step (RunMixin)
-  lesson_view.py      lesson rendering and pop-out (LessonMixin)
+  core/               logic with no window code: discovery, the step runner,
+                      file tracking, and source helpers
+  render/             lesson Markdown to HTML (MathJax and Prism; vendor/ holds
+                      the JavaScript)
+  ui/                 the window: layout, theme, navigation, source, output,
+                      run and lesson views, plus widgets, icons, syntax, logo
 
-Shared code, imported from the sibling folders for now:
-  lesson-runner           discovery.py, runner.py, syntax.py, logo.py
-  lesson-runner-qt-spike  render.py and vendor/ (MathJax and Prism)
+app.py holds the main window class, which combines the ui mixins.
 """
 
 #pylint: disable=line-too-long, wrong-import-position, unused-argument, attribute-defined-outside-init
@@ -35,16 +28,16 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
-import discovery  # noqa: E402  pylint: disable=wrong-import-position
 from config import DARK, UI_FAMILY  # noqa: E402  pylint: disable=wrong-import-position
-from icons import logo_pixmap  # noqa: E402  pylint: disable=wrong-import-position
-from lesson_view import LessonMixin  # noqa: E402  pylint: disable=wrong-import-position
-from navigation import NavigationMixin  # noqa: E402  pylint: disable=wrong-import-position
-from output_panel import OutputMixin  # noqa: E402  pylint: disable=wrong-import-position
-from run_control import RunMixin  # noqa: E402  pylint: disable=wrong-import-position
-from source_panel import SourcePanelMixin  # noqa: E402  pylint: disable=wrong-import-position
-from theming import ThemeMixin  # noqa: E402  pylint: disable=wrong-import-position
-from window_layout import LayoutMixin  # noqa: E402  pylint: disable=wrong-import-position
+from core import discovery  # noqa: E402  pylint: disable=wrong-import-position
+from ui.icons import logo_pixmap  # noqa: E402  pylint: disable=wrong-import-position
+from ui.lesson_view import LessonMixin  # noqa: E402  pylint: disable=wrong-import-position
+from ui.navigation import NavigationMixin  # noqa: E402  pylint: disable=wrong-import-position
+from ui.output_panel import OutputMixin  # noqa: E402  pylint: disable=wrong-import-position
+from ui.run_control import RunMixin  # noqa: E402  pylint: disable=wrong-import-position
+from ui.source_panel import SourcePanelMixin  # noqa: E402  pylint: disable=wrong-import-position
+from ui.theming import ThemeMixin  # noqa: E402  pylint: disable=wrong-import-position
+from ui.window_layout import LayoutMixin  # noqa: E402  pylint: disable=wrong-import-position
 
 #pylint: disable=no-name-in-module
 from PySide6.QtGui import QFont, QIcon

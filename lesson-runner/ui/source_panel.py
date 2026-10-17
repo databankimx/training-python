@@ -7,10 +7,10 @@ from PySide6.QtCore import QUrl #pylint: disable=no-name-in-module #NOSONAR
 from PySide6.QtGui import QDesktopServices #pylint: disable=no-name-in-module #NOSONAR
 from PySide6.QtWidgets import QFrame, QHBoxLayout, QLabel #pylint: disable=no-name-in-module #NOSONAR
 
-import discovery
+from core import discovery
 from config import C_NOTE, HERE, VISUALIZATIONS
-from icons import draw_icon
-from source_tools import BADGE_GLYPHS, step_badges, strip_lint_comments
+from core.source_tools import BADGE_GLYPHS, step_badges, strip_lint_comments
+from ui.icons import draw_icon
 
 #pylint: disable=line-too-long
 

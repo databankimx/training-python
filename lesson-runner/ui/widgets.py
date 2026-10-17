@@ -15,9 +15,9 @@ from PySide6.QtWidgets import (QAbstractButton, QHBoxLayout, QPlainTextEdit, QSt
                                QToolButton, QVBoxLayout, QWidget) #pylint: disable=no-name-in-module #NOSONAR
 
 from config import DARK, FLUSH_ROLE
-from icons import draw_icon
-from syntax import SYNTAX_TAGS, c_spans, python_spans
-from theme import code_font
+from ui.icons import draw_icon
+from ui.syntax import SYNTAX_TAGS, c_spans, python_spans
+from ui.theme import code_font
 
 
 class ThemeSwitch(QAbstractButton):

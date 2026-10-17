@@ -9,7 +9,7 @@ from PySide6.QtCore import QTimer #pylint: disable=no-name-in-module #NOSONAR
 from PySide6.QtGui import QTextCursor #pylint: disable=no-name-in-module #NOSONAR
 from PySide6.QtWidgets import QApplication, QToolButton #pylint: disable=no-name-in-module #NOSONAR
 
-from icons import draw_icon
+from ui.icons import draw_icon
 
 
 class OutputMixin:

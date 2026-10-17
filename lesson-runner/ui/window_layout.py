@@ -13,9 +13,9 @@ from PySide6.QtWidgets import (QFrame, QHBoxLayout, QLabel, QLineEdit, QListWidg
                                QTreeWidget, QVBoxLayout, QWidget) #pylint: disable=no-name-in-module #NOSONAR
 
 from config import DARK
-from icons import logo_pixmap
-from theme import code_font
-from widgets import PythonHighlighter, SourceEditor, ThemeSwitch, TreeDelegate
+from ui.icons import logo_pixmap
+from ui.theme import code_font
+from ui.widgets import PythonHighlighter, SourceEditor, ThemeSwitch, TreeDelegate
 
 
 class LayoutMixin:

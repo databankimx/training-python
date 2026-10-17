@@ -6,7 +6,7 @@ import math
 from PySide6.QtCore import QPointF, QRectF, Qt #pylint: disable=no-name-in-module #NOSONAR
 from PySide6.QtGui import QColor, QIcon, QPainter, QPainterPath, QPen, QPixmap, QPolygonF #pylint: disable=no-name-in-module #NOSONAR
 
-import logo
+from ui import logo
 
 #pylint: disable=too-many-branches, too-many-statements
 

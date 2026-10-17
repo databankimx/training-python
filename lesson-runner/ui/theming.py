@@ -6,8 +6,8 @@ from PySide6.QtGui import QColor, QTextCharFormat #pylint: disable=no-name-in-mo
 from PySide6.QtWidgets import QApplication #pylint: disable=no-name-in-module #NOSONAR
 
 from config import DARK, LIGHT
-from icons import draw_icon, logo_pixmap
-from theme import stylesheet, tooltip_style
+from ui.icons import draw_icon, logo_pixmap
+from ui.theme import stylesheet, tooltip_style
 
 
 class ThemeMixin:

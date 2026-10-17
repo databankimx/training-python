@@ -36,7 +36,7 @@ Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Lesson runner: a hint in the output pane when a run fails because GitHub refused a request for rate limits
 - Lesson runner: tooltips on the glyph controls and buttons
 - Lesson runner: `files_watch.py` for finding the files a run writes
-- Lesson runner: `config.py`, `theme.py`, `icons.py`, `source_tools.py`, `widgets.py`, `window_layout.py`, `theming.py`, `navigation.py`, `source_panel.py`, `output_panel.py`, `run_control.py`, and `lesson_view.py`, split out of `app.py`
+- Lesson runner: window code split out of `app.py` into the `ui/` package, and logic that doesn't need the window into `core/` (discovery, runner, wrapper, files watch, source tools). Lesson rendering is in `render/`
 
 - `.github/` structure: `CODEOWNERS`, `instructions/copilot-instructions.md`, `instructions/sonarqube_mcp.instructions.md`, `workflows/sonarqube.yml`, `workflows/standards-policy.yml`, `standards.yml`
 - `sonar-project.properties` - excludes all `textbook-downloads/` folders from SonarQube analysis and coverage
@@ -53,7 +53,7 @@ Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- Lesson runner: `app.py` is now the entry point. The window's behavior is split across the modules listed under Added
+- Lesson runner: modules grouped into `core/`, `ui/` and `render/` packages, with `config.py` and `app.py` at the top. `discovery.py` finds the repository root from its new location
 - Lesson runner: Part II sits between Part I and Part III in the chapter tree
 - Lesson runner: top-level Part menus start collapsed
 - Lesson runner: code blocks wrap at the pane edge instead of scrolling sideways, and lesson images scale to the pane width
