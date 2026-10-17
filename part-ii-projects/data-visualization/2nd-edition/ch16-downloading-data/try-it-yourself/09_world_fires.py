@@ -56,6 +56,6 @@ data = [{
 my_layout = Layout(title="Fires - Past 24 Hours")
 
 fig = {"data": data, "layout": my_layout}
-html_path = os.path.join(ROOT_DIR, "Data", "global_fires.html")
+html_path = os.path.join(ROOT_DIR, "data", "global_fires.html")
 
 offline.plot(fig, filename=html_path)

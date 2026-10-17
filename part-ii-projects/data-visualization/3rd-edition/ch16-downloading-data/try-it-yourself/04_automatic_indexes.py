@@ -12,7 +12,7 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 from relative_paths import get_path
 
-folder = "Data"
+folder = "data"
 file_name = "sitka_weather_2021_full.csv"
 file_path = get_path(file_name, folder)
 

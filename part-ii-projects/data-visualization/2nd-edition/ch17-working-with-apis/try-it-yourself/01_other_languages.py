@@ -55,16 +55,13 @@ data = [{
 }]
 
 my_layout = {
-    "title": f"Most-Starred {sel_lang.title()} Projects on GitHub",
-    "titlefont": {"size": 28},
+    "title": {"text": f"Most-Starred {sel_lang.title()} Projects on GitHub", "font": {"size": 28}},
     "xaxis": {
-        "title": "Repository",
-        "titlefont": {"size": 24},
+        "title": {"text": "Repository", "font": {"size": 24}},
         "tickfont": {"size": 14},
     },
     "yaxis": {
-        "title": "Stars",
-        "titlefont": {"size": 24},
+        "title": {"text": "Stars", "font": {"size": 24}},
         "tickfont": {"size": 14},
     },
     "hoverlabel": {
@@ -74,6 +71,6 @@ my_layout = {
 
 fig = {"data": data, "layout": my_layout}
 
-html_path = os.path.join(ROOT_DIR, "Data", "repos_by_language.html")
+html_path = os.path.join(ROOT_DIR, "data", "repos_by_language.html")
 
 offline.plot(fig, filename = html_path)

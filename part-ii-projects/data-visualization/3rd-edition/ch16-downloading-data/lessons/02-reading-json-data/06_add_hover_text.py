@@ -5,7 +5,7 @@ from pathlib import Path
 from relative_paths import get_path
 import plotly.express as px
 
-folder = "Data"
+folder = "data"
 filename = "readable_eq_data_30_day_09102023.json"
 filepath = get_path(filename, folder)
 

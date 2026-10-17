@@ -12,7 +12,7 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 from relative_paths import get_path
 
-folder = "Data"
+folder = "data"
 file_name = "sitka_weather_2021_full.csv"
 file_path = get_path(file_name, folder)
 
@@ -42,7 +42,7 @@ ax.plot(dates, prec, color="blue")
 # Format the plot
 ax.set_title("Sitka, AK - Daily Precipitation, 2021", fontsize=18)
 ax.set_xlabel("", fontsize=8)
-ax.set_ylabel("Temperature (F)", fontsize=14)
+ax.set_ylabel("Precipitation (in)", fontsize=14)
 ax.tick_params(labelsize=8)
 
 # Add date formatting

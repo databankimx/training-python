@@ -16,7 +16,7 @@ import requests
 
 API_URL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_month.geojson"
 ROOT_DIR = os.path.dirname(__file__)
-file_path = os.path.join(ROOT_DIR, "Data", "eq_data_last_30_days.json")
+file_path = os.path.join(ROOT_DIR, "data", "eq_data_last_30_days.json")
 
 result = requests.get(API_URL, timeout=10).json()
 with open(file_path, "w", encoding="UTF-8")as f:
@@ -49,6 +49,6 @@ data = [{
 my_layout = Layout(title=all_eq_data["metadata"]["title"])
 
 fig = {"data": data, "layout": my_layout}
-html_path = os.path.join(ROOT_DIR, "Data", "global_earthquakes.html")
+html_path = os.path.join(ROOT_DIR, "data", "global_earthquakes.html")
 
 offline.plot(fig, filename=html_path)

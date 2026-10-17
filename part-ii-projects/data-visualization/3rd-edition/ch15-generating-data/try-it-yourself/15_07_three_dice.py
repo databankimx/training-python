@@ -18,12 +18,12 @@ dice = [Die() for _ in range(num_dice)]
 # Make some rolls and store in a list
 results = []
 for _ in range(rolls):
-    result = sum([d.roll() for d in dice])
+    result = sum([d.roll() for d in dice]) #pylint: disable=consider-using-generator
     results.append(result)
 
 # Analyze the results
 frequencies = []
-max_result = sum([d.num_sides for d in dice])
+max_result = sum([d.num_sides for d in dice]) #pylint: disable=consider-using-generator
 poss_results = range(num_dice, max_result + 1)
 
 for n in poss_results:

@@ -1,5 +1,7 @@
 """Assignment 16.2"""
 
+#pylint: disable=line-too-long
+
 # Sitka–Death Valley Comparison: The temperature scales on the Sitka and Death Valley graphs reflect
 #                                the different data ranges. To accurately compare the temperature range
 #                                in Sitka to that of Death Valley, you need identical scales on the y-axis.
@@ -25,7 +27,7 @@ labels = [D_LABEL, H_LABEL, L_LABEL]
 
 increment_d = True
 
-folder = "Data"
+folder = "data"
 s_file = get_path("sitka_weather_2021_simple.csv", folder)
 s_path = Path(s_file)
 d_file = get_path("death_valley_2021_simple.csv", folder)

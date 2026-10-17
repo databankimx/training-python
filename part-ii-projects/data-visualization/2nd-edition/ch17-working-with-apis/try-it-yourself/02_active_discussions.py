@@ -54,16 +54,13 @@ data = [{
 }]
 
 my_layout = {
-    "title": "Most Commented Posts on Hacker News",
-    "titlefont": {"size": 28},
+    "title": {"text": "Most Commented Posts on Hacker News", "font": {"size": 28}},
     "xaxis": {
-        "title": "Post",
-        "titlefont": {"size": 24},
+        "title": {"text": "Post", "font": {"size": 24}},
         "tickfont": {"size": 14},
     },
     "yaxis": {
-        "title": "Comments",
-        "titlefont": {"size": 24},
+        "title": {"text": "Comments", "font": {"size": 24}},
         "tickfont": {"size": 14},
     },
     "hoverlabel": {
@@ -73,6 +70,6 @@ my_layout = {
 
 fig = {'data': data, 'layout': my_layout}
 
-html_path = os.path.join(ROOT_DIR, "Data", "hacker_news_posts.html")
+html_path = os.path.join(ROOT_DIR, "data", "hacker_news_posts.html")
 
 offline.plot(fig, filename=html_path)

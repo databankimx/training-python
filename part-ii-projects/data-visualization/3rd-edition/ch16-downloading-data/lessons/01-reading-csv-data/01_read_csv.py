@@ -6,7 +6,7 @@ from pathlib import Path
 from relative_paths import get_path
 
 
-folder = "Data"
+folder = "data"
 # This file contains the temperatures for Sitka, AK for July 2021
 file_name = "sitka_weather_07-2021_simple.csv"
 file_path = get_path(file_name, folder)

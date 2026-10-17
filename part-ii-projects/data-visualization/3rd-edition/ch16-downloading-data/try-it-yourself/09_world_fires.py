@@ -17,7 +17,7 @@ import csv
 import plotly.express as px
 from relative_paths import get_path
 
-folder = "Data"
+folder = "data"
 file_name = "MODIS_C6_1_USA_contiguous_and_Hawaii_24h.csv"
 file_path = get_path(file_name, folder)
 
@@ -53,7 +53,7 @@ fig = px.scatter_geo(
     title=plot_title,
     color=brts,
     color_continuous_scale="Hot",
-    labels={"color": "Magnitude"},
+    labels={"color": "Brightness"},
     projection="albers usa"
 )
 

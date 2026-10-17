@@ -1,4 +1,7 @@
 """Assignment 16.2"""
+
+#pylint: disable=line-too-long
+
 # Sitka–Death Valley Comparison: The temperature scales on the Sitka and Death Valley graphs reflect
 #                                the different data ranges. To accurately compare the temperature range
 #                                in Sitka to that of Death Valley, you need identical scales on the y-axis.
@@ -13,8 +16,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 ROOT_DIR = os.path.dirname(__file__)
-sitka_data_file = os.path.join(ROOT_DIR, "Data", "sitka_weather_2018_simple.csv")
-death_valley_data_file = os.path.join(ROOT_DIR, "Data", "death_valley_2018_simple.csv")
+sitka_data_file = os.path.join(ROOT_DIR, "data", "sitka_weather_2018_simple.csv")
+death_valley_data_file = os.path.join(ROOT_DIR, "data", "death_valley_2018_simple.csv")
 
 SH_COLOR = "red"
 SL_COLOR = "blue"

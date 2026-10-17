@@ -46,16 +46,13 @@ def get_github_data(response_dict):
     }]
 
     my_layout = {
-        "title": "Most-Starred Python Projects on GitHub",
-        "titlefont": {"size": 28},
+        "title": {"text": "Most-Starred Python Projects on GitHub", "font": {"size": 28}},
         "xaxis": {
-            "title": "Repository",
-            "titlefont": {"size": 24},
+            "title": {"text": "Repository", "font": {"size": 24}},
             "tickfont": {"size": 14},
         },
         "yaxis": {
-            "title": "Stars",
-            "titlefont": {"size": 24},
+            "title": {"text": "Stars", "font": {"size": 24}},
             "tickfont": {"size": 14},
         },
         "hoverlabel": {
@@ -65,7 +62,7 @@ def get_github_data(response_dict):
 
     fig = {"data": data, "layout": my_layout}
 
-    html_path = os.path.join(ROOT_DIR, "Data", "python_repos.html")
+    html_path = os.path.join(ROOT_DIR, "data", "python_repos.html")
 
     offline.plot(fig, filename = html_path)
 

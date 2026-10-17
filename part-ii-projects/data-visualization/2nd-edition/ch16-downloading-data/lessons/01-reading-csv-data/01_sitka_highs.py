@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 ROOT_DIR = os.path.dirname(__file__)
-# file_path = os.path.join(ROOT_DIR, "Data", "sitka_weather_07-2018_simple.csv")
-file_path = os.path.join(ROOT_DIR, "Data", "sitka_weather_2018_simple.csv")
+# file_path = os.path.join(ROOT_DIR, "data", "sitka_weather_07-2018_simple.csv")
+file_path = os.path.join(ROOT_DIR, "data", "sitka_weather_2018_simple.csv")
 
 with open(file_path, encoding="UTF-8") as f:
     # Open the CSV file

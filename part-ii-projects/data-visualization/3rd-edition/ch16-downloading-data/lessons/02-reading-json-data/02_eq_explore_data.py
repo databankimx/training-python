@@ -1,6 +1,6 @@
 """Lesson 2.2 - Exploring Earthquake JSON Data"""
 
-# We are working with the GeoJSON format. It is useful to understand the organizationof its data
+# We are working with the GeoJSON format. It is useful to understand the organization of its data
 # Note: Fresh data can be retrieved here:
 #       https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_day.geojson
 
@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 from relative_paths import get_path
 
-folder = "Data"
+folder = "data"
 filename = "readable_eq_data_1_day_09102023.json"
 filepath = get_path(filename, folder)
 

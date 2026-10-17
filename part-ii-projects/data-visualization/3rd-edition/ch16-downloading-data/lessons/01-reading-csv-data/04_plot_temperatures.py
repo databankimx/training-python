@@ -5,7 +5,7 @@ import csv
 import matplotlib.pyplot as plt
 from relative_paths import get_path
 
-folder = "Data"
+folder = "data"
 file_name = "sitka_weather_07-2021_simple.csv"
 file_path = get_path(file_name, folder)
 
@@ -18,7 +18,7 @@ header_row = next(reader)
 # for index, column in enumerate(header_row):
 #     print(index, column)
 
-# Now that we know tha the high temperature (TMAX) is in index 4,
+# Now that we know that the high temperature (TMAX) is in index 4,
 #     we can extract the data from the CSV rows
 highs = [int(row[4]) for row in reader]
 

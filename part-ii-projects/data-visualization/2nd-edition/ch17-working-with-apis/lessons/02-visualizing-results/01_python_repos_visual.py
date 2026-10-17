@@ -1,9 +1,9 @@
 """Lesson 2.1 - Visualizing Results"""
 
-import requests
-from plotly import offline
 import os
 import sys
+import requests
+from plotly import offline
 
 ROOT_DIR = os.path.dirname(__file__)
 
@@ -47,16 +47,13 @@ data = [{
 }]
 
 my_layout = {
-    "title": "Most-Starred Python Projects on GitHub",
-    "titlefont": {"size": 28},
+    "title": {"text": "Most-Starred Python Projects on GitHub", "font": {"size": 28}},
     "xaxis": {
-        "title": "Repository",
-        "titlefont": {"size": 24},
+        "title": {"text": "Repository", "font": {"size": 24}},
         "tickfont": {"size": 14},
     },
     "yaxis": {
-        "title": "Stars",
-        "titlefont": {"size": 24},
+        "title": {"text": "Stars", "font": {"size": 24}},
         "tickfont": {"size": 14},
     },
     "hoverlabel": {
@@ -66,6 +63,6 @@ my_layout = {
 
 fig = {"data": data, "layout": my_layout}
 
-html_path = os.path.join(ROOT_DIR, "Data", "python_repos.html")
+html_path = os.path.join(ROOT_DIR, "data", "python_repos.html")
 
 offline.plot(fig, filename = html_path)

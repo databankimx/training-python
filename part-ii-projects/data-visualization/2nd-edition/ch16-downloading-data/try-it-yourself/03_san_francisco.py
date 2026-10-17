@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 ROOT_DIR = os.path.dirname(__file__)
-data_file = os.path.join(ROOT_DIR, "Data", "san_francisco_2018.csv")
+data_file = os.path.join(ROOT_DIR, "data", "san_francisco_2018.csv")
 
 h_label = "TMAX"
 l_label = "TMIN"

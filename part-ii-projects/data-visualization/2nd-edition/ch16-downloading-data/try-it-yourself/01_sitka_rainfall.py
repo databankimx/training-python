@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 ROOT_DIR = os.path.dirname(__file__)
-data_file = os.path.join(ROOT_DIR, "Data", "sitka_weather_2018_simple.csv")
+data_file = os.path.join(ROOT_DIR, "data", "sitka_weather_2018_simple.csv")
 
 p_label = "PRCP"
 d_label = "DATE"

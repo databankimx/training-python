@@ -38,7 +38,7 @@ import numpy as np
 
 ROOT_DIR = os.path.dirname(__file__)
 file_path = os.path.join(
-    ROOT_DIR, "Data", "north_texas_weather_2022_jan-jun.csv")
+    ROOT_DIR, "data", "north_texas_weather_2022_jan-jun.csv")
 
 DALLAS = "USW00003971"
 

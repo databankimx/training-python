@@ -13,7 +13,7 @@ from plotly.graph_objs import Layout
 from plotly import offline
 
 ROOT_DIR = os.path.dirname(__file__)
-file_path = os.path.join(ROOT_DIR, "Data", "eq_data_30_day_m1.json")
+file_path = os.path.join(ROOT_DIR, "data", "eq_data_30_day_m1.json")
 
 with open(file_path, encoding="UTF-8") as f:
     all_eq_data = json.load(f)
@@ -45,6 +45,6 @@ date_info = datetime.fromtimestamp(
 my_layout = Layout(title=f"{title_info} - {date_info}")
 
 fig = {"data": data, "layout": my_layout}
-html_path = os.path.join(ROOT_DIR, "Data", "global_earthquakes.html")
+html_path = os.path.join(ROOT_DIR, "data", "global_earthquakes.html")
 
 offline.plot(fig, filename=html_path)

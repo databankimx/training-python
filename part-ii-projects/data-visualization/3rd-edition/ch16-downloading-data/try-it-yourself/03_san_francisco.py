@@ -1,5 +1,7 @@
 """Assignment 16.3"""
 
+#pylint: disable=line-too-long
+
 # San Francisco: Are temperatures in San Francisco more like temperatures in Sitka or temperatures in
 #                Death Valley? Download some data for San Francisco, and generate a high-low temperature
 #                plot for San Francisco to make a comparison.
@@ -10,7 +12,7 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 from relative_paths import get_path
 
-folder = "Data"
+folder = "data"
 file_name = "san_francisco_weather_2023_jan_to_sep.csv"
 file_path = get_path(file_name, folder)
 

@@ -21,7 +21,7 @@ for submission_id in submission_ids[:10]:
     # Build a dictionary for each article.
     submission_dict = {
         "title": response_dict["title"],
-        "hn_link": f"http://news.ycombinator.com/item?id={submission_id}",
+        "hn_link": f"http://news.ycombinator.com/item?id={submission_id}", #NOSONAR
         # Book code fails when there is an item with no comments,
         #     so default to zero if "descendants" is missing
         "comments": response_dict["descendants"] if "descendants" in response_dict.keys() else 0,

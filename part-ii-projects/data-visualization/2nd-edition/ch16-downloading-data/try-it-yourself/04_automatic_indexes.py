@@ -26,7 +26,7 @@ while resp not in list(data_file_names):
         print("Invalid selection!")
 
 ROOT_DIR = os.path.dirname(__file__)
-data_file = os.path.join(ROOT_DIR, "Data", f"{data_file_names[resp]}.csv")
+data_file = os.path.join(ROOT_DIR, "data", f"{data_file_names[resp]}.csv")
 
 print(f"Processing file: {data_file}")
 

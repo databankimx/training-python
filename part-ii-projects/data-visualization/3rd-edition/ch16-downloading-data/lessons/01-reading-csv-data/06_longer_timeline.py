@@ -6,7 +6,7 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 from relative_paths import get_path
 
-folder = "Data"
+folder = "data"
 # Switch to the full year CSV
 file_name = "sitka_weather_2021_simple.csv"
 file_path = get_path(file_name, folder)

@@ -5,7 +5,7 @@ from pathlib import Path
 from relative_paths import get_path
 
 # Read in data from JSON file
-folder = "Data"
+folder = "data"
 filename = "eq_data_1_day_09102023.json"
 filepath = get_path(filename, folder)
 

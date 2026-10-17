@@ -4,7 +4,7 @@ from pathlib import Path
 import csv
 from relative_paths import get_path
 
-folder = "Data"
+folder = "data"
 # This file contains the temperatures for Death Valley for 2021
 file_name = "death_valley_2021_simple.csv"
 file_path = get_path(file_name, folder)

@@ -9,7 +9,7 @@ import os
 ROOT_DIR = os.path.dirname(__file__)
 
 # Explore the structure of the data
-file_path = os.path.join(ROOT_DIR, "Data", "eq_data_1_day_m1.json")
+file_path = os.path.join(ROOT_DIR, "data", "eq_data_1_day_m1.json")
 with open(file_path, encoding="UTF-8") as f:
     # Load the entire JSON file into memory
     all_eq_data = json.load(f)
@@ -77,7 +77,7 @@ with open(file_path, encoding="UTF-8") as f:
 #endregion
 
 # Ex. 1
-# formatted_file_path = os.path.join(ROOT_DIR, "Data", "readable_eq_data.json")
+# formatted_file_path = os.path.join(ROOT_DIR, "data", "readable_eq_data.json")
 # with open(formatted_file_path, "w") as f:
 #     # Store the JSON formatted to be readable (prettified)
 #     json.dump(all_eq_data, f, indent = 4)
