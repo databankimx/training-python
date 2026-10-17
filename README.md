@@ -276,7 +276,7 @@ training-python/
 |  |- ...
 |  |- ch11-testing/
 |- part-ii-projects/             - Chapters 12-20: three substantial projects
-|  |- alien-invasion/            - Ch12-14: game development with pygame
+|  |- making-a-game/            - Ch12-14: game development with pygame
 |  |- data-visualization/        - Ch15-17: charts and APIs with matplotlib and plotly
 |  |- web-applications/          - Ch18-20: web development with Django
 |- part-iii-beyond-the-book/     - Supplemental topics beyond the textbook
@@ -311,7 +311,7 @@ Each chapter folder contains:
 
 | Folder | Topic |
 |---|---|
-| `alien-invasion/` | pygame game development - sprite-based game with a ship, bullets, and alien fleet |
+| `making-a-game/` | pygame game development - sprite-based game with a ship, bullets, and alien fleet |
 | `data-visualization/` | matplotlib, plotly, and the requests library - charts, APIs, and live data |
 | `web-applications/` | Django - models, views, templates, user authentication, deployment |
 

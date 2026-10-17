@@ -49,6 +49,11 @@ Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Lesson runner: chapter tree starts collapsed; selecting a chapter with no steps of its own moves to its first sub-chapter
 - Lesson runner: C samples are highlighted as C in the source editor
 - Lesson runner: the DataBank logo is drawn from its SVG paths as vector graphics, for the nav header and window icon
+- Lesson runner: the source pane omits `#pylint` and `#NOSONAR` comments
+- Lesson runner: the Lesson tab opens on `part-i-basics/00_what_is_python.md` at launch, before any step is selected
+- Lesson runner: steps that share a lesson file are indented under the first one in the step list
+- Lesson runner: Part I lessons whose names contain "bonus" appear as steps even without a script
+- Lesson runner: Part III chapter names no longer shift left, so the tree uses the same layout as Part I
 
 ### Fixed
 
@@ -58,6 +63,9 @@ Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Lesson runner: empty spacer rows at the top of Markdown tables are no longer shown
 - Lesson runner: closing the main window also closes a popped-out lesson
 - `s05-bitwise-operations`: LaTeX expression `\^` replaced by the XOR symbol inside maths; note added to `16_bitwise_xor.md` explaining the symbol
+- Lesson runner: Python scripts without a numbered name or `__main__` guard (for example S24's built-in examples) show their code when they have a matching lesson file
+- Lesson runner: the Visualize button writes the chosen algorithm to `current-algorithm.js` before opening the player, because Windows drops query strings in file addresses
+- `s04-big-o-complexity/09_shell_sort.md`: the gap sequence text now matches the code (the smallest power of two at or above *n*, minus one)
 
 ---
 
