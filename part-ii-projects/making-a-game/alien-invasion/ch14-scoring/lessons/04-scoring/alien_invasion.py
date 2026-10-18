@@ -6,6 +6,8 @@ event management, frame rate control, the background color, the ship, bullets, t
 the Play button, and the score.
 """
 
+#pylint: disable=line-too-long
+
 import sys
 from time import sleep
 

@@ -1,5 +1,4 @@
 """Lesson 3.1 - Another API: Hacker News"""
-
 import json
 import os
 import requests

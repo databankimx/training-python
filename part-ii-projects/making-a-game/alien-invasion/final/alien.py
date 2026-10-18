@@ -36,7 +36,7 @@ class Alien(Sprite): #pylint: disable=too-few-public-methods
         screen_rect = self.screen.get_rect()
         return (self.rect.right >= screen_rect.right) or (self.rect.left <= 0)
 
-    def update(self) -> None:
+    def update(self, *args, **kwargs) -> None:
         """Move the alien right or left, depending on the fleet's direction."""
         self.x += self.settings.alien_speed * self.settings.fleet_direction
         self.rect.x = self.x

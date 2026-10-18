@@ -1,8 +1,8 @@
 """
 Chapter 14, exercise 14-3: Challenging Target Practice.
 
-Start with your work from exercise 14-2 (page 283). Make the target move faster as the game progresses, and
-restart the target at the original speed when the player clicks Play.
+Start with your work from exercise 14-2 (page 283). Make the target move faster as the
+game progresses, and restart the target at the original speed when the player clicks Play.
 """
 
 import sys
@@ -17,7 +17,7 @@ from bullet import Bullet
 from button import Button
 
 
-class TargetPractice: #pylint: disable=too-few-public-methods
+class TargetPractice: #pylint: disable=too-few-public-methods, too-many-instance-attributes
     """Overall class to manage the target practice game and its main loop."""
 
     def __init__(self) -> None:
@@ -102,7 +102,10 @@ class TargetPractice: #pylint: disable=too-few-public-methods
             self.bullets.add(Bullet(self))
 
     def _update_bullets(self) -> None:
-        """Update the bullets, count hits and misses, and remove bullets that reach the target or the edge."""
+        """
+        Update the bullets, count hits and misses, and remove bullets that reach the target
+        or the edge.
+        """
         self.bullets.update()
 
         for bullet in self.bullets.copy():

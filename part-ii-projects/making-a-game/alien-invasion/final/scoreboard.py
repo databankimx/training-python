@@ -11,7 +11,7 @@ from pygame.sprite import Group
 from ship import Ship
 
 
-class Scoreboard: #pylint: disable=too-few-public-methods
+class Scoreboard: #pylint: disable=too-few-public-methods, too-many-instance-attributes
     """A class to report scoring information."""
 
     def __init__(self, ai_game) -> None:

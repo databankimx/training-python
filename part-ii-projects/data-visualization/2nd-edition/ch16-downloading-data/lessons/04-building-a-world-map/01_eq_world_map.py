@@ -1,5 +1,4 @@
 """Lesson 4 - Building a World Map (plotly)"""
-
 import os
 import json
 # pylint: disable=unused-import

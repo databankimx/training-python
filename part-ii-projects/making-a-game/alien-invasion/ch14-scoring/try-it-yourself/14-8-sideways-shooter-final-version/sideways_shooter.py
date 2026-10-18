@@ -1,13 +1,15 @@
 """
 Chapter 14, exercise 14-8: Sideways Shooter, Final Version.
 
-Continue developing Sideways Shooter, using everything we've done in this project. Add a Play button, make the
-game speed up at appropriate points, and develop a scoring system. Be sure to refactor your code as you work,
-and look for opportunities to customize the game beyond what was shown in this chapter.
+Continue developing Sideways Shooter, using everything we've done in this project.
+Add a Play button, make the game speed up at appropriate points, and develop a scoring
+system. Be sure to refactor your code as you work, and look for opportunities to
+customize the game beyond what was shown in this chapter.
 
-In this version, a new alien appears every five seconds at a random height and moves toward the rocket. Each
-alien shot down is worth points. Every ten aliens destroyed starts a new level, and the aliens speed up. The
-game ends when three aliens have hit the rocket.
+In this version, a new alien appears every five seconds at a random height and
+moves toward the rocket. Each alien shot down is worth points. Every ten aliens
+destroyed starts a new level, and the aliens speed up. The game ends when three
+aliens have hit the rocket.
 """
 
 import random
@@ -25,7 +27,7 @@ from alien_bullet import AlienBullet
 from button import Button
 
 
-class SidewaysShooter: #pylint: disable=too-few-public-methods
+class SidewaysShooter: #pylint: disable=too-few-public-methods, too-many-instance-attributes
     """Overall class to manage the sideways shooter and its main loop."""
 
     def __init__(self) -> None:

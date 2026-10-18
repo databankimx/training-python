@@ -8,7 +8,6 @@
 #                                Change the settings for the y-axis on one or both of the charts in Figures
 #                                16-5 and 16-6. Then make a direct comparison between temperature ranges in
 #                                Sitka and Death Valley (or any two places you want to compare).
-
 from datetime import datetime
 import os
 import csv

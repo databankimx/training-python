@@ -1,11 +1,13 @@
 """
 Chapter 14, exercise 14-8: Sideways Shooter, Final Version.
 
-This module defines the Scoreboard class, which shows the score, high score, level, and the hits left
-before the game ends.
+This module defines the Scoreboard class, which shows the score, high score, level,
+and the hits left before the game ends.
 """
 
 import pygame.font
+
+#pylint: disable=attribute-defined-outside-init
 
 
 class Scoreboard: #pylint: disable=too-few-public-methods

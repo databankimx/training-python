@@ -55,7 +55,7 @@ class Raindrop(Sprite): #pylint: disable=too-few-public-methods
         self.rect.x = self.x
         self.rect.y = self.y
 
-    def update(self) -> None:
+    def update(self, *args, **kwargs) -> None:
         """Move the raindrop down, and sideways with the wind."""
         self.y += self.speed
         self.rect.y = self.y

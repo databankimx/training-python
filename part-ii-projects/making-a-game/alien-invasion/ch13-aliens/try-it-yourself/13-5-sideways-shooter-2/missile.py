@@ -25,7 +25,7 @@ class Missile(Sprite): #pylint: disable=too-few-public-methods
         # Store the missile's position as a decimal value.
         self.x = float(self.rect.x)
 
-    def update(self) -> None:
+    def update(self, *args, **kwargs) -> None:
         """Move the missile across the screen."""
         self.x += self.settings.missile_speed
         self.rect.x = self.x

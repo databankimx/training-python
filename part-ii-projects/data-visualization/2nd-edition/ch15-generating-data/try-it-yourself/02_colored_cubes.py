@@ -1,6 +1,5 @@
 """Assignment 15.02"""
 # Colored Cubes: Apply a colormap to your cubes plot.
-
 import matplotlib.pyplot as plt
 
 print("Try-it-Yourself:")

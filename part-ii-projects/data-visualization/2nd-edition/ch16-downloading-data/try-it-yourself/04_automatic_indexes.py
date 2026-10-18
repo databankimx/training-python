@@ -4,7 +4,6 @@
 #                    for these values, so your program can work for Sitka or Death
 #                    Valley. Use the station name to automatically generate an appropriate
 #                    title for your graph as well.
-
 from datetime import datetime
 import os
 import csv

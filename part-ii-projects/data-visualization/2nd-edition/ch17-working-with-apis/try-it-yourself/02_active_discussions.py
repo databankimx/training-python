@@ -5,7 +5,6 @@
 #                     comments each submission has. The label for each bar should
 #                     include the submission's title and should act as a link to
 #                     the discussion page for that submission.
-
 import os
 import sys
 import requests

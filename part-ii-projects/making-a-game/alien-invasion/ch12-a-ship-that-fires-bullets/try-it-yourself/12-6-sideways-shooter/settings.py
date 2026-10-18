@@ -1,3 +1,5 @@
+"""A class to store all settings for the sideways shooter."""
+
 class Settings: #pylint: disable=too-few-public-methods
     """A class to store the settings for the sideways shooter."""
 

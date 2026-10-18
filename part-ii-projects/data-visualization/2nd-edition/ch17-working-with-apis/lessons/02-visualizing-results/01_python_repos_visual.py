@@ -1,5 +1,4 @@
 """Lesson 2.1 - Visualizing Results"""
-
 import os
 import sys
 import requests

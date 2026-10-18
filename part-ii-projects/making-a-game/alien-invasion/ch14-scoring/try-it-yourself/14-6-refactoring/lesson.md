@@ -97,7 +97,7 @@ anywhere.
 **Grouping the setup.** `prep_images()` gives the four setup steps a name. The name says what the method is
 for, and calling one method is easier to keep right than four.
 
-**Behaviour stays the same.** Refactoring should never change what the game does. Playing the game before and
+**Behavior stays the same.** Refactoring should never change what the game does. Playing the game before and
 after a refactor is the way to check that nothing has broken.
 
 ## Output

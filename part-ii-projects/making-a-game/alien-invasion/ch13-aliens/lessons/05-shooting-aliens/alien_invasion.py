@@ -5,6 +5,8 @@ This module contains the main game class and handles window creation,
 event management, frame rate control, the background color, the ship, bullets, and the alien fleet.
 """
 
+#pylint: disable=line-too-long
+
 import sys
 import pygame
 
@@ -88,7 +90,7 @@ class AlienInvasion: #pylint: disable=too-few-public-methods
 
         # Check for any bullets that have hit aliens.
         #   If so, get rid of the bullet and the alien.
-        collisions = pygame.sprite.groupcollide(
+        collisions = pygame.sprite.groupcollide( #pylint: disable=unused-variable #NOSONAR
             self.bullets, self.aliens, True, True)
 
     def _update_aliens(self) -> None:

@@ -2,7 +2,6 @@
 
 # Note: You'll probably need to install the requests plug-in
 # > python -m pip install requests
-
 import os  # for the GITHUB_TRAINING_TOKEN environment variable
 import requests
 

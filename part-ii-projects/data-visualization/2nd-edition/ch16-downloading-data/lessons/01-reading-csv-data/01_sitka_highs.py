@@ -1,5 +1,4 @@
 """Lesson 1.1 - Reading CSV Data"""
-
 from datetime import datetime
 import os
 # The CSV module should not require installation

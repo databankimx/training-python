@@ -1,9 +1,11 @@
 """
 Chapter 14, exercise 14-8: Sideways Shooter, Final Version.
 
-This module defines the AlienBullet class. An alien bullet is a zig-zag line that travels left, from the alien
-toward the rocket.
+This module defines the AlienBullet class. An alien bullet is a zig-zag line that
+travels left, from the alien toward the rocket.
 """
+
+#pylint: disable=line-too-long
 
 import pygame
 from pygame.sprite import Sprite
@@ -30,7 +32,7 @@ class AlienBullet(Sprite): #pylint: disable=too-few-public-methods
         # Store the bullet's position as a decimal value.
         self.x = float(self.rect.x)
 
-    def update(self) -> None:
+    def update(self, *args, **kwargs) -> None:
         """Move the bullet to the left."""
         self.x -= self.settings.alien_bullet_speed
         self.rect.x = self.x

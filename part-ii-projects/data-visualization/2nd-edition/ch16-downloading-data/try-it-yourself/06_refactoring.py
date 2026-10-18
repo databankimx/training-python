@@ -7,7 +7,6 @@
 #              variables, pull each value from eq_dict and append it to the appropriate
 #              list in one line. Doing so should shorten the body of this loop to
 #              just four lines.
-
 import json
 import os
 from plotly.graph_objs import Layout

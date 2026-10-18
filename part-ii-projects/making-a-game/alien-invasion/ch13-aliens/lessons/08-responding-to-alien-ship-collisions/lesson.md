@@ -159,7 +159,7 @@ new fleet and the centered ship together, after the hit.
 When an alien touches the ship, the game pauses briefly. A new fleet appears, and the ship returns to
 the bottom center of the window.
 
-![Ship recentred after a hit](lesson-images/ship-recentred.png)
+![Ship re-centered after a hit](lesson-images/ship-recentred.png)
 
 ## Changed files
 

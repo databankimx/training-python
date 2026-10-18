@@ -1,5 +1,4 @@
 """Lesson 3.2 - Another API: Hacker News"""
-
 from operator import itemgetter
 import requests
 

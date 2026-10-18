@@ -7,7 +7,6 @@
 #                     periods, focusing on earthquakes of different magnitudes. Download
 #                     one of these data sets, and create a visualization of the most
 #                     recent earthquake activity.
-
 import os
 import json
 from plotly.graph_objs import Layout

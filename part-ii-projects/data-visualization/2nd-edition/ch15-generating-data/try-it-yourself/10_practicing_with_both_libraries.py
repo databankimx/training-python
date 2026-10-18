@@ -3,7 +3,6 @@
 #            visualization, and use Plotly to make the visualization for a
 #            random walk. (You'll need to consult the documentation for each
 #            library to complete this exercise.)
-
 import os
 import matplotlib.pyplot as plt
 from plotly import offline

@@ -9,7 +9,6 @@
 #              recent versions of this data at:
 #   https://earthdata.nasa.gov/earth-observation-data/near-real-time/firms/active-fire-data/.
 #              You can find links to the data in CSV format in the TXT section.
-
 import os
 import csv
 import requests

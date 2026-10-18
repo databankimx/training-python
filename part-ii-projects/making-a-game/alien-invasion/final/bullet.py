@@ -26,7 +26,7 @@ class Bullet(Sprite): #pylint: disable=too-few-public-methods
         # Store the bullet's position as a float.
         self.y = float(self.rect.y)
 
-    def update(self) -> None:
+    def update(self, *args, **kwargs) -> None:
         """Move the bullet up the screen."""
         # Update the exact position of the bullet.
         self.y -= self.settings.bullet_speed

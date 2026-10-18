@@ -4,7 +4,6 @@ import os
 from plotly.graph_objs import Bar, Layout
 from plotly import offline
 from die import Die
-
 # Create a D6
 dice = [Die(), Die(10)]
 roll_count = 50_000

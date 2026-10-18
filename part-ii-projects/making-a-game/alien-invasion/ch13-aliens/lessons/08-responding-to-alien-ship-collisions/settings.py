@@ -5,7 +5,7 @@ This module stores all the settings for the game.
 """
 
 
-class Settings: #pylint: disable=too-few-public-methods
+class Settings: #pylint: disable=too-few-public-methods, too-many-instance-attributes
     """A class to store all settings for Alien Invasion."""
 
     def __init__(self) -> None:

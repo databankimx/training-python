@@ -5,7 +5,6 @@
 #                  for the data set in the metadata part of the JSON file. Pull this
 #                  value, assign it to a variable, and use this for the title of the
 #                  map when you're defining `my_layout`.
-
 import json
 from datetime import datetime
 import os

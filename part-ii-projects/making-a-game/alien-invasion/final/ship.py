@@ -35,7 +35,7 @@ class Ship(Sprite): #pylint: disable=too-few-public-methods
         self.moving_right = False
         self.moving_left = False
 
-    def update(self) -> None:
+    def update(self, *args, **kwargs) -> None:
         """Update the ship's position based on movement flags."""
         # Update the ship's x value, not the rect.
         if self.moving_right and self.rect.right < self.screen_rect.right:

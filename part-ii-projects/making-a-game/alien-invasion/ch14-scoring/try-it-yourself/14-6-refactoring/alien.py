@@ -33,7 +33,7 @@ class Alien(Sprite): #pylint: disable=too-few-public-methods
         # Store the alien's exact horizontal position.
         self.x = float(self.rect.x)
 
-    def update(self) -> None:
+    def update(self, *args, **kwargs) -> None:
         """Move the alien right or left, depending on the fleet's direction."""
         self.x += self.settings.alien_speed * self.settings.fleet_direction
         self.rect.x = self.x

@@ -6,7 +6,6 @@
 #                          assertions you can make — for example, that the number of
 #                          items returned is expected and that the total number of
 #                          repositories is greater than a certain amount.
-
 import os
 import sys
 import unittest

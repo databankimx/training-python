@@ -20,6 +20,8 @@ Usage:
     python build_stage.py --list
 """
 
+#pylint: disable=line-too-long
+
 from __future__ import annotations
 
 import re

@@ -183,6 +183,21 @@ runner's `vendor/` folder. Keep their license and notice files with them.
 The full policy is in [Development Rules of Engagement](development-rules-of-engagement.md),
 section 12.
 
+### VS Code settings
+
+The Making a Game and Data Visualization projects need the VS Code settings in `resources/vscode/settings.json`. They tell the editor where the game's files are, which Pylint checks to skip, and the spell-check word list. Without them, the editor reports import and Pylint errors in the game code.
+
+Copy the file into a `.vscode` folder at the root of the repository. The `.vscode` folder isn't tracked in git, so a clone doesn't include it. From the repository root, run:
+
+```pwsh
+New-Item -ItemType Directory -Force .vscode | Out-Null
+Copy-Item resources\vscode\settings.json .vscode\settings.json
+```
+
+If a `.vscode\settings.json` file already exists, back it up first, because the copy replaces it. Then open the repository root in VS Code, and run **Developer: Reload Window** from the Command Palette (Ctrl+Shift+P). The settings are read when the window starts, so the reload is needed.
+
+Open the repository root, not a sub-folder. The settings use paths from the root, so they don't apply when only a project folder is open.
+
 ### Pylint (optional)
 
 A linter helps enforce best practices and style guidelines. If you use Pylint in VS Code, the following arguments suppress warnings that would fire on intentional training-repository patterns:

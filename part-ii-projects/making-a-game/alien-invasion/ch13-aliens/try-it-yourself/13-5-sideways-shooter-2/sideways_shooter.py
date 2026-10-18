@@ -108,10 +108,8 @@ class SidewaysShooter: #pylint: disable=too-few-public-methods
         self.aliens.update()
 
         for alien in self.aliens.copy():
-            if alien.has_left_screen():
-                self.aliens.remove(alien)
-            elif alien.rect.colliderect(self.rocket.rect):
-                # The alien hits the rocket, and is removed.
+            if alien.has_left_screen() or alien.rect.colliderect(self.rocket.rect):
+                # The alien hits the rocket or leaves the screen, and is removed.
                 self.aliens.remove(alien)
 
     def _update_screen(self) -> None:

@@ -5,7 +5,7 @@ from random import choice
 class RandomWalk:
     """A class to generate random walks"""
 
-    def __init__(self, num_points=5000):
+    def __init__(self, num_points: int=5000) -> None:
         """Initialize attributes of a random walk"""
         # Set the number of points to generate
         self.num_points = num_points
@@ -14,7 +14,7 @@ class RandomWalk:
         self.x_values = [0]
         self.y_values = [0]
 
-    def fill_walk(self):
+    def fill_walk(self) -> None:
         """Populate the points for the given walk"""
         # Keep stepping until walk reaches the specified length
         while len(self.x_values) < self.num_points:
@@ -26,11 +26,11 @@ class RandomWalk:
             self.x_values.append(point[0])
             self.y_values.append(point[1])
 
-    def get_new_point(self, x, y):
+    def get_new_point(self, x: int, y: int) -> list[int]:
         """Calculate a new point"""
         return [self.get_new_num(x), self.get_new_num(y)]
 
-    def get_new_num(self, num):
+    def get_new_num(self, num: int) -> int:
         """Calculate a new number"""
         direction = choice([1, 0, -1])
         distance = choice(list(range(0, 9)))

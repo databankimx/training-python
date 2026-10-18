@@ -1,8 +1,8 @@
 """
 Chapter 14, exercise 14-2: Target Practice.
 
-This module defines the Target class, a rectangle on the right edge of the screen that moves up and down
-at a steady rate, bouncing off the top and bottom edges.
+This module defines the Target class, a rectangle on the right edge of the screen that moves
+up and down at a steady rate, bouncing off the top and bottom edges.
 """
 
 import pygame
@@ -29,11 +29,12 @@ class Target(Sprite): #pylint: disable=too-few-public-methods
         self.y = float(self.rect.y)
         self.vertical_direction = 1
 
-    def update(self) -> None:
+    def update(self, *args, **kwargs) -> None:
         """Move the target up or down, and bounce it off the top and bottom edges."""
         self.y += self.settings.target_speed * self.vertical_direction
         self.rect.y = int(self.y)
 
+        #pylint: disable=attribute-defined-outside-init
         if self.rect.top <= 0:
             self.vertical_direction = 1
             self.rect.top = 0

@@ -4,7 +4,6 @@
 #                 represents daily rainfall amounts. Make a visualization focusing on the data
 #                 in this column. You can repeat the exercise for Death Valley if you're curious
 #                 how little rainfall occurs in a desert.
-
 from datetime import datetime
 import os
 import csv

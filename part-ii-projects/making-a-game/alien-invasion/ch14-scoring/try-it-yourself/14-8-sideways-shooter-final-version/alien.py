@@ -1,8 +1,9 @@
 """
 Chapter 14, exercise 14-8: Sideways Shooter, Final Version.
 
-This module defines the Alien class. Each alien is rotated to face the rocket, and it moves toward the
-rocket, bouncing up and down off the top and bottom edges of the screen.
+This module defines the Alien class. Each alien is rotated to face the rocket,
+and it moves toward the rocket, bouncing up and down off the top and bottom edges
+of the screen.
 """
 
 import os
@@ -39,7 +40,7 @@ class Alien(Sprite): #pylint: disable=too-few-public-methods
         # 1 means moving down, and -1 means moving up. The alien starts in a random direction.
         self.vertical_direction = choice([1, -1])
 
-    def update(self) -> None:
+    def update(self, *args, **kwargs) -> None:
         """Move the alien left, and bounce it off the top and bottom edges of the screen."""
         self.x -= self.settings.alien_speed
         self.y += self.settings.alien_vertical_speed * self.vertical_direction

@@ -7,7 +7,6 @@
 #                        Modify the values in these lists to see what happens to the overall shape of your walks.
 #                        Try a longer list of choices for the distance, such as 0 through 8, or remove the –1
 #                        from the x or y direction list.
-
 import matplotlib.pyplot as plt
 from modified_random_walk import RandomWalk
 

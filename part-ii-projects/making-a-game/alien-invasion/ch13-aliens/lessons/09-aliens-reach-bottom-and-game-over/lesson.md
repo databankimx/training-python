@@ -144,8 +144,7 @@ single call covers the whole group. `spritecollideany()` finds whether any alien
 from the game's objects makes them easy to reset and easy to extend, which chapter 14 needs for scoring.
 
 **Responding to a hit in one place.** `_ship_hit()` handles both a collision and an alien reaching the
-bottom. It empties the groups, rebuilds the fleet, recentres the ship, and ends the game when no ships
-are left.
+bottom. It empties the groups, rebuilds the fleet, re-centers the ship, and ends the game when no ships are left.
 
 **A game that can stop.** The `game_active` flag freezes the game without closing the window, so the
 player can see the result and still quit.

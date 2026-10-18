@@ -2,7 +2,6 @@
 # Other Languages: Modify the API call in python_repos.py so it generates a chart
 #                  showing the most popular projects in other languages. Try languages
 #                  such as JavaScript, Ruby, C, Java, Perl, Haskell, and Go.
-
 from random import randint
 import os
 import sys

@@ -3,7 +3,6 @@
 #                     of for loops. If you're comfortable using list comprehensions,
 #                     try writing a comprehension for one or both of the loops in
 #                     each of these programs.
-
 import os
 from plotly import offline
 from plotly.graph_objs import Bar, Layout

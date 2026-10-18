@@ -9,7 +9,6 @@
 # ------------------------------------------------------------------------------
 #              This refactoring should reduce the size of `fill_walk()` and make
 #              the method easier to read and understand.
-
 import matplotlib.pyplot as plt
 from modified_random_walk import RandomWalk
 

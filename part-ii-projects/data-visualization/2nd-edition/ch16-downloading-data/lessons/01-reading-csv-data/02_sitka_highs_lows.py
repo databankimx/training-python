@@ -1,5 +1,4 @@
 """Lesson 1.2 - Reading CSV Data (multiple plots)"""
-
 from datetime import datetime
 import os
 import csv

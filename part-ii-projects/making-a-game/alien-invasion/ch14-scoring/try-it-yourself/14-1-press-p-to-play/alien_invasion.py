@@ -2,9 +2,9 @@
 Chapter 14, exercise 14-1: Press P to Play.
 
 Because Alien Invasion uses keyboard input to control the ship, it would be useful to start the game
-with a keypress. Add code that lets the player press P to start. It might help to move some code from
-_check_play_button() to a _start_game() method that can be called from _check_play_button() and
-_check_keydown_events().
+with a keypress. Add code that lets the player press P to start. It might help to move some code
+from _check_play_button() to a _start_game() method that can be called from _check_play_button()
+and _check_keydown_events().
 """
 
 import sys
@@ -130,7 +130,7 @@ class AlienInvasion: #pylint: disable=too-few-public-methods
     def _create_alien(self, alien_number: int, row_number: int) -> None:
         """Create an alien and place it in the row."""
         alien = Alien(self)
-        alien_width, alien_height = alien.rect.size
+        alien_width, alien_height = alien.rect.size #pylint: disable=unused-variable #NOSONAR
         alien.x = alien_width + 2 * alien_width * alien_number
         alien.rect.x = alien.x
         alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number

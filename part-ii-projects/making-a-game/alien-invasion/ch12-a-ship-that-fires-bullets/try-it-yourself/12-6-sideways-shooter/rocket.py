@@ -5,7 +5,7 @@ import os
 import pygame
 
 
-class Rocket: #pylint: disable=too-few-public-methods
+class Rocket: #pylint: disable=too-few-public-methods, too-many-instance-attributes
     """A class to manage the rocket."""
 
     def __init__(self, game) -> None:

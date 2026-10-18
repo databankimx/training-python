@@ -2,7 +2,6 @@
 
 # Note: Fresh data can be retrieved here:
 #       https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_day.geojson
-
 import json
 import os
 

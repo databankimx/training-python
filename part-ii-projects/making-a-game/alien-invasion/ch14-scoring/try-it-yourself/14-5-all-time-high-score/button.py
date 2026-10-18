@@ -7,7 +7,7 @@ This module defines the Button class, which draws a labeled rectangle the player
 import pygame.font
 
 
-class Button: #pylint: disable=too-few-public-methods
+class Button: #pylint: disable=too-few-public-methods, too-many-instance-attributes
     """A class to build buttons for the game."""
 
     def __init__(self, ai_game, msg: str, offset: int = 0) -> None:

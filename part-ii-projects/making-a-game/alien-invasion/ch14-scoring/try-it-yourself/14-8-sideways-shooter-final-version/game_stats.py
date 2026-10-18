@@ -1,12 +1,12 @@
 """
 Chapter 14, exercise 14-8: Sideways Shooter, Final Version.
 
-This module tracks the statistics for the sideways shooter: the score, the level, the number of hits on
-the rocket, and the high score. The high score is never reset.
+This module tracks the statistics for the sideways shooter: the score, the level,
+the number of hits on the rocket, and the high score. The high score is never reset.
 """
 
 
-class GameStats: #pylint: disable=too-few-public-methods
+class GameStats: #pylint: disable=too-few-public-methods, too-many-instance-attributes
     """Track statistics for the sideways shooter."""
 
     def __init__(self, ss_game) -> None:

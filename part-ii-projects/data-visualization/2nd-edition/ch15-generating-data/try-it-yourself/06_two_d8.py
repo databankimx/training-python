@@ -4,7 +4,6 @@
 #          look like before you run the simulation; then see if your intuition was
 #          correct. Gradually increase the number of rolls until you start to see
 #          the limits of your system's capabilities.
-
 import os
 from plotly import offline
 from plotly.graph_objs import Bar, Layout

@@ -1,9 +1,12 @@
 """
 Chapter 14, exercise 14-8: Sideways Shooter, Final Version.
 
-This module stores all the settings for the sideways shooter. Static settings stay the same for the whole
-run, and dynamic settings change during play and are reset at the start of each game.
+This module stores all the settings for the sideways shooter. Static settings stay the
+same for the whole run, and dynamic settings change during play and are reset at the
+start of each game.
 """
+
+#pylint: disable=line-too-long
 
 
 class Settings: #pylint: disable=too-few-public-methods
@@ -60,6 +63,6 @@ class Settings: #pylint: disable=too-few-public-methods
         """Speed up the aliens, and make them worth more, when the player reaches a new level."""
         self.alien_speed *= self.speedup_scale
         self.alien_vertical_speed *= self.speedup_scale
-        self.alien_points = int(self.alien_points * self.score_scale)
+        self.alien_points = int(self.alien_points * self.score_scale) #pylint: disable=attribute-defined-outside-init
         self.alien_bullet_speed *= self.speedup_scale
         self.max_aliens += 1

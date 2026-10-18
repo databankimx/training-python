@@ -5,6 +5,8 @@ This module contains the main game class and handles window creation,
 event management, frame rate control, the background color, the ship, bullets, and the alien fleet.
 """
 
+#pylint: disable=line-too-long
+
 import sys
 from time import sleep
 

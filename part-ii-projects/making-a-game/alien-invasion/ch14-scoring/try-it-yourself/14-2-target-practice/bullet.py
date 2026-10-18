@@ -24,7 +24,7 @@ class Bullet(Sprite): #pylint: disable=too-few-public-methods
         # Store the bullet's position as a decimal value.
         self.x = float(self.rect.x)
 
-    def update(self) -> None:
+    def update(self, *args, **kwargs) -> None:
         """Move the bullet to the right."""
         self.x += self.settings.bullet_speed
         self.rect.x = self.x

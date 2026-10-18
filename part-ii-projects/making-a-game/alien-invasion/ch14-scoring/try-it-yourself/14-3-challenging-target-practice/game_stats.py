@@ -1,8 +1,8 @@
 """
 Chapter 14, exercise 14-3: Challenging Target Practice.
 
-This module tracks the statistics for the game, such as the number of hits and misses, and whether the game
-is active.
+This module tracks the statistics for the game, such as the number of hits and misses
+and whether the game is active.
 """
 
 

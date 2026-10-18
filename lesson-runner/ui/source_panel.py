@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import traceback
 
+#pylint: disable=no-name-in-module
 from PySide6.QtCore import QUrl
 from PySide6.QtGui import QDesktopServices
 from PySide6.QtWidgets import QFrame, QHBoxLayout, QLabel
@@ -134,7 +135,7 @@ class SourcePanelMixin:
         for name in added:
             if name in base:
                 return name
-        return MAIN_FILE if MAIN_FILE in base else sorted(base)[0]
+        return MAIN_FILE if MAIN_FILE in base else min(base)
 
     def show_stage_file(self, name: str) -> None:
         """Show one file of the set, and keep the file menu in step with it.

@@ -1,3 +1,9 @@
+"""
+Alien Invasion Game - Try It Yourself 12-2: Game Character
+
+This module contains the Settings class, which manages the settings for the game character window.
+"""
+
 class Settings: #pylint: disable=too-few-public-methods
     """A class to store the settings for the game character window."""
 

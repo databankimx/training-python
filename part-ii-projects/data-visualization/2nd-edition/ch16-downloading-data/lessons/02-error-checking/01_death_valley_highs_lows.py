@@ -1,5 +1,4 @@
 """Lesson 2.1 - Error Checking"""
-
 from datetime import datetime
 import os
 import csv
