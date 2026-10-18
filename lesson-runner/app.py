@@ -74,6 +74,12 @@ class MainWindow(LayoutMixin, ThemeMixin, NavigationMixin, SourcePanelMixin, Out
         self.badge_items: list = []
         self.saved_files: list = []
         self.run_snapshot: dict = {}
+        self.stage = None
+        self.multi_file: bool = False
+        self.stage_texts: dict[str, str] = {}
+        self.stage_base: dict[str, str] = {}
+        self.current_file: str | None = None
+        self.shown_text: str = ""
 
         self.build_ui()
         self.populate_tree()

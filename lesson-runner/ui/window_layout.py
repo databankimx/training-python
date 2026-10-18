@@ -8,7 +8,7 @@ from PySide6.QtCore import QTimer, Qt #pylint: disable=no-name-in-module #NOSONA
 from PySide6.QtGui import QColor, QKeySequence, QShortcut #pylint: disable=no-name-in-module #NOSONAR
 from PySide6.QtWebEngineCore import QWebEngineSettings #pylint: disable=no-name-in-module #NOSONAR
 from PySide6.QtWebEngineWidgets import QWebEngineView #pylint: disable=no-name-in-module #NOSONAR
-from PySide6.QtWidgets import (QFrame, QHBoxLayout, QLabel, QLineEdit, QListWidget, QPlainTextEdit, #pylint: disable=no-name-in-module #NOSONAR
+from PySide6.QtWidgets import (QComboBox, QFrame, QHBoxLayout, QLabel, QLineEdit, QListWidget, QPlainTextEdit, #pylint: disable=no-name-in-module #NOSONAR
                                QPushButton, QSplitter, QStackedWidget, QTabWidget, QToolButton, #pylint: disable=no-name-in-module #NOSONAR
                                QTreeWidget, QVBoxLayout, QWidget) #pylint: disable=no-name-in-module #NOSONAR
 
@@ -220,6 +220,12 @@ class LayoutMixin:
         layout = QVBoxLayout(tab)
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
+
+        self.file_picker = QComboBox()
+        self.file_picker.setToolTip("Choose which of this step's files to view")
+        self.file_picker.setVisible(False)
+        self.file_picker.currentTextChanged.connect(self.on_file_picked)
+        layout.addWidget(self.file_picker)
 
         self.reset_bar = QFrame()
         self.reset_bar.setObjectName("resetBar")

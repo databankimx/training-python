@@ -63,9 +63,11 @@ class NavigationMixin:
             item = QListWidgetItem(("\u2003\u2003" if step.indented else "") + step.title)
             item.setSizeHint(QSize(0, 26))
             self.step_list.addItem(item)
-        self.step_list.blockSignals(False)
         if chapter.steps:
             self.step_list.setCurrentRow(0)
+        self.step_list.blockSignals(False)
+        if chapter.steps:
+            # Called once, here, so each selection loads the step exactly once.
             self.on_step_changed(0)
 
     def on_step_changed(self, row: int) -> None:

@@ -25,6 +25,8 @@ import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from .stages import StageInfo, chapter_folders, load_chapter
+
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 # (display name, folder, include lesson-only steps)
@@ -71,11 +73,12 @@ class Step:
     code_path: Path | None
     indented: bool = False
     note: str = ""
+    stage: StageInfo | None = None
 
     @property
     def runnable(self) -> bool:
         """True when Run is available for this step."""
-        return self.kind == "script"
+        return self.kind in ("script", "stage", "exercise")
 
 
 @dataclass
@@ -372,11 +375,52 @@ def data_visualization_chapter(folder: Path) -> Chapter:
     return node
 
 
+def exercise_steps(folder: Path) -> list[Step]:
+    """One step per exercise folder. Each exercise runs its own script, the one with the main check."""
+    steps: list[Step] = []
+    exercises = sorted((p for p in folder.iterdir() if p.is_dir()), key=lambda p: natural_key(p.name))
+    for exercise in exercises:
+        md = exercise / "lesson.md"
+        lesson_md = md if md.exists() else None
+        code = None
+        for script in sorted(exercise.glob("*.py")):
+            try:
+                if GUARD.search(script.read_text(encoding="utf-8")):
+                    code = script
+                    break
+            except (OSError, UnicodeDecodeError):
+                continue
+        steps.append(Step(title=step_title(exercise.name, lesson_md), number=None,
+                          kind="exercise" if code else "lesson", lesson_md=lesson_md, code_path=code))
+    return steps
+
+
+def making_a_game_chapter(folder: Path) -> Chapter:
+    """Making a Game: the Alien Invasion chapters, each step a stage that can be built and run."""
+    project = folder / "alien-invasion"
+    node = Chapter(name="Making a Game", folder=folder, steps=[])
+    if not project.is_dir():
+        return placeholder_chapter("Making a Game", folder)
+    for chapter_folder in chapter_folders(project):
+        chapter = Chapter(name=pretty_folder(chapter_folder.name), folder=chapter_folder, steps=[])
+        for stage in load_chapter(chapter_folder):
+            title = step_title(stage.folder.name, stage.lesson_md)
+            main = stage.folder / "alien_invasion.py"
+            chapter.steps.append(Step(title=title, number=stage.number, kind="stage",
+                                      lesson_md=stage.lesson_md, code_path=main, stage=stage))
+        tiy = chapter_folder / "try-it-yourself"
+        if tiy.is_dir():
+            chapter.children.append(Chapter(name=TRY_IT_NAME, folder=tiy, steps=exercise_steps(tiy),
+                                            intro_md=intro_for(tiy)))
+        node.children.append(chapter)
+    return node
+
+
 def part_two_scope() -> Scope:
-    """Part II: the two chapters not yet migrated, and Data Visualization."""
+    """Part II: Making a Game, Data Visualization, and the Web Applications placeholder."""
     root = REPO_ROOT / "part-ii-projects"
     return Scope(name="Part II - Projects", chapters=[
-        placeholder_chapter("Making a Game", root / "making-a-game"),
+        making_a_game_chapter(root / "making-a-game"),
         data_visualization_chapter(root / "data-visualization"),
         placeholder_chapter("Web Applications", root / "web-applications"),
     ])

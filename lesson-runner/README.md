@@ -81,24 +81,3 @@ python app.py
 | Escape | Cancel a run, or reset the editor when it has edits |
 | Ctrl+Shift+Enter | Continue past a pause |
 
-## Status
-
-Built: the chapter tree and step list (60/40), title bar with theme switch and
-Run, args, output with Continue, Copy and Clear, source editor with line numbers,
-highlighting and reset, rendered lessons (MathJax math, Prism code in Visual
-Studio colors), pop-out lesson window with dock control, input dialog, and pause
-handling.
-
-Part II: Data Visualization is shown by edition (2nd and 3rd), with each chapter's
-lessons and Try it Yourself. Making a Game and Web Applications are placeholders
-that say they are not yet implemented.
-
-Badges under the step title say what a step does: Window (opens a matplotlib
-window), Browser (opens a chart or an algorithm animation in the browser), Saves file, Internet (calls an
-API), and Input (asks for a typed reply). Each badge and the other controls have a
-tooltip. Tooltips hide themselves after a few seconds.
-
-The tkinter version of the runner is kept in `lesson-runner-tk` for reference.
-
-Not yet checked on your machine: the pop-out and dock controls, the first-lesson
-flash, and the copy tick.

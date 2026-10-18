@@ -7,6 +7,8 @@ import re
 LINT_COMMENT = re.compile(r"#\s*(pylint|nosonar)", re.IGNORECASE)
 
 BADGE_RULES = (
+    (re.compile(r"pygame\.display\.set_mode\("), "Window",
+     "Opens in a new window"),
     (re.compile(r"plt\.show\("), "Window",
      "Opens in a new window"),
     (re.compile(r"(?<!plt)\.show\("), "Browser",

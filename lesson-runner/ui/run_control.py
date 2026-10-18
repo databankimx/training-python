@@ -5,6 +5,11 @@ from __future__ import annotations
 
 import queue
 import shlex
+import shutil
+import sys
+import tempfile
+import traceback
+from pathlib import Path
 
 from PySide6.QtCore import QUrl #pylint: disable=no-name-in-module #NOSONAR
 from PySide6.QtGui import QDesktopServices #pylint: disable=no-name-in-module #NOSONAR
@@ -12,6 +17,7 @@ from PySide6.QtWidgets import QInputDialog #pylint: disable=no-name-in-module #N
 
 from core.files_watch import TEXT_SUFFIXES, open_in_text_editor, snapshot, written_since
 from core.runner import StepRun
+from core.stages import build_with_script
 
 #pylint: disable=line-too-long
 
@@ -20,7 +26,10 @@ class RunMixin:
 
     def start_run(self) -> None:
         """Run the current step with the editor's code and the args."""
-        if self.step is None or not self.step.runnable or self.run is not None:
+        if self.step is None or not self.step.runnable:
+            return
+        if self.run is not None:
+            self.append("[The step is still running. Close its window first.]", "muted")
             return
         self.clear_output()
         self.view_file_button.hide()
@@ -31,7 +40,33 @@ class RunMixin:
         except ValueError as error:
             self.append(f"[Bad arguments] {error}", "err")
             return
-        self.run = StepRun(self.step.code_path, self.editor.toPlainText(), args)
+        if self.stage is not None:
+            try:
+                main_path, source = self.build_stage_for_run()
+            except Exception:  # pylint: disable=broad-exception-caught
+                self.append("[Could not build this step]", "err")
+                self.append(traceback.format_exc(), "err")
+                return
+        elif self.multi_file:
+            try:
+                main_path, source = self.build_exercise_for_run()
+            except Exception:  # pylint: disable=broad-exception-caught
+                self.append("[Could not prepare this exercise]", "err")
+                self.append(traceback.format_exc(), "err")
+                return
+        else:
+            main_path, source = self.step.code_path, self.editor.toPlainText()
+        if self.stage is not None:
+            self.append(f"Running alien_invasion.py from {self.stage.folder.name}", "muted")
+            if self.stage_texts:
+                self.append("Using your edits to: " + ", ".join(sorted(self.stage_texts)), "muted")
+            self.append(f"Python: {sys.executable}", "muted")
+            self.append(f"Folder: {main_path.parent}", "muted")
+            self.append(
+                f"Built file has: bg_color={'bg_color' in source}, "
+                f"settings={'Settings()' in source}, ship={'Ship(self)' in source}",
+                "muted")
+        self.run = StepRun(main_path, source, args)
         self.run.start()
         self.run_button.setText("Running\u2026")
         self.run_button.setEnabled(False)
@@ -85,6 +120,32 @@ class RunMixin:
             self.append("GitHub's rate limit has been reached. To avoid waiting, set up a token.", "muted")
             self.append("Open Data Visualization, then Setup, in the menu.", "muted")
             self.append("It uses the GITHUB_TRAINING_TOKEN variable. Restart the runner after you set it.", "muted")
+
+    def build_stage_for_run(self) -> tuple[Path, str]:
+        """Build the stage into a temporary folder, with any edited full files applied.
+
+        Snipped files always run from the full file on disk. Returns the main file's path and text.
+        """
+        target = Path(tempfile.mkdtemp(prefix="alien_stage_"))
+        build_with_script(self.stage, target)
+        for name, text in self.stage_texts.items():
+            (target / name).write_text(text, encoding="utf-8")
+        main = target / "alien_invasion.py"
+        return main, main.read_text(encoding="utf-8")
+
+    def build_exercise_for_run(self) -> tuple[Path, str]:
+        """Copy the exercise folder to a temporary place, with any edited modules applied.
+
+        The copy keeps the exercise's images, so the program finds them as it does in the folder.
+        Returns the main script's path and text.
+        """
+        source_dir = self.step.code_path.parent
+        target = Path(tempfile.mkdtemp(prefix="exercise_")) / source_dir.name
+        shutil.copytree(source_dir, target, ignore=shutil.ignore_patterns("__pycache__"))
+        for name, text in self.stage_texts.items():
+            (target / name).write_text(text, encoding="utf-8")
+        main = target / self.step.code_path.name
+        return main, main.read_text(encoding="utf-8")
 
     def update_view_file(self) -> None:
         """Offer to open the file this step saved, when its badges say it saves one and it did."""

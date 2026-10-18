@@ -217,7 +217,7 @@ python lesson-runner/app.py
 The chapter tree on the left lists every chapter:
 
 * **Part I** chapters hold their lessons directly. Each chapter's `try-it-yourself` steps, and the chapter 11 editions, are nested beneath the chapter. Chapters start collapsed. Selecting a chapter with no steps of its own moves to its first sub-chapter.
-* **Part II** chapters are grouped by project. Data Visualization comes first, with its 2nd and 3rd Editions, each holding Ch15 to Ch17 with their lessons and try-it-yourself steps. The **Setup** entry at the top of Data Visualization has the GitHub token instructions. Making a Game and Web Applications are placeholders for chapters not yet migrated.
+* **Part II** chapters are grouped by project. Data Visualization comes first, with its 2nd and 3rd Editions, each holding Ch15 to Ch17 with their lessons and try-it-yourself steps. The **Setup** entry at the top of Data Visualization has the GitHub token instructions. Making a Game covers Ch12 to Ch14, with the Alien Invasion game built step by step. Web Applications is a placeholder for chapters not yet migrated.
 * **Part III** chapters hold their lessons directly, and any sub-folders are nested beneath them (for example S13 and S14).
 
 Select a step in the list below the chapters. Steps that share one lesson file are indented under the first one.

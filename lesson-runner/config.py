@@ -1,4 +1,7 @@
-"""Shared settings for the lesson runner: paths, color palettes, fonts and the visualization table."""
+"""
+Shared settings for the lesson runner: paths, color palettes, fonts
+and the visualization table.
+"""
 
 from __future__ import annotations
 from pathlib import Path
