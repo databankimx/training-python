@@ -27,6 +27,8 @@ print(f"Calculated F({n}) = {fibonacci(n):,}")
 print(f"call_count = {fibonacci.call_count:,}")
 ```
 
+> **Warning:** This code can take over a minute to run, and on some computers several minutes. Run it only when you're ready to wait.
+
 Output:
 
 ```

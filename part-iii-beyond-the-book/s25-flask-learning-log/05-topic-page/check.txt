@@ -1,0 +1,3 @@
+The browser opens at http://127.0.0.1:8000/topics/. Click Chess, and the page shows its two entries, newest first, each in a card.
+Go to http://127.0.0.1:8000/topics/9999/. You should see the Flask 404 page.
+The build reports Ran 17 tests and OK.

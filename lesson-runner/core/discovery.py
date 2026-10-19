@@ -43,6 +43,9 @@ NO_SOURCE_TEXT = "# No source script for this lesson\n"
 
 TRY_IT_NAME = "Try it Yourself"
 
+# The Part III chapter that is built and run like a web chapter.
+FLASK_FOLDER = "s25-flask-learning-log"
+
 # Steps hidden from the menu, as "folder/stem". These are helper scripts, not lesson steps:
 # S10's main.py is the chapter's runner, S12's prep_tables.py only sets up the tables,
 # S17's login.py is a shared connection helper, and S18's main.py is the interactive dictionary.
@@ -432,6 +435,27 @@ def web_exercise_steps(folder: Path, prefix: str) -> list[Step]:
     return steps
 
 
+def web_chapter(chapter_folder: Path) -> Chapter:
+    """One web-style chapter: its lesson steps are built and run, and its Try it Yourself folder holds the exercises."""
+    prefix = chapter_folder.name.split("-")[0]
+    chapter = Chapter(name=pretty_folder(chapter_folder.name), folder=chapter_folder, steps=[])
+    lessons = chapter_folder / "lessons"
+    base = lessons if lessons.is_dir() and any(re.match(r"^\d\d-", p.name) for p in lessons.iterdir() if p.is_dir()) else chapter_folder
+    step_folders = sorted((p for p in base.iterdir() if p.is_dir() and re.match(r"^\d\d-", p.name)), key=lambda p: natural_key(p.name))
+    for step_folder in step_folders:
+        md = step_folder / "lesson.md"
+        lesson_md = md if md.exists() else None
+        number = int(step_folder.name[:2])
+        chapter.steps.append(Step(title=step_title(step_folder.name, lesson_md), number=number,
+                                  kind="web", lesson_md=lesson_md, code_path=None,
+                                  web_build=(prefix, number)))
+    tiy = chapter_folder / "try-it-yourself"
+    if tiy.is_dir():
+        chapter.children.append(Chapter(name=TRY_IT_NAME, folder=tiy,
+                                        steps=web_exercise_steps(tiy, prefix)))
+    return chapter
+
+
 def web_applications_chapter(folder: Path) -> Chapter:
     """Web Applications: each step is built and run with build_stage.py, and its server stays running."""
     chapters = sorted((p for p in folder.iterdir() if p.is_dir() and CHAPTER_FOLDER.match(p.name))
@@ -481,6 +505,9 @@ def discover() -> list[Scope]:
                 continue
             if any(part in SKIP_DIRS for part in folder.relative_to(root).parts):
                 continue
+            if include_lessons and folder.relative_to(root).parts[0] == FLASK_FOLDER:
+                # The Flask chapter is built as a web chapter, below, not as loose lesson files.
+                continue
             steps = folder_steps(folder, include_lessons)
             if steps:
                 steps_by_folder[folder] = steps
@@ -492,4 +519,8 @@ def discover() -> list[Scope]:
             scope.chapters = part_one_tree(root, steps_by_folder)
         scopes.append(scope)
     scopes.insert(1, part_two_scope())
+    flask = REPO_ROOT / "part-iii-beyond-the-book" / FLASK_FOLDER
+    if flask.is_dir():
+        part_three = next(scope for scope in scopes if scope.name == "Part III - Beyond the Book")
+        part_three.chapters.append(web_chapter(flask))
     return scopes

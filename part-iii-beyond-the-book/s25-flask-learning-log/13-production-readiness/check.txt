@@ -1,0 +1,6 @@
+Go to http://127.0.0.1:8000/no-such-page/. You should see the friendly Page not found page, with a button back to the home page.
+Open a second PowerShell window in the web-applications folder, and run these two lines (the first moves into the build folder):
+  cd build\s25-flask-learning-log-step-13
+  ..\..\.venv\Scripts\python.exe -m flask --app flask_app check-settings
+It should list three problems: the default secret key, debug mode on, and the cookie not marked secure. Nothing is changed.
+The build reports Ran 62 tests and OK.

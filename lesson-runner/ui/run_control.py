@@ -18,7 +18,7 @@ from PySide6.QtWidgets import QDialog, QInputDialog, QMessageBox #pylint: disabl
 from core.files_watch import TEXT_SUFFIXES, open_in_text_editor, snapshot, written_since
 from core.runner import StepRun
 from core.stages import build_with_script
-from core.web_run import WebRun, free_port, port_in_use, web_python
+from core.web_run import WebRun, free_port, port_in_use, requirements_for, web_environment_message, web_environment_problem, web_python
 from ui.web_login import AdminLoginDialog
 
 #pylint: disable=line-too-long
@@ -156,6 +156,15 @@ class RunMixin:
 
     def start_web_run(self) -> None:
         """Build the web step and start its server. The server runs until Escape stops it."""
+        chapter, number = self.step.web_build
+        modules, requirements = requirements_for(chapter)
+        problem = web_environment_problem(modules)
+        if problem is not None:
+            self.clear_output()
+            self.append("[The web applications environment isn't ready.]", "err")
+            for line in web_environment_message(problem, requirements).splitlines():
+                self.append(line)
+            return
         credentials = self.web_credentials()
         if credentials is None:
             return

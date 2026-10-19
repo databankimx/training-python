@@ -1,0 +1,2 @@
+The browser opens at http://127.0.0.1:8000/topics/ and shows Chess and Rock Climbing as a list.
+The build reports Ran 13 tests and OK.

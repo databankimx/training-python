@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}New entry - Learning Log{% endblock %}
+
+{% block content %}
+  <p><a href="{{ url_for('topic', topic_id=topic.id) }}">{{ topic.text }}</a></p>
+
+  <h2 class="mb-3">Add a new entry</h2>
+
+  {% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+  {% endif %}
+
+  <form method="post" action="{{ url_for('new_entry', topic_id=topic.id) }}">
+    <div class="mb-3">
+      <label for="text" class="form-label">What did you learn?</label>
+      <textarea class="form-control" id="text" name="text" rows="6">{{ text }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Add entry</button>
+  </form>
+{% endblock %}

@@ -80,7 +80,7 @@ def lesson_step_listing(step) -> dict[str, str]:
     """What a lesson step adds or changes, compared with the step before it."""
     build = build_module()
     chapter_prefix, number = step.web_build
-    chapter = step.lesson_md.parent.parent.parent
+    chapter = build.find_chapter(chapter_prefix)
     before = accumulated(build.build_sources(chapter, number - 1)) if number > 1 else {}
     after = accumulated(build.build_sources(chapter, number))
     return changes_between(before, after)

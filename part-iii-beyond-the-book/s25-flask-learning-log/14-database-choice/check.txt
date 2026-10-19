@@ -1,0 +1,2 @@
+Nothing to run for this step. The code is identical to step 13, so the build would report the same 62 tests.
+Read the lesson. Only try the SQL Server or MySQL steps if you have one of those databases available.

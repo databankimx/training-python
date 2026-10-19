@@ -1,0 +1,10 @@
+{
+  "topics": [
+    {"id": 1, "text": "Chess", "date_added": "2026-10-01T09:00:00"},
+    {"id": 2, "text": "Rock Climbing", "date_added": "2026-10-02T09:00:00"}
+  ],
+  "entries": [
+    {"id": 1, "topic_id": 1, "text": "Knights move in an L shape.", "date_added": "2026-10-03T10:00:00"},
+    {"id": 2, "topic_id": 1, "text": "Bishops stay on one color.", "date_added": "2026-10-04T10:00:00"}
+  ]
+}

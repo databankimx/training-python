@@ -25,17 +25,74 @@ from core.job_object import contain
 
 WEB_ROOT = Path(__file__).resolve().parents[2] / "part-ii-projects" / "web-applications"
 NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0)
+DJANGO_MODULES = ("django", "django_bootstrap5")
+DJANGO_REQUIREMENTS = "ch20-styling-and-deploying\\lessons\\01-bootstrap-setup\\requirements.txt"
+FLASK_MODULES = ("flask", "sqlalchemy")
+FLASK_REQUIREMENTS = "..\\..\\part-iii-beyond-the-book\\s25-flask-learning-log\\01-flask-setup\\requirements.txt"
+
 READY = re.compile(r"Starting development server at (http://\S+)")
 
 
 def web_python() -> str:
-    """The Python that runs the build: the web applications virtual environment when it exists.
+    """The Python that runs the build: the web applications virtual environment.
 
-    Django is installed there, not in the runner's own environment. Without it, the build fails with
-    a message that says Django is missing.
+    The runner checks the environment with web_environment_problem before it calls this, so the path is known to exist.
+    """
+    return str(WEB_ROOT / ".venv" / "Scripts" / "python.exe")
+
+
+def requirements_for(chapter: str) -> tuple[tuple[str, ...], str]:
+    """The packages a chapter needs to be checked for, and the requirements file that installs them. The Flask chapter is s25."""
+    if chapter == "s25":
+        return FLASK_MODULES, FLASK_REQUIREMENTS
+    return DJANGO_MODULES, DJANGO_REQUIREMENTS
+
+
+def web_environment_problem(modules: tuple[str, ...] = DJANGO_MODULES) -> str | None:
+    """Check the web applications environment before a build. Returns None when it's ready, or a short reason.
+
+    The reasons are "missing" (no .venv folder), "broken" (the folder can't start Python, usually because it was moved or
+    renamed), and "packages" (Python starts, but Django or django-bootstrap5 isn't installed). Activating the environment is
+    not needed: the runner calls its Python directly.
     """
     venv_python = WEB_ROOT / ".venv" / "Scripts" / "python.exe"
-    return str(venv_python) if venv_python.exists() else sys.executable
+    if not venv_python.exists():
+        return "missing"
+    try:
+        result = subprocess.run([str(venv_python), "-c", "import " + ", ".join(modules)],
+                                capture_output=True, text=True, check=False, creationflags=NO_WINDOW)
+    except OSError:
+        return "broken"
+    if result.returncode != 0:
+        return "packages"
+    return None
+
+
+RECOVERY_INSTALL = (
+    "  .venv\\Scripts\\python.exe -m pip install -r ch20-styling-and-deploying\\lessons\\01-bootstrap-setup\\requirements.txt"
+)
+
+
+def web_environment_text(problem: str) -> str:
+    """The message to show the user, with the commands that fix the problem. Each command is run in the web-applications folder."""
+    footer = ("\n\nYou don't need to activate it. The runner uses the environment's Python directly.\n"
+              "When it's done, click Run again.")
+    if problem == "missing":
+        return ("The web applications environment (.venv) doesn't exist yet.\n\n"
+                "To create it, open PowerShell in the web-applications folder, and run:\n\n"
+                "  python -m venv .venv\n" + RECOVERY_INSTALL + footer)
+    if problem == "packages":
+        return ("The web applications environment (.venv) is there, but Django or django-bootstrap5 isn't installed in it.\n\n"
+                "To install them, open PowerShell in the web-applications folder, and run:\n\n" + RECOVERY_INSTALL + footer)
+    return ("The web applications environment (.venv) is there, but it can't start. It may have been moved or renamed after it was created.\n\n"
+            "To rebuild it, open PowerShell in the web-applications folder, and run:\n\n"
+            "  Remove-Item -Recurse -Force .venv\n"
+            "  python -m venv .venv\n" + RECOVERY_INSTALL + footer)
+
+
+def web_environment_message(problem: str, requirements: str = DJANGO_REQUIREMENTS) -> str:
+    """The message for a problem, with the install command for this chapter's requirements file."""
+    return web_environment_text(problem).replace(DJANGO_REQUIREMENTS, requirements)
 
 
 class WebRun:

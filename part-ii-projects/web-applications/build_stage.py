@@ -48,21 +48,28 @@ SKIPPED_NAMES = {"lesson.md", "lesson-images", "__pycache__", "seed.json", "chec
 ADMIN_USERNAME_VARIABLE = "STUDENT_ADMIN_USERNAME"
 ADMIN_PASSWORD_VARIABLE = "STUDENT_ADMIN_PASSWORD"
 
+# The Flask chapter lives in Part III. It is its own track: it builds only from earlier steps of the same track.
+PART_III = ROOT.parent.parent / "part-iii-beyond-the-book"
+FLASK_CHAPTER = "s25-flask-learning-log"
+
 
 def chapter_folders() -> list[Path]:
-    """Chapter folders in order, such as ch18-getting-started-with-django."""
-    return sorted(
-        (p for p in ROOT.iterdir() if p.is_dir() and CHAPTER_FOLDER.match(p.name)),
-        key=lambda p: p.name,
-    )
+    """Chapter folders in order: the Django chapters, then the Flask chapter (ch18, ch19, ch20, s25)."""
+    folders = [p for p in ROOT.iterdir() if p.is_dir() and CHAPTER_FOLDER.match(p.name)]
+    flask = PART_III / FLASK_CHAPTER
+    if flask.is_dir():
+        folders.append(flask)
+    return sorted(folders, key=lambda p: p.name)
 
 
 def step_folders(chapter: Path) -> list[Path]:
-    """Numbered step folders inside one chapter's lessons folder, in order."""
+    """Numbered step folders in a chapter, in order.
+
+    They sit in the chapter's lessons folder when it holds steps, or directly in the chapter when there is no lessons folder.
+    """
     lessons = chapter / "lessons"
-    if not lessons.is_dir():
-        return []
-    steps = [p for p in lessons.iterdir() if p.is_dir() and STEP_FOLDER.match(p.name)]
+    base = lessons if lessons.is_dir() and any(STEP_FOLDER.match(p.name) for p in lessons.iterdir() if p.is_dir()) else chapter
+    steps = [p for p in base.iterdir() if p.is_dir() and STEP_FOLDER.match(p.name)]
     return sorted(steps, key=lambda p: p.name)
 
 
@@ -108,6 +115,9 @@ def build_sources(chapter: Path, step_number: int) -> list[Path]:
     for earlier in chapter_folders():
         if earlier == chapter:
             break
+        if earlier.parent != chapter.parent:
+            # A different track, such as the Flask chapter against the Django chapters.
+            continue
         # Optional steps (folder names ending in -optional) are not carried into later chapters.
         sources.extend(p for p in step_folders(earlier) if not p.name.endswith("-optional"))
     sources.extend(steps[:step_number])
@@ -231,7 +241,7 @@ def load_seed(target: Path, seed: Path | None) -> None:
         return
 
     print("\nLoading the seed data...")
-    if run_django(target, "loaddata", "seed.json") != 0:
+    if load_fixture(target) != 0:
         raise SystemExit("The seed data could not be loaded.")
 
 
@@ -262,6 +272,9 @@ def list_steps() -> None:
 
 def check_and_test(target: Path) -> None:
     """Check the project, create its database, create the admin account, and run the tests."""
+    if is_flask(target):
+        flask_prepare(target)
+        return
     print("\nChecking the project (manage.py check)...")
     if run_django(target, "check") != 0:
         raise SystemExit("The check failed. Fix the errors above before going on.")
@@ -271,6 +284,58 @@ def check_and_test(target: Path) -> None:
         raise SystemExit("The database could not be created. Fix the errors above before going on.")
 
     create_admin_account(target)
+
+
+def is_flask(target: Path) -> bool:
+    """A Flask project has flask_app.py at its root, and no manage.py."""
+    return (target / "flask_app.py").is_file()
+
+
+def run_flask(target: Path, *args: str) -> int:
+    """Run a Flask command for the build's app, in the build folder, and show its output."""
+    return subprocess.run([sys.executable, "-m", "flask", "--app", "flask_app", *args],
+                          cwd=target, env=os.environ.copy(), check=False).returncode
+
+
+def flask_prepare(target: Path) -> None:
+    """Create the Flask app's tables, and its admin account when the runner supplied one."""
+    print("\nCreating the database (flask init-db)...")
+    if run_flask(target, "init-db") != 0:
+        raise SystemExit("The database could not be created. Fix the errors above before going on.")
+
+    if os.environ.get(ADMIN_USERNAME_VARIABLE) and os.environ.get(ADMIN_PASSWORD_VARIABLE):
+        print("\nCreating the admin account...")
+        if run_flask(target, "create-admin") != 0:
+            raise SystemExit("The admin account could not be created.")
+    else:
+        print("No admin account was given, so none was created.")
+
+
+def load_fixture(target: Path) -> int:
+    """Load seed.json into the database, with the command for this kind of project."""
+    if is_flask(target):
+        return run_flask(target, "load-seed", "seed.json")
+    return run_django(target, "loaddata", "seed.json")
+
+
+def run_tests(target: Path) -> int:
+    """Run the project's tests. Django uses manage.py test; the Flask chapter uses unittest."""
+    if is_flask(target):
+        return subprocess.run([sys.executable, "-m", "unittest", "discover", "-s", "tests", "-v"],
+                              cwd=target, env=os.environ.copy(), check=False).returncode
+    return run_django(target, "test")
+
+
+def start_server(target: Path) -> None:
+    """Start the development server. The Starting line is what the runner watches for to open the browser."""
+    if is_flask(target):
+        print("Starting development server at http://127.0.0.1:8000/")
+        env = os.environ.copy()
+        env.setdefault("FLASK_DEBUG", "1")
+        subprocess.run([sys.executable, "-m", "flask", "--app", "flask_app", "run", "--port", "8000"],
+                       cwd=target, env=env, check=False)
+        return
+    run_django(target, "runserver")
 
 
 def main(argv: list[str]) -> None:
@@ -299,8 +364,8 @@ def main(argv: list[str]) -> None:
         check_and_test(target)
         load_seed(target, latest_seed(sources))
 
-    print("\nRunning the tests (manage.py test)...")
-    if run_django(target, "test") != 0:
+    print("\nRunning the tests...")
+    if run_tests(target) != 0:
         raise SystemExit("A test failed. Fix the errors above before going on.")
 
     if not args[1].startswith(EXERCISE_PREFIX):
@@ -308,7 +373,7 @@ def main(argv: list[str]) -> None:
 
     if run:
         print("\nStarting the development server. Press Ctrl+C to stop it.")
-        run_django(target, "runserver")
+        start_server(target)
 
 
 if __name__ == "__main__":

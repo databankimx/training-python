@@ -101,15 +101,53 @@ Read this first, then the lesson pages for the chapter you're working on.
   - Still to decide: whether the runner offers the database as a choice, or the connection string is set in an environment variable.
   Not started.
 
+## Flask chapter status (s25)
+
+- Started. Folder: `part-iii-beyond-the-book\s25-flask-learning-log`. Step 1 requirements are in place (Flask 3.1.3, SQLAlchemy 2.0.52).
+- Build design: a Flask project does not use `manage.py`. It has `flask_app.py` at its root, and build_stage.py runs Flask-specific
+  commands for it: create the tables, create the admin account, load the seed, run the tests with unittest, and start `flask run` with a
+  "Starting development server at" line, so the runner recognizes it.
+- Build tree: build_stage.py must treat `s25` as its own track. A chapter only builds from earlier chapters in the same track, so the
+  Flask chapter never pulls in the Django chapters.
+- Discovery: the Part III scope must skip `s25` and add it as a web-style chapter (lessons, then Try it Yourself), as Web Applications does.
+- Test runner: unittest, so no extra packages beyond Flask and SQLAlchemy.
+- Done: build_stage.py has Flask support (`flask_app.py` marks a Flask project; init-db, create-admin, load-seed, unittest, and `flask run`
+  with the Starting line). It has its own track for s25. The runner checks Flask and SQLAlchemy for s25, and Django for the other chapters.
+  Discovery shows s25 in Part III as a web chapter, and skips its folders in the loose lesson scan.
+- Venv: installed by the learner into `web-applications\.venv`, from `..\..\part-iii-beyond-the-book\s25-flask-learning-log\01-flask-setup\requirements.txt`.
+- Step 1 is written: `01-flask-setup` (directly in the chapter folder) has the app factory, the database module, the entry point, three tests, the
+  three build commands (init-db, create-admin placeholder, load-seed placeholder), the lesson, and check.txt. Ran in the runner: 3 tests OK,
+  home page served.
+- Layout: the Flask chapter has no `lessons` folder, since it has no sibling Try it Yourself or textbook folders. Its steps (`01-...`,
+  `02-...`) sit directly in `s25-flask-learning-log`. The build and discovery find steps in `lessons` when it holds steps, and otherwise in the
+  chapter folder itself. An empty `lessons` folder left behind is ignored, but can be deleted.
+- Structure: one chapter folder (`s25`), with every step numbered, as in chapters 18 to 20. Not split into separate chapters.
+- All planned steps are written and run in the runner: 1 to 13. The Flask chapter has no deployment step: it points to the Django deployment lesson
+  (chapter 20, step 5).
+- Database choice: step 14 (`14-database-choice`) is informational, with no code and no runner dialog. It explains the connection string for SQL Server
+  and MySQL, the drivers, and keeping the string out of files. The chapter runs on SQLite by default. Students set `DATABASE_URL` in a PowerShell
+  window, and run the build from that window, since the runner doesn't read it.
+
+## Decided
+
+- Flask chapter database: the learner provides a connection string. The runner asks once per session, like the admin account, keeps it in
+  memory, and passes it to the build as an environment variable. There is no settings file and no editing: the learner sets it up once per
+  session. Nothing is written to a file. The default is SQLite, so the lessons work without setup. The production connection on
+  PythonAnywhere is set the same way, as an environment variable in the WSGI file. No separate parameter fields.
+
+- Flask chapter scope: it stops at readiness for production (settings from environment variables, debug off, error pages, and the database
+  connection). It doesn't include deployment. The chapter says the deployment process is the same as the Django chapter's PythonAnywhere lesson
+  (chapter 20, step 5), and points there.
+
 ## Open questions
 
-- Whether the runner should offer a database choice for the Flask chapter, or use a connection string.
-- Whether the runner should stop with a clear error when `.venv` is missing, rather than quietly using the repo's environment. The current
-  fallback caused confusion during chapter 20. A change here is a candidate for a future session.
-- Whether to delete the `.ll_venv` folder. It's not used, so it can go.
-- Whether the Learning Log deployment lesson should be dry-run before students see it (see chapter 20 above).
+- None outstanding for the Flask chapter's database setup.
+- Whether the Learning Log deployment lesson should be dry-run before students see it (see chapter 20 above). The author will do this later.
 
 ## Recently fixed, so you don't re-investigate
+
+- Runner: before a web run, the runner checks the web applications environment (`.venv`). If it's missing, can't start, or lacks Django or
+  django-bootstrap5, the output pane shows the commands to fix it, which can be copied. Activating the environment isn't needed.
 
 - Build: `createsuperuser --noinput` needs an email, so a placeholder is supplied from the username.
 - Build: exercises accept `ex:<folder>`, and load seed data from the chain of exercises.

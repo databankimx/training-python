@@ -1,0 +1,5 @@
+The home page opens without signing in, and its Public topics list shows Rock Climbing, but not Chess.
+Click Rock Climbing. The page opens without signing in, and it has a Public badge, with no Add new entry link.
+Sign in with the runner's account, and open the Chess topic. It's private, so you can open it, as its owner.
+Click Add a new topic, type Gardening, tick Make this topic public, and click Add topic. Log out, and check that Gardening appears on the home page.
+The build reports Ran 55 tests and OK.

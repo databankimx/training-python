@@ -1,0 +1,2 @@
+The browser opens at http://127.0.0.1:8000/. The page should have a dark navigation bar at the top, and the banner Track your learning below it.
+The build reports Ran 5 tests and OK.

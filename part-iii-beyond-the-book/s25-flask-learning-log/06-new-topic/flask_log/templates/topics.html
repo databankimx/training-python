@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Topics - Learning Log{% endblock %}
+
+{% block content %}
+  <h2 class="mb-3">Topics</h2>
+
+  <a class="btn btn-primary mb-3" href="{{ url_for('new_topic') }}">Add a new topic</a>
+
+  <div class="list-group">
+    {% for topic in topics %}
+      <a class="list-group-item list-group-item-action" href="{{ url_for('topic', topic_id=topic.id) }}">{{ topic.text }}</a>
+    {% else %}
+      <div class="list-group-item">No topics have been added yet.</div>
+    {% endfor %}
+  </div>
+{% endblock %}

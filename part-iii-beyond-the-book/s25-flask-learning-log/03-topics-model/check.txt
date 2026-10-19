@@ -1,0 +1,2 @@
+The build reports Ran 9 tests and OK, and the output says Loaded 2 topics and 2 entries from seed.json.
+The home page still looks the same. The topics aren't shown until the topics page step.

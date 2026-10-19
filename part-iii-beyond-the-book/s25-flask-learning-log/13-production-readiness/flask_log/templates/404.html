@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Page not found - Learning Log{% endblock %}
+
+{% block content %}
+  <div class="text-center py-5">
+    <h1 class="display-4">Page not found</h1>
+    <p class="fs-5">The page you were looking for doesn't exist, or it may have moved.</p>
+    <a class="btn btn-primary" href="{{ url_for('index') }}">Go to the home page</a>
+  </div>
+{% endblock %}

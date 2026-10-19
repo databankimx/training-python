@@ -1,0 +1,2 @@
+The browser opens at http://127.0.0.1:8000/, and the page shows the words Learning Log.
+The build reports Ran 3 tests and OK.
