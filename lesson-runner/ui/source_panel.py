@@ -121,7 +121,7 @@ class SourcePanelMixin:
         self.stage = None
         try:
             base = changes_for_step(step)
-        except Exception:  # pylint: disable=broad-exception-caught
+        except (Exception, SystemExit):  # pylint: disable=broad-exception-caught
             base = {"error.txt": "Could not work out the changes for this step:\n\n" + traceback.format_exc()}
         if not base:
             base = {"no-changes.txt": "This step doesn't add or change any project files."}

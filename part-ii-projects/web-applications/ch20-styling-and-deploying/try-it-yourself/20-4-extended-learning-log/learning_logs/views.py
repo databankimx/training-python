@@ -1,0 +1,118 @@
+"""The views for the learning_logs app. A view receives a request and returns a response."""
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import redirect_to_login
+from django.http import Http404
+from django.shortcuts import get_object_or_404, redirect, render
+
+from .forms import EntryForm, TopicForm
+from .models import Entry, Topic
+
+
+def index(request):
+    """The home page for Learning Log. It lists the public topics, which anyone can read."""
+    public_topics = Topic.objects.filter(public=True).order_by("date_added")
+    context = {"public_topics": public_topics}
+    return render(request, "learning_logs/index.html", context)
+
+
+@login_required
+def topics(request):
+    """Show the signed-in user's topics, in the order they were added."""
+    topics = Topic.objects.filter(owner=request.user).order_by("date_added")
+    context = {"topics": topics}
+    return render(request, "learning_logs/topics.html", context)
+
+
+def topic(request, topic_id):
+    """Show a topic and its entries. Anyone can read a public topic. A private topic is only for its owner."""
+    topic = get_object_or_404(Topic, id=topic_id)
+    is_owner = request.user.is_authenticated and topic.owner == request.user
+
+    if not topic.public and not is_owner:
+        if not request.user.is_authenticated:
+            # Send a visitor who isn't signed in to log in, then back to this topic.
+            return redirect_to_login(request.get_full_path())
+        # A signed-in user who doesn't own a private topic is treated as not found.
+        raise Http404
+
+    entries = topic.entry_set.order_by("-date_added")
+    context = {"topic": topic, "entries": entries, "is_owner": is_owner}
+    return render(request, "learning_logs/topic.html", context)
+
+
+@login_required
+def new_topic(request):
+    """Add a new topic for the signed-in user. On a GET request, show an empty form."""
+    if request.method != "POST":
+        form = TopicForm()
+    else:
+        # The form needs the user, so it can check the name against their own topics.
+        form = TopicForm(data=request.POST, owner=request.user)
+        if form.is_valid():
+            # Build the topic, then record who owns it, before saving it.
+            topic_record = form.save(commit=False)
+            topic_record.owner = request.user
+            topic_record.save()
+            return redirect("learning_logs:topics")
+
+    context = {"form": form}
+    return render(request, "learning_logs/new_topic.html", context)
+
+
+@login_required
+def new_entry(request, topic_id):
+    """Add a new entry to one of the signed-in user's topics."""
+    topic = get_object_or_404(Topic, id=topic_id)
+    if topic.owner != request.user:
+        raise Http404
+
+    if request.method != "POST":
+        form = EntryForm()
+    else:
+        form = EntryForm(data=request.POST)
+        if form.is_valid():
+            # Build the entry, but don't save it yet, so the topic can be added first.
+            new_entry = form.save(commit=False)
+            new_entry.topic = topic
+            new_entry.save()
+            return redirect("learning_logs:topic", topic_id=topic.id)
+
+    context = {"topic": topic, "form": form}
+    return render(request, "learning_logs/new_entry.html", context)
+
+
+@login_required
+def edit_entry(request, entry_id):
+    """Edit an entry on one of the signed-in user's topics."""
+    entry = get_object_or_404(Entry, id=entry_id)
+    topic = entry.topic
+    if topic.owner != request.user:
+        raise Http404
+
+    if request.method != "POST":
+        form = EntryForm(instance=entry)
+    else:
+        form = EntryForm(instance=entry, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("learning_logs:topic", topic_id=topic.id)
+
+    context = {"entry": entry, "topic": topic, "form": form}
+    return render(request, "learning_logs/edit_entry.html", context)
+
+
+@login_required
+def delete_entry(request, entry_id):
+    """Delete an entry after a confirmation page. Only the owner of the entry's topic can delete it."""
+    entry = get_object_or_404(Entry, id=entry_id)
+    topic = entry.topic
+    if topic.owner != request.user:
+        raise Http404
+
+    if request.method == "POST":
+        entry.delete()
+        return redirect("learning_logs:topic", topic_id=topic.id)
+
+    context = {"entry": entry, "topic": topic}
+    return render(request, "learning_logs/delete_entry.html", context)

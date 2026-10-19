@@ -1,0 +1,17 @@
+{% extends "learning_logs/base.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+  {% if form.errors %}
+    <div class="alert alert-danger">Your username and password didn't match. Please try again.</div>
+  {% endif %}
+
+  <h2 class="mb-3">Log in</h2>
+
+  <form method="post" action="{% url 'accounts:login' %}">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <input type="hidden" name="next" value="{% url 'learning_logs:index' %}">
+    {% bootstrap_button button_type="submit" content="Log in" %}
+  </form>
+{% endblock content %}

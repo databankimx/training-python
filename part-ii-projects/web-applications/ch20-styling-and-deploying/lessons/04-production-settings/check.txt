@@ -1,0 +1,3 @@
+Open http://127.0.0.1:8000/no-such-page/ in your browser.
+You should see Django's debug page, titled Page not found (404), with a list of the URL patterns the site has.
+This is expected while debug mode is on. The friendly Learning Log page is what visitors see on the live site.

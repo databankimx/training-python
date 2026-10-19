@@ -43,7 +43,7 @@ EXERCISE_PREFIX = "ex:"
 
 # Items in a folder that describe the lesson or the build rather than the project. They are never copied.
 SKIPPED_NAMES = {"lesson.md", "lesson-images", "__pycache__", "seed.json", "check.txt", "start.txt",
-                 "builds_on.txt", "requirements.txt"}
+                 "builds_on.txt"}
 
 ADMIN_USERNAME_VARIABLE = "STUDENT_ADMIN_USERNAME"
 ADMIN_PASSWORD_VARIABLE = "STUDENT_ADMIN_PASSWORD"
@@ -141,7 +141,11 @@ def try_it_yourself(chapter: Path) -> Path:
 
 
 def exercise_chain(chapter: Path, name: str, seen: set[str] | None = None) -> list[Path]:
-    """The exercise folders needed to build this one, base first, ending with the exercise itself."""
+    """The folders needed to build this exercise, base first, ending with the exercise itself.
+
+    builds_on.txt can name another exercise ("19-2-blog-accounts") or a lesson step ("step:ch20/5"). A lesson step
+    brings in every lesson step up to it, as a lesson build does.
+    """
     seen = seen or set()
     if name in seen:
         raise SystemExit(f"The exercises build on each other in a loop: {name}.")
@@ -154,8 +158,16 @@ def exercise_chain(chapter: Path, name: str, seen: set[str] | None = None) -> li
     builds_on = folder / "builds_on.txt"
     if not builds_on.is_file():
         return [folder]
-    base_name = builds_on.read_text(encoding="utf-8").strip()
-    return exercise_chain(chapter, base_name, seen) + [folder]
+    base = builds_on.read_text(encoding="utf-8").strip()
+    if base.startswith("step:"):
+        base_prefix, base_number = base[len("step:"):].split("/")
+        base_chapter = find_chapter(base_prefix)
+        return build_sources(base_chapter, int(base_number)) + [folder]
+    if "/" in base:
+        # An exercise in another chapter, written as chapter/exercise, such as ch19/19-5-protected-blog.
+        base_prefix, base_name = base.split("/", 1)
+        return exercise_chain(find_chapter(base_prefix), base_name, seen) + [folder]
+    return exercise_chain(chapter, base, seen) + [folder]
 
 
 def build_exercise(chapter: Path, name: str) -> tuple[Path, list[Path]]:
@@ -200,13 +212,25 @@ def create_admin_account(target: Path) -> None:
 
 
 def load_seed(target: Path, seed: Path | None) -> None:
-    """Load the step's seed data, so the database holds what the step's check.txt describes."""
+    """Load the step's seed data, so the database holds what the step's check.txt describes.
+
+    Some sample data belongs to the admin account (user 1). If no admin account was created, the data can't be loaded
+    yet, so the build says how to finish the job by hand.
+    """
     if seed is None:
         print("\nNo seed data for this step.")
         return
 
-    print("\nLoading the seed data...")
     shutil.copy2(seed, target / "seed.json")
+    admin_given = bool(os.environ.get(ADMIN_USERNAME_VARIABLE))
+    if '"owner"' in seed.read_text(encoding="utf-8") and not admin_given:
+        print("\nThe sample data belongs to an admin account, and no admin account was created by this build.")
+        print("To finish, open a terminal in the build folder, and run:")
+        print("    python manage.py createsuperuser")
+        print("    python manage.py loaddata seed.json")
+        return
+
+    print("\nLoading the seed data...")
     if run_django(target, "loaddata", "seed.json") != 0:
         raise SystemExit("The seed data could not be loaded.")
 

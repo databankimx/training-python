@@ -1,0 +1,38 @@
+[
+  {
+    "model": "learning_logs.topic",
+    "pk": 1,
+    "fields": {
+      "text": "Chess",
+      "date_added": "2026-10-01T09:00:00Z",
+      "owner": 1
+    }
+  },
+  {
+    "model": "learning_logs.topic",
+    "pk": 2,
+    "fields": {
+      "text": "Rock Climbing",
+      "date_added": "2026-10-02T09:00:00Z",
+      "owner": 1
+    }
+  },
+  {
+    "model": "learning_logs.entry",
+    "pk": 1,
+    "fields": {
+      "topic": 1,
+      "text": "Knights move in an L shape.",
+      "date_added": "2026-10-03T10:00:00Z"
+    }
+  },
+  {
+    "model": "learning_logs.entry",
+    "pk": 2,
+    "fields": {
+      "topic": 1,
+      "text": "Bishops stay on one color.",
+      "date_added": "2026-10-04T10:00:00Z"
+    }
+  }
+]

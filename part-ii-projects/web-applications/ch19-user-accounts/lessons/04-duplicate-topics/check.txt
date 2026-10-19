@@ -1,0 +1,4 @@
+Sign in with the account from the runner, then open Add a new topic.
+Type Chess and click Add topic. The form should stay on the page, with the message: You already have a topic with this name.
+Type chess in lowercase and click Add topic. The same message should appear, because capital letters don't count.
+Type Gardening and click Add topic. This should work, and you should be sent back to the topics page.

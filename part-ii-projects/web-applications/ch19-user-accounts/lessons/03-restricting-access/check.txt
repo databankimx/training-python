@@ -1,0 +1,3 @@
+Sign in with the account from the runner. You should see only that account's topics, which are Chess and Rock Climbing.
+Log out, then go to /topics/. You should be sent to the login page.
+Register a second account, and check that the topics page is empty for it.

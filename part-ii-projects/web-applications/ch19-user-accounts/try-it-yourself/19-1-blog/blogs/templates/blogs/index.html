@@ -1,0 +1,25 @@
+{% extends "blogs/base.html" %}
+
+{% block content %}
+  <p>Blogs:</p>
+  <ul>
+    {% for blog in blogs %}
+      <li>{{ blog.title }} - <a href="{% url 'blogs:new_post' blog.id %}">Write a post</a></li>
+    {% empty %}
+      <li>No blogs yet. Make one with New blog.</li>
+    {% endfor %}
+  </ul>
+
+  <p>Posts, newest first:</p>
+  <ul>
+    {% for post in posts %}
+      <li>
+        <p><strong>{{ post.title }}</strong> ({{ post.blog.title }}, {{ post.date_added|date:"M d, Y H:i" }})</p>
+        <p>{{ post.text|linebreaks }}</p>
+        <p><a href="{% url 'blogs:edit_post' post.id %}">Edit post</a></p>
+      </li>
+    {% empty %}
+      <li>No posts yet.</li>
+    {% endfor %}
+  </ul>
+{% endblock content %}
