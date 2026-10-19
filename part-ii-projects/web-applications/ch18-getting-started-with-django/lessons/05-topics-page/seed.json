@@ -1,0 +1,18 @@
+[
+  {
+    "model": "learning_logs.topic",
+    "pk": 1,
+    "fields": {
+      "text": "Chess",
+      "date_added": "2026-10-01T09:00:00Z"
+    }
+  },
+  {
+    "model": "learning_logs.topic",
+    "pk": 2,
+    "fields": {
+      "text": "Rock Climbing",
+      "date_added": "2026-10-02T09:00:00Z"
+    }
+  }
+]

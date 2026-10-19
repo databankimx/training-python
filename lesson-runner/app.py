@@ -88,7 +88,10 @@ class MainWindow(LayoutMixin, ThemeMixin, NavigationMixin, SourcePanelMixin, Out
         self.tabs.setCurrentIndex(1)  # open on the Lesson tab, so the welcome lesson shows
 
     def closeEvent(self, event) -> None:  # pylint: disable=invalid-name
-        """Closing the main window also closes a popped-out lesson."""
+        """Closing the window stops any running step or server, and closes a popped-out lesson."""
+        if self.run is not None:
+            self.run.cancel()
+            self.run = None
         popout = self.popout
         self.popout = None
         if popout is not None:

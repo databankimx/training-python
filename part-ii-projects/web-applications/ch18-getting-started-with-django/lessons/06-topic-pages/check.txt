@@ -1,0 +1,4 @@
+Open http://127.0.0.1:8000/topics/ and click Chess.
+You should see two entries, with the newest first:
+  "Bishops stay on one color."
+  "Knights move in an L shape."

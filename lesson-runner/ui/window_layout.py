@@ -56,6 +56,7 @@ class LayoutMixin:
         self.tree.setIndentation(16)
         self.tree.setItemDelegate(TreeDelegate(self.tree))
         self.tree.currentItemChanged.connect(self.on_tree_changed)
+        self.tree.currentItemChanged.connect(self.stop_run_on_leaving)
         left_splitter.addWidget(self.tree)
 
         steps_box = QWidget()
@@ -68,6 +69,7 @@ class LayoutMixin:
         self.step_list = QListWidget()
         self.step_list.setSpacing(0)
         self.step_list.currentRowChanged.connect(self.on_step_changed)
+        self.step_list.currentRowChanged.connect(self.stop_run_on_leaving)
         steps_layout.addWidget(self.step_list, 1)
         left_splitter.addWidget(steps_box)
 
@@ -182,6 +184,11 @@ class LayoutMixin:
         self.view_file_button.clicked.connect(self.view_saved_file)
         self.view_file_button.hide()
         header_layout.addWidget(self.view_file_button)
+        self.open_browser_button = QPushButton("Open in browser")
+        self.open_browser_button.setToolTip("Open the running site in your browser")
+        self.open_browser_button.clicked.connect(self.open_running_site)
+        self.open_browser_button.hide()
+        header_layout.addWidget(self.open_browser_button)
         clear = QPushButton("Clear")
         clear.setToolTip("Clear the output")
         clear.clicked.connect(self.clear_output)

@@ -13,11 +13,13 @@ from pathlib import Path
 
 from PySide6.QtCore import QUrl #pylint: disable=no-name-in-module #NOSONAR
 from PySide6.QtGui import QDesktopServices #pylint: disable=no-name-in-module #NOSONAR
-from PySide6.QtWidgets import QInputDialog #pylint: disable=no-name-in-module #NOSONAR
+from PySide6.QtWidgets import QDialog, QInputDialog, QMessageBox #pylint: disable=no-name-in-module #NOSONAR
 
 from core.files_watch import TEXT_SUFFIXES, open_in_text_editor, snapshot, written_since
 from core.runner import StepRun
 from core.stages import build_with_script
+from core.web_run import WebRun, free_port, port_in_use, web_python
+from ui.web_login import AdminLoginDialog
 
 #pylint: disable=line-too-long
 
@@ -30,6 +32,9 @@ class RunMixin:
             return
         if self.run is not None:
             self.append("[The step is still running. Close its window first.]", "muted")
+            return
+        if self.step.kind == "web":
+            self.start_web_run()
             return
         self.clear_output()
         self.view_file_button.hide()
@@ -96,6 +101,8 @@ class RunMixin:
                 self.continue_button.show()
             elif kind == "input":
                 self.answer_input(str(value))
+            elif kind == "ready":
+                self.show_open_browser(str(value))
             elif kind == "done":
                 self.finish_run(*value)
                 return
@@ -147,6 +154,83 @@ class RunMixin:
         main = target / self.step.code_path.name
         return main, main.read_text(encoding="utf-8")
 
+    def start_web_run(self) -> None:
+        """Build the web step and start its server. The server runs until Escape stops it."""
+        credentials = self.web_credentials()
+        if credentials is None:
+            return
+        chapter, number = self.step.web_build
+        username, password = credentials
+        if port_in_use(8000):
+            answer = QMessageBox.question(
+                self, "Port 8000 is in use",
+                "Something is already listening on port 8000, probably from an earlier run.\n\n"
+                "Stop it and continue?")
+            if answer != QMessageBox.StandardButton.Yes:
+                return
+            free_port(8000)
+        self.clear_output()
+        self.open_browser_button.hide()
+        self.web_url = None
+        self.run = WebRun([web_python(), "build_stage.py", chapter, str(number), "--run"],
+                          {"STUDENT_ADMIN_USERNAME": username, "STUDENT_ADMIN_PASSWORD": password})
+        self.append(f"Building {chapter} step {number}, then starting the server.", "muted")
+        self.append("Press Escape to stop the server.", "muted")
+        self.run.start()
+        self.run_button.setText("Running\u2026")
+        self.run_button.setEnabled(False)
+        self.timer.start()
+
+    def web_credentials(self) -> tuple[str, str] | None:
+        """The admin account details for this session. The dialog runs once, and the answers stay in memory."""
+        existing = getattr(self, "web_admin", None)
+        if existing is None:
+            dialog = AdminLoginDialog(self)
+            if dialog.exec() != QDialog.DialogCode.Accepted:
+                return None
+            existing = dialog.credentials()
+            self.web_admin = existing
+        return existing
+
+    def show_open_browser(self, url: str) -> None:
+        """Show the Open in browser button, open the step's first page, and say where the site is running."""
+        self.web_url = url
+        self.open_browser_button.show()
+        self.append(f"The site is running at {url}", "muted")
+        QDesktopServices.openUrl(QUrl(url.rstrip("/") + self.start_path()))
+
+    def start_path(self) -> str:
+        """The page the step opens first, from its start.txt file. The home page when there's no start.txt."""
+        if self.step is None or self.step.lesson_md is None:
+            return "/"
+        start = self.step.lesson_md.parent / "start.txt"
+        if not start.is_file():
+            return "/"
+        path = start.read_text(encoding="utf-8").strip()
+        return path if path.startswith("/") else "/" + path
+
+    def stop_run_on_leaving(self, *_args) -> None:
+        """Leaving a step stops its run, as though Escape had been pressed.
+
+        The window is reset at once, rather than waiting for the process to report that it has stopped.
+        """
+        if self.run is None:
+            return
+        self.run.cancel()
+        self.run = None
+        self.timer.stop()
+        self.continue_button.hide()
+        self.open_browser_button.hide()
+        self.saved_files = []
+        self.run_button.setText("\u25B6  Run")
+        self.run_button.setEnabled(bool(self.step and self.step.runnable))
+
+    def open_running_site(self) -> None:
+        """Open the running site in the default browser."""
+        url = getattr(self, "web_url", None)
+        if url:
+            QDesktopServices.openUrl(QUrl(url))
+
     def update_view_file(self) -> None:
         """Offer to open the file this step saved, when its badges say it saves one and it did."""
         saves = any(label == "Saves file" for label, _tip in self.badge_items)
@@ -187,7 +271,9 @@ class RunMixin:
         self.run = None
         self.timer.stop()
         self.continue_button.hide()
-        self.saved_files = written_since(self.step.code_path.parent, self.run_snapshot) if self.step else []
+        self.saved_files = (written_since(self.step.code_path.parent, self.run_snapshot)
+                            if self.step and self.step.kind != "web" else [])
+        self.open_browser_button.hide()
         self.update_view_file()
         self.rate_limit_hint()
         self.run_button.setText("\u25B6  Run")

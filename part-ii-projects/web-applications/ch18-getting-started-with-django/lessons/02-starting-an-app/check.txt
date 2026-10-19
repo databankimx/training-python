@@ -1,0 +1,3 @@
+Open http://127.0.0.1:8000/admin/ and sign in.
+Under Learning_logs you should see Topics.
+The list is empty, because no topics have been added yet.

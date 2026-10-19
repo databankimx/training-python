@@ -14,6 +14,7 @@ from config import C_NOTE, HERE, VISUALIZATIONS
 from core import discovery
 from core.source_tools import BADGE_GLYPHS, step_badges, strip_lint_comments
 from core.stages import stage_files, strip_front_matter
+from core.web_changes import changes_for_step
 from ui.icons import draw_icon
 
 #pylint: disable=line-too-long
@@ -33,11 +34,15 @@ class SourcePanelMixin:
         self.subtitle_label.setText(f"{self.chapter.name}  \u00b7  {name}" if name else self.chapter.name)
         self.args_edit.clear()
         self.set_dirty(False)
+        self.read_only_source = False
+        self.editor.setReadOnly(False)
 
         if step.stage is not None:
             badge_source = self.show_stage(step)
         elif step.kind == "exercise":
             badge_source = self.show_exercise(step)
+        elif step.kind == "web":
+            badge_source = self.show_web_changes(step)
         else:
             badge_source = self.show_single_file(step)
         self.set_badges(badge_source)
@@ -111,6 +116,20 @@ class SourcePanelMixin:
             base[path.name] = path.read_text(encoding="utf-8")
         return self.show_file_set(base, step.code_path.name, step.code_path.name)
 
+    def show_web_changes(self, step: discovery.Step) -> str:
+        """A web step or exercise: a read-only listing of the files it adds or changes."""
+        self.stage = None
+        try:
+            base = changes_for_step(step)
+        except Exception:  # pylint: disable=broad-exception-caught
+            base = {"error.txt": "Could not work out the changes for this step:\n\n" + traceback.format_exc()}
+        if not base:
+            base = {"no-changes.txt": "This step doesn't add or change any project files."}
+        self.read_only_source = True
+        first = min(base)
+        self.show_file_set(base, first, first)
+        return ""
+
     def show_file_set(self, base: dict[str, str], main: str, default: str) -> str:
         """Show a set of files in the drop-down, opening on default. Returns the main file's text."""
         # Lint comments are never shown in the runner, so strip them from every file in the set.
@@ -154,7 +173,7 @@ class SourcePanelMixin:
         self.file_picker.blockSignals(False)
 
         self.highlighter.set_language("python")
-        self.editor.setReadOnly(False)
+        self.editor.setReadOnly(getattr(self, "read_only_source", False))
         self.editor.blockSignals(True)
         self.editor.setPlainText(text)
         self.editor.blockSignals(False)

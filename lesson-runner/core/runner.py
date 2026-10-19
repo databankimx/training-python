@@ -24,6 +24,8 @@ import threading
 import time
 from pathlib import Path
 
+from core.job_object import contain
+
 #pylint: disable=attribute-defined-outside-init, line-too-long, too-many-instance-attributes
 
 WRAPPER = Path(__file__).resolve().with_name("wrapper.py")
@@ -71,6 +73,7 @@ class StepRun:
             env=env,
             creationflags=NO_WINDOW,
         )
+        contain(self._proc)
         self._readers = [
             threading.Thread(target=self._pump, args=(self._proc.stdout, self._on_stdout), daemon=True),
             threading.Thread(target=self._pump, args=(self._proc.stderr, self._on_stderr), daemon=True),

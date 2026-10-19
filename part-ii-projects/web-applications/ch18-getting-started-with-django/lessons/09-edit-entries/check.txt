@@ -1,0 +1,3 @@
+Open http://127.0.0.1:8000/topics/ and click Chess.
+Under any note, click Edit entry.
+Change the text, click Save changes, and you should be sent back to the Chess page with the change showing.

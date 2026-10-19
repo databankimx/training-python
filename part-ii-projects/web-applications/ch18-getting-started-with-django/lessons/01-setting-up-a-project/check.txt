@@ -1,0 +1,3 @@
+Open http://127.0.0.1:8000/admin/ in your browser.
+You should see the admin login page.
+Sign in with the username and password you entered in the runner.

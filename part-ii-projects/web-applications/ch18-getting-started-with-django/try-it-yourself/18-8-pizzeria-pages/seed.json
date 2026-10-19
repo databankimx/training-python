@@ -1,0 +1,40 @@
+[
+  {
+    "model": "pizzas.pizza",
+    "pk": 1,
+    "fields": {
+      "name": "Hawaiian"
+    }
+  },
+  {
+    "model": "pizzas.pizza",
+    "pk": 2,
+    "fields": {
+      "name": "Meat Lovers"
+    }
+  },
+  {
+    "model": "pizzas.topping",
+    "pk": 1,
+    "fields": {
+      "pizza": 1,
+      "name": "pineapple"
+    }
+  },
+  {
+    "model": "pizzas.topping",
+    "pk": 2,
+    "fields": {
+      "pizza": 1,
+      "name": "Canadian bacon"
+    }
+  },
+  {
+    "model": "pizzas.topping",
+    "pk": 3,
+    "fields": {
+      "pizza": 2,
+      "name": "sausage"
+    }
+  }
+]

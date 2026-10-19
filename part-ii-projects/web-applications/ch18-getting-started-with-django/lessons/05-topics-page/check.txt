@@ -1,0 +1,3 @@
+Open http://127.0.0.1:8000/topics/ in your browser.
+You should see the top bar with Learning Log and Topics.
+Below it you should see two topics: Chess and Rock Climbing.

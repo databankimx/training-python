@@ -74,11 +74,13 @@ class Step:
     indented: bool = False
     note: str = ""
     stage: StageInfo | None = None
+    # For a web applications step: the chapter prefix and step number that build_stage.py takes, such as ("ch18", 5).
+    web_build: tuple[str, int | str] | None = None
 
     @property
     def runnable(self) -> bool:
         """True when Run is available for this step."""
-        return self.kind in ("script", "stage", "exercise")
+        return self.kind in ("script", "stage", "exercise", "web")
 
 
 @dataclass
@@ -416,13 +418,56 @@ def making_a_game_chapter(folder: Path) -> Chapter:
     return node
 
 
+def web_exercise_steps(folder: Path, prefix: str) -> list[Step]:
+    """One step per try-it-yourself exercise. A project or an update runs; a text-only exercise is read as a lesson."""
+    steps: list[Step] = []
+    exercises = sorted((p for p in folder.iterdir() if p.is_dir()), key=lambda p: natural_key(p.name))
+    for exercise in exercises:
+        md = exercise / "lesson.md"
+        lesson_md = md if md.exists() else None
+        runnable = (exercise / "manage.py").exists() or (exercise / "builds_on.txt").exists()
+        steps.append(Step(title=step_title(exercise.name, lesson_md), number=None,
+                          kind="web" if runnable else "lesson", lesson_md=lesson_md, code_path=None,
+                          web_build=(prefix, f"ex:{exercise.name}") if runnable else None))
+    return steps
+
+
+def web_applications_chapter(folder: Path) -> Chapter:
+    """Web Applications: each step is built and run with build_stage.py, and its server stays running."""
+    chapters = sorted((p for p in folder.iterdir() if p.is_dir() and CHAPTER_FOLDER.match(p.name))
+                      if folder.is_dir() else [], key=lambda p: natural_key(p.name))
+    if not chapters:
+        return placeholder_chapter("Web Applications", folder)
+
+    node = Chapter(name="Web Applications", folder=folder, steps=[])
+    for chapter_folder in chapters:
+        prefix = chapter_folder.name.split("-")[0]
+        chapter = Chapter(name=pretty_folder(chapter_folder.name), folder=chapter_folder, steps=[])
+        lessons = chapter_folder / "lessons"
+        step_folders = sorted((p for p in lessons.iterdir() if p.is_dir() and re.match(r"^\d\d-", p.name))
+                              if lessons.is_dir() else [], key=lambda p: natural_key(p.name))
+        for step_folder in step_folders:
+            md = step_folder / "lesson.md"
+            lesson_md = md if md.exists() else None
+            number = int(step_folder.name[:2])
+            chapter.steps.append(Step(title=step_title(step_folder.name, lesson_md), number=number,
+                                      kind="web", lesson_md=lesson_md, code_path=None,
+                                      web_build=(prefix, number)))
+        tiy = chapter_folder / "try-it-yourself"
+        if tiy.is_dir():
+            chapter.children.append(Chapter(name=TRY_IT_NAME, folder=tiy,
+                                            steps=web_exercise_steps(tiy, prefix)))
+        node.children.append(chapter)
+    return node
+
+
 def part_two_scope() -> Scope:
     """Part II: Making a Game, Data Visualization, and the Web Applications placeholder."""
     root = REPO_ROOT / "part-ii-projects"
     return Scope(name="Part II - Projects", chapters=[
         making_a_game_chapter(root / "making-a-game"),
         data_visualization_chapter(root / "data-visualization"),
-        placeholder_chapter("Web Applications", root / "web-applications"),
+        web_applications_chapter(root / "web-applications"),
     ])
 
 
