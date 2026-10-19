@@ -73,6 +73,23 @@ python -m pip install -r requirements.txt
 python app.py
 ```
 
+## Web chapters (Django and Flask)
+
+The web chapters are the Learning Log in Django (Part II, Web Applications, chapters 18 to 20) and in Flask (Part III, S25). Each step is built and run by
+`part-ii-projects\web-applications\build_stage.py`, and the runner shows the build in the Output pane.
+
+* **Environment:** the web chapters use `part-ii-projects\web-applications\.venv`, not the environment that runs the runner. Before each build, the runner
+  checks that the environment exists, runs, and has the packages it needs. If not, the Output pane shows the commands to fix it, which can be copied.
+  Activating the environment isn't needed. See the root QUICKSTART, step 7.
+* **Admin account:** the first web run in a session asks for an admin username and password. The build creates that account in the local database.
+* **Start page:** when the server is ready, the browser opens at the step's `start.txt` page. A step that needs sign-in opens its login page.
+* **Try it Yourself:** each web chapter has a **Try it Yourself** node. Exercises that are projects or updates run from there. Text-only exercises open as lessons.
+* **Source tab:** web steps show a read-only listing of what the step adds or changes. New files appear in full, and changed files as diffs with `--snip--`
+  between changes. The Python steps keep their editable source.
+* **Stopping:** Escape, selecting another step or chapter, or closing the window stops a running server. A server is also stopped if the runner crashes,
+  because its processes are tied to the runner.
+* **Port 8000:** if something is already listening on port 8000, the runner asks before stopping it.
+
 ## Shortcuts
 
 | Key | Action |

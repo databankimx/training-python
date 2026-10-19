@@ -64,7 +64,10 @@ Python Crash Course strikes the right balance between accessibility and depth fo
 - VS Code with the Python extension (recommended), or any editor you prefer
 - A virtual environment (instructions below)
 
-See the [Workstation Setup](resources/setup/01-workstation-setup.md) and [Python Setup](resources/setup/02-python-setup.md) guides in the `resources/setup/` folder for full step-by-step instructions.
+See [QUICKSTART.md](QUICKSTART.md) for a step-by-step guide that sets up everything the lesson runner needs to run every lesson example, including the separate environment for the web chapters. The guides in `resources/setup/` cover the workstation and Python installation in more detail:
+
+* [Setting Up Your Workstation for Development Training](resources/setup/01%20Setting%20Up%20Your%20Workstation%20for%20Development%20Training.md)
+* [Setting Up Your Workstation for Python Training](resources/setup/02%20Setting%20Up%20Your%20Workstation%20for%20Python%20Training.md)
 
 ### Quick start
 
@@ -96,7 +99,8 @@ pip install sm-utils
 | `matplotlib` | Part II - Data Visualization (Ch15-17) | `pip install matplotlib` |
 | `requests` | Part II - Data Visualization (Ch15-17) | `pip install requests` |
 | `plotly` | Part II - Data Visualization (Ch15-17) | `pip install plotly` |
-| `django` | Part II - Web Applications (Ch18-20) | `pip install django` |
+
+The Django chapters (Part II, Web Applications) and the Flask chapter (Part III, S25) need their own environment, in `part-ii-projects\web-applications\.venv`. Quickstart step 7 explains how to set it up.
 
 You can wait until the relevant chapter to install each library, or install everything up front. There is no harm in installing all of them now.
 
@@ -232,7 +236,7 @@ python lesson-runner/app.py
 The chapter tree on the left lists every chapter:
 
 * **Part I** chapters hold their lessons directly. Each chapter's `try-it-yourself` steps, and the chapter 11 editions, are nested beneath the chapter. Chapters start collapsed. Selecting a chapter with no steps of its own moves to its first sub-chapter.
-* **Part II** chapters are grouped by project. Data Visualization comes first, with its 2nd and 3rd Editions, each holding Ch15 to Ch17 with their lessons and try-it-yourself steps. The **Setup** entry at the top of Data Visualization has the GitHub token instructions. Making a Game covers Ch12 to Ch14, with the Alien Invasion game built step by step. Web Applications is a placeholder for chapters not yet migrated.
+* **Part II** chapters are grouped by project. Data Visualization comes first, with its 2nd and 3rd Editions, each holding Ch15 to Ch17 with their lessons and try-it-yourself steps. The **Setup** entry at the top of Data Visualization has the GitHub token instructions. Making a Game covers Ch12 to Ch14, with the Alien Invasion game built step by step. Web Applications covers Ch18 to Ch20: the Learning Log built with Django, from models and forms through user accounts, styling, and optional deployment. Each step runs a live site, and the runner shows the step's changes in the Source tab.
 * **Part III** chapters hold their lessons directly, and any sub-folders are nested beneath them (for example S13 and S14).
 
 Select a step in the list below the chapters. Steps that share one lesson file are indented under the first one.
@@ -339,7 +343,7 @@ Each chapter folder contains:
 |---|---|
 | `making-a-game/` | pygame game development - sprite-based game with a ship, bullets, and alien fleet |
 | `data-visualization/` | matplotlib, plotly, and the requests library - charts, APIs, and live data |
-| `web-applications/` | Django - models, views, templates, user authentication, deployment |
+| `web-applications/` | Django chapters 18-20: the Learning Log, with models, forms, user accounts, Bootstrap styling, and optional deployment |
 
 ### Part III - Beyond the Book
 
@@ -371,6 +375,7 @@ Supplemental topics added by Scott that go beyond what the textbook covers.
 | `s22-rochambeau` | Rock-paper-scissors: clean OOP design in a small project |
 | `s23-game-of-life` | Conway's Game of Life: simulation and data-driven design |
 | `s24-built-ins` | Useful built-in functions: `copy`, `id`, `setdefault`, and more |
+| `s25-flask-learning-log` | The Learning Log rebuilt with Flask and SQLAlchemy: routes, templates, accounts, ownership, public topics, and production readiness |
 
 ### Lesson Runner
 

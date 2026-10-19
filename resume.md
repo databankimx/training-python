@@ -13,6 +13,8 @@ Read this first, then the lesson pages for the chapter you're working on.
 - **Part II, Web Applications:** `part-ii-projects\web-applications`
 - **Part III:** `part-iii-beyond-the-book`
 - **Lesson runner:** `lesson-runner` (PySide6 app, run with `python app.py`)
+- **Quickstart:** `QUICKSTART.md` at the solution root. It walks through every setup step, and includes troubleshooting. Keep it in step with any setup change.
+- **Setup script:** `setup.ps1` at the solution root. It runs quickstart steps 2 to 7 in order, and skips anything already in place. Keep it in step with the quickstart.
 - **Editor settings copy for students:** `resources\vscode\settings.json`
 
 ## Conventions
