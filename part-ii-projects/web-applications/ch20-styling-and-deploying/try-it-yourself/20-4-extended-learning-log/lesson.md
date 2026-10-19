@@ -57,9 +57,17 @@ saves the setting. The build runs all 68 tests, and you should see `Ran 68 tests
 
 ## Output
 
-The home page with the Public topics list, and a public topic opened by a visitor who isn't signed in.
+Creating a public topic: the new topic form with **Make this topic public** ticked.
 
-![A public topic shown to a visitor who isn't signed in](lesson-images/public-topic.png)
+![Creating a public topic](lesson-images/create-public-topic.png)
+
+Viewing your own topics: both topics, with the public one marked.
+
+![Viewing my own topics](lesson-images/my-topics.png)
+
+Viewing public topics: a visitor who isn't signed in opens the public topic from the home page.
+
+![Viewing public topics](lesson-images/public-topic.png)
 
 ## Changed files
 
