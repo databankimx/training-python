@@ -1,6 +1,8 @@
-"""DataBank IMX - Python Training (Qt version).
+"""DataBank IMX - Python Training Lesson Runner (Qt version).
 
-Same features as the tkinter runner, with lessons shown in Qt WebEngine.
+Same features as the deleted tkinter runner, with lessons shown in Qt WebEngine.
+
+Rationale for change: Better UX as well as improved markdown and LaTeX rendering.
 
 Run:  python app.py
 
