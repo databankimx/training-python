@@ -218,3 +218,12 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+secrets.*
+
+.vs/
+.vscode/
+.ll_venv/
+
+# Numbered signup and setup screenshots, kept for reference and not for the repo
+**/lesson-images/[0-9][0-9]-*.png

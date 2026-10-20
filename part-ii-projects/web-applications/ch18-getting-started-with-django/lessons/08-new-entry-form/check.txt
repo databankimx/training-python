@@ -1,0 +1,3 @@
+Open http://127.0.0.1:8000/topics/ and click Chess, then Add new entry.
+Type a note and click Add entry.
+You should be sent back to the Chess page, with your note at the top of the list.

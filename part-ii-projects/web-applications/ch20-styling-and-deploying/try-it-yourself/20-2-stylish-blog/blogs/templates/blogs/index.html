@@ -1,0 +1,38 @@
+{% extends "blogs/base.html" %}
+
+{% block content %}
+  <div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-3">
+      <h1 class="display-5 fw-bold">Blog</h1>
+      <p class="fs-5">Read the posts below. Sign in to write your own.</p>
+    </div>
+  </div>
+
+  <h2 class="mb-3">Blogs</h2>
+  <div class="list-group mb-4">
+    {% for blog in blogs %}
+      <div class="list-group-item d-flex justify-content-between align-items-center">
+        {{ blog.title }}
+        <a class="btn btn-primary btn-sm" href="{% url 'blogs:new_post' blog.id %}">Write a post</a>
+      </div>
+    {% empty %}
+      <div class="list-group-item">No blogs yet. Make one with New blog.</div>
+    {% endfor %}
+  </div>
+
+  <h2 class="mb-3">Posts, newest first</h2>
+  {% for post in posts %}
+    <div class="card mb-3">
+      <div class="card-header d-flex justify-content-between">
+        <span>{{ post.blog.title }} - {{ post.date_added|date:"M d, Y H:i" }}</span>
+        <a href="{% url 'blogs:edit_post' post.id %}">Edit post</a>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{ post.title }}</h5>
+        {{ post.text|linebreaks }}
+      </div>
+    </div>
+  {% empty %}
+    <p>No posts yet.</p>
+  {% endfor %}
+{% endblock content %}

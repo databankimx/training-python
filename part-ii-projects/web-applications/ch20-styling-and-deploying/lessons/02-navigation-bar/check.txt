@@ -1,0 +1,3 @@
+Open http://127.0.0.1:8000/ in your browser.
+You should see a dark bar across the top, with Learning Log on the left, and Register and Log in on the right.
+Sign in, and check that the bar shows Hello, followed by your username, and a Log out button.

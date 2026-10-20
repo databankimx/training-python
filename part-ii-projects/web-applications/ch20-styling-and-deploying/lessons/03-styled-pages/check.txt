@@ -1,0 +1,3 @@
+Open http://127.0.0.1:8000/ in your browser. You should see a large banner with the words Track your learning.
+Sign in, then click View your topics. The topics should appear as a list of rows with a border.
+Click Chess. Each entry should appear in a card, with its date on a grey header and the Edit and Delete links in the header.

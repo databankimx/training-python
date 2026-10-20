@@ -1,0 +1,4 @@
+The login page opens first. Sign in with the runner's account, and you return to Chess.
+Click Delete entry on the Bishops entry. You should see the confirmation page, and the entry should still be listed behind it.
+Click Cancel. The entry is still there. Then click Delete entry again, and confirm with the Delete entry button. You're back on Chess, with one entry left.
+The build reports Ran 49 tests and OK.

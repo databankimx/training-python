@@ -1,0 +1,4 @@
+Sign in with the runner's account. The topics page shows Chess and Rock Climbing.
+Log out, then go to http://127.0.0.1:8000/topics/. You should be sent to the login page.
+Register a second account. Its topics page is empty, and http://127.0.0.1:8000/topics/1/ gives the 404 page.
+The build reports Ran 44 tests and OK.

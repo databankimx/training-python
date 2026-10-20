@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}{{ topic.text }} - Learning Log{% endblock %}
+
+{% block content %}
+  <h2 class="mb-3">{{ topic.text }}</h2>
+
+  {% for entry in topic.entries %}
+    <div class="card mb-3">
+      <div class="card-header">{{ entry.date_added.strftime("%b %d, %Y %H:%M") }}</div>
+      <div class="card-body">
+        <p class="mb-0">{{ entry.text }}</p>
+      </div>
+    </div>
+  {% else %}
+    <p>There are no entries for this topic yet.</p>
+  {% endfor %}
+{% endblock %}

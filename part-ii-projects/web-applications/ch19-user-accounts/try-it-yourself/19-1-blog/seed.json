@@ -1,0 +1,30 @@
+[
+  {
+    "model": "blogs.blog",
+    "pk": 1,
+    "fields": {
+      "title": "Travel",
+      "date_added": "2026-10-01T09:00:00Z"
+    }
+  },
+  {
+    "model": "blogs.blogpost",
+    "pk": 1,
+    "fields": {
+      "blog": 1,
+      "title": "Lisbon",
+      "text": "Trams, pastries and steep hills.",
+      "date_added": "2026-10-02T10:00:00Z"
+    }
+  },
+  {
+    "model": "blogs.blogpost",
+    "pk": 2,
+    "fields": {
+      "blog": 1,
+      "title": "Porto",
+      "text": "Port wine cellars across the river.",
+      "date_added": "2026-10-03T10:00:00Z"
+    }
+  }
+]

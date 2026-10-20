@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Topics - Learning Log{% endblock %}
+
+{% block content %}
+  <h2 class="mb-3">Topics</h2>
+
+  <div class="list-group">
+    {% for topic in topics %}
+      {# Each topic links to its own page. That page is added in the next step. #}
+      <a class="list-group-item list-group-item-action" href="/topics/{{ topic.id }}/">{{ topic.text }}</a>
+    {% else %}
+      <div class="list-group-item">No topics have been added yet.</div>
+    {% endfor %}
+  </div>
+{% endblock %}

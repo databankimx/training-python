@@ -1,0 +1,3 @@
+The browser opens at Chess's page. Click Add new entry, type Pawns move forward., and click Add entry. You should be sent back to Chess, with three entries.
+Open Add new entry again, leave the box empty, and click Add entry. The form should stay, with the message Please write something for this entry.
+The build reports Ran 26 tests and OK.

@@ -1,0 +1,4 @@
+Sign in with the account from the runner, then open Chess from the topics page.
+Under the first note, click Delete entry. You should see the confirmation page, with the note still there.
+Click Cancel. You should be back on the Chess page, and the note should still be listed.
+Click Delete entry again, then click the Delete entry button on the confirmation page. The note should be gone, and you should be back on the Chess page.

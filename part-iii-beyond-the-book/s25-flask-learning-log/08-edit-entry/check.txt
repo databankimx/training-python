@@ -1,0 +1,3 @@
+The browser opens at Chess's page. Click Edit entry on the Knights entry, change the text to end with an L., and click Save changes. You should be sent back to Chess, with the new text.
+Open Edit entry again, clear the box, and click Save changes. The form should stay, with the message Please write something for this entry.
+The build reports Ran 31 tests and OK.

@@ -1,0 +1,3 @@
+Sign in, then open the topics page. You should see Chess and Rock Climbing, which belong to the account you made in the runner.
+Click Add a new topic, type Gardening, and click Add topic. You should be sent back to the topics page, with Gardening in the list.
+Log out, then go to /topics/new/ directly. You should be sent to the login page instead of the form.

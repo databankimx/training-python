@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Boolean Logic Test Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body, select, td, input {
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 18px;
+            }
+            a {
+                color: navy;
+            }
+            a:hover {
+                color: red;
+                text-decoration: none;
+            }
+            table {
+                margin: auto;
+                margin-top: 100px;
+                border-collapse: collapse;
+                background-color: whitesmoke;
+                border-radius: 5px;
+                padding: 5px;
+            }
+            td {
+                text-align: center;
+                width: 80px;
+                margin: 2px;
+                padding: 5px;
+            }
+            select, input {
+                width: 75px;
+                text-align: center;
+            }
+            .active {
+                background-color: lightseagreen;
+                color: whitesmoke;
+            }
+            .result {
+                background-color: white;
+                font-family: 'Courier New', Courier, monospace;
+                color: navy;
+                font-weight: bold;
+                white-space: nowrap;
+            }
+            .small {
+                font-size: 8px;
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                var poss = [
+                    [true, true],
+                    [true, false],
+                    [false, true],
+                    [false, false]
+                ];
+
+                $("select").on("change", function() {
+                    try {
+                        var left = $("#left").val() === "true";
+                        var right = $("#right").val() === "true";
+                        var op = $("#operator").val();
+                        $("#op_name").html(op);
+                        $(".left").show();
+                        var cond = [left, right];
+                        var index = getIndexOf(poss, cond);
+                        var max = op === "not" ? poss.length / 2 : poss.length;
+                        var result = false;
+
+                        $("#truth_table_body").empty();
+                        for (var i = 0; i < max; i++)
+                        {
+                            var l = poss[i][0];
+                            var r = poss[i][1];
+                            var and = l && r;
+                            var or = l || r;
+                            var not = !r;
+                            var xor = or && !and;
+                            var res = false;
+                            switch (op) {
+                                case "and":
+                                    res = and;
+                                    break;
+                                case "or":
+                                    res = or;
+                                    break;
+                                case "not":
+                                    res = not;
+                                    break;
+                                case "xor":
+                                    res = xor;
+                                    break;
+                            }
+                            if (i === index) result = res;
+                            var row = `<tr${i === index ? " class='active'" : ""}>`;
+                            row += `<td class='left'>${poss[i][0].toString().substring(0, 1)}</td>`;
+                            row += `<td>${res.toString().substring(0, 1).toUpperCase()}</td>`;
+                            row += `<td>${poss[i][1].toString().substring(0, 1)}</td></tr>`;
+                            $("#truth_table_body").append(row);
+                        }
+                        var end = "<tr><td colspan='3' class='small result'>&nbsp;</td></tr>";
+                        var expression = op === "not"
+                            ? `${op.toUpperCase()} ${right} = ${result}`
+                            : `${left} ${op.toUpperCase()} ${right} = ${result}`;
+                        end += `<tr><td colspan='3' class='result'>${expression}</td></tr>`;
+                        $("#truth_table_body").append(end);
+
+                        if (op === "not") $(".left").hide();
+                    } catch (e) {
+                    console.log(`ERROR: ${e}`);
+                    }
+                });
+                $("#operator").change();
+            });
+
+            // Find index of array in 2-d array
+            function getIndexOf(arr, sub_arr) {
+                try {
+                    for (let i = 0; i < arr.length; i++) {
+                        let found = true;
+                        for (let j = 0; j < sub_arr.length; j++) {
+                            if (arr[i][j] !== sub_arr[j]) {
+                                found = false;
+                                break;
+                            }
+                        }
+                        if (found) return i;
+                    }
+                } catch (e) {
+                    console.log(`ERROR: ${e}`);
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <table id="truth_table">
+            <thead>
+                <tr>
+                    <td class="left">
+                        <select aria-label="Left operand" name="left" id="left" class="operand">
+                            <option value="true">true</option>
+                            <option value="false">false</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select aria-label="Operator" name="operator" id="operator">
+                            <option value="and">AND</option>
+                            <option value="or">OR</option>
+                            <option value="not">NOT</option>
+                            <option value="xor">XOR</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select aria-label="Right operand" name="right" id="right" class="operand">
+                            <option value="true">true</option>
+                            <option value="false">false</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="small">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="left">p</td>
+                    <td id="op_name">op</td>
+                    <td>q</td>
+                </tr>
+                <tr>
+                    <td colspan="3"><hr></td>
+                </tr>
+            </thead>
+            <tbody id="truth_table_body">
+                <tr>
+                    <td class="left">1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

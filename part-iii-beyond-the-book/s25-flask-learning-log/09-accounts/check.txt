@@ -1,0 +1,3 @@
+The navigation bar shows Log in and Register. Click Log in, and sign in with the account the runner created.
+After signing in, the bar shows Hello, followed by your username, and a Log out button.
+Click Log out, then Register, and make a second account. The build reports Ran 39 tests and OK.

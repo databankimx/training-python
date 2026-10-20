@@ -1,0 +1,16 @@
+<p>
+  <a href="{% url 'blogs:index' %}">Blog</a> -
+  <a href="{% url 'blogs:new_blog' %}">New blog</a> -
+  {% if user.is_authenticated %}
+    Hello, {{ user.username }}.
+    <form action="{% url 'accounts:logout' %}" method="post" style="display: inline;">
+      {% csrf_token %}
+      <button name="submit">Log out</button>
+    </form>
+  {% else %}
+    <a href="{% url 'accounts:login' %}">Log in</a> -
+    <a href="{% url 'accounts:register' %}">Register</a>
+  {% endif %}
+</p>
+
+{% block content %}{% endblock content %}

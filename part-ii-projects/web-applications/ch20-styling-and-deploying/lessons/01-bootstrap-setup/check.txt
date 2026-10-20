@@ -1,0 +1,3 @@
+Open http://127.0.0.1:8000/ in your browser.
+The page should look the same as before: plain text, with no styling yet. That's expected, because this step only installs Bootstrap.
+The build reports Ran 52 tests and OK.

@@ -1,0 +1,4 @@
+The browser opens at http://127.0.0.1:8000/topics/new/ and shows the Add a new topic form.
+Type chess and click Add topic. The form should stay, with the message A topic with this name already exists.
+Type Gardening and click Add topic. You should land on the topics list, with Gardening in it.
+The build reports Ran 21 tests and OK.

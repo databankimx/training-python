@@ -1,0 +1,3 @@
+Open http://127.0.0.1:8000/ in your browser.
+You should see the words Learning Log and one sentence about keeping track of what you learn.
+The page is unstyled, which is expected at this stage.

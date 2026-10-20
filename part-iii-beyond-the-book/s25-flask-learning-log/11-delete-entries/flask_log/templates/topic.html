@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}{{ topic.text }} - Learning Log{% endblock %}
+
+{% block content %}
+  <h2 class="mb-3">{{ topic.text }}</h2>
+
+  <a class="btn btn-primary btn-sm mb-3" href="{{ url_for('new_entry', topic_id=topic.id) }}">Add new entry</a>
+
+  {% for entry in topic.entries %}
+    <div class="card mb-3">
+      <div class="card-header d-flex justify-content-between">
+        <span>{{ entry.date_added.strftime("%b %d, %Y %H:%M") }}</span>
+        <span>
+          <a href="{{ url_for('edit_entry', entry_id=entry.id) }}">Edit entry</a> -
+          <a href="{{ url_for('delete_entry', entry_id=entry.id) }}">Delete entry</a>
+        </span>
+      </div>
+      <div class="card-body">
+        <p class="mb-0">{{ entry.text }}</p>
+      </div>
+    </div>
+  {% else %}
+    <p>There are no entries for this topic yet.</p>
+  {% endfor %}
+{% endblock %}

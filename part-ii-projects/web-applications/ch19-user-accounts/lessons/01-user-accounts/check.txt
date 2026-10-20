@@ -1,0 +1,3 @@
+Open http://127.0.0.1:8000/accounts/login/ and sign in with the account you made in the runner.
+After you sign in, the top bar should say Hello, followed by your username, with a Log out button.
+Click Log out. The top bar should show Log in and Register again.
