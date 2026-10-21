@@ -4,8 +4,8 @@
 
 See the setup guides in the `resources/setup/` folder at the root of this repository:
 
-* [Workstation Setup Guide](../../../resources/setup/01-workstation-setup.md)
-* [Python Setup Guide](../../../resources/setup/02-python-setup.md)
+* [Workstation Setup Guide](../../../resources/setup/01%20Setting%20Up%20Your%20Workstation%20for%20Development%20Training.md)
+* [Python Setup Guide](../../../resources/setup/02%20Setting%20Up%20Your%20Workstation%20for%20Python%20Training.md)
 
 ---
 
@@ -20,12 +20,14 @@ VS Code is recommended for Python training, but any editor will work.
 
 ---
 
+I wrote these lessons on Windows. If you're on macOS or Linux, Appendix A of the book walks you through the install. Python itself behaves the same everywhere, so the rest of the lessons still apply.
+
 #### Install Python
 
 * Download [Python](https://www.python.org/downloads/) and install manually, or
 * Install using WinGet: `winget install Python.Python.3.12`
 
-Completing the book exercises requires at least Python 3.12.
+Python 3.12 or later is required for these lessons and the book's exercises.
 
 ---
 

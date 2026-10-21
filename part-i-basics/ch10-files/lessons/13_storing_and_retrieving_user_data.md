@@ -23,15 +23,21 @@ The new process should:
 
 For now, let's just build the logic as a single function.
 
+The function uses `json`, `os`, and `ROOT_DIR` from the earlier lessons, so
+those names are assumed in the snippets below.
+
 > Note: the process to obtain file paths is covered here:  
 > [00_bonus_relative_paths.md](./00_bonus_relative_paths.md)
 
-Select the edition of the textbook you're using below to see the 
+The code file clears the terminal and pauses between steps, so you can read each
+output before the next one appears.
+
+Select the edition of the textbook you're using below to see the
 relevant lesson(s).
 
 ---
 
-<details open>
+<details>
 <summary>2nd Edition Method</summary>
 
 Create a function that handles the proposed design:
@@ -43,7 +49,7 @@ def user_check(filepath: str) -> None:
     Otherwise, create a new file with user input
     """
     try:
-        with open(filepath, encoding="utf-8") as f:
+        with open(filepath, encoding="UTF-8") as f:
             user = json.load(f)
             print(f"Welcome back, {user['username']}")
     except FileNotFoundError:
@@ -52,7 +58,7 @@ def user_check(filepath: str) -> None:
             "last_name": input("Enter your last name:\n> ")
         }
         user["username"] = f"{user['first_name'][0]}{user['last_name']}".upper()
-        with open(filepath, "w", encoding="utf-8") as f:
+        with open(filepath, "w", encoding="UTF-8") as f:
             json.dump(user, f)
         print(f"We'll remember you when you come back, {user['username']}")
 ```
@@ -86,11 +92,16 @@ Output:
 Welcome back, JSMITH
 ```
 
+The code file makes both calls in a row, with a pause between them. The first run
+only shows the prompts if `user.json` doesn't exist yet. If you ran lesson 12, the
+file is already there, so you'll see the "Welcome back" message first. Delete
+`user.json` from the `Files` folder to see the prompts again.
+
 </details>
 
 ---
 
-<details open>
+<details>
 <summary>3rd Edition Method</summary>
 
 Create a function that handles the proposed design:
@@ -103,7 +114,7 @@ def user_check_from_path(filepath: str) -> None:
     """
     file_object = Path(filepath)
     try:
-        user = json.loads(file_object.read_text(encoding="utf-8"))
+        user = json.loads(file_object.read_text(encoding="UTF-8"))
         print(f"Welcome back, {user['username']}")
     except FileNotFoundError:
         user = {
@@ -111,7 +122,7 @@ def user_check_from_path(filepath: str) -> None:
             "last_name": input("Enter your last name:\n> ")
         }
         user["username"] = f"{user['first_name'][0]}{user['last_name']}".upper()
-        file_object.write_text(json.dumps(user), encoding="utf-8")
+        file_object.write_text(json.dumps(user), encoding="UTF-8")
         print(f"We'll remember you when you come back, {user['username']}")
 ```
 
@@ -146,6 +157,10 @@ Welcome back, JSMITH
 
 The 3rd edition uses `pathlib` to read and write the file, and the
 `get_path()` helper to find it. The logic is the same as the 2nd edition.
+
+The code file makes both calls in a row, with a pause between them, and the same
+first-run note applies: delete `user.json` from the `Files` folder to see the
+prompts again.
 
 </details>
 

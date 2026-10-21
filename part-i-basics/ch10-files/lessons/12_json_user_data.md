@@ -3,8 +3,7 @@
 One common use case for storing data between executions is maintaining
 information about the user or the state of the application.
 
-Users tend to expect to some degree that an application will "remember"
-them the next time they use it.
+Users generally expect an application to remember them the next time they use it.
 
 ---
 
@@ -23,6 +22,10 @@ user["username"] = \
     f"{user['first_name'][0]}{user['last_name']}".upper()
 ```
 
+The backslash (`\`) at the end of the `username` line tells Python that the
+statement continues on the next line. It's useful when a line gets too long to read
+comfortably.
+
 Output:
 
 ```
@@ -34,7 +37,24 @@ Enter your last name:
 
 We can use this code with both the 2nd and 3rd edition processes below.
 
-Select the edition of the textbook you're using below to see the 
+The code file clears the terminal and pauses between steps, so you can read each
+output before the next one appears.
+
+### `dump()` vs `dumps()`
+
+Both functions turn a Python object into JSON. The difference is where the result
+goes:
+
+* `json.dump(data, file)` writes the JSON straight into an open file object. That's
+  why the 2nd edition examples use it inside a `with open(...)` block.
+* `json.dumps(data)` returns the JSON as a string. The `s` stands for "string." The
+  3rd edition examples use it because `write_text()` takes text, so we convert the
+  data to a string first.
+
+The loading functions follow the same pattern: `json.load(file)` reads from a file
+object, and `json.loads(text)` reads from a string.
+
+Select the edition of the textbook you're using below to see the
 relevant lesson(s).
 
 ---
@@ -55,7 +75,7 @@ ROOT_DIR = os.path.dirname(__file__)
 file_name = "user.json"
 file_path = os.path.join(ROOT_DIR, "Files", file_name)
 
-with open(file_path, "w") as f:
+with open(file_path, "w", encoding="UTF-8") as f:
     json.dump(user, f)
 print(f"We'll remember you when you come back, {user['username']}")
 ```
@@ -82,7 +102,7 @@ without a separate function. In the next lesson, we'll move this logic into
 functions.
 
 ```python
-with open(file_path) as f:
+with open(file_path, encoding="UTF-8") as f:
     user = json.load(f)
 print(f"Welcome back, {user['username']}")
 ```
@@ -114,7 +134,7 @@ file_name = "user.json"
 file_path = get_path(file_name, "Files")
 
 file = Path(file_path)
-file.write_text(json.dumps(user))
+file.write_text(json.dumps(user), encoding="UTF-8")
 
 print(f"We'll remember you when you come back, {user['username']}")
 ```
@@ -140,8 +160,10 @@ To retrieve data from a remembered user, we read the same JSON file with
 the file directly, without a separate function. In the next lesson, we'll move
 this logic into functions.
 
+This snippet reuses `file` from the block above.
+
 ```python
-user = json.loads(file.read_text())
+user = json.loads(file.read_text(encoding="UTF-8"))
 print(f"Welcome back, {user['username']}")
 ```
 

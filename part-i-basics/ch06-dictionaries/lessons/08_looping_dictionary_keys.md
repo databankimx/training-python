@@ -1,11 +1,10 @@
 ## Looping Dictionary Keys
 
-Sometimes it's not necessary to enumerate all of the values in a dictionary.
-It can be sufficient or even sometimes favorable to obtain just a list of the
-keys.
+Sometimes you don't need every value in a dictionary. A list of just the keys might be all you
+want, or it might be easier to work with.
 
-Python provides the `keys()` method, which returns a dict_keys object, which 
-contains list of dictionary keys.
+The `keys()` method gives you a view of the dictionary's keys. The result is a `dict_keys` object,
+and like `items()`, it's a live view rather than a list:
 
 ```python
 favorite_languages = {
@@ -25,9 +24,9 @@ dict_keys(['jen', 'sarah', 'edward', 'phil'])
 
 ---
 
-### Loping over the `keys()`
+### Looping Over `keys()`
 
-Like the `items()` you can easily iterate over the dictionary's `keys()`
+Just as you can loop over `items()`, you can loop over `keys()`:
 
 ```python
 favorite_languages = {
@@ -51,11 +50,10 @@ Phil
 
 ---
 
-### `keys()` as the Dictionary Default
+### Looping Directly over the Dictionary
 
-When you refer to a dictionary as an iterable item, using `in` either for a 
-loop or for a condition, the default behavior is to return the `keys()`, so
-this loop returns the same results as the previous example.
+If you loop over a dictionary directly, without calling `keys()`, Python loops over its keys.
+So this loop gives the same results as the one above:
 
 ```python
 favorite_languages = {
@@ -77,4 +75,10 @@ Edward
 Phil
 ```
 
+> **About the Pylint warning:** Pylint may flag the `keys()` version, with a suggestion to drop
+> `.keys()`. That's a style suggestion, not an error. Both loops are correct. The explicit `keys()`
+> version is clearer when you're learning, because it says what you're looping over. The `.py` file
+> disables that warning on purpose, so the lesson's example runs cleanly in the editor.
+
 ---
+

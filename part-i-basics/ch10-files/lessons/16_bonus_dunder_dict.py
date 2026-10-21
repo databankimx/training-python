@@ -2,6 +2,9 @@
 
 import json
 
+print("Chapter 10:")
+print("Bonus - Classes and the __dict__ Property\n")
+
 class Thing:
     """Models some thing"""
 

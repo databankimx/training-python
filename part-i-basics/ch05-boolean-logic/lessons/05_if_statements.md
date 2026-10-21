@@ -1,15 +1,14 @@
 ## Using `if` Statements
 
-So far, we've only looked at `if` statements where we check a single 
-condition. We can extend that functionality to be able to handle situations
-where there are several conditions to be checked, each with its own logical branch.
+So far, we've only looked at `if` statements that check a single condition. Now we'll
+handle situations where several conditions need checking, and each one leads to its own
+branch of code.
 
 ---
 
 ### One `if` Condition
 
-With just a single `if` statement, we can perform some operation(s) when the
-condition is `True`.
+With a single `if` statement, we can run one or more operations when the condition is `True`.
 
 ```python
 age = 19
@@ -29,8 +28,7 @@ Have you registered to vote yet?
 
 ### Handling the `False` Case with `else`
 
-As we looked at before, we can also use the `else` statement to indicate some
-operation(s) to perform when the condition is `False`
+As we saw before, the `else` statement runs its operations when the condition is `False`:
 
 ```python
 age = 17
@@ -53,8 +51,8 @@ Please register to vote as soon as you turn 18!
 
 ### Handling More Conditions with `elif`
 
-We can handle the situation where a condition is `False` but some other
-condition is `True` using an `elif` (`else` + `if`) block:
+When the first condition is `False`, but another condition might be `True`, use an `elif`
+(short for `else` + `if`) block:
 
 ```python
 age = 12
@@ -72,25 +70,21 @@ Output:
 Your admission cost is $25
 ```
 
-When the code executed, it found that the condition `age < 4` was `False`,
-so it did not perform the operations in the `if` block.
+Python checks the conditions from the top, one at a time:
 
-Since that was `False`, the `else` condition of the `elif` is met, so the
-code evaluates the condition `age < 18` as though it was an `if`. This condition is `True`, so the entire `elif` is `True`, and we perform the
-operations in its block.
+1. `age < 4` is `False` for 12, so Python skips the `if` block.
+2. `age < 18` is `True`, so Python runs the `elif` block and prints `$25`.
+3. Because a condition was already `True`, Python skips the `else` block.
 
-Because that condition was already `True`, we don't meet the conditions
-for the `else` block, so the process is complete. When there are `elif`
-conditions being evaluated, `else` means "no prior condition was `True`."
+The rule to remember is that `else` means "none of the conditions before it were `True`."
+Once one branch runs, Python skips the rest of the chain.
 
 ---
 
 ### Separating the `print` Operation
 
-As we'll learn later (when we get to functions), it's usually better to
-stash a value that indicates the result of the condition blocks and then
-use it later. A smart way to handle this would be to only print after all 
-conditions are evaluated.
+It's usually cleaner to decide on a value first, and print it once, after the decision is
+made:
 
 ```python
 age = 12
@@ -109,12 +103,14 @@ Output:
 Your admission cost is $25
 ```
 
+Now the decision lives in one place, and the printing happens in one place. If the price rules
+change, you only have to change the decision.
+
 ---
 
 ### Multiple `elif` Blocks
 
-You can include as many `elif` blocks between the `if` and `else` as
-desired, in order to handle many different conditions.
+You can have as many `elif` blocks as you need between the `if` and the `else`:
 
 ```python
 age = 20
@@ -135,14 +131,17 @@ Output:
 Your admission cost is $40
 ```
 
+Order matters here. Python runs the first branch whose condition is `True`, and it ignores
+the rest. If you put `age < 65` above `age < 18`, a child would get the adult price.
+
 ---
 
-### `else` is Optional
+### `else` Is Optional
 
-Even with `elif` blocks, the `else` block is not required.
+The `else` block is optional, even when you use `elif`.
 
-One standard coding pattern that doesn't use an `else` block looks like
-this:
+A common pattern is to set a default value first, and then let the conditions change it
+only when they need to. The placeholders below stand in for real values:
 
 ```python
 some_variable = default_value
@@ -155,8 +154,8 @@ elif condition_n:
     some_variable = value_n
 ```
 
-At the end, if no conditions are met, the variable still contains the original 
-default value, so we can simplify the previous example like this:
+If no condition matches, the variable keeps its default value. That lets you simplify the
+admission example, because the default does the job of the `else`:
 
 ```python
 age = 70
@@ -180,9 +179,11 @@ Your admission cost is $20
 
 ### Checking Independent Conditions
 
-When you need to check another condition regardless of other results, use another `if`, not `elif`
+If you need to check a condition no matter what the earlier conditions found, use another
+`if`, not an `elif`.
 
-Mixing this up is one of the most common errors new programmers make.
+Using `elif` where you meant `if` is a common mistake. With `elif`, only the first match
+runs. With separate `if` statements, each one gets its own check:
 
 ```python
 requested_toppings = ["mushrooms", "extra cheese"]
@@ -205,13 +206,11 @@ Finished making your pizza!
 
 ---
 
-### Bonus - Using `else` with a Loop
+### Bonus: Using `else` with a Loop
 
-Although uncommonly used, you can append an `else` block to the end of a loop.
-
-The `else` block will execute when the loop finishes, either when the loop
-condition becomes `False` (in a `while` loop) or when the range is exhausted
-(in a `for` loop).
+It's uncommon, but a loop can have an `else` block too. The `else` runs when the loop finishes
+normally. For a `while` loop, that means the condition became `False`. For a `for` loop, it
+means the range ran out.
 
 ```python
 i = 0
@@ -245,4 +244,23 @@ If this ran, i must be 5 or more.
 This ran when I exhausted the range.
 ```
 
+The `else` doesn't run if the loop stops early because of a `break`:
+
+```python
+for i in range(1, 6):
+    if i == 3:
+        break
+    print(i)
+else:
+    print("This won't print, because the loop stopped at 3.")
+```
+
+Output:
+
+```
+1
+2
+```
+
 ---
+

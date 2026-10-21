@@ -22,15 +22,16 @@ for language in set(favorite_languages.values()):
 
 counts = {}
 for language in favorite_languages.values():
-    if language in counts.keys(): #pylint: disable=consider-iterating-dictionary #NOSONAR
+    if language in counts:
         counts[language] += 1
     else:
         counts[language] = 1
 print("\nThe following languages have been mentioned:")
-for lang in sorted(counts.keys()):
+for lang in sorted(counts):
     print(f"{lang.title()}: {counts[lang]} time{('' if counts[lang] == 1 else 's')}")
 
 languages = list(favorite_languages.values())
 print("\nThe following languages have been mentioned:")
 for lang in set(languages):
-    print(f"{lang.title()}: {languages.count(lang)} time{('' if counts[lang] == 1 else 's')}")
+    count = languages.count(lang)
+    print(f"{lang.title()}: {count} time{('' if count == 1 else 's')}")

@@ -21,7 +21,7 @@ def read_file(filename):
     file_path = get_path(filename, "Files")
     try:
         file = Path(file_path)
-        content = file.read_text(encoding="utf-8")
+        content = file.read_text(encoding="UTF-8")
     except FileNotFoundError:
         print(f"File [{filename}] not found!\n")
     else:

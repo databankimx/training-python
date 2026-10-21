@@ -19,6 +19,12 @@ class Dog:
         """Tell the Dog to roll over"""
         print(f"{self.name} has rolled over.")
 
+    @classmethod
+    def from_string(cls, text):
+        """Create a Dog from a 'name,age' string"""
+        name, age = text.split(",")
+        return cls(name, int(age))
+
 my_dog = Dog("fido", 6)
 
 print(f"My dog's name is {my_dog.name}.")
@@ -26,6 +32,12 @@ print(f"My dog is {my_dog.age} years old.")
 
 my_dog.sit()
 my_dog.roll_over()
+
+print()
+
+my_dog = Dog.from_string("fido,6")
+print(f"My dog's name is {my_dog.name}.")
+print(f"My dog is {my_dog.age} years old.")
 
 print()
 

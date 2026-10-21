@@ -1,10 +1,11 @@
 ## Importing Classes
 
-Just like imports of modules and functions, we can import classes from a 
+Just like imports of modules and functions, we can import classes from a
 module.
 
-For this lesson, the following classes have been created as separate module 
-files:
+For this lesson, the following classes have been created as separate module
+files. Don't name your own program file `car.py`. If you do, Python will try to
+import your program as the `car` module instead of the one we're using here.
 
 * [car.py](./car.py)
     <details>
@@ -29,7 +30,7 @@ files:
             self.model = model
             self.year = year
             self.odometer_reading = 0
-            self.fuel_level = 0
+            self.fuel_level = 0.0
 
         def get_descriptive_name(self) -> str:
             """
@@ -43,7 +44,7 @@ files:
 
         def read_odometer(self) -> None:
             """Get the odometer mileage"""
-            print(f"This car has {self.odometer_reading} miles on it.\n")
+            print(f"This car has {self.odometer_reading} miles on it.")
 
         def set_odometer(self, mileage: int) -> None:
             """
@@ -88,7 +89,7 @@ files:
                 fuel_state = "one quarter full"
             elif self.fuel_level > 0.0:
                 fuel_state = "running on fumes"
-            print(f"Fuel Status: {fuel_state}\n")  
+            print(f"Fuel Status: {fuel_state}")
     ```
 
     </details><br>
@@ -119,12 +120,12 @@ files:
             self.battery = Battery()
 
         def fill_gas_tank(self) -> None:
-            """Set the fuel level to full"""
+            """Explain that an electric car has no gas tank"""
             print("This car doesn't have a gas tank!")
 
         def check_fuel_level(self) -> None:
-            """Get the fuel level"""
-            print("This car doesn't contain any fuel!\n")
+            """Explain that an electric car has no fuel"""
+            print("This car doesn't contain any fuel!")
 
 
     class Battery:
@@ -145,12 +146,12 @@ files:
 
         def get_range(self) -> None:
             """Get the battery range in miles"""
-            range = "unknown"
+            battery_range = "unknown"
             if self.battery_size == 75:
-                range = 260
+                battery_range = 260
             elif self.battery_size == 100:
-                range = 315
-            print(f"This car can go about {range} miles on a full charge.\n")
+                battery_range = 315
+            print(f"This car can go about {battery_range} miles on a full charge.")
 
         def upgrade_battery(self) -> None:
             """Upgrade the battery"""
@@ -168,6 +169,11 @@ files:
     ```python
     """A set of classes used to represent gas and electric cars"""
 
+    # In this lesson, these classes are split into car.py and electric_car.py
+    # to show how modules import each other. They're grouped here because
+    # they're related. It's smart in the real world to separate unrelated
+    # classes into their own modules.
+
     class Car:
         """Define a car"""
 
@@ -184,7 +190,7 @@ files:
             self.model = model
             self.year = year
             self.odometer_reading = 0
-            self.fuel_level = 0
+            self.fuel_level = 0.0
 
         def get_descriptive_name(self) -> str:
             """
@@ -198,7 +204,7 @@ files:
 
         def read_odometer(self) -> None:
             """Get the odometer mileage"""
-            print(f"This car has {self.odometer_reading} miles on it.\n")
+            print(f"This car has {self.odometer_reading} miles on it.")
 
         def set_odometer(self, mileage: int) -> None:
             """
@@ -227,11 +233,11 @@ files:
                 print("You can't add negative miles!")
 
         def fill_gas_tank(self) -> None:
-            """Set the fuel level to full"""
+            """Fill the gas tank"""
             self.fuel_level = 1
 
         def check_fuel_level(self) -> None:
-            """Get the fuel level"""
+            """Check the fuel level"""
             fuel_state = "empty"
             if self.fuel_level == 1.0:
                 fuel_state = "full"
@@ -243,7 +249,7 @@ files:
                 fuel_state = "one quarter full"
             elif self.fuel_level > 0.0:
                 fuel_state = "running on fumes"
-            print(f"Fuel Status: {fuel_state}\n")        
+            print(f"Fuel Status: {fuel_state}")
 
 
     class ElectricCar(Car):
@@ -262,12 +268,12 @@ files:
             self.battery = Battery()
 
         def fill_gas_tank(self) -> None:
-            """Set the fuel level to full"""
+            """Explain that an electric car has no gas tank"""
             print("This car doesn't have a gas tank!")
 
         def check_fuel_level(self) -> None:
-            """Get the fuel level"""
-            print("This car doesn't contain any fuel!\n")
+            """Explain that an electric car has no fuel"""
+            print("This car doesn't contain any fuel!")
 
 
     class Battery:
@@ -288,12 +294,12 @@ files:
 
         def get_range(self) -> None:
             """Get the battery range in miles"""
-            range = "unknown"
+            battery_range = "unknown"
             if self.battery_size == 75:
-                range = 260
+                battery_range = 260
             elif self.battery_size == 100:
-                range = 315
-            print(f"This car can go about {range} miles on a full charge.\n")
+                battery_range = 315
+            print(f"This car can go about {battery_range} miles on a full charge.")
 
         def upgrade_battery(self) -> None:
             """Upgrade the battery"""
@@ -307,6 +313,12 @@ files:
 > Note: The code samples for this lesson are split across several files in
 > order to avoid conflicting imports.
 
+The code files turn off a few Sonar and Pylint warnings on specific lines. Those
+comments stay in the code files.
+
+The `upgrade_battery()` method isn't used in this lesson. It's there for the
+battery upgrade exercise, so leave it alone for now.
+
 ---
 
 ### Importing a Class
@@ -314,7 +326,7 @@ files:
 To import a class we use the same syntax we used for a function:  
 `from module import class`
 
-So, we can create a python file that imports our `Car` class like this:
+So, we can create a Python file that imports our `Car` class like this:
 
 See sample code file:
 [06a_importing_a_class.py](./06a_importing_a_class.py)
@@ -326,6 +338,7 @@ my_new_car = Car("audi", "a4", 2019)
 print(my_new_car.get_descriptive_name())
 my_new_car.set_odometer(23)
 my_new_car.read_odometer()
+print()
 ```
 
 Output:
@@ -334,6 +347,7 @@ Output:
 2019 Audi A4
 Setting odometer to 23
 This car has 23 miles on it.
+
 ```
 
 ---
@@ -348,7 +362,7 @@ class's functionality as well.
 
 In this instance, we only import the `ElectricCar` class, but:
 
-* Since it inherits from `Car`, we gain the functionality of the `Car` class
+* Since it inherits from `Car`, we gain the functionality of the `Car` class.
 * Since its `battery` attribute is an instance of the `Battery` class, we gain
   the `Battery` functionality as well.
 
@@ -362,6 +376,7 @@ my_e_car = ElectricCar("nissan", "leaf", 2024)
 print(my_e_car.get_descriptive_name())
 my_e_car.battery.describe_battery()
 my_e_car.battery.get_range()
+print()
 ```
 
 Output:
@@ -370,6 +385,7 @@ Output:
 2024 Nissan Leaf
 This car has a 75-kWh battery.
 This car can go about 260 miles on a full charge.
+
 ```
 
 ---
@@ -380,7 +396,7 @@ We can import multiple classes from a module the same way we import multiple
 functions:  
 `from module import Class1, Class2, ...`
 
-Here, we'll import both the `Car` and `ElectricCar` classes
+Here, we'll import both the `Car` and `ElectricCar` classes.
 
 See sample code file:
 [06c_importing_multiple_classes.py](./06c_importing_multiple_classes.py)
@@ -404,12 +420,35 @@ Output:
 
 ---
 
+### Importing All Classes from a Module
+
+You can import every class in a module with a star:
+
+```python
+from full_car import *
+
+my_gas_car = Car("volkswagen", "beetle", 1967)
+print(my_gas_car.get_descriptive_name())
+```
+
+This works, but it isn't recommended. When you read the top of the file, you
+can't tell which classes it uses. And if your program already has a name that
+matches one of the classes, the import can quietly replace it and cause errors
+that are hard to track down. You'll still see this style in other people's
+code, so it's worth recognizing. For most programs, import the classes you need
+by name, or import the module and use `module_name.ClassName`.
+
+This snippet isn't a separate sample file, because the only change from 06c is
+the import line.
+
+---
+
 ### Importing a Module with Classes
 
 When you import a module, you gain access to the classes in it but not to
 classes in modules from which it imports.
 
-A class instance that inherits from a class in another module will still 
+A class instance that inherits from a class in another module will still
 expose the parent class's functionality but not the class itself.
 
 See sample code file:
@@ -430,13 +469,13 @@ Output:
 2024 Nissan Leaf
 ```
 
-Our `ElectricCar` instance was able to run the `get_descriptive_name()` 
-function from the `Car` class.
+Our `ElectricCar` instance was able to run the `get_descriptive_name()`
+method from the `Car` class.
 
 ---
 
-But, even though we had access to a `Car` function through inheritance,
-because it is defined in a different module, we cannot access `Car` directly.
+But, even though we had access to a `Car` method through inheritance, because
+`Car` isn't imported into this file, we cannot use the name `Car` directly.
 
 ```python
 import electric_car
@@ -449,11 +488,14 @@ Output:
 
 ```
 Traceback (most recent call last):
-  File "...\06d_import_module_into_module.py", line 10, in <module>
+  File "...\06d_import_module.py", line 13, in <module>
     my_car = Car("volkswagen", "beetle", 2019)
              ^^^
 NameError: name 'Car' is not defined. Did you mean: 'chr'?
 ```
+
+The code file has these lines commented out, so the rest of the file can run.
+Uncomment them to see the error.
 
 ---
 

@@ -1,8 +1,8 @@
 ## Merging File Contents
 
-Sometimes the line breaks in a text file are only there to organize the file,
-and the data we need to work with in a program has to remove them (and any
-other whitespace) and merge the results into a single string.
+Sometimes the line breaks in a text file only organize the file. To work with
+the data in a program, we often need to remove them, along with any other
+whitespace, and merge the lines into one string.
 
 For this example, I have provided the following text files:
 
@@ -41,7 +41,7 @@ ROOT_DIR = os.path.dirname(__file__)
 file_path = os.path.join(ROOT_DIR, "Files", "pi_digits.txt")
 
 pi_string = ""
-with open(file_path) as file_object:
+with open(file_path, encoding="UTF-8") as file_object:
     for line in file_object:
         pi_string += line.strip()
 
@@ -60,11 +60,12 @@ pi_string is 32 characters long.
 
 ### Using the `join()` Method and a Comprehension
 
-Now that we're getting further along in our training, it's worth thinking 
+Now that we're getting further along in our training, it's worth thinking
 about alternative methods to perform a given task.
 
-Here, we can create a list of the stripped lines using a comprehension and
-simply merge them using the `str` class `join()` method.
+Here, we pass a generator expression to the `str` class `join()` method. The
+expression strips each line as `join()` asks for it, so we never build a separate
+list of lines.
 
 ```python
 import os
@@ -72,8 +73,8 @@ import os
 ROOT_DIR = os.path.dirname(__file__)
 file_path = os.path.join(ROOT_DIR, "Files", "pi_digits.txt")
 
-with open(file_path) as file_object:
-    pi_string = "".join(l.strip() for l in file_object)
+with open(file_path, encoding="UTF-8") as file_object:
+    pi_string = "".join(line.strip() for line in file_object)
 
 print(pi_string)
 print(f"pi_string is {len(pi_string)} characters long.\n")
@@ -90,17 +91,17 @@ pi_string is 32 characters long.
 
 ### Working with a Larger File
 
-The textbook has us repeat this process with a larger file.
+The next example repeats this process with a larger file. There is no difference
+in the process, just in the sizes of the file and the resulting merged string.
 
-There is no difference in the process, just in the sizes of the file and the
-resulting merged string.
+This snippet reuses `ROOT_DIR` from the first example.
 
 ```python
 pi_string = ""
 
 file_path = os.path.join(ROOT_DIR, "Files", "pi_million_digits.txt")
 
-with open(file_path) as file_object:
+with open(file_path, encoding="UTF-8") as file_object:
     for line in file_object:
         pi_string += line.strip()
 
@@ -110,12 +111,16 @@ print(f"pi_string is {len(pi_string):,} characters long.\n")
 
 Output:
 
-Note: We used a slice to only print the first fifty decimal places
-
 ```
 3.141592653589793238462643383279502884197169399375105
 pi_string is 1,000,002 characters long.
 ```
+
+The slice `pi_string[:53]` prints only the first 53 characters: the `3`, the decimal
+point, and the first 51 decimal digits.
+
+The code file adds a blank line after each example, so the output is easier to
+read.
 
 </details>
 
@@ -141,7 +146,7 @@ from pathlib import Path
 file_path = get_path("pi_digits.txt", "Files")
 
 path_object = Path(file_path)
-text = path_object.read_text()
+text = path_object.read_text(encoding="UTF-8")
 
 pi_string = ""
 lines = text.splitlines()
@@ -163,11 +168,12 @@ pi_string is 32 characters long.
 
 ### Using the `join()` Method and a Comprehension
 
-Now that we're getting further along in our training, it's worth thinking 
+Now that we're getting further along in our training, it's worth thinking
 about alternative methods to perform a given task.
 
-Here, we can create a list of the stripped lines using a comprehension and
-simply merge them using the `str` class `join()` method.
+Here, we pass a generator expression to the `str` class `join()` method. The
+expression strips each line as `join()` asks for it, so we never build a separate
+list of lines.
 
 ```python
 from relative_paths import get_path
@@ -176,9 +182,9 @@ from pathlib import Path
 file_path = get_path("pi_digits.txt", "Files")
 
 path_object = Path(file_path)
-text = path_object.read_text()
+text = path_object.read_text(encoding="UTF-8")
 
-pi_string = "".join(l.strip() for l in text.splitlines())
+pi_string = "".join(line.strip() for line in text.splitlines())
 
 print(pi_string)
 print(f"pi_string is {len(pi_string)} characters long.\n")
@@ -195,16 +201,19 @@ pi_string is 32 characters long.
 
 ### Working with a Larger File
 
+The next example uses a larger file, with the same process and a bigger result.
+
 ```python
 from relative_paths import get_path
 from pathlib import Path
 
 file_path = get_path("pi_million_digits.txt", "Files")
 
-path_object = Path(file_path)
-text = path_object.read_text()
-
 pi_string = ""
+
+path_object = Path(file_path)
+text = path_object.read_text(encoding="UTF-8")
+
 lines = text.splitlines()
 for line in lines:
     pi_string += line.strip()
@@ -215,12 +224,16 @@ print(f"pi_string is {len(pi_string):,} characters long.\n")
 
 Output:
 
-Note: We used a slice to only print the first fifty decimal places
-
 ```
 3.141592653589793238462643383279502884197169399375105
 pi_string is 1,000,002 characters long.
 ```
+
+The slice `pi_string[:53]` prints only the first 53 characters: the `3`, the decimal
+point, and the first 51 decimal digits.
+
+The code file adds a blank line after each example, so the output is easier to
+read.
 
 </details>
 

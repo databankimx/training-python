@@ -1,22 +1,24 @@
-## Improving Loops with the `enumerate()` and `zip()` Functions
+## Improving Loops with `enumerate()` and `zip()`
 
-There will be times when you need to access the indices as well as the 
-values when looping over a list or loops over two lists at the same time.
+Sometimes you need the position of each item as well as the item itself. Other times
+you need to walk two lists side by side. You could handle both with a range of
+indexes, and you'd get the job done. But Python has two functions that make these
+loops cleaner.
 
-Of course, you can just loop over a range of indices, but we have a couple
-of functions that can improve how we're doing this:
+* `enumerate()` returns an *iterable* of pairs, where each pair holds an index and the
+  item at that index: `(i, lst[i])`
+* `zip()` returns an iterable of pairs that line up items from two lists:
+  `(lst_1[n], lst_2[n])`
 
-* `enumerate()`: returns an `iterable` (like the generic form of a list) 
-  of tuples, where each tuple contains (`i`, `lst[i]`)
-* `zip()`: returns an `iterable` of tuples, where each tuple contains
-  (`lst_1[n]`, `lst_2[n]`)
+An *iterable* is anything you can loop over. Lists are iterables, and so are the
+objects that `enumerate()` and `zip()` give back.
 
 ---
 
-### Looping a List over the Indices
+### Looping over the Indexes
 
-This is the somewhat noob-ish way to loop over a list getting the indices 
-and values:
+Here's the long way to get both the index and the value. It works, but it's a lot of
+typing for a simple job:
 
 ```python
 nums = [1, 42, 73]
@@ -37,10 +39,10 @@ Index: 2, Item: 73
 
 ---
 
-### Looping a List Using `enumerate()`
+### Looping with `enumerate()`
 
-We can improve this by using the `enumerate()` function to get the indices
-and values together:
+`enumerate()` gives you the index and the value together, so you don't have to look
+the value up yourself:
 
 ```python
 nums = [1, 42, 73]
@@ -58,15 +60,15 @@ Index: 1, Item: 42
 Index: 2, Item: 73
 ```
 
-ALthough this small example makes the difference trivial, in more complex
-scenarios, `enumerate()` will be a great tool to have in your arsenal.
+With a list this small, the difference is minor. In bigger programs, `enumerate()` is a
+tool you'll reach for all the time.
 
 ---
 
-### Looping Two Lists over the Indices
+### Looping Two Lists over the Indexes
 
-When working with two lists at once, we again could iterate over the 
-indices:
+When you have two lists, you can use the same index-based approach to walk both at
+once:
 
 ```python
 nums = [1, 42, 73]
@@ -89,9 +91,9 @@ Index: 2, Item 1: 73, Item 2: M
 
 ---
 
-### Looping Two Lists Using `zip()` and `enumerate()`
+### Looping Two Lists with `zip()` and `enumerate()`
 
-Alternately, we can `zip()` the lists and then use `enumerate()`
+`zip()` pairs up the items from each list, and `enumerate()` adds the index on top:
 
 ```python
 nums = [1, 42, 73]
@@ -111,3 +113,38 @@ Index: 2, Item 1: 73, Item 2: M
 ```
 
 ---
+
+### What `zip()` Does with Lists of Different Lengths
+
+`zip()` stops as soon as the shorter list runs out. It doesn't raise an error, so
+the items left over in the longer list quietly disappear from the loop:
+
+```python
+nums = [1, 42, 73, 99]
+letters = ["S", "W", "M"]
+for n, letter in zip(nums, letters):
+    print(f"{n} {letter}")
+```
+
+Output:
+
+```
+1 S
+42 W
+73 M
+```
+
+The `99` never gets a turn. If your lists should always be the same length, that's
+worth checking before you trust the loop.
+
+---
+
+> **About the `.py` file:** the file wraps these examples in functions, which use `def`
+> and type hints such as `list[int]`. Functions are covered in Chapter 8, so for now,
+> read those parts as packaging. The loops themselves are the same ones shown above.
+>
+> The file also loops over a dictionary with `enumerate()` and `.items()`. Dictionaries
+> get their own chapter, Chapter 6, so you'll see them again then.
+
+---
+

@@ -1,69 +1,56 @@
 ## Bonus Lesson: Bitwise Logic
 
-Although the book does not spend time on this topic, understanding bitwise 
-operators is very useful for a Python developer.
+Bitwise operators aren't a core part of this course, but they come up often in real Python
+code, and they're worth understanding.
 
 ### Binary Values
 
-First, we need to understand a little about binary
-In the binary, or base-2 number system, there are only two digits, `0` and `1`
+Binary is the base-2 number system. It has only two digits, `0` and `1`.
 
-In our standard base-10 (decimal) system, we have the typical digits, 0 
-through 9.
+Our everyday base-10 (decimal) system uses ten digits, 0 through 9. Read a decimal number
+from right to left, and each position is worth ten times the one before it. The positions are
+powers of ten, starting with 10⁰.
 
-As you traverse a decimal number from right to left, each position represents 
-ten times the previous position. That is, the positions represent increasing 
-powers of ten, starting from 10⁰.
-
-So, if you have the base-10 number `255`, There are five 1s, five 10s, and two 
-100s:
+Take the base-10 number `255`. It has five 1s, five 10s, and two 100s:
 
 |10² = 100|10¹ = 10|10⁰ = 1|
 |:-:|:-:|:-:|
 |2|5|5|
 
-In binary, as we traverse a number from left to right, each position 
-represents two times the previous position. That is, the positions represent 
-increasing powers of two, starting from 2⁰.
+Binary works the same way, with powers of two. Read a binary number from right to left, and each
+position is worth twice the one before it, starting with 2⁰.
 
-So, if you have the same value as a binary number `11111111`, There is one 1, 
-one 2, one 4, one 8, one 16, one 32, one 64, and one 128
+The binary number `11111111` has one each of 1, 2, 4, 8, 16, 32, 64, and 128:
 
 |2⁷ = 128|2⁶ = 64|2⁵ = 32|2⁴ = 16|2³ = 8|2² = 4|2¹ = 2|2⁰ = 1|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |1|1|1|1|1|1|1|1|
 
-The sum of these is 255 (the max value of a single 8-bit byte)
+Those add up to 255, the largest value an 8-bit byte can hold. So `11111111` in binary is `255`
+in decimal, and `00000000` is `0`.
 
-So, `11111111` binary is equivalent to `255` in decimal  
-Likewise, `00000000` binary is equivalent to `0` decimal
-
-And each binary digit in a computer is a *bit*.
+Each binary digit in a computer is called a *bit*.
 
 ---
 
-### Using Bits in Place of Bools
+### Using Bits in Place of Booleans
 
-Because there are exactly two possible values in each binary digit (and 
-because under the covers all numbers in a computer are stored as binary), it's 
-almost inevitable that people would decide to use individual binary digits to 
-store boolean values (imagine `1` = `True` and `0` = `False`)
+A binary digit has exactly two possible values, and every number in a computer is stored as
+binary underneath. So it's natural to use individual bits to store true-or-false values. Let
+`1` mean `True` and `0` mean `False`.
 
-This is useful, because in Python, a boolean value takes up one byte, but by 
-using each bit, you can store eight times as many boolean properties in the 
-same space. This is the fundamental concept behind a *bit-flag*.
+In many languages, a boolean takes up a whole byte. Each bit, though, can hold its own yes-or-no
+setting, so one byte can hold eight of them. That's the idea behind a *bit-flag*.
 
-Let's simplify the idea and only use 4 bits in an example.
-
-We use a value of `1001` binary, which is the equivalent of `8 + 0 + 0 + 1 = 9`
-in decimal.
+Let's keep it small and use only four bits. The value `1001` in binary is `8 + 0 + 0 + 1`, which is
+`9` in decimal.
 
 ---
 
 ### Bitwise AND `&`
 
-The bitwise AND operator (`&`) checks a bit across two numbers and sets a 
-value of `1` only when both bits are set to `1`
+The bitwise AND operator (`&`) compares the bits in the same position of two numbers. It sets a
+bit to `1` only when both bits are `1`:
 
 |b₁|`&`|b₂|
 |:-:|:-:|:-:|
@@ -72,8 +59,7 @@ value of `1` only when both bits are set to `1`
 |`0`|`0`|`1`|
 |`0`|`0`|`0`|
 
-The `&` operator operates on every bit position in the two numbers, so if we 
-compare decimal 9 (1001 binary) with decimal 8 (1000 binary) ...
+`&` works on every bit position. Compare decimal 9 (1001 in binary) with decimal 8 (1000):
 
 ||8|4|2|1|
 |:-:|-|-|-|-|
@@ -81,12 +67,10 @@ compare decimal 9 (1001 binary) with decimal 8 (1000 binary) ...
 |8|1|0|0|0|
 |`&`|1|0|0|0|
 
-... we get a result of 8
+The result is 8.
 
-The principle that when we compare a power of two against any number using
-bitwise `&` we get a result containing the same power of two if the bit is set 
-(`1`) or zero if the bit is unset (`0`) is how we use *bit-flags* in most
-programming languages.
+Here's the key idea. When you `&` a number with a single power of two, the result is that power of
+two if its bit is set, and zero if it isn't. Most programming languages use this to build bit-flags.
 
 ```python
 my_settings = 9   # 1001 binary
@@ -100,13 +84,10 @@ Output:
 8
 ```
 
-This means that the bit we compared (in the 8s place) is set.
+The result is 8, so the bit in the 8s place is set.
 
-One real-world example where we might use this technique is when storing a
-license value that identifies whether one of several separate features is
-licensed.
-
-We can evaluate this behavior using a loop.
+A real-world use is a license value that records which of several features are licensed. You can
+check each feature with a loop:
 
 ```python
 license = 9 # 1001 binary
@@ -126,10 +107,8 @@ License 8 enabled
 
 ### Bitwise OR `|`
 
-Of course, there is a bitwise OR operator (`|`) as well.
-
-Bitwise `|` returns a 1 in each place where at least one of the numbers has a 
-1 in that place (inclusive OR)
+The bitwise OR operator (`|`) sets a bit to `1` when at least one of the two bits is `1`. This is
+the *inclusive* OR:
 
 |b₁|`\|`|b₂|
 |:-:|:-:|:-:|
@@ -138,9 +117,7 @@ Bitwise `|` returns a 1 in each place where at least one of the numbers has a
 |`0`|**`1`**|`1`|
 |`0`|`0`|`0`|
 
-The `|` operator operates on every bit position in the two numbers, so if we 
-compare the same numbers: decimal 9 (1001 binary) with decimal 8 (1000 
-binary) ...
+Compare 9 and 8 again:
 
 ||8|4|2|1|
 |:-:|-|-|-|-|
@@ -148,13 +125,10 @@ binary) ...
 |8|1|0|0|0|
 |`\|`|1|0|0|1|
 
-... we get a result of 9
+The result is 9.
 
-We might imagine an OR scenario where we're checking user permissions when a 
-user is in two groups, where permissions available in each group.
-
-In a least-restrictive system, the user would receive the combination of both 
-permission sets.
+Here's a practical case. A user belongs to two groups, and each group has its own permissions. In a
+system where a user gets every permission they're entitled to, you combine the two sets with `|`:
 
 ```python
 group_a = 9 # Binary 1001
@@ -173,9 +147,8 @@ Output:
 
 ### Bitwise XOR `^`
 
-For bitwise operations, Python provides an XOR (`^`) or "Exclusive OR"
-operator that only sets a place to 1 if exactly one number has a 1 in
-that place.
+The bitwise XOR operator (`^`), for "exclusive OR," sets a bit to `1` only when exactly one of the two
+bits is `1`:
 
 |b₁|`^`|b₂|
 |:-:|:-:|:-:|
@@ -184,9 +157,7 @@ that place.
 |`0`|**`1`**|`1`|
 |`0`|`0`|`0`|
 
-The `^` operator operates on every bit position in the two numbers, so if we 
-compare the same numbers: decimal 9 (1001 binary) with decimal 8 (1000 
-binary) ...
+Compare 9 and 8 once more:
 
 ||8|4|2|1|
 |:-:|-|-|-|-|
@@ -194,7 +165,7 @@ binary) ...
 |8|1|0|0|0|
 |`^`|0|0|0|1|
 
-... we get a result of 1
+The result is 1.
 
 ```python
 my_settings = 9   # 1001 binary
@@ -210,12 +181,11 @@ Output:
 
 ---
 
-### Reversible Property of XOR `^`
+### The Reversible Property of `^`
 
-One neat feature of XOR operator is that it is reversible, so if you have
-three values such that `c = a ^ b` then `c ^ b == a`
+XOR has a useful property: it can be undone. If `c = a ^ b`, then `c ^ b` gives you `a` back.
 
-Using `a = 9` and `b = 8`
+Using `a = 9` and `b = 8`:
 
 ||8|4|2|1||
 |:-:|-|-|-|-|-|
@@ -233,13 +203,8 @@ Using `a = 9` and `b = 8`
 
 ### Using the Reversibility of `^` for Encryption
 
-Because of its property of being reversible, bitwise XOR can be used in 
-cryptographic systems.
-
-We can create a non-very-secure system using this property alone.
-
-Each character takes up one byte, so we can use any key from 0 to 255 for the
-encryption/decryption algorithm.
+Because XOR can be undone, it shows up in cryptography. The scheme below is not secure, but it shows
+the idea. Each character takes one byte, so any key from 0 to 255 works.
 
 ```python
 plaintext = "Hello, World!"
@@ -259,25 +224,30 @@ ciphertext: ,%%&ei&;%-h
 plaintext:  Hello, World!
 ```
 
+A word of warning about that output. Some of the scrambled characters are control characters, which
+have no visible shape. The `H` and the `W`, for example, become characters you can't see. So the
+ciphertext looks shorter than the message really is. That's normal. The decryption step brings the
+original text back.
+
 ---
 
 ### Bitwise NOT `~`
 
-Bitwise `~` swaps each bit in a value so a `1` becomes a `0` and vice versa.
+Bitwise `~` flips every bit. A `1` becomes a `0`, and a `0` becomes a `1`:
 
 |`~`|b|
 |:-:|-|
 |0|1|
 |1|0|
 
-So, using the same value (9) that we have used in the previous examples:
+Using the same 4-bit value, 9:
 
 ||8|4|2|1|
 |:-:|-|-|-|-|
 |9|1|0|0|1|
 |`~`|0|1|1|0|
 
-We should get back a value of `0110` binary or 6 decimal.
+In four bits, that's `0110`, which is 6. You might expect Python to print 6:
 
 ```python
 my_settings = 9   # 1001 binary
@@ -290,57 +260,55 @@ Output:
 -10
 ```
 
-But instead we got back `-10`!
-
-What gives?!
+Python printed `-10`. So what happened?
 
 ---
 
-### Signed Integers are Weird
+### Signed Integers Are Weird
 
-To understand why we got `-10` as the result of our previous computation, we
-need to understand how integers are stored in the computer.
+To understand `-10`, you need to know how integers are stored.
 
-There's actually a lot going on here...
+> Note: Python uses integers of flexible size, so it doesn't store them exactly the way I describe
+> below. The principles still hold, though, and they explain the result.
 
-> Note: Python actually uses dynamically sized integers, so they are not
-> stored exactly like I describe below, but all of the principles except for
-> the strict bit-length hold for Python integers as well.
-
-In many programming languages, an integer is stored using 32 bits, so the
-binary representation of 9 would be:  
+In many languages, an integer uses 32 bits. The binary form of 9 looks like this:
 `0000 0000 0000 0000 0000 0000 0000 1001`
 
-Bitwise negation (NOT) is a 1's complement of the number (reverses every
-bit), which generates an intermediate result of:  
+Bitwise NOT flips every bit, which gives:
 `1111 1111 1111 1111 1111 1111 1111 0110`
 
-But the leftmost bit of an integer is a sign bit, and when it gets is set
-(`1`), that makes the number negative.
+The leftmost bit is the sign bit. When it's `1`, the number is negative. In two's complement, a
+standard way to store negative numbers, that bit pattern means `-10`. So the NOT of 9 is -10, and
+that's the result you saw.
 
-Negative integers are represented as 2's complement, which is the same as 1's
-complement plus 1, so because the leftmost bit is set, that value is actually
-`-10` in decimal.
+You can see the 32-bit pattern by treating the same value as an unsigned number. Add 2³² to it, and
+the bits read as a large positive number:
 
-> Moral: Be super careful using bitwise NOT unless you have a deep 
-> understanding of 1's and 2's complements and how they relate to integers in 
-> the computer.
+```python
+signed_integer = -10
+unsigned_integer = signed_integer + (1 << 32)
+print(unsigned_integer)
+```
+
+Output:
+
+```
+4294967286
+```
+
+> **Moral:** Be very careful with bitwise NOT. Unless you understand how negative numbers are stored,
+> the results can surprise you.
 
 ---
 
 ### Bit-Shifts `<<` and `>>`
 
-Bit-shifting is exactly what it sounds like. When we use these operators, we
-shift all of the bits in a value a specified number of positions to the left
-`<<` or right `>>`.
+A bit-shift moves every bit in a value a set number of positions, to the left (`<<`) or to the right
+(`>>`).
 
-This isn't a logical transformation, but an arithmetic one.
-
-Since the positions in a binary number represent powers of two, that means
-that bit-shifting one position to the left is the same as multiplying by
-two (assuming you don't collide with the sign bit), and bit-shifting one
-position to the right is the same as dividing by two (if you ignore the
-decimal part of the result).
+A shift is an arithmetic operation, not a logical one. Each position in a binary number is a power of
+two, so shifting one position left doubles the value. Shifting one position right halves it, and drops
+any remainder. (This ignores the sign bit, which is a separate matter.)
 
 ```python
 x = 2
@@ -356,15 +324,14 @@ Output:
 4
 2
 ```
+
 The process:
 
-*  `x` begins equal to 2 (`0010`)
-*  Bit-shifting `0010` one position left gives `0100` -> `4`
-*  Bit-shifting `0100` one position right gives `0010` -> `2`
+* `x` starts at 2 (`0010`)
+* Shifting `0010` one position left gives `0100`, which is 4
+* Shifting `0100` one position right gives `0010`, which is 2
 
----
-
-> Beware: Bit-shifting to the right will truncate the value.
+> **Beware:** A right shift truncates the value.
 
 ```python
 x = 3
@@ -380,16 +347,15 @@ Output:
 
 The process:
 
-* `x` begins equal to 3 (`0011`)
-*  Bit-shifting `0011` one position right gives `0001` -> `1`
-    * The rightmost one has no position to shift into, so it is lost
+* `x` starts at 3 (`0011`)
+* Shifting `0011` one position right gives `0001`, which is 1
+* The rightmost 1 has nowhere to go, so it's lost
 
 ---
 
-Of course, you can bit-shift more than one place, such that:
+You can shift by more than one position:
 
-* `x << y` is the same as `x * 2ʸ`  
-  and
+* `x << y` is the same as `x * 2ʸ`
 * `x >> y` is the same as `x // 2ʸ`
 
 ```python
@@ -407,8 +373,8 @@ Output:
 
 * `2² = 4`
 * `5 * 4 = 20`
-* `5 / 4 = 1.25`  
-  but we drop the decimal part, so...
+* `5 / 4 = 1.25`, but we drop the decimal part, so
 * `5 // 4 = 1`
 
 ---
+

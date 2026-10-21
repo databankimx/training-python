@@ -1,5 +1,6 @@
 """A class module to define an electric car"""
 
+# Because the superclass "Car" is defined in a separate module, we have to import it
 from car import Car
 
 class ElectricCar(Car):
@@ -18,12 +19,12 @@ class ElectricCar(Car):
         self.battery = Battery()
 
     def fill_gas_tank(self) -> None:
-        """Set the fuel level to full"""
+        """Explain that an electric car has no gas tank"""
         print("This car doesn't have a gas tank!")
 
     def check_fuel_level(self) -> None:
-        """Get the fuel level"""
-        print("This car doesn't contain any fuel!\n")
+        """Explain that an electric car has no fuel"""
+        print("This car doesn't contain any fuel!")
 
 
 class Battery:
@@ -44,12 +45,12 @@ class Battery:
 
     def get_range(self) -> None:
         """Get the battery range in miles"""
-        battery_range = "unknown"
+        battery_range = "unknown" #NOSONAR
         if self.battery_size == 75:
             battery_range = 260
         elif self.battery_size == 100:
             battery_range = 315
-        print(f"This car can go about {battery_range} miles on a full charge.\n")
+        print(f"This car can go about {battery_range} miles on a full charge.")
 
     def upgrade_battery(self) -> None:
         """Upgrade the battery"""

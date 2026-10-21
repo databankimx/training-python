@@ -1,14 +1,13 @@
 ## Conditional Handling with Dictionaries
 
-Sometimes you want to perform some task on dictionary values only when a 
-certain condition is met.
+Sometimes you want to do something with dictionary values only when a certain condition is met.
 
 ---
 
-### Compare `keys()` Against a List
+### Comparing `keys()` Against a List
 
-In this example, we loop all of the keys in the dictionary and print a
-greeting, but we only add a comment to those that also appear in a list.
+In this example, we loop over every key in the dictionary and print a greeting for each one. For
+the people in our `friends` list, we also print an extra message about their favorite language.
 
 ```python
 favorite_languages = {
@@ -36,12 +35,17 @@ Hi Phil!
         Phil, I see you love Python.
 ```
 
+> **About the Pylint warning:** the `.py` file disables `consider-using-dict-items`. Pylint raises it
+> because the loop looks up each value inside the loop, and it suggests looping over `items()` instead.
+> That's a style suggestion, not an error. Both versions are correct. The loop here is written to
+> show each step clearly, so the `.py` file turns the warning off.
+
 ---
 
-### Compare a List Against `keys()`
+### Comparing a List Against `keys()`
 
-The reverse can also hold true. Perhaps we want to perform an action only if
-a list element does not appear in the dictionary keys.
+The reverse can also be useful. Perhaps you want to do something only when a name in a list
+doesn't appear among the dictionary's keys.
 
 ```python
 favorite_languages = {
@@ -63,3 +67,4 @@ Erin, please take the languages poll.
 ```
 
 ---
+

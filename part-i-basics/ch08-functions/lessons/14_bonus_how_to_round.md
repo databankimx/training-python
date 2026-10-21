@@ -1,9 +1,10 @@
-## Bonus Lesson - Understanding Rounding
+## Bonus Lesson: Understanding Rounding
 
-An initial note...
+Rounding looks simple, but Python's `round()` doesn't always behave the way people expect. This lesson
+looks at why, and at the other rounding strategies you can choose from.
 
-For this lesson, I have prepared a separate module
-[rounding_functions.py](./rounding_functions.py) containing the following code:
+For this lesson, I've prepared a separate module, [rounding_functions.py](./rounding_functions.py). It
+contains the following code:
 
 <details>
 <summary>Rounding Functions Source Code</summary>
@@ -11,50 +12,54 @@ For this lesson, I have prepared a separate module
 ```python
 import math
 
-def truncate(n: float, dec: int=0) -> float:
+
+def truncate(n: float, dec: int = 0) -> float:
     """Truncate a number to a specified number of decimal places"""
     mult = 10 ** dec
     return int(n * mult) / mult
 
 
-def round_up(n: float, dec: int=0) -> float:
+def round_up(n: float, dec: int = 0) -> float:
     """Round a number up to a specified number of decimal places"""
     mult = 10 ** dec
     return math.ceil(n * mult) / mult
 
 
-def round_down(n: float, dec: int=0) -> float:
+def round_down(n: float, dec: int = 0) -> float:
     """Round a number down to a specified number of decimal places"""
     mult = 10 ** dec
     return math.floor(n * mult) / mult
 
 
-def round_half_up(n: float, dec: int=0) -> float:
+def round_half_up(n: float, dec: int = 0) -> float:
     """Round a number to a specified number of decimal places (where 5 rounds up)"""
     mult = 10 ** dec
     return math.floor(n * mult + 0.5) / mult
 
 
-def round_half_down(n: float, dec: int=0) -> float:
+def round_half_down(n: float, dec: int = 0) -> float:
     """Round a number to a specified number of decimal places (where 5 rounds down)"""
     mult = 10 ** dec
     return math.ceil(n * mult - 0.5) / mult
 
 
-def round_half_away_from_zero(n: float, dec: int=0) -> float:
-    """Round a number to a specified number of decimal places (where 5 rounds up and negative 5 rounds down)"""
+def round_half_away_from_zero(n: float, dec: int = 0) -> float:
+    """Round a number to a specified number of decimal places
+       (where 5 rounds up and negative 5 rounds down)"""
     rounded_abs = round_half_up(abs(n), dec)
     return math.copysign(rounded_abs, n)
 
 
-def round_half_toward_zero(n: float, dec: int=0) -> float:
-    """Round a number to a specified number of decimal places (where 5 rounds down and negative 5 rounds down)"""
+def round_half_toward_zero(n: float, dec: int = 0) -> float:
+    """Round a number to a specified number of decimal places
+       (where 5 rounds down and negative 5 rounds down)"""
     rounded_abs = round_half_down(abs(n), dec)
     return math.copysign(rounded_abs, n)
 
 
-def round_half_to_even(n: float, dec: int=0) -> float:
-    """Round a number to a specified number of decimal places (where 5 rounds up or down to an even number)"""
+def round_half_to_even(n: float, dec: int = 0) -> float:
+    """Round a number to a specified number of decimal places
+       (where 5 rounds up or down to an even number)"""
     return round(n, dec)
 
 
@@ -66,36 +71,45 @@ def average(numbers: list[float]) -> float:
 </details>
 <br>
 
-In order to use the code samples below, you'll need to import a few modules 
-into your Python file:
+To run the examples below, import the functions into your Python file:
 
 ```python
-from rounding_functions import *
+from rounding_functions import (
+    truncate,
+    round_up,
+    round_down,
+    round_half_up,
+    round_half_down,
+    round_half_away_from_zero,
+    round_half_toward_zero,
+    round_half_to_even,
+    average,
+)
 from statistics import mean
 import random
 ```
 
-And although it's not strictly required, it's probably advisable to seed the
-random number generator:
+It's not strictly required, but it's a good idea to seed the random number generator, so the results
+repeat from run to run:
 
 ```python
 random.seed(100)
 ```
 
-As we proceed, I will not be repeating sections we've already added to the 
-code, so assume that you'll need everything prior for any test.
+As we go, I won't repeat code we've already written. Assume you need everything from earlier sections
+for each new example.
+
+The `.py` file for this lesson also uses `pause()` and `clear_terminal()` from the `sm_utils` package, so
+it waits for you between sections.
 
 ---
 
-Now that we're looking at libraries and common functions, it's worth taking a 
-side-trip to discuss rounding.
+Now that we're working with libraries and common functions, it's worth a side trip to discuss rounding.
 
-Although Python exposes a `round()` function for rounding floating-point 
-numbers, it may not necessarily behave the way you expect.
+Python provides a `round()` function for floating-point numbers, but it may not always behave the way you
+expect. We'll look at several strategies for rounding.
 
-We'll look at a number of strategies for rounding.
-
-Let's include some floating-point numbers to use for rounding in our tests.
+Let's define some floating-point numbers to use in our tests.
 
 ```python
 pi = 3.14159265359
@@ -107,11 +121,11 @@ y = 2.5
 
 ### Python's `round()` Function
 
-The `round()` function in Python accepts two arguments:
+The `round()` function accepts two arguments:
 
-* `number`: The value to be rounded
+* `number`: The value to round
 * `ndigits`: The number of decimal places to round to
-    * If omitted, the function will round to an integer
+    * If you leave it out, the function rounds to an integer
 
 ---
 
@@ -129,11 +143,11 @@ round(pi) 3
 round(pi) 3.14
 ```
 
-That output is exactly what we expected. So far so good.
+That's what we expected, so far so good.
 
 ---
 
-#### Other times, unexpected results occur
+#### Other times, the results are unexpected
 
 ```python
 print(f"round({x}) =", round(x))
@@ -147,10 +161,8 @@ round(1.5) = 2
 round(2.5) = 2
 ```
 
-When we rounded `1.5`, the result was `2`, which is exactly what we expect
-
-But when we rounded `2.5`, the answer was also `2`, which is decidedly **not**
-what we expect.
+Rounding `1.5` to `2` is what we expect. But rounding `2.5` also gives `2`, which is not what most
+people expect.
 
 What gives?
 
@@ -158,41 +170,35 @@ What gives?
 
 #### Introducing Banker's Rounding
 
-Python implements the "*Banker's Rounding*" or round-to-even strategy. This
-differs from the standard 5/4 rounding that people typically use in one crucial
-way.
+Python uses a strategy called *Banker's rounding*, or round-to-even. It differs from the standard
+round-half-up method people usually learn in one important way.
 
-> When the decimal part of the number to be rounded is exactly `.5`, this
-> algorithm does not always round up. Instead, it rounds to the nearest even
-> number.
+> When the part of the number after the decimal point is exactly `.5`, this algorithm doesn't always
+> round up. Instead, it rounds to the nearest even number.
 
-There's a very good reason why this strategy is chosen. Python expects to be
-used on large amounts of statistical data. If we always rounded up on `.5`,
-it would introduce a significant amount of rounding error into statistical
-computations. So the round-to-even algorithm is used to minimize the amount of
-rounding error.
+Round-to-even has a good reason behind it. If you always rounded `.5` up, then over many values the
+rounding would push the average upward. Round-to-even cancels out that bias, because half of the `.5`
+cases go up and half go down. That's why it's the default for `round()`.
 
 ---
 
 ### Other Rounding Strategies
 
-Unfortunately, if we're working with small amounts of information (like a
-single user's entries on a form), this would not be the best choice.
+If you're rounding a small number of values, like a single user's entries on a form, round-to-even
+might not be the best choice. Its benefit only shows up across many values.
 
-The question then is what rounding strategies exist, and which is the best
-suited to a given problem.
+So the question is which strategy fits a given problem. Let's compare them.
 
 ---
 
-#### Truncation Rounding
+#### Truncation
 
-In truncation rounding, we simply ignore whatever decimal value exists to the 
-right of the position to which we are rounding.
+Truncation ignores every digit to the right of the position you're rounding to.
 
 ```python
 print("Truncating:")
-print(f"truncate(pi, 2) = ", truncate(pi, 2))
-print(f"truncate(pi) = ", truncate(pi))
+print("truncate(pi, 2) = ", truncate(pi, 2))
+print("truncate(pi) = ", truncate(pi))
 print(f"truncate({x}) = ", truncate(x))
 print(f"truncate({y}) = ", truncate(y))
 ```
@@ -207,19 +213,18 @@ truncate(1.5) =  1.0
 truncate(2.5) =  2.0
 ```
 
-Arguably, this is further from out intent than the `round()` function, since
-now, both `1.5` and `2.5` are rounded down.
+This is further from our intent than `round()`, because both `1.5` and `2.5` round down.
 
 ---
 
 #### Always Round Up
 
-In this strategy, we will round up any decimal value to the next higher number
+This strategy rounds any decimal value up to the next higher number.
 
 ```python
 print("Rounding Up:")
-print(f"round_up(pi, 2) = ", round_up(pi, 2))
-print(f"round_up(pi) = ", round_up(pi))
+print("round_up(pi, 2) = ", round_up(pi, 2))
+print("round_up(pi) = ", round_up(pi))
 print(f"round_up({x}) = ", round_up(x))
 print(f"round_up({y}) = ", round_up(y))
 ```
@@ -234,22 +239,20 @@ round_up(1.5) =  2.0
 round_up(2.5) =  3.0
 ```
 
-A whole lot of these results are not what we want, especially rounding pi to
-`4.0`
+Many of these results aren't what we want. Rounding pi to `4.0` is a clear example.
 
 ---
 
 #### Rounding Down
 
-In this strategy, we will round down any decimal value to the next lower number
+This strategy rounds any decimal value down to the next lower number.
 
-This is functionally identical to the truncation rounding strategy but may be
-implemented differently in code.
+It behaves the same as truncation for positive numbers, but it can be written differently in code.
 
 ```python
 print("Rounding Down:")
-print(f"round_down(pi, 2) = ", round_down(pi, 2))
-print(f"round_down(pi) = ", round_down(pi))
+print("round_down(pi, 2) = ", round_down(pi, 2))
+print("round_down(pi) = ", round_down(pi))
 print(f"round_down({x}) = ", round_down(x))
 print(f"round_down({y}) = ", round_down(y))
 ```
@@ -264,19 +267,18 @@ round_down(1.5) =  1.0
 round_down(2.5) =  2.0
 ```
 
-Of course, these results have the same issues as truncation
+These results have the same problems as truncation.
 
 ---
 
 #### Rounding Half Up
 
-In this strategy, we calculate what most people would select if manually
-rounding, where `.499999...` rounds down but `.5` rounds up.
+This strategy matches what most people do by hand: anything below `.5` rounds down, and `.5` rounds up.
 
 ```python
 print("Rounding Half Up:")
-print(f"round_half_up(pi, 2) = ", round_half_up(pi, 2))
-print(f"round_half_up(pi) = ", round_half_up(pi))
+print("round_half_up(pi, 2) = ", round_half_up(pi, 2))
+print("round_half_up(pi) = ", round_half_up(pi))
 print(f"round_half_up({x}) = ", round_half_up(x))
 print(f"round_half_up({y}) = ", round_half_up(y))
 ```
@@ -291,21 +293,19 @@ round_half_up(1.5) =  2.0
 round_half_up(2.5) =  3.0
 ```
 
-This might not always be the best strategy, but it matches what we learned in
-grade-school arithmetic, so it may be the best choice if presenting individual 
-rounded numbers to a user.
+It might not be the best choice for statistics, but it matches what we learned in school. If you're
+showing a single rounded number to a user, it's often the right one.
 
 ---
 
 #### Rounding Half Down
 
-In this strategy, we perform a slightly different calculation, where
-`.5` rounds down but `.500...01` rounds up.
+This strategy rounds `.5` down, while anything above `.5` still rounds up.
 
 ```python
 print("Rounding Half Down:")
-print(f"round_half_down(pi, 2) = ", round_half_down(pi, 2))
-print(f"round_half_down(pi) = ", round_half_down(pi))
+print("round_half_down(pi, 2) = ", round_half_down(pi, 2))
+print("round_half_down(pi) = ", round_half_down(pi))
 print(f"round_half_down({x}) = ", round_half_down(x))
 print(f"round_half_down({y}) = ", round_half_down(y))
 ```
@@ -320,34 +320,31 @@ round_half_down(1.5) =  1.0
 round_half_down(2.5) =  2.0
 ```
 
-Again, we have more unexpected results from this strategy than `round()` did
+This strategy also produces some surprising results.
 
 ---
 
-#### Rounding Half Away From Zero
+#### Rounding Half Away from Zero
 
-So far, we've made an error in thinking too narrowly, ignoring the possibility
-that we might need to round negative numbers.
+So far, we've only considered positive numbers. Negative numbers need thinking about too.
 
-In the round half up strategy, we would have properly rounded positive numbers
+With round-half-up, positive numbers behave well:
 
-* `round_half_up(2.5)` yields `3.0`
+* `round_half_up(2.5)` gives `3.0`
 
-... but for negative numbers, we have an issue:
+But negative numbers don't:
 
-* `round_half_up(-2.5)` yields `-2.0`
+* `round_half_up(-2.5)` gives `-2.0`
 
-In the round half away from zero strategy, we always round a decimal of `.5` 
-away from zero, so:
+Round-half-away-from-zero always moves a `.5` value away from zero, so:
 
-* `round_half_away_from_zero(2.5)` yields `3.0`  
-  and
-* `round_half_away_from_zero(-2.5)` yields `-3.0`
+* `round_half_away_from_zero(2.5)` gives `3.0`, and
+* `round_half_away_from_zero(-2.5)` gives `-3.0`
 
 ```python
 print("Rounding Half away from Zero:")
-print(f"round_half_away_from_zero(pi, 2) = ", round_half_away_from_zero(pi, 2))
-print(f"round_half_away_from_zero(pi) = ", round_half_away_from_zero(pi))
+print("round_half_away_from_zero(pi, 2) = ", round_half_away_from_zero(pi, 2))
+print("round_half_away_from_zero(pi) = ", round_half_away_from_zero(pi))
 print(f"round_half_away_from_zero({x}) = ", round_half_away_from_zero(x))
 print(f"round_half_away_from_zero({y}) = ", round_half_away_from_zero(y))
 print(f"round_half_away_from_zero(-{x}) = ", round_half_away_from_zero(-x))
@@ -366,21 +363,21 @@ round_half_away_from_zero(-1.5) =  -2.0
 round_half_away_from_zero(-2.5) =  -3.0
 ```
 
-Finally, we have an algorithm that approximates the human-style rounding
-process.
+This is the strategy that comes closest to the human-style rounding we learned in school, including for
+negative numbers.
 
 ---
 
 #### Rounding Half Toward Zero
 
-Just like the round-half-away-from-zero was essentially the same as
-round-half-up but with the added capability to round negative numbers,
-this strategy supports negative numbers but behaves like round-half-down.
+Round-half-away-from-zero works with negative numbers, like round-half-up, but it rounds `.5` away from
+zero. Round-half-toward-zero also handles negative numbers, but it rounds `.5` toward zero, like
+round-half-down.
 
 ```python
 print("Rounding Half toward Zero:")
-print(f"round_half_toward_zero(pi, 2) = ", round_half_toward_zero(pi, 2))
-print(f"round_half_toward_zero(pi) = ", round_half_toward_zero(pi))
+print("round_half_toward_zero(pi, 2) = ", round_half_toward_zero(pi, 2))
+print("round_half_toward_zero(pi) = ", round_half_toward_zero(pi))
 print(f"round_half_toward_zero({x}) = ", round_half_toward_zero(x))
 print(f"round_half_toward_zero({y}) = ", round_half_toward_zero(y))
 print(f"round_half_toward_zero(-{x}) = ", round_half_toward_zero(-x))
@@ -403,13 +400,12 @@ round_half_toward_zero(-2.5) =  -2.0
 
 #### Rounding Half to Even
 
-Here, we've explicitly implemented the same algorithm that the Python
-`round()` function uses.
+This is the algorithm Python's `round()` uses. Here it's written out explicitly.
 
 ```python
 print("Rounding Half to Even:")
-print(f"round_half_to_even(pi, 2) = ", round_half_to_even(pi, 2))
-print(f"round_half_to_even(pi) = ", round_half_to_even(pi))
+print("round_half_to_even(pi, 2) = ", round_half_to_even(pi, 2))
+print("round_half_to_even(pi) = ", round_half_to_even(pi))
 print(f"round_half_to_even({x}) = ", round_half_to_even(x))
 print(f"round_half_to_even({y}) = ", round_half_to_even(y))
 ```
@@ -426,15 +422,15 @@ round_half_to_even(2.5) =  2.0
 
 ---
 
-#### Some Statistics on Rounding Strategy Behavior
+#### Comparing the Strategies Across Many Values
 
-We can look at the extent of rounding error introduced by each rounding
-strategy.
-
-We'll create a list of values to test on and then calculate the averages
-of the rounded data from each strategy.
+We can see how much error each strategy adds over a larger set of values. Here, we round every value to
+a whole number and compare the averages.
 
 ```python
+data = [i + j / 10 for i in range(10) for j in range(10)]
+d = 0
+
 print("** Rounding Bias Examples **")
 print("----------------------------")
 print("Computed Average:          ", average(data))
@@ -466,9 +462,9 @@ Round Toward Zero Mean:     4.9
 Round Half to Even Mean:    4.95
 ```
 
-As you can see, although other strategies might more closely approximate what
-we (as humans) think rounding means, statistically speaking, the Python default
-algorithm implemented in `round()` is the best when working with large amounts
-of data.
+Round-half-to-even gives the same average as the exact mean. The other strategies drift in one
+direction, which is the bias we saw earlier. So for large amounts of data, `round()` is the least biased
+choice. For a single value shown to a person, a different strategy may be the better fit.
 
 ---
+

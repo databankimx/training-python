@@ -1,16 +1,15 @@
 """Assignment 9.9"""
 
-# Battery Upgrade: Use the final version of `electric_car.py` from this
-#                  section. Add a method to the `Battery` class called
-#                  `upgrade_battery()`. This method should check the
-#                  battery size and set the capacity to 100 if it isn't
-#                  already. Make an electric car with a default battery
-#                  size, call `get_range()` once, and then call
-#                  `get_range()`a second time after upgrading the battery.
-#                  You should see an increase in the car's range.
+# Battery Upgrade: Use the final electric_car.py from this section. Add a
+#                  method to the Battery class called upgrade_battery(). This
+#                  method should check the battery size and set the capacity to
+#                  65 if it isn't already. Make an electric car with a default
+#                  battery size, call get_range() once, and then call
+#                  get_range() a second time after upgrading the battery. You
+#                  should see an increase in the car's range.
 
 print("Try-it-Yourself:")
-print("Assignment 9.9")
+print("Assignment 9.9\n")
 
 class Car:
     """Defines a car"""
@@ -21,7 +20,7 @@ class Car:
         self.model = model
         self.year = year
         self.odometer_reading = 0
-        self.fuel_level = 0
+        self.fuel_level = 0.0
 
     def get_descriptive_name(self):
         """Describe the car"""
@@ -30,7 +29,7 @@ class Car:
 
     def read_odometer(self):
         """Get the odometer mileage"""
-        print(f"This car has {self.odometer_reading} miles on it.\n")
+        print(f"This car has {self.odometer_reading} miles on it.")
 
     def set_odometer(self, mileage):
         """Set the odometer mileage"""
@@ -53,7 +52,7 @@ class Car:
         self.fuel_level = 1
 
     def check_fuel_level(self):
-        """Get the fuel level"""
+        """Check the fuel level"""
         fuel_state = "empty"
         if self.fuel_level == 1.0: #NOSONAR
             fuel_state = "full"
@@ -65,7 +64,7 @@ class Car:
             fuel_state = "one quarter full"
         elif self.fuel_level > 0.0:
             fuel_state = "running on fumes"
-        print(f"Fuel Status: {fuel_state}\n")
+        print(f"Fuel Status: {fuel_state}")
 
 
 class ElectricCar(Car):
@@ -77,12 +76,12 @@ class ElectricCar(Car):
         self.battery = Battery()
 
     def fill_gas_tank(self):
-        """Set the fuel level to full"""
+        """Explain that an electric car has no gas tank"""
         print("This car doesn't have a gas tank!")
 
     def check_fuel_level(self):
-        """Get the fuel level"""
-        print("This car doesn't contain any fuel!\n")
+        """Explain that an electric car has no fuel"""
+        print("This car doesn't contain any fuel!")
 
 
 class Battery:
@@ -97,13 +96,13 @@ class Battery:
         print(f"This car has a {self.battery_size}-kWh battery.")
 
     def get_range(self):
-        """Get the battery range"""
-        battery_range = "unknown"
+        """Get the battery range in miles"""
+        battery_range = "unknown" #NOSONAR
         if self.battery_size == 75:
             battery_range = 260
         elif self.battery_size == 100:
             battery_range = 315
-        print(f"This car can go about {battery_range} miles on a full charge.\n")
+        print(f"This car can go about {battery_range} miles on a full charge.")
 
     def upgrade_battery(self):
         """Upgrade the battery"""
@@ -117,7 +116,9 @@ print(my_nissan.get_descriptive_name())
 
 my_nissan.battery.describe_battery()
 my_nissan.battery.get_range()
+print()
 
 my_nissan.battery.upgrade_battery()
 my_nissan.battery.describe_battery()
 my_nissan.battery.get_range()
+print()

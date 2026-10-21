@@ -1,23 +1,22 @@
 """Assignment 9.4"""
 
-# Number Served: Start with your program from Exercise 9-1. Add an
-#                attribute called `number_served` with a default value
-#                of 0. Create an instance called `restaurant` from this
-#                class. Print the number of customers the restaurant
-#                has served, and then change this value and print it again.
+# Number Served: Start with your program from Exercise 9-1 (page 162). Add an
+#                attribute called number_served with a default value of 0.
+#                Create an instance called restaurant from this class. Print
+#                the number of customers the restaurant has served, and then
+#                change this value and print it again.
 #
-#                Add a method called `set_number_served()` that lets you
-#                set the number of customers that have been served. Call
-#                this method with a new number and print the value again.
+#                Add a method called set_number_served() that lets you set the
+#                number of customers that have been served. Call this method
+#                with a new number and print the value again.
 #
-#                Add a method called `increment_number_served()` that lets
-#                you increment the number of customers who've been served.
-#                Call this method with any number you like that could
-#                represent how many customers were served in, say, a day
-#                of business.
+#                Add a method called increment_number_served() that lets you
+#                increment the number of customers who've been served. Call this
+#                method with any number you like that could represent how many
+#                customers were served in, say, a day of business.
 
 print("Try-it-Yourself:")
-print("Assignment 9.4")
+print("Assignment 9.4\n")
 
 class Restaurant:
     """Defines a restaurant object"""
@@ -30,7 +29,7 @@ class Restaurant:
 
     def describe(self):
         """Print a description of the restaurant"""
-        print(f"\n{self.name.title()} proudly serves {self.cuisine.title()} food!")
+        print(f"{self.name.title()} proudly serves {self.cuisine.title()} food!")
 
     def open(self):
         """Open the restaurant"""
@@ -38,7 +37,7 @@ class Restaurant:
 
     def get_number_served(self):
         """Get the number of people served by the restaurant"""
-        print(f"We have served {self.number_served} people today.\n")
+        print(f"We have served {self.number_served} people today.")
 
     def set_number_served(self, num):
         """Set the number of people served by the restaurant"""
@@ -58,13 +57,18 @@ class Restaurant:
 
 
 restaurant = Restaurant("burger heaven", "american")
+print()
 restaurant.describe()
 restaurant.get_number_served()
+print()
 restaurant.number_served = 10
 restaurant.get_number_served()
+print()
 
 restaurant.set_number_served(20)
 restaurant.get_number_served()
+print()
 
 restaurant.increment_number_served(5)
 restaurant.get_number_served()
+print()

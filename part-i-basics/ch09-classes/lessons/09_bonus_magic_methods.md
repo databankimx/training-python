@@ -1,10 +1,10 @@
 ## Bonus Lesson: Magic (Dunder) Methods and Properties
 
-Python exposes a number of special methods and properties. These ***magic*** 
-or ***dunder*** (short for double-underscore) methods are built into Python 
+Python exposes a number of special methods and attributes. These ***magic***
+or ***dunder*** (short for double-underscore) methods are built into Python
 classes.
 
-So far, we have worked with one "magic" method: `__init__`
+So far, we have worked with one "magic" method: `__init__`.
 
 ### Identifying a Type's Available Magic Methods
 
@@ -37,18 +37,21 @@ Output:
 
 Of course, any of these can be overridden in your custom classes.
 
+The code file clears the terminal and pauses between these examples, so you can
+read each list before the next one prints.
+
 ---
 
 ### Some of the Common Magic Methods
 
-Some to pay attention to include:
+These are the ones worth knowing:
 
 |Common Magic Methods||
 |---|---|
 |**Initialization and Construction**||
-|`__new__`|Called when a class is instantiated|
-|`__init__`|Constructor: called by __new__ when a class is instantiated|
-|`__del__`|Destructor|
+|`__new__`|Creates the new instance, before `__init__` runs.|
+|`__init__`|Initializer: runs after `__new__` to set up a new instance.|
+|`__del__`|Destructor: runs when an object is about to be destroyed.|
 |**Numeric Methods**||
 |`__trunc__(self)`|Implements behavior for `math.trunc()`|
 |`__ceil__(self)`|Implements behavior for `math.ceil()`|
@@ -57,30 +60,28 @@ Some to pay attention to include:
 |`__invert__(self)`|Implements behavior for inversion using the `~` operator.|
 |`__abs__(self)`|Implements behavior for the built-in `abs()`|
 |`__neg__(self)`|Implements behavior for negation|
-|`__pos__(self)`|Implements behavior for unary positive |
+|`__pos__(self)`|Implements behavior for unary plus|
 |**Arithmetic Methods**||
 |`__add__(self, other)`|Implements behavior for `+`|
 |`__sub__(self, other)`|Implements behavior for `-`|
 |`__mul__(self, other)`|Implements behavior for `*`|
-|`__floordiv__(self, other)`|Implements behavior for `\\`|
-|`__div__(self, other)`|Implements behavior for `\`|
-|`__truediv__(self, other)`|Implements behavior for `float` division|
+|`__floordiv__(self, other)`|Implements behavior for `//` (floor division)|
+|`__truediv__(self, other)`|Implements behavior for `/` (float division)|
 |`__mod__(self, other)`|Implements behavior for `%`|
-|`__divmod__(self, other)`|Implements behavior for `math.divmod()` |
-|`__pow__`|Implements behavior for exponents using the ** operator.|
-|`__lshift__(self, other)`|Implements left bitwise shift using the << operator.|
-|`__rshift__(self, other)`|Implements right bitwise shift using the >> operator.|
-|`__and__(self, other)`|Implements bitwise and using the & operator.|
-|`__or__(self, other)`|Implements bitwise or using the | operator.|
-|`__xor__(self, other)`|Implements bitwise xor using the ^ operator.|
+|`__divmod__(self, other)`|Implements behavior for `math.divmod()`|
+|`__pow__(self, other)`|Implements behavior for exponents using the `**` operator.|
+|`__lshift__(self, other)`|Implements left bitwise shift using the `<<` operator.|
+|`__rshift__(self, other)`|Implements right bitwise shift using the `>>` operator.|
+|`__and__(self, other)`|Implements bitwise and using the `&` operator.|
+|`__or__(self, other)`|Implements bitwise or using the `\|` operator.|
+|`__xor__(self, other)`|Implements bitwise xor using the `^` operator.|
 |**String Methods**||
-|`__str__(self)`|Defines behavior for when str() is called on an instance of your class.|
-|`__repr__(self)`|Called by built-int repr() method to return a machine readable representation of a type.|
-|`__unicode__(self)`|This method to return an unicode string of a type.|
-|`__format__(self, formatstr)`|Return a new style of string.|
-|`__hash__(self)`|   Return an integer, used for quick key comparison in dictionaries.|
-|`__nonzero__(self)`|Defines behavior for when bool() is called on an instance of your class.|
-|`__dir__(self)`|This method to return a list of attributes of a class.|
+|`__str__(self)`|Defines behavior for when `str()` is called on an instance of your class.|
+|`__repr__(self)`|Called by the built-in `repr()` to return an unambiguous string representation, ideally one that could recreate the object.|
+|`__format__(self, formatspec)`|Defines what `format()` and f-strings produce for the object, given a format spec.|
+|`__hash__(self)`|Returns an integer used for quick key comparison in dictionaries.|
+|`__bool__(self)`|Defines behavior for when `bool()` is called on an instance of your class.|
+|`__dir__(self)`|Defines the list that `dir()` returns.|
 |`__sizeof__(self)`|Returns the size (in bytes) of the object.|
 |**Comparisons**||
 |`__eq__(self, other)`|Defines behavior for the equality operator, `==`|
@@ -94,13 +95,13 @@ Some to pay attention to include:
 
 ### Overriding Magic Methods
 
-In a class that you develop, you can redefine any magic method.
+In a class that you develop, you can define many of the magic methods yourself.
 
-Consider this class:
+Consider this class, which has no `__str__` method:
 
 ```python
-class Person(object):
-    """Class to define a person"""
+class PlainPerson:
+    """Class to define a person without a __str__ method"""
 
     def __init__(self, first_name: str, last_name: str) -> None:
         """Create an instance of the person class"""
@@ -108,31 +109,42 @@ class Person(object):
         self.last_name = last_name
 ```
 
-As, is, if we print the class instance, we see this:
+As is, if we print the instance, we see this:
 
 ```python
-someone = Person("john", "doe")
-print(someone)
+plain_someone = PlainPerson("john", "doe")
+print(plain_someone)
 ```
 
 Output:
 
 ```
-<__main__.Person object at 0x000001F8E6528250>
+<__main__.PlainPerson object at 0x000001F8E6528250>
 ```
+
+The address will be different every time you run the code.
 
 ---
 
-If we add a custom `__str__` method to output a string representation of a 
-class instance when it's used in a `print()` call (for example)...
+Now let's add a custom `__str__` method, which outputs a string representation of
+a class instance when it's used in a `print()` call, for example. The code file
+uses the `Person` class for this.
 
 ```python
+class Person:
+    """Class to define a person"""
+
+    def __init__(self, first_name: str, last_name: str) -> None:
+        """Create an instance of the person class"""
+        self.first_name = first_name
+        self.last_name = last_name
+
     def __str__(self) -> str:
         """Return a string representation of the person"""
         return f"{self.first_name.title()} {self.last_name.title()}"
 ```
 
-... the custom `__str__` magic method lets us do this:
+The custom `__str__` magic method lets us do this:
 
 ```python
 someone = Person("john", "doe")
@@ -145,13 +157,17 @@ Output:
 John Doe
 ```
 
+The code file turns off Pylint's `too-few-public-methods` warning for `Person`,
+since that class has only a constructor and a `__str__` method. That comment
+stays in the code file.
+
 ---
 
-### Using Magic Properties
+### Using Magic Attributes
 
-There are also dunder properties that aren't methods.
+There are also dunder attributes that aren't methods.
 
-|Common Magic Properties||
+|Common Magic Attributes||
 |---|---|
 |**Classes**||
 |`__name__`|Stores class name|
@@ -170,7 +186,7 @@ There are also dunder properties that aren't methods.
 |`__dict__`|Module attributes|
 |`__file__`|File this module was loaded from (though some modules are missing this)|
 |**All Objects**||
-|`__class__`|Class of the object attribute|
+|`__class__`|The class the object belongs to|
 |`__dict__`|Object attributes|
 
 ---
@@ -182,7 +198,7 @@ For example, `__doc__` returns the doc string for a method or class.
 Using our same `Person` class...
 
 ```python
-class Person(object):
+class Person:
     """Class to define a person"""
     # -- SNIP --
 ```

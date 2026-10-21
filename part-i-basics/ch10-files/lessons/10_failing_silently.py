@@ -17,7 +17,7 @@ def count_words(filename):
     """Get the approximate word count from a file."""
     file_path = os.path.join(ROOT_DIR, "Files", filename)
     try:
-        with open(file_path, encoding='utf-8') as f:
+        with open(file_path, encoding="UTF-8") as f:
             contents = f.read()
     except FileNotFoundError:
         pass
@@ -26,8 +26,8 @@ def count_words(filename):
         num_words = len(words)
         print(f"The file {filename} has about {num_words} words.")
 
-file_names = ["alice.txt", "siddhartha.txt", "moby_dick.txt",
-              "little_women.txt", "missing.txt"]
+file_names = ["alice.txt", "siddhartha.txt", "missing.txt",
+              "moby_dick.txt", "little_women.txt"]
 for file_name in file_names:
     count_words(file_name)
 
@@ -39,18 +39,18 @@ def log_words(filename):
     """Get the approximate word count from a file."""
     file_path = os.path.join(ROOT_DIR, "Files", filename)
     try:
-        with open(file_path, encoding='utf-8') as f:
+        with open(file_path, encoding="UTF-8") as f:
             contents = f.read()
     except FileNotFoundError:
-        with open(log_path, "a", encoding="utf-8") as l:
-            l.write(f"Missing File:\n\"{file_path}\"\n\n")
+        with open(log_path, "a", encoding="UTF-8") as log:
+            log.write(f"Missing File:\n\"{file_path}\"\n\n")
     else:
         words = contents.split()
         num_words = len(words)
         print(f"The file {filename} has about {num_words} words.")
 
-file_names = ["alice.txt", "siddhartha.txt", "moby_dick.txt",
-              "little_women.txt", "missing.txt"]
+file_names = ["alice.txt", "siddhartha.txt", "missing.txt",
+              "moby_dick.txt", "little_women.txt"]
 for file_name in file_names:
     log_words(file_name)
 
@@ -66,7 +66,7 @@ def count_words_from_path(filename):
     file_path = get_path(filename, "Files")
     try:
         file = Path(file_path)
-        contents = file.read_text(encoding="utf-8")
+        contents = file.read_text(encoding="UTF-8")
     except FileNotFoundError:
         pass
     else:
@@ -74,7 +74,7 @@ def count_words_from_path(filename):
         num_words = len(words)
         print(f"The file {filename} has about {num_words} words.")
 
-file_names = ["alice.txt", "siddhartha.txt", "alice_missing.txt",
+file_names = ["alice.txt", "siddhartha.txt", "missing.txt",
               "moby_dick.txt", "little_women.txt"]
 for file_name in file_names:
     count_words_from_path(file_name)
@@ -89,16 +89,16 @@ def log_words_from_path(filename):
     file_path = get_path(filename, "Files")
     try:
         file = Path(file_path)
-        contents = file.read_text(encoding="utf-8")
+        contents = file.read_text(encoding="UTF-8")
     except FileNotFoundError:
-        with log_file.open("a", encoding="utf-8") as l:
-            l.write(f"Missing File:\n\"{file_path}\"\n\n")
+        with log_file.open("a", encoding="UTF-8") as log:
+            log.write(f"Missing File:\n\"{file_path}\"\n\n")
     else:
         words = contents.split()
         num_words = len(words)
         print(f"The file {filename} has about {num_words} words.")
 
-file_names = ["alice.txt", "siddhartha.txt", "alice_missing.txt",
+file_names = ["alice.txt", "siddhartha.txt", "missing.txt",
               "moby_dick.txt", "little_women.txt"]
 for file_name in file_names:
     log_words_from_path(file_name)

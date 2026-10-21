@@ -1,27 +1,24 @@
 ## Default Parameter Values
 
-So far, we've described all parameters as being required.
+So far, we've treated every parameter as required.
 
-While it is strictly true that every parameter must receive a value, it is
-possible to make arguments optional by providing default values for them in the
-function signature.
+It's true that every parameter has to receive a value. But you can make an argument optional by giving
+its parameter a default value in the function signature.
 
 Syntax:
 
 ```python
-def my_function(required_param, optional_param=default_value)
+def my_function(required_param, optional_param=default_value):
 ```
 
-There is one restriction: Once a default value is provided for any parameter, 
-all parameters coming after it in the function must also receive have default
-values.
+There's one restriction. Once a parameter has a default value, every parameter after it must also have
+a default value.
 
 ---
 
 ### Skipping Optional Arguments
 
-Consider the following function that includes a default value for the
-`animal_type` parameter.
+Consider this function, which gives the `animal_type` parameter a default value.
 
 ```python
 def describe_pet_def(pet_name, animal_type="dog"):
@@ -30,8 +27,7 @@ def describe_pet_def(pet_name, animal_type="dog"):
     print(f"My {animal_type}'s name is {pet_name.title()}.")
 ```
 
-We can call this function without specifying the argument whose parameter has
-a default value:
+You can call this function without the argument whose parameter has a default value:
 
 ```python
 describe_pet_def("rover")
@@ -48,7 +44,7 @@ My dog's name is Rover.
 
 ### Overriding Default Values
 
-Or, we can pass a value in the `animal_type` argument and override the default.
+You can also pass a value for `animal_type`, which overrides the default.
 
 ```python
 describe_pet_def("pickles", "cat")
@@ -65,12 +61,11 @@ My cat's name is Pickles.
 
 ### Risks with Mutable Types
 
-It's important to understand how default values are handled in Python. If
-you provide a default value of a mutable type (like a list or dictionary),
-you may run into unexpected behavior.
+It's important to understand how Python handles default values. If you give a parameter a default value
+of a mutable type, such as a list or a dictionary, you can run into unexpected behavior.
 
-Take a look at bonus lesson 16 
-[Mutable Defaults](./16_bonus_mutable_defaults.md) for an explanation of
-this behavior.
+See bonus lesson 16, [Mutable Defaults](./16_bonus_mutable_defaults.md), for an explanation of this
+behavior.
 
 ---
+

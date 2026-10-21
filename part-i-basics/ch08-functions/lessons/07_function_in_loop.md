@@ -1,29 +1,25 @@
 ## Executing a Function in a Loop
 
-Another common use case is performing a repetitive operation on each item in a 
-group or sequence.
+Another common use case is running the same operation on each item in a group or sequence.
 
-For this type of solution, it's useful to place the operation(s) in a separate
-function and call the function in the loop instead of nesting the operational
-code.
+For this kind of task, it helps to put the operation in a separate function, and call that function
+inside the loop, rather than nesting the operation's code in the loop.
 
 ---
 
-### Calling a function in a `for` Loop
+### Calling a Function in a `for` Loop
 
-When performing a repetitive operation on a sequence or across a collection,
-the logical choice is to use a `for` loop.
+When you repeat an operation over a sequence or a collection, a `for` loop is the natural choice.
 
-Here, we create a simple function to square a number and call it for each
-value in a range:
+Here, we create a simple function that squares a number, and call it for each value in a range:
 
 ```python
 def square(n):
     """Return the square of the integer passed"""
     return n ** 2
 
-for n in range(1, 6):
-    print(f"{n}² = {square(n)}")
+for num in range(1, 6):
+    print(f"{num}² = {square(num)}")
 ```
 
 Output:
@@ -38,14 +34,16 @@ Output:
 
 ---
 
-### Calling a function in a `while` Loop
+### Calling a Function in a `while` Loop
 
-For an unbounded sequence or when acting until some condition is met, the same
-principle of moving the repeated actions into a function can be used with calls
-from a `while` loop.
+When the sequence has no fixed end, or you want to keep going until some condition is met, you can
+use the same idea with a `while` loop. Move the repeated work into a function, and call it from the
+loop.
+
+The `get_formatted_name()` function below is the same one from the previous lesson:
 
 ```python
-def get_formatted_name(first_name, last_name, middle_name = ""):
+def get_formatted_name(first_name, last_name, middle_name=""):
     """Return a full name, neatly formatted."""
     if middle_name:
         full_name = f"{first_name} {middle_name} {last_name}"
@@ -64,12 +62,12 @@ while True:
     l_name = input("Last name: ")
     if l_name == "q":
         break
-    
+
     formatted_name = get_formatted_name(f_name, l_name)
     print(f"\nHello, {formatted_name}!")
 ```
 
-Output:
+Output (the `...` stands for the rest of the conversation, which is left out):
 
 ```
 Please tell me your name:
@@ -94,3 +92,4 @@ First name: q
 ```
 
 ---
+

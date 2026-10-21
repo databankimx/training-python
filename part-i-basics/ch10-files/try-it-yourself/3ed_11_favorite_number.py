@@ -1,9 +1,9 @@
 """Assignment 10.11 (3rd Edition)"""
 
 # Favorite Number: Write a program that prompts for the user's favorite
-#                  number. Use json.dump() to store this number in a file.
+#                  number. Use json.dumps() to store this number in a file.
 #                  Write a separate program that reads in this value and
-#                  prints the message:
+#                  prints the message
 #                  "I know your favorite number! It's _____."
 
 import json
@@ -25,7 +25,7 @@ def get_favorite_number():
             print("Your entry must be a number!")
 
     file = Path(file_path)
-    file.write_text(json.dumps(num), encoding="utf-8")
+    file.write_text(json.dumps(num), encoding="UTF-8")
 
     print(f"I saved {num} as your favorite number!\n")
     return num
@@ -34,7 +34,7 @@ def read_favorite_number():
     """Read the user's favorite number from a file"""    
     file = Path(file_path)
     if file.exists():
-        num = json.loads(file.read_text(encoding="utf-8"))
+        num = json.loads(file.read_text(encoding="UTF-8"))
         return num
     return get_favorite_number()
 

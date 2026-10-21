@@ -1,16 +1,19 @@
 ## Creating a List and Accessing Values
 
-Lists are ordered collections of items.
+A list is an ordered collection of items. Each item has a position, and you can
+reach any item by asking for its position.
 
-Items in Python lists do not need to be of the same data type.
+The items in a list don't have to be the same type. One list can hold strings,
+numbers, and even other lists, which makes lists very flexible.
 
 ---
 
 ### Syntax
 
 * Surround a list with square brackets `[]`
-* Separate items with commas `,`<br>
-  e.g.:<br>
+* Separate items with commas `,`
+  e.g.:
+
   ```python
   numbers = [1, 2, 3, 4, 5]
   number_names = ["one", "two", "three"]
@@ -19,57 +22,36 @@ Items in Python lists do not need to be of the same data type.
 ---
 
 ### Indexing
-                 
-List indices are zero-based and allow backward-indexing, so:
 
-* First item is always `list_name[0]`
-* Last item is always `list_name[-1]`
+List indexes start at zero, so the first item is at position `0`, not `1`. You
+can also count backward from the end, which is handy when you don't know how long
+the list is:
 
-Regardless of list length.
+* The first item is always `list_name[0]`
+* The last item is always `list_name[-1]`
+
+Those two work no matter how long the list is.
 
 ---
 
-> ### Why Do We Count From Zero, Not One?
-> 
-> In many programming languages (particularly older languages like C and C++),
-> the underlying data structure on which a list is built is called an `array`.
-> 
-> For an array, the variable doesn't actually contain all of the elements of
-> the array; instead it contains a pointer to the place in memory where the
-> array starts. Additionally, arrays traditionally contained a single, static
-> sized data type.
-> 
-> Then, the index defines how far we have to move in memory from that starting
-> point in units the size of the array type.
-> 
-> So, in a language like C++, where the `int` data type is four bytes in size,
-> the location of any element is the staring location plus the index times
-> the size of the element.
-> 
-> |||||
-> |:-:|:-:|:-:|:-:|
-> |Type|Size|Index|Location|
-> |`int`|4 bytes|`0`|`start + 0 * 4 = start + 0`|
-> |\"|\"|`1`|`start + 1 * 4 = start + 4`|
-> |\"|\"|`2`|`start + 2 * 4 = start + 8`|
-> 
-> ... and so on.
-> 
-> 
-> Since the first element is stored at the staring location, its offset is
-> zero bytes. Using an index of zero makes the computation of the location > easier.
-> 
-> Now, in Python, we don't actually use the array as the fundamental type.
-> Instead, the `list` itself is the most fundamental type of collection. And
-> unlike an array, this is what's called a *linked list*, meaning that each
-> element contains not only a value but a link to the next element in the list.
-> This is necessary since the list can be composed of different data types, many
-> of which are not static sized.
-> 
-> The first element, however, is still located at the start location of the
-> list, so it still has an offset of zero and therefore index zero. That way,
-> the list variable doesn't need to contain two pointers (one to start 
-> location, and a separate one to the first element).
+> ### Why Do We Count From Zero?
+>
+> It looks like an odd choice, but it comes from how the computer finds an item.
+>
+> A Python list is an *array* of references. Each slot in the array holds a
+> pointer to an object, and the objects can be any type. The array sits in one
+> block of memory, and the list stores where that block begins.
+>
+> To find the item at position `n`, Python starts at the beginning of the block
+> and moves forward `n` slots. Position `0` is zero slots away from the start, so
+> it's the easiest place to find. That's the whole reason.
+>
+> Languages like C and C++ use the same idea, and there the slots are the size of
+> the data type. An `int` is four bytes, so position `2` is eight bytes past the
+> start. Python does the same thing, with pointer-sized slots.
+>
+> You don't need the memory details to use lists. Just remember that position `0`
+> is the first item, and it's always the first.
 
 ---
 
@@ -102,15 +84,11 @@ My favorite bicycle was a Trek.
 
 ### Avoid Index Errors
 
-If you specify an index value that is not included in the list, you will
-receive an IndexError.
+If you ask for a position the list doesn't have, Python raises an `IndexError`.
 
-Example:
-
-In this list, there are three elements, filling indices 0, 1, and 2.
-
-Requesting index 3 results in an error because the list doesn't contain
-an element at that index.
+This list has three items, at positions `0`, `1`, and `2`. Asking for position `3`
+fails, because there's nothing there. Save this as `index_error.py` and run it to
+see the error for yourself:
 
 ```python
 my_list = [1, 2, 3]
@@ -121,10 +99,11 @@ Output:
 
 ```
 Traceback (most recent call last):
-  File "...\indexes.py", line 2, in <module>
+  File "...\index_error.py", line 2, in <module>
     print(my_list[3])
           ~~~~~~~^^^
 IndexError: list index out of range
 ```
 
 ---
+

@@ -1,31 +1,30 @@
 ## Using `break` and `continue`
 
-Sometimes it's necessary to end either one iteration of the loop or the entire
-loop itself when some condition occurs.
+Sometimes you need to end one iteration of a loop, or the entire loop, when a certain condition
+occurs.
 
-Python provides the `break` and `continue` statements to give the programmer
-control over precisely what happens in the loop.
+Python provides the `break` and `continue` statements, which give you precise control over what
+happens inside a loop.
 
-* The `break` command immediately ends the loop
-    * The remainder of the current iteration does not execute
-    * No more iterations execute
-* The `continue` command immediately ends the current iteration of the loop
-    * The remainder of the current iteration does not execute
-    * But the loop itself continues with the next iteration
+* The `break` statement ends the loop immediately
+    * The rest of the current iteration doesn't run
+    * No more iterations run
+* The `continue` statement ends the current iteration immediately
+    * The rest of the current iteration doesn't run
+    * The loop itself carries on with the next iteration
+
+Both statements also work in `for` loops.
 
 ---
 
 ### Terminating a Loop with `break`
 
-One very common programming pattern is to establish a loop with a constant
-condition: `True`.
+A common pattern is to start a loop with a constant condition: `True`.
 
-This sort of loop is inherently infinite. The condition will never become
-`False`, because it's constant.
+A loop like this is infinite by design, because its condition never becomes `False`.
 
-In order to ensure that the loop eventually terminates, the programmer must
-identify one or more conditions where this should occur and implement the
-`break` statement to end the loop.
+To make sure the loop eventually ends, identify the condition that should stop it, and use a
+`break` statement when that condition is met:
 
 ```python
 prompt = "\nPlease enter the name of a city you have visited:"
@@ -39,7 +38,7 @@ while True:
         print(f"I'd love to go to {city.title()}!")
 ```
 
-Output:
+Output (the `...` stands for the rest of the conversation, which is left out):
 
 ```
 Please enter the name of a city you have visited:
@@ -63,13 +62,10 @@ Please enter the name of a city you have visited:
 
 ### Terminating an Iteration with `continue`
 
-One common programming scenario is where you need to iterate across some
-collection of values, but you only want certain steps to be performed when a
-given condition is met.
+Sometimes you need to step through a collection, but you only want certain steps to run when a
+condition is met.
 
-The `continue` statement allows the programmer to skip the remainder of the
-iteration following the `continue` command but pick back up with the next
-iteration of the loop.
+The `continue` statement skips the rest of the current iteration and moves on to the next one:
 
 ```python
 current_number = 0
@@ -90,4 +86,21 @@ Output:
 9
 ```
 
+> **Watch out for `continue` in a `while` loop:** the `continue` skips everything after it in the
+> same iteration. If the line that changes the loop's condition comes after the `continue`, the
+> loop never reaches it, and the loop never ends. The example above increments `current_number`
+> before the `continue`, which is why it stops at 10.
+>
+> ```python
+> current_number = 0
+> while current_number < 10:
+>     if current_number % 2 == 0:
+>         continue  # Infinite loop: the increment below is never reached for even numbers
+>     current_number += 1
+>     print(current_number)
+> ```
+>
+> Put the update before any `continue`, or make sure it runs on every path through the loop.
+
 ---
+

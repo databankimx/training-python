@@ -13,8 +13,8 @@ print("Try-it-Yourself:")
 print("Assignment 10.3\n")
 
 name = input("Please enter your name:\n> ")
-with open(file_path, "w", encoding="utf-8") as file:
+with open(file_path, "w", encoding="UTF-8") as file:
     file.write(name)
 
-with open(file_path, "r", encoding="utf-8") as file:
+with open(file_path, "r", encoding="UTF-8") as file:
     print(file.read())

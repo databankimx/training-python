@@ -1,6 +1,6 @@
 """Assignment 7.9"""
 
-# No Pastrami: Using the list `sandwich_orders` from Exercise 7-8,
+# No Pastrami: Using the list `sandwich_orders` from Exercise 7.8,
 #              make sure the sandwich 'pastrami' appears in the list
 #              at least three times. Add code near the beginning of
 #              your program to print a message saying the deli has
@@ -21,7 +21,6 @@ sandwich_orders = [
     "croque monsieur",
     "pastrami",
     "pb&j"
-
 ]
 print("We have run out of pastrami!")
 finished_sandwiches = []

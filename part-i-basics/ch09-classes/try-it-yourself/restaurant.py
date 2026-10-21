@@ -1,4 +1,4 @@
-"""Class to model a Restaurant"""
+"""A class module to model a restaurant"""
 
 class Restaurant:
     """Defines a restaurant object"""
@@ -11,7 +11,7 @@ class Restaurant:
 
     def describe(self):
         """Print a description of the restaurant"""
-        print(f"\n{self.name.title()} proudly serves {self.cuisine.title()}!")
+        print(f"{self.name.title()} proudly serves {self.cuisine.title()}!")
 
     def open(self):
         """Open the restaurant"""
@@ -19,7 +19,7 @@ class Restaurant:
 
     def get_number_served(self):
         """Get the number of people served by the restaurant"""
-        print(f"We have served {self.number_served} people today.\n")
+        print(f"We have served {self.number_served} people today.")
 
     def set_number_served(self, num):
         """Set the number of people served by the restaurant"""

@@ -1,16 +1,16 @@
-"""Exercise 9.3"""
+"""Assignment 9.3"""
 
-# Users: Make a class called User. Create two attributes called
-#        `first_name` and `last_name`, and then create several
-#        other attributes that are typically stored in a user
-#        profile. Make a method called `describe_user()` that
-#        prints a summary of the user's information. Make another
-#        method called `greet_user()` that prints a personalized
-#        greeting to the user. Create several instances representing
-#        different users, and call both methods for each user.
+# Users: Make a class called User. Create two attributes called first_name and
+#        last_name, and then create several other attributes that are typically
+#        stored in a user profile. Make a method called describe_user() that
+#        prints a summary of the user's information. Make another method called
+#        greet_user() that prints a personalized greeting to the user.
+#
+#        Create several instances representing different users, and call both
+#        methods for each user.
 
 print("Try-it-Yourself:")
-print("Assignment 9.3")
+print("Assignment 9.3\n")
 
 class User:
     """Defines a user"""
@@ -32,17 +32,20 @@ class User:
         print(
             f"Name:       {self.first_name.title()} {self.last_name.title()}")
         print(f"Location:   {self.location.title()}")
-        print(f"Profession: {self.profession.title()}\n")
+        print(f"Profession: {self.profession.title()}")
 
-user_1 = User("scott", "mclean", location="dallas", profession="programmer")
+user_1 = User("scott", "reed", location="dallas", profession="programmer")
 user_1.greet()
 user_1.describe()
+print()
 
 user_2 = User("hillary", "taylor", location="twinsburg", profession="lawyer")
 user_2.greet()
 user_2.describe()
+print()
 
-user_3 = User("jeremy", "mclean", location="columbus",
+user_3 = User("jeremy", "stone", location="columbus",
               profession="restaurant manager")
 user_3.greet()
 user_3.describe()
+print()

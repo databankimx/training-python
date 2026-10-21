@@ -1,14 +1,14 @@
 """Assignment 9.8"""
 
-# Privileges: Write a separate `Privileges` class. The class should have
-#             one attribute, `privileges`, that stores a list of strings
-#             as described in Exercise 9.7. Move the `show_privileges()`
-#             method to this class. Make a `Privileges` instance as an
-#             attribute in the `Admin` class. Create a new instance of
-#             `Admin` and use your method to show its privileges.
+# Privileges: Write a separate Privileges class. The class should have one
+#             attribute, privileges, that stores a list of strings as described
+#             in Exercise 9-7. Move the show_privileges() method to this class.
+#             Make a Privileges instance as an attribute in the Admin class.
+#             Create a new instance of Admin and use your method to show its
+#             privileges.
 
 print("Try-it-Yourself:")
-print("Assignment 9.8")
+print("Assignment 9.8\n")
 
 class User:
     """Defines a User"""
@@ -26,7 +26,7 @@ class User:
 
     def describe(self):
         """Describe the user"""
-        print(f"\nName:       {self.first_name.title()} {self.last_name.title()}")
+        print(f"Name:       {self.first_name.title()} {self.last_name.title()}")
         print(f"Username:   {self.username.upper()}")
 
     def increment_login_attempts(self):
@@ -39,12 +39,12 @@ class User:
 
     def get_login_attempts(self):
         """Get the login attempts counter"""
-        print(f"Login Attempts: {self.login_attempts}\n")
+        print(f"Login Attempts: {self.login_attempts}")
 
 class Admin(User):
     """Define an Admin as a subclass of User"""
 
-    def __init__(self, first_name, last_name, privileges = None):
+    def __init__(self, first_name, last_name, privileges=None):
         """Initialize a new instance of the Admin class"""
         super().__init__(first_name, last_name)
         self.privileges = Privileges(privileges)
@@ -52,7 +52,7 @@ class Admin(User):
 class Privileges: #pylint: disable=too-few-public-methods
     """Defines a set of privileges"""
 
-    def __init__(self, privileges = None):
+    def __init__(self, privileges=None):
         """Initialize a new instance of the Privileges class"""
         if privileges is None:
             self.privileges = ["create", "delete", "modify", "ban"] #NOSONAR
@@ -65,10 +65,11 @@ class Privileges: #pylint: disable=too-few-public-methods
         for privilege in self.privileges:
             print(f" - {privilege}")
 
-
+print()
 my_admin = Admin("jane", "smith")
 my_admin.describe()
 my_admin.privileges.show_privileges()
+print()
 
 my_admin = Admin("bob", "jones", ["create", "delete"])
 my_admin.describe()

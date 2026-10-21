@@ -1,19 +1,16 @@
 ## Check if a List Contains a Value
 
-You will often obtain lists from external data instead of populating them 
-yourself.
+You'll often get lists from external data, rather than typing them yourself. When you do,
+it's useful to check whether a particular value appears in the list.
 
-When working with this type of data, it's useful to be able to check if a
-certain value appears in the list.
-
-Python provides the `in` operator to make this easy.
+Python provides the `in` operator for exactly that.
 
 ---
 
-### The ~~Bad~~ er... "Other" Way
+### The Bad... er, "Other" Way
 
-Using what we already know, we could loop through a list to see if it contains
-a desired value, like so:
+You could already do this with what you know. Loop through the list, and set a flag when you
+find the value:
 
 ```python
 toppings = ["mushrooms", "onions", "pineapple"]
@@ -35,8 +32,7 @@ False
 
 ### Using the `in` Operator
 
-With the `in` operator, however, we can accomplish this in less code and
-more readability.
+The `in` operator does the same job in less code, and it reads more clearly:
 
 ```python
 toppings = ["mushrooms", "onions", "pineapple"]
@@ -54,8 +50,7 @@ False
 
 ### Adding the `not` Operator
 
-If we want to check for the opposite condition (the list does not contain 
-the value), we can add the `not` operator.
+To check for the opposite, where the list does *not* contain the value, add `not`:
 
 ```python
 toppings = ["mushrooms", "onions", "pineapple"]
@@ -71,10 +66,66 @@ True
 
 ---
 
+### Two Things to Watch For
+
+`in` checks for whole items in the list, and it's case-sensitive. A capital letter makes a
+difference:
+
+```python
+toppings = ["mushrooms", "onions", "pineapple"]
+print("Mushrooms" in toppings)
+print("mushrooms" in toppings)
+print("mushrooms".title() in toppings)
+```
+
+Output:
+
+```
+False
+True
+False
+```
+
+The second line works, and the first doesn't, because `"Mushrooms"` isn't the same string as
+`"mushrooms"`. The third line fails for the same reason: `.title()` gives `"Mushrooms"`, which
+isn't in the list. If you need a case-insensitive check, lower-case both sides, as we did in
+the case lesson.
+
+```python
+print("Mushrooms".lower() in toppings)
+```
+
+Output:
+
+```
+True
+```
+
+When the value is a string, `in` can also check for a substring, which is a piece of the
+text rather than a whole item. Be careful with this one, because a substring can match where
+you didn't mean it to:
+
+```python
+print("an" in "banana")
+print("an" in ["banana"])
+```
+
+Output:
+
+```
+True
+False
+```
+
+The first line finds `"an"` inside `"banana"`. The second looks for `"an"` as a whole item in a
+list that has only `"banana"`, so it's `False`.
+
+---
+
 ### Looping with `in`
 
-A common use case would be the scenario where you have two lists and need 
-to check each value in one against the other.
+A common case is checking each value in one list against another. Here, we compare a list of
+active users with a list of banned users:
 
 ```python
 banned_users = ["andrew", "carolina", "david"]
@@ -94,3 +145,4 @@ Andrew, you cannot post responses!
 ```
 
 ---
+

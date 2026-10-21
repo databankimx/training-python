@@ -21,7 +21,7 @@ def store_user(filepath):
     username = f"{first_name[0]}{last_name}".upper()
 
     file = Path(filepath)
-    file.write_text(json.dumps(username), encoding="utf-8")
+    file.write_text(json.dumps(username), encoding="UTF-8")
 
     return username
 
@@ -30,7 +30,7 @@ def get_stored_user(filepath):
     file = Path(filepath)
 
     if file.exists():
-        username = json.loads(file.read_text(encoding="utf-8"))
+        username = json.loads(file.read_text(encoding="UTF-8"))
         return username
 
     return None

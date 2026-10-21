@@ -1,18 +1,11 @@
 ## Nesting Dictionaries in a List
 
-Frequently a program will require collections of collections (lists of lists, 
-lists of tuples, etc.).
+Programs often need collections of collections: lists of lists, lists of tuples, or lists of
+dictionaries. A list of dictionaries is one of the most useful.
 
----
-
-### A List of Dictionaries
-
-When a dictionary defines various properties of an object, it's reasonable to
-assume that there may be more than one object with those same collections of 
-properties.
-
-For a scenario like that, it makes more sense to store the dictionaries
-together in a list than to maintain a large group of standalone variables.
+When one dictionary describes an object, there may be many objects with the same properties.
+It makes more sense to store those dictionaries in a list than to keep a large group of
+separate variables.
 
 ```python
 alien_0 = {"color": "green", "points": 5}
@@ -35,10 +28,9 @@ Output:
 
 ### Populating a List of Dictionaries
 
-Commonly, we will populate a list like this iteratively instead of using
-separate variables like we did above.
+Usually, you'll build a list like this in a loop, rather than writing separate variables.
 
-Take an example where you require a certain number of objects:
+Here's an example where you need thirty aliens:
 
 ```python
 num_aliens = 30
@@ -55,16 +47,38 @@ Output:
 30 {'color': 'green', 'points': 5, 'speed': 'slow'}
 ```
 
+The loop variable here is `_`. Python programmers use `_` as a throwaway name when the loop needs to
+run a set number of times, but the value itself isn't used.
+
+> **A warning about copies:** each pass of the loop creates a new dictionary, so each alien is
+> independent. Compare that with multiplying a list:
+>
+> ```python
+> aliens = [{"color": "green", "points": 5}] * 3
+> aliens[0]["color"] = "red"
+> print(aliens)
+> ```
+>
+> Output:
+>
+> ```
+> [{'color': 'red', 'points': 5}, {'color': 'red', 'points': 5}, {'color': 'red', 'points': 5}]
+> ```
+>
+> `* 3` puts the same dictionary in all three slots, so changing one changes them all. We saw the same
+> idea with copying lists in lesson 4.8. Build the list in a loop, as above, when each item needs to be
+> its own dictionary.
+
 ---
 
 ### Modify Dictionaries in a List
 
-We can modify a group of elements using a slice of the list.
+You can change a group of dictionaries by looping over a slice of the list:
 
 ```python
 num_aliens = 30
 aliens = []
-for alien_number in range(num_aliens):
+for _ in range(num_aliens):
     new_alien = {"color": "green", "points": 5, "speed": "slow"}
     aliens.append(new_alien)
 for alien in aliens[:3]:
@@ -87,3 +101,4 @@ Output:
 ```
 
 ---
+

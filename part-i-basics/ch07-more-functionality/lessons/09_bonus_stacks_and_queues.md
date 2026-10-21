@@ -1,10 +1,10 @@
-## Bonus : Stacks and Queues
+## Bonus: Stacks and Queues
 
-When processing items from an ordered collection like a list, we need to think 
-about which end gets processed first.
+When you process the items in an ordered collection like a list, you need to decide which end
+gets processed first.
 
-Using while loops, we can simulate the behavior of two different list-like 
-data structures: stacks and queues.
+Using `while` loops, we can simulate the behavior of two different list-like data structures: stacks
+and queues.
 
 ---
 
@@ -12,13 +12,10 @@ data structures: stacks and queues.
 
 A stack uses last-in, first-out (LIFO) order.
 
-You can imagine this visually. If you stack several things on top of each 
-other, at any time you can only remove the top one (the last one you added).
+Picture a pile of plates. You can only take off the top one, which is the last one you added.
 
-Note: I am specifying index -1 in the `pop()` call. This is redundant, because
-`pop()` removes the last item in the list bu default. I have left this in 
-place in order for the code to explicitly show the reader that it is behaving
-as a stack.
+Note: I'm passing index `-1` to `pop()`. That's redundant, because `pop()` removes the last item in
+the list by default. I've left it in so the code shows the reader that it's behaving as a stack.
 
 ```python
 my_stack = [1, 2, 3, 4, 5]
@@ -42,11 +39,12 @@ Stack: [1, 2, 3, 4, 5]
 
 ### Queues
 
-A queue uses first-in, first-out (FIFO) order
+A queue uses first-in, first-out (FIFO) order.
 
-This is a lot like when people are waiting in line (first-come, first-served).
+This is like people waiting in line: first come, first served.
 
-Note: Now we are calling `pop(0)` to remove the first item from the list.
+Note: Now we call `pop(0)` to remove the first item from the list. Keep in mind that `pop(0)` shifts
+every remaining item, which gets slow on long lists. We covered that cost in lesson 3.7.
 
 ```python
 my_queue = [1, 2, 3, 4, 5]
@@ -69,11 +67,11 @@ Queue: [1, 2, 3, 4, 5]
 ---
 
 > Note:
-> 
-> This lesson is not a complete exploration of the stack and queue data 
-> structures, which require additional functionality not covered here.
 >
-> This is just a review of how we can control retrieval order in the way that 
-> those structures would.
+> This lesson isn't a complete exploration of stacks and queues. Those structures need more
+> functionality than we cover here.
+>
+> It's just a review of how you can control the order items come out, the way those structures do.
 
 ---
+

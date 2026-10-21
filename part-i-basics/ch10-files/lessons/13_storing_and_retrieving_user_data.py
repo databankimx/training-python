@@ -22,7 +22,7 @@ def user_check(filepath: str) -> None:
     Otherwise, create a new file with user input
     """
     try:
-        with open(filepath, encoding="utf-8") as f:
+        with open(filepath, encoding="UTF-8") as f:
             user = json.load(f)
             print(f"Welcome back, {user['username']}")
     except FileNotFoundError:
@@ -31,13 +31,18 @@ def user_check(filepath: str) -> None:
             "last_name": input("Enter your last name:\n> ")
         }
         user["username"] = f"{user['first_name'][0]}{user['last_name']}".upper()
-        with open(filepath, "w", encoding="utf-8") as f:
+        with open(filepath, "w", encoding="UTF-8") as f:
             json.dump(user, f)
         print(f"We'll remember you when you come back, {user['username']}")
 
 ROOT_DIR = os.path.dirname(__file__)
 file_name = "user.json"
 file_path = os.path.join(ROOT_DIR, "Files", file_name)
+user_check(file_path)
+
+pause()
+clear_terminal()
+
 user_check(file_path)
 
 pause()
@@ -56,7 +61,7 @@ def user_check_from_path(filepath: str) -> None:
     """
     file_object = Path(filepath)
     try:
-        user = json.loads(file_object.read_text(encoding="utf-8"))
+        user = json.loads(file_object.read_text(encoding="UTF-8"))
         print(f"Welcome back, {user['username']}")
     except FileNotFoundError:
         user = {
@@ -64,9 +69,14 @@ def user_check_from_path(filepath: str) -> None:
             "last_name": input("Enter your last name:\n> ")
         }
         user["username"] = f"{user['first_name'][0]}{user['last_name']}".upper()
-        file_object.write_text(json.dumps(user), encoding="utf-8")
+        file_object.write_text(json.dumps(user), encoding="UTF-8")
         print(f"We'll remember you when you come back, {user['username']}")
 
 file_name = "user.json"
 file_path = get_path(file_name, "Files")
+user_check_from_path(file_path)
+
+pause()
+clear_terminal()
+
 user_check_from_path(file_path)

@@ -29,6 +29,8 @@ print("Pizza is magnificent!")
 </details>
 <br>
 
+> Note: `choice()` picks an adjective at random, so your output will differ from this example.
+
 <details>
 <summary>Output</summary>
 
@@ -65,6 +67,8 @@ print("You have to be very careful cooking any of these animals.")
 </details>
 <br>
 
+> Note: `choice()` picks a verb at random, so your output will differ from this example.
+
 <details>
 <summary>Output</summary>
 
@@ -100,6 +104,8 @@ for num in range(1, 21):
 Make a list of the numbers from one to one million, and then use a for loop to
 print the numbers. (If the output is taking too long, stop it by pressing
 `CTRL`+`C`.)
+
+> Note: the `.py` file prints only the first and last five numbers, so the terminal stays readable. The full loop is in the file as a commented-out block.
 
 <details>
 <summary>Spoiler Code</summary>
@@ -388,7 +394,7 @@ for food in menu:
 
 # menu[0] = "toast"  # Uncomment to see TypeError
 
-menu = ("toast", "pastry", "coffee", "tea", "yoghurt")
+menu = ("toast", "pastry", "coffee", "tea", "yogurt")
 print("Updated Menu:")
 for food in menu:
     print(f" - {food}")

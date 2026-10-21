@@ -21,7 +21,14 @@ print(f"{x} / {y} = {x / y}")
 print(f"{z} / {y} = {z / y}")
 #   **   exponent   3 ** 2 -> 9
 print(f"{x} ** {y} = {x ** y}")
+#   //   integer    3 // 2 -> 1 (rounds down, toward negative infinity)
+print(f"{x} // {y} = {x // y}")
+print(f"-7 // 2 = {-7 // 2}")
+#   %    modulo     3 % 2 -> 1 (the remainder)
+print(f"{x} % {y} = {x % y}")
 #        PEMDAS     3 + 2 * 4 -> 11
 print(f"{x} + {y} * {z} = {x + y * z}")
 #   ()   grouping   (3 + 2) * 4 -> 20
 print(f"({x} + {y}) * {z} = {(x + y) * z}")
+#        right to left for exponents: 2 ** 3 ** 2 -> 2 ** 9 -> 512
+print(f"2 ** 3 ** 2 = {2 ** 3 ** 2}")

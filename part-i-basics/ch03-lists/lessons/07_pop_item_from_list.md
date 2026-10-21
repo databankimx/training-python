@@ -1,17 +1,18 @@
 ## Popping an Item from a List
 
-Sometimes you want to remove items from the list as you use them. In such a
-case, it is useful to have a method that deletes the item from the list while
-simultaneously returning the value that was stored in the removed item.
+Sometimes you want to take an item off a list and use it right away. The `del`
+statement removes an item, but it doesn't hand the item back to you. For that, Python
+lists have the `pop()` method. It removes an item and returns its value, so you can
+store it or print it.
 
-For this purpose, Python lists implement the `pop()` method.
+The name comes from picturing the list as a stack of plates. You pop one off the top,
+and the top of the stack is the end of the list.
 
 ---
 
 ### Pop the Last Item
 
-By default, `pop()` will remove the last item from the list and capture its 
-value to use immediately.
+By default, `pop()` removes the last item and returns it:
 
 ```python
 motorcycles = ["honda", "yamaha", "suzuki", "triumph"]
@@ -23,20 +24,18 @@ print(motorcycles)
 Output:
 
 ```
-['honda', 'yamaha', 'suzuki', 'triumph']
 triumph
 ['honda', 'yamaha', 'suzuki']
 ```
 
-In a later chapter, when we discuss modeling a `stack`, we will use `pop()`.
+The `popped` variable holds `triumph`, and the list no longer has it.
 
 ---
 
 ### Pop a Different Item
 
-Although originally created solely to remove and capture the last item from a
-list, subsequent improvements on the `pop()` method allow passing an index to
-specify a different item to remove and capture.
+`pop()` also takes an optional position, so you can remove an item from anywhere in
+the list. The item at that position is removed and returned:
 
 ```python
 motorcycles = ["honda", "yamaha", "suzuki", "triumph"]
@@ -48,11 +47,22 @@ print(motorcycles)
 Output:
 
 ```
-['honda', 'yamaha', 'suzuki', 'triumph']
 yamaha
 ['honda', 'suzuki', 'triumph']
 ```
 
-In a later chapter, when we discuss modeling a `queue`, we will use `pop(0)`.
+Everything after position 1 shifts one place to the left to close the gap.
 
 ---
+
+### Pop Is Not Free
+
+Removing the last item is quick. Removing an item from the front, with `pop(0)`, is
+slower on a long list. Every other item has to shift left to fill the gap. For a
+list of four motorcycles, you won't notice. For a list of a million items, you will.
+
+If you find yourself removing from the front a lot, keep that cost in mind. It's a
+good reason to choose a different structure, and Python has several.
+
+---
+

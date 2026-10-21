@@ -3,8 +3,11 @@
 print("Chapter 8:")
 print("Exercise 1 - Simple Functions")
 
+
 def greet_user():
     """Display a simple greeting"""
     print("\nHello!")
 
+
 greet_user()
+print(greet_user.__doc__)

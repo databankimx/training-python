@@ -8,7 +8,7 @@ def my_bad_function(my_arg: list[str]=[]) -> list[str]: # NOSONAR
     print(my_arg, "\n")
     return my_arg
 
-def my_good_function(my_arg: list[str]=None) -> list[str]:
+def my_good_function(my_arg: list[str] | None=None) -> list[str]:
     """Demonstrate the result of a default None argument"""
     print("Using `None` as a default argument:")
     if my_arg is None:
@@ -25,7 +25,6 @@ def counter(func: callable) -> callable:
     _counter.calls = 0
     return _counter
 
-# pylint: disable=dangerous-default-value
 @counter
 def fibonacci(n: int, memo: dict[int, int]={0: 0, 1: 1}) -> int:
     """Return the nth Fibonacci number (memoized algorithm)"""

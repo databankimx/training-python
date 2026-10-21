@@ -4,21 +4,24 @@ print("Chapter 8:")
 print("Exercise 5 - Returning Values from Functions")
 
 # By writing your function so that it returns some data,
-#   you add a lot of flexibility to your code
-# Note: ALL functions provide return values. If you do not include
-#   a return statement, the function returns `None`
+#   you add a lot of flexibility to your code.
+# Note: Every function call produces a value. If a function has no
+#   return statement, the value is `None`.
 
-# Note: You do not have to declare a return in the method signature
+
+# You do not have to declare a return type in the function signature.
 def get_formatted_name_simple(first_name, last_name):
     """Return a full name, neatly formatted."""
     full_name = f"{first_name} {last_name}"
-    # Return statement determines what the function returns to the calling code
+    # The return statement determines what the function gives back to the calling code
     return full_name.title()
+
 
 def get_formatted_name_middle(first_name, middle_name, last_name):
     """Return a full name, neatly formatted."""
     full_name = f"{first_name} {middle_name} {last_name}"
     return full_name.title()
+
 
 def get_formatted_name(first_name, last_name, middle_name=""):
     """Return a full name, neatly formatted."""
@@ -28,9 +31,11 @@ def get_formatted_name(first_name, last_name, middle_name=""):
         full_name = f"{first_name} {last_name}"
     return full_name.title()
 
+
 def pause():
     """Wait for user to press <ENTER>"""
     input("\nPress <ENTER> to continue\n")
+
 
 musician = get_formatted_name_simple("jimi", "hendrix")
 print(musician)

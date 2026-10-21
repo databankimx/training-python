@@ -1,28 +1,27 @@
 ## Returning Values from Functions
 
-You can make a function pass a value back to the calling code using the 
-`return` keyword.
+A function can pass a value back to the code that called it, using the `return` keyword.
 
-In many languages, a function without a `return` will behave as a statement
-(it will not resolve to any value). In Python, however, all functions are
-expressions (they resolve to some value). If you do not specify a `return` in
-your code, then the function returns `None`.
+In many languages, a function without a `return` behaves like a statement, so it doesn't produce a
+value. In Python, every function call is an expression, so it always produces a value. If your function
+doesn't have a `return`, the value it produces is `None`.
 
-Syntax:  
+Syntax:
 `return value_to_pass_back`
 
-Making sure that your functions return values can add versatility to your code.
+Making sure your functions return values adds versatility to your code.
+
+> **About the `.py` file:** it includes a `pause()` helper that waits for you to press Enter between
+> the examples, so you can read each result before the next one appears.
 
 ---
 
 ### Returning a Value
 
-Unlike some languages, in Python, you do not have to declare a return type in 
-the function signature.
-
+Unlike some languages, Python doesn't require you to declare a return type in the function signature.
 All you do is add a `return` statement.
 
-Since a value is returned, you can capture the function results in a variable.
+Since the function returns a value, you can store the result in a variable.
 
 ```python
 def get_formatted_name_simple(first_name, last_name):
@@ -52,10 +51,10 @@ John Lee Hooker
 
 ### A More Versatile Example
 
-Here's a way to refine the example from above to make the middle name optional.
+Here's a way to refine the example above so the middle name is optional.
 
-This makes the function more versatile, since we don't need separate functions
-for with and without middle names.
+This makes the function more versatile, because you don't need separate functions for names with and
+without a middle name.
 
 ```python
 def get_formatted_name(first_name, last_name, middle_name=""):
@@ -80,3 +79,4 @@ John Lee Hooker
 ```
 
 ---
+

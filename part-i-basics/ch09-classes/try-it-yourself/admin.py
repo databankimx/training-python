@@ -3,9 +3,9 @@
 from user import User
 
 class Admin(User):
-    """Define an admin ad a subclass of User"""
+    """Define an admin as a subclass of User"""
 
-    def __init__(self, first_name, last_name, privileges = None):
+    def __init__(self, first_name, last_name, privileges=None):
         """Initialize a new instance of the Admin class"""
         super().__init__(first_name, last_name)
         self.privileges = Privileges(privileges)
@@ -15,7 +15,7 @@ class Admin(User):
 class Privileges:
     """Define a collection of user privileges"""
 
-    def __init__(self, privileges = None):
+    def __init__(self, privileges=None):
         """Initialize a new instance of the Privileges class"""
         if privileges is None:
             self.privileges = ["create", "delete", "modify", "ban"] #NOSONAR
@@ -24,6 +24,6 @@ class Privileges:
 
     def show_privileges(self):
         """Print out the list of user privileges"""
-        print("\nPrivileges:")
+        print("Privileges:")
         for privilege in self.privileges:
             print(f" - {privilege}")

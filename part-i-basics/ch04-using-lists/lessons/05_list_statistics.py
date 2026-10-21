@@ -5,7 +5,7 @@ import statistics
 print("Chapter 4:")
 print("Exercise 5 - List Statistics")
 
-digits = list(range(0, 10))
+digits = list(range(10))
 print(digits)
 print(f"List Length:  {len(digits)}")
 print(f"Minimum:      {min(digits)}")
@@ -14,11 +14,10 @@ print(f"Sum:          {sum(digits)}")
 print(f"Average:      {sum(digits) / len(digits)}")
 
 tens = list(range(10, 101, 10))
-print(f"\n{tens}")
-avg = sum(tens) / len(tens)
-print(f"Average:      {avg}")
-mean_avg = statistics.mean(tens)
-print(f"Mean Average: {mean_avg}")
+print(tens)
+print(f"Average:      {sum(tens) / len(tens)}")
+print(f"Average:      {statistics.mean(tens)}")
 
-calc_avg = int(avg) if (avg * 10) % 10 == 0 else avg
-print(f"Calc Average: {calc_avg}")
+avg = sum(tens) / len(tens)
+mean = int(avg) if (avg * 10) % 10 == 0 else avg
+print(f"Average:      {mean}")

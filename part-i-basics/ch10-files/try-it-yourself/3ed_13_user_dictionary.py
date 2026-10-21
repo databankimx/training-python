@@ -22,7 +22,7 @@ file_path = get_path(file_name, "Files")
 file = Path(file_path)
 
 if file.exists():
-    user = json.loads(file.read_text(encoding="utf-8"))
+    user = json.loads(file.read_text(encoding="UTF-8"))
     print(f"Welcome back, {user['username']}!")
     print("Here's what I know about you:")
     for key, value in user.items():
@@ -37,6 +37,6 @@ else:
 
     user["username"] = f"{user['first_name'][0]}{user['last_name']}".upper()
 
-    file.write_text(json.dumps(user), encoding="utf-8")
+    file.write_text(json.dumps(user), encoding="UTF-8")
 
     print(f"We'll remember you when you come back, {user['username']}")

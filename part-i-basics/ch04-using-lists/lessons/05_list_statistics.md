@@ -1,7 +1,6 @@
 ## List Statistics
 
-Python provides several functions to expose information about a list.
-
+Python has a handful of built-in functions that tell you something about a list.
 
 |Function|Effect|
 |-|-|
@@ -31,8 +30,8 @@ Sum:          45
 
 ---
 
-Of course, we can take those values and calculate the other information, like a
-mean average.
+With those values, you can work out other statistics. The mean average is the sum
+divided by the length:
 
 ```python
 digits = list(range(10))
@@ -49,8 +48,8 @@ Average:      4.5
 
 ---
 
-Because calculating the average uses division, the result is a float, even if
-the value is an integer.
+Division always gives you a float, though, even when the answer is a whole number. Try
+the average of the numbers 10 through 100:
 
 ```python
 tens = list(range(10, 101, 10))
@@ -65,11 +64,17 @@ Output:
 Average:      55.0
 ```
 
+The answer is `55`, but Python reports it as `55.0`. Nothing is wrong with the math. It
+just comes back as a float.
+
 ---
 
-We can work around this in one of two ways:
+### The `statistics` Module
 
-We can import the `statistics` module and use its `mean()` function
+If you'd rather get `55` back, the `statistics` module has a `mean()` function that
+handles this for you. Bringing a module into your program takes an `import` statement.
+A module is a file full of ready-made functions, and `import` makes them available to
+you. We'll cover modules properly later in the book.
 
 ```python
 import statistics
@@ -86,10 +91,15 @@ Output:
 Average:      55
 ```
 
+Until you've learned conditionals, `statistics.mean()` is the approach to use.
+
 ---
 
-Or we can leverage modulo arithmetic and a conditional (coming in chapters 
-5 and 8) to eliminate the float when it is not needed.
+### A Preview: Tidying Up the Float
+
+There's also a way to get `55` without a module, using modulo arithmetic and a
+conditional. It's a preview, so don't worry about the details yet. Conditionals come
+in Chapter 5, and it will make more sense then:
 
 ```python
 tens = list(range(10, 101, 10))
@@ -106,4 +116,8 @@ Output:
 Average:      55
 ```
 
+The line with `if` is the conditional. It says: if the average has no fractional part,
+turn it into an integer. Otherwise, keep it as it is.
+
 ---
+

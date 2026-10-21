@@ -17,8 +17,8 @@ while True:
     response = input("Please enter your answer (or 'quit'):\n> ")
     if response.lower() == "quit":
         break
-    with open(file_path, "a", encoding="utf-8") as file:
+    with open(file_path, "a", encoding="UTF-8") as file:
         file.write(f"{response}\n")
 
-with open(file_path, "r", encoding="utf-8") as file:
+with open(file_path, "r", encoding="UTF-8") as file:
     print(file.read())

@@ -21,3 +21,5 @@ for username, user_info in users.items():
     full_name = f"{user_info['first']} {user_info['last']}"
     print(f"\tName: {full_name.title()}")
     print(f"\tLocation: {user_info['location'].title()}")
+
+print(users["aeinstein"]["first"])

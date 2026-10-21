@@ -1,15 +1,27 @@
 ## Tuples
 
-A `tuple` in Python is essentially an immutable list.
+A tuple is essentially an immutable list. It holds a sequence of values, and once it's
+created, you can't change what's inside it.
 
-To distinguish that a collection is a tuple in stead of a list, we use 
-parentheses instead of square brackets when we initialize the variable.
+To tell a tuple from a list, use parentheses `()` instead of square brackets `[]`:
+
+```python
+coords = (1, 3)
+```
+
+Tuples can also be written without parentheses, with just commas. That's called *tuple
+packing*, and you'll see it in other people's code. The parentheses make the tuple easier
+to spot, so they're a good habit to keep.
+
+```python
+coords = 1, 3
+```
 
 ---
 
 ### Declaring and Accessing Elements
 
-Elements in a tuple can be read by index just like elements in a list.
+Elements in a tuple can be read by index, just like elements in a list:
 
 ```python
 coords = (1, 3)
@@ -26,9 +38,8 @@ x: 1, y: 3
 
 ### Immutability
 
-Unlike lists, tuples are immutable. You cannot add, remove, or modify items
-after the tuple is initialized.
-
+Unlike lists, tuples are immutable. You can't add, remove, or change an item once the tuple
+exists:
 
 ```python
 coords = (1, 3)
@@ -47,7 +58,7 @@ TypeError: 'tuple' object does not support item assignment
 
 ---
 
-Although tuples cannot be mutated, they can be replaced/reinitialized.
+Although you can't change a tuple, you can replace it with a new one:
 
 ```python
 coords = (1, 3)
@@ -61,15 +72,14 @@ Output:
 x: 2, y: 3
 ```
 
+The original tuple isn't modified. The name `coords` now points to a different tuple.
+
 ---
 
 ### Pseudo-Constants
 
-A tuple can have just one value, but the value must be followed by a comma.
-
-Some developers use these single-value tuples to create pseudo-constant
-variables. They aren't truly constant, but the immutability of an initialized
-tuple helps prevent inadvertent modification of data.
+A tuple with a single value needs a comma after that value. Without the comma, Python
+sees only parentheses around a number:
 
 ```python
 x = (2,)
@@ -83,11 +93,15 @@ Output:
 x: 2, y: 3
 ```
 
+Some developers use single-value tuples as pseudo-constants. They aren't truly constant,
+since the name can still be reassigned. But an initialized tuple can't be changed in
+place, which helps stop data from being modified by accident.
+
 ---
 
 ### Looping
 
-You can loop across a tuple, just like a list
+You can loop over a tuple just like a list:
 
 ```python
 dimensions = (3, 4, 5)
@@ -107,8 +121,8 @@ Output:
 
 ### Unpacking
 
-Tuples are especially well suited to being deconstructed using multiple 
-assignment (we call this "unpacking").
+Tuples work especially well with multiple assignment. As we saw in lesson 2.12, you can
+unpack one into separate variables:
 
 ```python
 coords = (1, 3)
@@ -126,11 +140,8 @@ x: 1, y: 3
 
 ### Zipping Lists
 
-You can join two lists into a single list of tuples using the `zip()` 
-function.
-
-This takes the elements at each index in the lists and creates a tuple to 
-populate at that index in a new list.
+You can join two lists into a list of tuples with `zip()`. It takes the items at each
+position and pairs them up:
 
 ```python
 letters = ["a", "b", "c"]
@@ -145,13 +156,16 @@ Output:
 [('a', 1), ('b', 2), ('c', 3)]
 ```
 
+Notice the `list()` call. `zip()` returns an iterator, the same as `reversed()` did in
+lesson 3.9. Printing the `zip()` result directly shows an object, not the pairs. Wrap it
+in `list()` to see them.
+
 ---
 
-### Warning on `zip()`
+### A Warning About `zip()`
 
-Be careful to only use `zip()` on lists of the same length. If one of the 
-lists has more elements than the other, only the indices where both lists 
-contain a value will be populated in the resulting tuple list.
+Only use `zip()` on lists of the same length. If one list is longer, the extra items are
+dropped:
 
 ```python
 letters = ["a", "b", "c"]
@@ -166,20 +180,16 @@ Output:
 [('a', 1), ('b', 2), ('c', 3)]
 ```
 
-No values were added for index 3, which contains the value `4` in the
-second list.
+Nothing was added for position 3, where the second list holds `4`. There's no error or
+warning. The `4` simply never shows up.
 
 ---
 
-#### Making Mismatched Lists Throw a `ValueError`
+#### Making Mismatched Lists Raise a `ValueError`
 
-Normally, you don't receive an error or warning. You just don't receive
-the extra values from the list with more elements.
-
-However, you can add the optional argument `strict=True` to the `zip()` call
-to force an error instead when we try to use the results.
-
-This argument was added in Python 3.10.
+If you'd rather get an error than lose items quietly, add the `strict=True` argument to
+`zip()`. Python checks the lengths and raises an error when they don't match. This
+argument arrived in Python 3.10:
 
 ```python
 letters = ["a", "b", "c"]
@@ -199,3 +209,4 @@ ValueError: zip() argument 2 is longer than argument 1
 ```
 
 ---
+

@@ -1,21 +1,21 @@
-## Combining Multiple Conditionals
+## Combining Multiple Conditions
 
-Often, it will be necessary to check multiple conditions simultaneously. For
-example, if we need to know if something is between a minimum and maximum
-value, we have to check both conditions.
+Often you need to check more than one condition at the same time. Say you want to know
+whether a number falls between a minimum and a maximum. You have to check both
+conditions.
 
 ---
 
 ### A Less-Than-Optimal Solution
 
-We could do this by nesting two if blocks, like this:
+You could nest two `if` blocks:
 
 ```python
-min = 10
-max = 20
+low = 10
+high = 20
 n = 15
-if n > min:
-    if n < max:
+if n > low:
+    if n < high:
         print("OK")
     else:
         print("ERROR")
@@ -29,38 +29,30 @@ Output:
 OK
 ```
 
----
-
-But that's kind of an ugly pattern, and it's unnecessarily verbose. What we
-need is a way to logically group conditions and check them at the same time.
-
-Python provides this for us in the form of logical operators.
+It works, but it's clumsy, and it repeats the `else` branch. What we need is a way to group
+conditions and check them together. Python gives us logical operators for exactly that.
 
 ---
 
 ### Logical Operators
 
-We'll review three logical operators: `and`, `or`, and `not`, as well as a
-logical concept that doesn't provide an operator: `xor`.
+We'll review three logical operators, `and`, `or`, and `not`, and one logical idea that
+doesn't have its own operator, `xor`.
 
-For each of the operators, I will include a truth table (a matrix indicating
-when the operator is `True` or `False`) as well as a code example.
+For each operator, I include a truth table, which lists when the operator is `True` or
+`False`, along with a code example.
 
-It is a convention to call the operands of a logical operator `p` and `q`, so I
-will use that nomenclature below. In the truth tables, I will also abbreviate 
-`True` and `False` as `T` and `F` respectively.
+By convention, the operands of a logical operator are called `p` and `q`, and I'll use those
+names below. In the truth tables, `True` and `False` are shortened to `T` and `F`.
 
-I have provided a separate file
-[Boolean Logic Test Page](./boolean_logic_tester.html)
-to allow you to play around with combinations of values and how the logical
-operators evaluate them.
+To play with combinations of values and see how the operators evaluate them, open the
+[Boolean Logic Test Page](./boolean_logic_tester.html).
 
 ---
 
 #### Logical `and`
 
-The `and` operator will return `True` only if the conditions on both sides are
-`True`.
+The `and` operator returns `True` only when the conditions on both sides are `True`.
 
 |p|`and`|q|
 |:-:|:-:|:-:|
@@ -71,13 +63,13 @@ The `and` operator will return `True` only if the conditions on both sides are
 
 ---
 
-Using this, we can simplify the example from above
+With `and`, the earlier example becomes a single condition:
 
 ```python
-min = 10
-max = 20
+low = 10
+high = 20
 n = 15
-if n > min and n < max:
+if n > low and n < high:
     print("OK")
 else:
     print("ERROR")
@@ -89,27 +81,23 @@ Output:
 OK
 ```
 
-In a complex conditional, the logical operator should always be evaluated last.
+Python resolves each comparison first, and then `and` combines the results. For
+`n > low and n < high`:
 
-So, when we evaluate the complex conditional (`n > min and n < max`), we do the
-following:
+1. `n > low` is `True`, because 15 is greater than 10.
+2. `n < high` is `True`, because 15 is less than 20.
+3. `True and True` is `True`, according to the truth table.
 
-1. Evaluate `n > min` which returns `True` for the left condition
-2. Evaluate `n < max` which returns `True` for the right condition
-3. Evaluate `True and True` which returns `True` based on the truth table
-
-So, the `and` is `True`, which routes us to the "OK" path in the `if`-`else`
+Since `and` is `True`, the code takes the `"OK"` path.
 
 ---
 
 #### Logical `or`
 
-The `or` operator will return `True` any time at least one of the operands is
-`True`. This is known as the *inclusive or*, since it includes the condition
-where both operands are `True`
+The `or` operator returns `True` whenever at least one operand is `True`. This is called the
+*inclusive or*, because it also counts the case where both operands are `True`.
 
-We can think of this as the inverse of `and` in that `or` will only return
-`False` when both operands are `False`
+It returns `False` only when both operands are `False`.
 
 |p|`or`|q|
 |:-:|:-:|:-:|
@@ -120,14 +108,13 @@ We can think of this as the inverse of `and` in that `or` will only return
 
 ---
 
-Looking at the previous example, we could achieve the same results using `or`
-as we did with `and`.
+The same check works with `or`, written the other way around:
 
 ```python
-min = 10
-max = 20
+low = 10
+high = 20
 n = 15
-if n < min or n > max:
+if n < low or n > high:
     print("ERROR")
 else:
     print("OK")
@@ -139,32 +126,28 @@ Output:
 OK
 ```
 
-Here is the breakdown of the conditional evaluation for `n < min or n > max`
+Here's how `n < low or n > high` resolves:
 
-1. `15 < 10` -> `False` (left operand)
-2. `15 > 20` -> `False` (right operand)
-3. `False or False` -> `False` (or)
+1. `15 < 10` is `False` (left operand).
+2. `15 > 20` is `False` (right operand).
+3. `False or False` is `False`.
 
-Since the `or` evaluates to `False`, we follow the `else` branch.
+Since the `or` is `False`, the code takes the `else` branch.
 
 ---
 
 #### Logical `not`
 
-Sometimes, the code flow is easier to follow if we invert the condition
-being checked. For example it may more intuitive to have the `True` path
-contain the code that executes when a condition isn't detected (if the
-condition is an error or anomalous data, e.g.).
+Sometimes the code is easier to follow if you invert a condition. For example, it can read
+more naturally to put the normal path in the `if` and the error path in the `else`, when the
+condition describes an error.
 
-The `not` operator takes only one operand and returns the opposite value
-(negation) of the condition.
+The `not` operator takes one operand and returns the opposite value.
 
 |`not`|p|
 |:-:|:-:|
 |F|T|
 |T|F|
-
----
 
 ```python
 print(not True)
@@ -182,8 +165,14 @@ True
 
 ### Logical Operator Precedence
 
-When you have a complex conditional that uses more than one logical
-operator, `and` has higher precedence than `or`.
+When a condition uses more than one logical operator, Python applies them in a set order.
+Here's the order, from highest to lowest:
+
+1. `not`
+2. `and`
+3. `or`
+
+So `and` is applied before `or`:
 
 ```python
 lst = [1, 2, 3, 4, 5]
@@ -199,59 +188,32 @@ Output:
 OK
 ```
 
----
+Here's how Python reads that condition:
 
-#### `and` supersedes `or`
+1. Python resolves the `and` first, so we look at `lst[0] == 1 and lst[-1] == 2`.
+2. `lst[0] == 1` is `True`.
+3. `lst[-1] == 2` is `False`.
+4. `True and False` is `False`.
 
-When we evaluate the expression, we resolve the `and` first, so...
+Now the `or` is left with `len(lst) > 3 or False`:
 
-1. From `len(lst) > 3 or lst[0] == 1 and lst[-1] == 2` we just look at
-   `lst[0] == 1 and lst[-1] == 2`
-2. `lst[0] == 1` resolves `True`
-3. `lst[-1] == 2` resolves `False`
-4. `True and False` resolves `False`
+5. `len(lst) > 3` is `True`.
+6. `True or False` is `True`.
 
-... then we resolve the `or`...
+So the condition is `True`, and the code takes the `"OK"` path.
 
-5. `len(lst) > 3` resolves `True`
-   We already know that `lst[0] == 1 and lst[-1] == 2` resolved `False`
-6. `True or False` resolves `True`
+If Python had read the condition strictly from left to right, the answer would flip:
 
-And so we end up on the true `if` path.
+1. `len(lst) > 3 or lst[0] == 1` is `True or True`, which is `True`.
+2. `True and lst[-1] == 2` is `True and False`, which is `False`.
 
----
-
-If we had ignored precedence and just evaluated from the left, we would
-have gotten the opposite result
-
-1. Starting with the `or` we evaluate `len(lst) > 3 or lst[0] == 1`
-2. `len(lst) > 3` resolves `True`
-3. `lst[0] == 1` resolves `True`
-4. `True or True` resolves `True`
-5. Now we have `True and lst[-1] == 2`
-6. `lst[-1] == 2` resolves `False`
-7. `True and False` resolves `False` (**WRONG!**)
-
-... which would have diverted us to the `else` path.
-
----
-
-#### `not` has the highest precedence
-
-You should always evaluate `not` as soon as its immediate right operand is
-resolved.
-
-
+That would take the `else` path, which is wrong for this condition. Precedence matters.
 
 ---
 
 #### Grouping
 
-To allow us to override precedence, Python permits the use of parentheses
-for grouping.
-
-Looking at our previous example, if we had grouped the conditions around
-the `or`, it would have properly been evaluated first.
+You can override precedence with parentheses. Grouping the `or` makes Python evaluate it first:
 
 ```python
 lst = [1, 2, 3, 4, 5]
@@ -267,26 +229,18 @@ Output:
 ERROR
 ```
 
-1. Starting with the `or` in parentheses, we evaluate
-   `len(lst) > 3 or lst[0] == 1`
-2. `len(lst) > 3` resolves `True`
-3. `lst[0] == 1` resolves `True`
-4. `True or True` resolves `True`
-5. Now we have `True and lst[-1] == 2`
-6. `lst[-1] == 2` resolves `False`
-7. `True and False` resolves `False`
+1. The `or` inside the parentheses resolves first: `len(lst) > 3` is `True`, so `True or True`
+   is `True`.
+2. `True and lst[-1] == 2` becomes `True and False`, which is `False`.
 
-... which diverts us to the `else` path.
+Now the condition is `False`, so the code takes the `else` path.
 
 ---
 
-### Bonus - Simulating XOR
+### Bonus: Simulating XOR
 
-There is no logical operator for the *exclusive or* (XOR) condition.
-
-However, if we compare their truth tables, we'll see that an XOR is the
-same as `or` if we make sure that we set the condition `False` when 
-`and` is `True`. So a truth table for XOR would look like this:
+Python has no operator for *exclusive or* (XOR), which is `True` when exactly one operand is
+`True`. You can build it from the operators you already have.
 
 |p|XOR|q|
 |:-:|:-:|:-:|
@@ -295,32 +249,44 @@ same as `or` if we make sure that we set the condition `False` when
 |F|<span style="color:green">**T**</span>|T|
 |F|F|F|
 
-That reflects more closely what human language means when we say "either
-this or that".
-
-Another way to say this is to say that XOR means `or` but `not and`.
+That matches what people usually mean by "either this or that, but not both." The idea is
+`or`, with the case where both are `True` removed. In code, that's `p or q`, and not both,
+which is `not (p and q)`:
 
 ```python
-s = 1
-m = 5
-l = 10
-m_is_least = m < s and m < l
-m_is_between = (m < s or m < l) and not m_is_least # XOR
-print(m_is_between)
+p = True
+q = False
+p_xor_q = (p or q) and not (p and q)
+print(f"{p} XOR {q} = {p_xor_q}")
 ```
 
 Output:
 
 ```
-True
+True XOR False = True
 ```
+
+The same truth table can be written another way, as one side or the other, but not both:
+
+```python
+p_xor_q = (p and not q) or (q and not p)
+print(f"{p} XOR {q} = {p_xor_q}")
+```
+
+Output:
+
+```
+True XOR False = True
+```
+
+Both forms give the same answer for every combination of `p` and `q`, so you can pick whichever
+reads better to you.
 
 ---
 
-### Bonus - Chaining
+### Bonus: Chaining
 
-If we want to compare three numbers using inequalities, we can do what we've
-done thus far and use `and` like this:
+To check that a number sits between two others, you can combine two comparisons with `and`:
 
 ```python
 s = 1
@@ -329,10 +295,7 @@ l = 10
 m_between = s < m and m < l
 ```
 
----
-
-However, Python permits us to us a shorthand for `and` where we can chain 
-multiple instances of an inequality, like this:
+Python also lets you chain comparisons, which reads more like the math:
 
 ```python
 s = 1
@@ -348,12 +311,14 @@ Output:
 True
 ```
 
-Obviously, the order matters, as chaining should only be used with the same
-directionality.
+The chained form means the same thing as `s < m and m < l`, with `m` checked only once.
+
+The direction matters. Chain comparisons that point the same way:
 
 * You can chain `<` and `<=`
 * You can chain `>` and `>=`
-* But you should not chain `<` and `>`
-    * Keep to one direction (greater or less but not both)
+* Avoid chaining `<` and `>` together, even though Python allows it. The result is hard to
+  read, and you'll probably have to think about it twice.
 
 ---
+

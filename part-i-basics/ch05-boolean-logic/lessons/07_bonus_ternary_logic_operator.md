@@ -1,22 +1,18 @@
-## Bonus Lesson: The Ternary Logic Expression
+## Bonus Lesson: The Ternary Conditional Expression
 
-Many languages include a ternary logic operator. For example, in C# or 
-JavaScript, we have the `condition ? value_if_true : value_if_false` operator.
+Many languages have a *ternary conditional* operator. In C# or JavaScript, for example, it
+looks like `condition ? value_if_true : value_if_false`.
 
-This can be useful if you want to set a single value depending on whether or
-not some condition is true.
+It's handy when you want to set a single value based on whether a condition is true.
 
 ---
 
 ### Without a Ternary Expression
 
-Consider the scenario where we want to evaluate the data entered by a user.
+Suppose a user types something, and you want to replace an empty entry, or one that holds only
+whitespace, with `"nothing"`. Otherwise, you want to keep what they typed.
 
-If the user enters an empty string or a string containing only whitespace, we
-want to swap that with `"nothing"`. Otherwise we want to work with the user's 
-input.
-
-Using our existing knowledge, we can construct the logic like this:
+Using what we already know, you can write the logic like this:
 
 ```python
 user_entry = input("Enter whatever you want:\n> ")
@@ -31,27 +27,26 @@ Output:
 
 If the user entered `" "`:
 ```
-You entered [nothing]
+You entered: [nothing]
 ```
 
 If the user entered `"abc"`:
 ```
-You entered [abc]
+You entered: [abc]
 ```
 
 ---
 
 ### Using a Ternary Expression
 
-For this kind of scenario, where we are simply setting a value based on a
-condition, Python provides a ternary expression structured like this:
+When you're simply setting a value based on a condition, Python offers a ternary expression.
+It has this form:
 
 ```python
 variable = value_if_true if condition else value_if_false
 ```
 
-So, for our example, we can do something like this and obtain the same
-result:
+For our example, you can get the same result like this:
 
 ```python
 data = user_entry.strip() if user_entry.strip() else "nothing"
@@ -62,12 +57,35 @@ Output:
 
 If the user entered `" "`:
 ```
-You entered [nothing]
+You entered: [nothing]
 ```
 
 If the user entered `"abc"`:
 ```
-You entered [abc]
+You entered: [abc]
+```
+
+The ternary reads like a sentence: `data` is the stripped entry if there is one, and `"nothing"`
+otherwise. It also takes up fewer lines.
+
+---
+
+### One Line Inside an f-String
+
+You can even put the whole ternary inside the f-string. It's compact, but it's also harder to
+read at a glance, so use it sparingly:
+
+```python
+print(f"You entered: [{'nothing' if user_entry.strip() == '' else user_entry.strip()}]")
 ```
 
 ---
+
+### A Word of Caution
+
+A ternary is a good fit for a simple, one-time choice. Nesting several of them, or squeezing a
+long condition onto one line, quickly turns code into a puzzle. When that happens, go back to an
+`if` and `else` block. The next developer will thank you.
+
+---
+

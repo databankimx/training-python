@@ -1,32 +1,18 @@
-## Using Slices to Copy Lists
+## Copying Lists
 
-An unbounded slice of a list creates a copy of the original list.
-
-This can be very useful when you don't want to modify the original.
+Copying a list is easy to get wrong, because the obvious approach doesn't always do what
+you expect. Here's how it works, and the one tool you need.
 
 ---
 
-### Lists Assign as the Same Item in Memory
+### Assigning a List Doesn't Copy It
 
-If we create a list and then assign it to a new variable, both variables are
-pointing to the same list in memory.
-
-This happens because the variable only contains the pointer to the memory 
-location where the list data is stored. It takes both more memory and more
-CPU time to create a copy, so the default behavior is just to copy the 
-address (or *reference*), which means that both variables point to the same 
-data.
-
-In Python:
-
-* All variables are passed and assigned by reference, but
-    * All *mutable* data types assign as the same item in memory
-    * All *immutable* data types are assigned as copies
+If you assign a list to a new variable, both names point to the same list in memory:
 
 ```python
 my_foods = ["pizza", "falafel", "carrot cake"]
 print(my_foods)
-other_foods = my_foods # Assignment is by reference
+other_foods = my_foods # This assigns a reference, not a copy
 other_foods.append("gyros")
 print(other_foods)
 print(my_foods)
@@ -40,19 +26,28 @@ Output:
 ['pizza', 'falafel', 'carrot cake', 'gyros']
 ```
 
-Appending a value to `other_foods` modified `my_foods`, since both are 
-references to the same list.
+Appending to `other_foods` changed `my_foods` too, because both names point to the same
+list. A variable doesn't hold the list itself. It holds a reference, which is the address
+where the list lives. Copying a whole list takes more memory and more time, so Python
+copies the reference instead.
+
+That rule applies to every assignment in Python. A name always points to an object, and
+two names can point to the same one. For mutable objects like lists and dictionaries,
+that matters, because you can change the object through either name. Immutable objects,
+like strings and numbers, can't be changed in place. So assigning one looks like a copy,
+but it's the same mechanism underneath.
 
 ---
 
-### Slices Make Copies
+### Taking a Slice Makes a Copy
 
-But if we assign to a slice, we're creating the copy as a new list in memory.
+To get an independent list, take a slice with `[:]`. The unbounded slice makes a new
+list:
 
 ```python
 my_foods = ["pizza", "falafel", "carrot cake"]
 print(my_foods)
-other_foods = my_foods[:] # Unbounded slice makes a copy/clone
+other_foods = my_foods[:] # The slice makes a new list
 other_foods.append("gyros")
 print(other_foods)
 print(my_foods)
@@ -66,15 +61,86 @@ Output:
 ['pizza', 'falafel', 'carrot cake']
 ```
 
-Appending to the copied list did not modify the original.
+Appending to the copy didn't touch the original.
 
 ---
 
-### Note on Shallow vs Deep Copies
+### The `copy()` Method
 
-`[:]` creates a *shallow* copy - the new list is independent, but any mutable
-objects *inside* it (nested lists, dicts) are still shared references. For
-lists of simple values (strings, numbers) this distinction does not matter.
-For nested structures, use `copy.deepcopy()`.
+Lists also have a `copy()` method, which does the same job as `[:]`. It reads more
+clearly, so you may prefer it:
+
+```python
+my_foods = ["pizza", "falafel", "carrot cake"]
+other_foods = my_foods.copy()
+other_foods.append("gyros")
+print(my_foods)
+```
+
+Output:
+
+```
+['pizza', 'falafel', 'carrot cake']
+```
 
 ---
+
+### Comparing Both Approaches Side by Side
+
+Here's the difference in one place. Each list gets a new item, and we print both
+versions at each stage:
+
+```python
+my_foods = ["pizza", "falafel", "carrot cake"]
+friend_foods = my_foods[:]
+print(f"My favorite foods are:          {my_foods}")
+print(f"My friend's favorite foods are: {friend_foods}")
+
+my_foods.append("cannoli")
+friend_foods.append("ice cream")
+print(f"My favorite foods are:          {my_foods}")
+print(f"My friend's favorite foods are: {friend_foods}")
+```
+
+Output:
+
+```
+My favorite foods are:          ['pizza', 'falafel', 'carrot cake']
+My friend's favorite foods are: ['pizza', 'falafel', 'carrot cake']
+My favorite foods are:          ['pizza', 'falafel', 'carrot cake', 'cannoli']
+My friend's favorite foods are: ['pizza', 'falafel', 'carrot cake', 'ice cream']
+```
+
+Now compare that with the assignment version, where there's no copy:
+
+```python
+my_foods = ["pizza", "falafel", "carrot cake"]
+friend_foods = my_foods
+my_foods.append("cannoli")
+friend_foods.append("ice cream")
+
+print(f"My favorite foods are:          {my_foods}")
+print(f"My friend's favorite foods are: {friend_foods}")
+```
+
+Output:
+
+```
+My favorite foods are:          ['pizza', 'falafel', 'carrot cake', 'cannoli', 'ice cream']
+My friend's favorite foods are: ['pizza', 'falafel', 'carrot cake', 'cannoli', 'ice cream']
+```
+
+Both names point to one list, so both prints show the same items. That's the whole
+lesson, in two outputs.
+
+---
+
+### Shallow Copies
+
+A slice or `copy()` makes a *shallow* copy. The new list is independent, but any mutable
+objects inside it, such as nested lists, are still shared with the original. For a list
+of strings or numbers, that doesn't matter. With nested structures, you'd want
+`copy.deepcopy()` from the `copy` module, which copies the nested objects too.
+
+---
+

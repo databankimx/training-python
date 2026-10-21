@@ -15,10 +15,10 @@ def read_file(filename):
     """Read the selected file"""
     file_path = os.path.join(ROOT_DIR, "Files", filename)
     try:
-        with open(file_path, encoding="utf-8") as file:
+        with open(file_path, encoding="UTF-8") as file:
             content = file.read()
     except FileNotFoundError:
-        with open(log_path, "a", encoding="utf-8") as log:
+        with open(log_path, "a", encoding="UTF-8") as log:
             log.write(f"Missing File:\n{file_path}\n\n")
     else:
         print(f"{filename}:")
