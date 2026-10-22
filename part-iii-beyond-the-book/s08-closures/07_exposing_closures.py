@@ -1,6 +1,8 @@
 """Exposing Closures"""
 
-def make_point(x: int, y: int) -> callable:
+from collections.abc import Callable
+
+def make_point(x: int, y: int) -> Callable:
     """Generates a point with access to its coordinate values"""
     def point():
         """Defines a point"""

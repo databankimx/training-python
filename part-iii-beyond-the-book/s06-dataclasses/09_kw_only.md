@@ -1,4 +1,4 @@
-## The DataClass `kw_only` Argument
+## The Dataclass `kw_only` Argument
 
 When `kw_only` is `True` (default is `False`), all arguments in the 
 `__init__()` method can only be passed as keyword arguments.
@@ -35,7 +35,11 @@ Traceback (most recent call last):
 TypeError: Employee.__init__() takes 1 positional argument but 5 were given
 ```
 
-Obviously, the one expected positional argument is `self`.
+The only positional argument that `__init__()` accepts is `self`, so the five
+arguments given (including `self`) are one too many.
+
+> Note: the call is commented out in the code file, so the traceback only appears
+> if you uncomment it.
 
 ---
 
@@ -62,6 +66,22 @@ Output:
 
 ```
 Employee(name='Scott McLean', emp_id='smclean', age=54, city='Dallas')
+```
+
+---
+
+### Defaults Can Come in Any Order
+
+Normally, a field without a default can't come after a field with one, because
+positional arguments would then be ambiguous. Keyword-only fields don't have that
+restriction, since they can't be passed by position, so a field with a default can
+be followed by one without:
+
+```python
+@dataclass(kw_only=True)
+class Employee:
+    city: str = "Dallas"
+    name: str
 ```
 
 ---

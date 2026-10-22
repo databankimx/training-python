@@ -51,6 +51,10 @@ Such a circuit looks sort of like this:
      └──────────────────────────────────────────────────────────────────────────────────┘
 ```
 
+Chaining eight of these full adders, with each carry out feeding the next carry in,
+gives an 8-bit adder. Because each carry has to ripple through the bits in turn,
+this design is called a ripple-carry adder.
+
 ---
 
 ### Addition with the Adder Circuit
@@ -95,7 +99,7 @@ This is equivalent to adding $1 + 1$ with no previous carry coming in.
         * SUM $(S)=S_1\oplus C_{in}=0\oplus0=0$
         * CARRY $(C_2)=S_1~\&~C_{in}=0~\&~0=0$
 * $S=0$, so the output sum is $0$
-* $C_1+C_2=1+0=1$, and since $1\ge1$, $C_{out}=1$
+* $C_1+C_2=1+0=1$, and since $1\ge1$ (the $\ge1$ gate is an OR: at least one input is $1$), $C_{out}=1$
 
 So, binary $1+1=0$, with a carry (to the next place) of $1$
 

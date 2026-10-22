@@ -1,4 +1,4 @@
-## Bit_Shift - Real-World Example: Reconstructing Integers
+## Bit-Shift - Real-World Example: Reconstructing Integers
 
 Bit-shifting can be very useful when we know that a byte represents some 
 other value.
@@ -21,8 +21,12 @@ Let's imagine that the array contains only one $32$-bit integer, broken up
 into four bytes:
 
 ```python
-bytes = [ 0b1101_0010, 0b0000_0010, 0b1001_0110, 0b0100_1001 ]
+byte_arr = [ 0b1101_0010, 0b0000_0010, 0b1001_0110, 0b0100_1001 ]
 ```
+
+These four bytes, in this byte order, make the integer 1,234,567,890.
+
+This byte order, with the least significant byte first, is called *little-endian*.
 
 ---
 
@@ -32,7 +36,7 @@ We know the first byte represents bits $0$ through $7$, so we can take it
 as-is.
 
 ```python
-num = bytes[0] # 210
+num = byte_arr[0] # 210
 ```
 
 ---
@@ -46,7 +50,7 @@ decide to add it to the value we've stored:
 
 ```python
 # This won't work
-num += bytes[1] # 212
+num += byte_arr[1] # 212
 ```
 
 ---
@@ -60,7 +64,7 @@ is set, we can't possibly have a result less than $256$.
 Instead, we need to multiply this byte by $256$ to get the result we expect
 
 ```python
-num += bytes[1] * 256 # 722
+num += byte_arr[1] * 256 # 722
 ```
 
 ---
@@ -86,7 +90,7 @@ bit-shifting:
 We can modify the code to use the bit-shift like this:
 
 ```python
-num += bytes[1] << 8 # 722
+num += byte_arr[1] << 8 # 722
 ```
 
 ---
@@ -98,7 +102,7 @@ So, a loop like this would handle each four-byte set:
 ```python
 num = 0
 for p in range(4):
-    num += bytes[p] << (p * 8)
+    num += byte_arr[p] << (p * 8)
 ```
 
 ---

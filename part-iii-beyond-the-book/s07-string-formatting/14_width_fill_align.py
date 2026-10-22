@@ -6,14 +6,14 @@ def width() -> None:
     print(f"'{s:5}'")
     s = "abcdef"
     print(f"'{s:5}'")
-    print(f"'{s:5.5}'\n")
+    print(f"'{s:5.5}'")
 
 def align() -> None:
     """Set the alignment of the string within the width allotted"""
     s = "abc"
     print(f"left justify:  '{s:<9}'")
     print(f"right justify: '{s:>9}'")
-    print(f"center:        '{s:^9}'\n")
+    print(f"center:        '{s:^9}'")
 
 def fill() -> None:
     """Fill the string with a character up to the specified width"""

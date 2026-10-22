@@ -1,28 +1,41 @@
-## The Conversion Operator `!`
+## The Conversion Flag `!`
 
-If we recall back to the string-modulo operator topic, we'll recall this 
-table:
+A conversion flag, written as an exclamation mark `!` in a placeholder, changes
+how a value is converted to a string before it's inserted. Python accepts three
+conversion flags:
 
-|Placeholder|Meaning||Placeholder|Meaning|
-|:-:|-|-|:-:|-|
-|`%d`|`int` (decimal)||`%i`|`int` (decimal)|
-|`%o`|`int` (octal)||`%%`|`%` sign if no value|
-|||etc. ...|||
+|Flag|Conversion|
+|:-:|-|
+|`!s`|`str()`, the same as no conversion|
+|`!r`|`repr()`|
+|`!a`|`ascii()`|
 
-Any value that can be used with the `%` operator can be used in conjunction 
-with a `string.format()` placeholder to trigger conversion of the value being
-substituted to the desired type.
+Other letters don't work after `!`. Trying one raises an error:
 
-|Placeholder|Meaning||Placeholder|Meaning|
-|:-:|-|-|:-:|-|
-|`!d`|`int` (decimal)||`!i`|`int` (decimal)|
-|`!o`|`int` (octal)||`!%`|`%` sign if no value|
-|`!x`|`int` (hexadecimal: lower)||`!X`|`int` (hexadecimal: UPPER)|
-|`!e`|`float` (sci.notation with `e`)||`!E`|`float` (sci.notation with `E`)|
-|`!f`|`float` (decimal)||`!F`|`float` (decimal)|
-|`!g`|`float` (general)||`!G`|`float` (general)|
-|`!r`|`str` (as `repr()`)||`!s`|`str` (as `str()`)|
-|`!a`|`str` (as `ascii()`)||||
+```python
+print("{!d}".format(42))
+```
+
+Output:
+
+```
+ValueError: Unknown conversion specifier d
+```
+
+The type letters from the string-modulo operator, such as `d`, `f`, and `x`,
+belong after a colon instead. These are format specifiers, covered in the
+[format specifiers lesson](./09_format_specifiers.md) and the
+[data types lesson](./10_type_specifiers.md):
+
+```python
+print("{:x}".format(255))
+```
+
+Output:
+
+```
+ff
+```
 
 ---
 
@@ -46,25 +59,30 @@ Output:
 datetime.datetime(2024, 8, 18, 12, 0, 7, 141226)
 ```
 
+The timestamp will be different each time you run it.
+
 Note: If we did not specify a conversion, we would get the same output as 
 `!s`.
 
+> Note: the code file turns off a Pylint warning (`consider-using-f-string`) on
+> these `print` lines. Those comments stay in the code file.
+
 ---
 
-### Replacing Invalid Characters
+### Escaping Non-ASCII Characters
 
 A common issue for programmers is encountering characters that are not in the
 current character set while parsing text.
 
-Using the `ascii()` representation of the string, we can replace non-ASCII 
-characters with their corresponding hexadecimal values:
+Using the `ascii()` representation of the string, we can escape non-ASCII 
+characters into their hexadecimal forms:
 
 ```python
 invalid_string = "Thisö stringö haö invalidö charactersö."
 print("{!a}".format(invalid_string))
 ```
 
-Output
+Output:
 
 ```
 'This\xf6 string\xf6 ha\xf6 invalid\xf6 characters\xf6.'

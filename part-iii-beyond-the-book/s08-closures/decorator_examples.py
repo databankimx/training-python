@@ -1,28 +1,32 @@
 """Decorator examples"""
 
+import functools
 import timeit
+from collections.abc import Callable
 from datetime import datetime, timezone
+from typing import Any
 
 DEBUG = True
 
-def logger(func: callable) -> callable:
+def logger(func: Callable) -> Callable:
     """Provides a logger to execute each time a function is called"""
 
-    def _logger(*args, **kwargs) -> callable:
+    @functools.wraps(func)
+    def _logger(*args, **kwargs) -> Any:
         """Log function call when executing"""
-        if not DEBUG:
-            return func
-        called_at = datetime.now(timezone.utc).astimezone().strftime(
-            "on %Y-%m-%d at %H:%M:%S GMT%z (%Z)")
         to_execute = func(*args, **kwargs)
-        print(f"Function {func.__name__} executed {called_at}")
+        if DEBUG:
+            called_at = datetime.now(timezone.utc).astimezone().strftime(
+                "on %Y-%m-%d at %H:%M:%S GMT%z (%Z)")
+            print(f"Function {func.__name__} executed {called_at}")
         return to_execute
 
     return _logger
 
-def timer(func: callable) -> callable:
+def timer(func: Callable) -> Callable:
     """Time the execution of a decorated function"""
 
+    @functools.wraps(func)
     def _timer(*args, **kwargs):
         """Write out elapsed time of function execution"""
         start = timeit.default_timer()
@@ -46,9 +50,11 @@ def timer(func: callable) -> callable:
 
     return _timer
 
-def smart_divide(func: callable) -> callable:
+def smart_divide(func: Callable) -> Callable:
     """Decorator to protect against division by zero"""
-    def inner(a: int, b: int) -> callable|None:
+
+    @functools.wraps(func)
+    def inner(a: int, b: int) -> float | None:
         """Execute function only if not dividing by zero"""
         print(f"I am going to divide {a} by {b}")
         if b == 0:
@@ -58,6 +64,6 @@ def smart_divide(func: callable) -> callable:
     return inner
 
 @smart_divide
-def divide(a: int|float, b: int|float) -> float:
+def divide(a: int | float, b: int | float) -> float:
     """Perform division (protected by decorator)"""
     return a / b

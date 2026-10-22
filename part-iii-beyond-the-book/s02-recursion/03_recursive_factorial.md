@@ -1,4 +1,4 @@
-## Real-World Example: Recursively Computing a Factorial
+## Example: Computing a Factorial Recursively
 
 A factorial (denoted as *n*!) is defined thus:
 
@@ -42,18 +42,24 @@ the base case, so we've met the criteria for our standard pattern.
 
 > Note: This is by no means the most efficient method to compute a factorial,
 > and it's vulnerable to the same issue where we'll overflow the recursion
-> limit for any n > 1000. It's just an example of translating a recursive
-> formula into a recursive Python function.
+> limit for n of about 1000 or more. It's just an example of translating a
+> recursive formula into a recursive Python function.
+
+Invalid input prints a message and returns `None`, so every caller has to check
+the result. Raising a `ValueError` is the more common choice in Python. This
+lesson keeps the simpler version for now.
 
 ---
 
-### Testing
+### Running It
 
-We can test our code like this:
+We can run our code like this:
 
 ```python
 for n in range(10):
     print(f"{n}! = {factorial(n)}")
+
+print(factorial(-1))
 ```
 
 Output:
@@ -69,6 +75,11 @@ Output:
 7! = 5040
 8! = 40320
 9! = 362880
+n must be a non-negative integer!
+None
 ```
+
+The last two lines show the error case. The function prints its message, and
+then `None` is returned.
 
 ---

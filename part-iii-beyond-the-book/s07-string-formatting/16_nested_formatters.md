@@ -34,9 +34,9 @@ list of integer values.
 ```python
 from random import randint
 
-def get_random_numbers(min: int=1, max: int=1000, length: int=5) -> list[int]:
+def get_random_numbers(min_n: int=1, max_n: int=1000, length: int=5) -> list[int]:
     """Get a list of random integers"""
-    return [randint(min, max) for _ in range(length)]
+    return [randint(min_n, max_n) for _ in range(length)]
 ```
 
 After generating a list using the default values for this function, we could
@@ -75,7 +75,7 @@ Output:
 Traceback (most recent call last):
   File "...\16_nested_formatters.py", line 12, in <module>
     align_numbers(numbers)
-  File "...", line 7, in align_numbers     
+  File "...\16_nested_formatters.py", line 7, in align_numbers
     print(f"{lead}{numbers[i]:>width}")
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ValueError: Invalid format specifier '>width' for object of type 'int'
@@ -97,9 +97,9 @@ def align_numbers(numbers: list[int]) -> None:
     """Right-justify numbers for proper alignment"""
     total = sum(numbers)
     width = max(len(str(n)) for n in numbers + [total]) + 1
-    for i in range(len(numbers)):
+    for i, n in enumerate(numbers):
         lead = "+" if i == len(numbers) - 1 else " "
-        print(f"{lead}{numbers[i]:>{width}}")
+        print(f"{lead}{n:>{width}}")
     print("-" * (width + 1))
     print(f" {total:>{width}}")
 

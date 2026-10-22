@@ -34,4 +34,7 @@ So $1234$ is read as:
 |-|-|-|-|-|-|
 |...|$+1\times1000$|$+2\times100$|$+3\times10$|$+4\times1$|**$=1234$**|
 
+The same rule works for any base. The next lesson applies it to base two, using
+the same place values, but with powers of 2 instead of 10.
+
 ---

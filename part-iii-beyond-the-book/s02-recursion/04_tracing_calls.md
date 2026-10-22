@@ -9,15 +9,16 @@ def factorial(n: int) -> int | None:
     if not isinstance(n, int) or n < 0:
         print("n must be a non-negative integer!")
         return None
-    
+
     print(f"factorial({n}) called...")
     f = 1 if n < 2 else n * factorial(n - 1)
     print(f"factorial({n}) returns {f}...")
     return f
 ```
 
-We can assume that before the function is called, the recursion stack is
-empty.
+As we look at the trace, we'll count only the `factorial()` calls on the
+recursion stack. Other frames, such as `main()`, also sit on the stack, but
+they don't change as the recursion runs.
 
 Each time our function is called, it can either return a value or call itself,
 and each call adds one instance to the recursion stack.
@@ -30,7 +31,7 @@ Using the two logging lines we've added, we can keep track of the stack count
 
 ---
 
-### Testing
+### Running It
 
 Let's run a small test:
 
@@ -60,8 +61,9 @@ You can see that until we reach the base case `factorial(1)` we only add
 calls to the stack, and after that, we remove them in the reverse order.
 
 Based on this, we know that this function will place *n* recursive calls on 
-the stack, and since we know that the maximum stack depth is 1,000, we know
-that this function cannot handle any *n* greater than 999.
+the stack. Since the maximum stack depth is 1,000, and the frames already on
+the stack (such as `main()`) count toward that limit, this function can't
+handle values of *n* anywhere near 1,000.
 
 Given that Python is specifically designed to handle very large integers, this
 suggests that even though we exactly patterned the real-world formula, our

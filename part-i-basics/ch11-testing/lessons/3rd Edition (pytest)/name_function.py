@@ -8,7 +8,7 @@
 # This function will fail the test without a middle name argument
 # def formatted_name(first: str, last: str, middle: str | None="") -> str:
 #     """Generate a neatly formatted full name."""
-#     full_name =  f"{first} {middle} {last}"
+#     full_name = f"{first} {middle} {last}"
 #     return full_name.title()
 
 # This function will pass both tests

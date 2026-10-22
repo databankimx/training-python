@@ -13,7 +13,9 @@ variables, extending the utility of the closure.
 First, let's create a closure like we've done thus far:
 
 ```python
-def make_point(x: int, y: int) -> callable:
+from collections.abc import Callable
+
+def make_point(x: int, y: int) -> Callable:
     """Generates a point with access to its coordinate values"""
     def point():
         """Defines a point"""
@@ -55,13 +57,17 @@ Point(1, 2)
 5
 ```
 
-The attempt to change the value of `x` did not change the captured value.
+Python doesn't reject `point.x = 5`. Functions are objects, so this creates a new
+attribute called `x` on the function object. That attribute is separate from the
+captured variable `x`, which is why `point()` still prints `Point(1, 2)`.
 
 ---
 
 ### Adding Getters and Setters
 
 We can add accessors to expose the `x` and `y` variables to the calling code.
+Accessors work because functions can carry attributes, as the previous example
+showed. We attach the inner functions to the closure as attributes.
 
 ---
 
@@ -76,7 +82,7 @@ inner functions.
     def get_x() -> int:
         """Getter function for x"""
         return x
-    
+
     def get_y() -> int:
         """Getter function for y"""
         return y
@@ -125,7 +131,7 @@ We'll create additional inner functions as setters for `x` and `y`
         """Setter function for x"""
         nonlocal x
         x = val
-        
+
     def set_y(val: int) -> None:
         """Setter function for y"""
         nonlocal y

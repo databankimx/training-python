@@ -21,6 +21,9 @@ power of the number of positions shifted:
 
 $$n~\texttt{>>}~p=n\div2^p$$
 
+This holds for non-negative values. For negative values, `>>` rounds toward
+negative infinity, so `-1 >> 1` is `-1`.
+
 So, if we have a value $n=128$, and bit-shift it to the right $3$ 
 places, we get the value $128/2^3=16$
 
@@ -114,7 +117,7 @@ The Python integer grows to support the extra bits required.
 #### Overflow in Languages with Static-Size Integer Types
 
 Let's take a look at integer overflow in C. We'll use an `unsigned char` type,
-which is the equivalent of an $8$-bit byte in C.
+which is 8 bits on virtually all systems.
 
 See [bit_shift_overflow.c](./18_bit_shift_overflow.c)
 
@@ -158,7 +161,8 @@ lost, and the returned value is $0$.
 We can also lose information when we right shift past the ones place 
 (underflow).
 
-Unlike overflow, Python *is* vulnerable to underflow.
+Unlike overflow, Python still loses bits when a right shift moves past the ones
+place.
 
 ```python
 x = 4
@@ -178,7 +182,7 @@ Binary View:
 > |-|:-|-:|-|
 > ||$0000~0100_2$|($4_{10}$)||
 > ||$~~~~~~~~~~~\uparrow~~~~~\downarrow~$||(the $1$ moves three places to the right)|
-> |$\texttt{>>}~3$|$0000~0000~1_2$|(undefined)|(There is no $0$s place)|
+> |$\texttt{>>}~3$|$0000~0000~1_2$|($0_{10}$)|(the $1$ falls off the end)|
 
 ---
 
@@ -213,18 +217,18 @@ Binary View:
 > |-|:-|-:|-|
 > ||$0000~0100_2$|($4_{10}$)||
 > ||$~~~~~~~~~~~\uparrow~~~~~\downarrow~$||(the $1$ moves three places to the right)|
-> |$\texttt{>>}~3$|$0000~0000~1_2$|(undefined)|(There is no $0$s place)|
+> |$\texttt{>>}~3$|$0000~0000~1_2$|($0_{10}$)|(the $1$ falls off the end)|
 
 ---
 
-### A Simple Example: Iterating Over a Bit-Flag
+### A Simple Example: Iterating Over Bit-Flags
 
-In some scenarios, it's useful to check all the bits in a bit-flag value.
+In some scenarios, it's useful to check every setting in a bit-flag value: which
+features are switched on, and which are off. You could test each flag by name,
+but a bit-flag value can be read one bit at a time, using bit-shifts.
 
-An easy approach to this is to use a bit-shift to cycle through each bit in
-the ones place.
-
-Let's imagine that we have a bit-flag enum for our program settings.
+The program defines its settings as a bit-flag enum. Each setting is one bit, so
+the values are powers of two:
 
 ```python
 from enum import IntFlag
@@ -236,36 +240,72 @@ class Settings(IntFlag):
     Optimize = 8
 ```
 
-In a scenario where we want to check all of the settings, we can do something
-like this:
+A stored settings value is the sum of the settings that are switched on. For
+example, a value of `10` (`0000 1010`) has the `InteractiveMode` bit and the
+`Optimize` bit set.
 
-See [iterate_flags.py](./18_iterate_flags.py) and the [iterate flags lesson](./18_iterate_flags.md)
+#### The Algorithm
+
+To check every bit, we look at the ones place, then shift the whole value one
+position to the right so the next bit moves into the ones place. We repeat this
+until no set bits are left.
+
+At the same time, we track which setting the ones place represents. It starts at
+`1` (`DebugMode`), and doubles each time we shift:
 
 ```python
-from random import randint
-
-# -- SNIP --
-
-settings = randint(0, 15)
-print(f"With Settings: {settings}, the following bits are set:")
+settings = 10
 currentValue = 1
 while settings > 0:
-    if settings & 1: print(f"- {Settings(currentValue).name}")
+    if settings & 1:
+        print(f"- {Settings(currentValue).name}")
     settings >>= 1
     currentValue <<= 1
 ```
 
-Output:
+Each pass does three things:
+
+* `settings & 1` checks the ones-place bit. It is `1` only if that setting is on.
+* `settings >>= 1` shifts the value right, so the next bit is in the ones place.
+* `currentValue <<= 1` doubles the value, so it matches the next setting's bit.
+
+The loop ends when `settings` reaches `0`, which means no set bits remain.
+
+#### Walking Through the Example
+
+Take `settings = 10`, which is `0000 1010` in binary:
+
+| Pass | `settings` (binary) | Ones bit | `currentValue` | Action |
+|:-:|:-:|:-:|:-:|-|
+| 1 | `0000 1010` | 0 | 1 | Nothing |
+| 2 | `0000 0101` | 1 | 2 | Print `InteractiveMode` |
+| 3 | `0000 0010` | 0 | 4 | Nothing |
+| 4 | `0000 0001` | 1 | 8 | Print `Optimize` |
+| 5 | `0000 0000` | - | - | Loop ends |
+
+The printed names match the two bits that are set.
+
+#### Testing
+
+The code file runs the loop on `settings = 10`, and then on a random value between
+`0` and `15`, so you can see different combinations. Example output:
 
 ```
-With Settings: 15, the following bits are set:
+With Settings: 10, the following bits are set:
+- InteractiveMode
+- Optimize
+
+With Settings: 7, the following bits are set:
 - DebugMode
 - InteractiveMode
 - RememberSettings
-- Optimize
 ```
 
-Run this a few times to see different results when the random `settings`
-value changes.
+The value `7` is `0111` in binary, which sets the first three bits. Run the script a
+few times to see other combinations. There are sixteen possible values, from `0`
+(no settings) to `15` (all settings).
+
+Checking every flag in a value is common when you need to list the settings that
+are switched on, for example when logging a configuration or showing it to a user.
 
 ---

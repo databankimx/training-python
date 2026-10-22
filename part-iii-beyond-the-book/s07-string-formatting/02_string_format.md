@@ -1,12 +1,12 @@
 ## The String `.format()` Function
 
-In v2.6, as an improvement on the somewhat cumbersome string-modulo operator,
+In Python 2.6, as an improvement on the somewhat cumbersome string-modulo operator,
 Python introduced the `.format()` method for the `str` type.
 
 With the `.format()` method, we use curly brace pairs `{}` as the 
-placeholders (removing the requirement to specify type, which was never 
-enforced in the first place). The arguments to the function are expressions,
-and each one replaces a pair of curly braces in the resulting string.
+placeholders, which removes the need to name a type for each placeholder. The
+arguments to the function are expressions, and each one replaces a pair of
+curly braces in the resulting string.
 
 ---
 
@@ -115,6 +115,10 @@ ValueError: cannot switch from automatic field numbering to manual field specifi
 Keyword placeholders (`{name}`) can be mixed with `{}`, because a keyword is
 not a position. Choose one style for each position in the template.
 
+> Note: the code file turns off several Pylint warnings (`consider-using-f-string`,
+> and `format-combined-specification`), and a Sonar warning on the mixing example.
+> Those comments stay in the code file.
+
 ---
 
 ### Comparing with the String-Modulo Operator
@@ -142,9 +146,9 @@ of decimal places) are covered later in this section.
 
 ### Where to Go Next
 
-Start with the [string-modulo operator](./01_string_modulo.md) if you haven't
-read it yet. Then continue with the three ways of choosing arguments above, and
-the [reusing placeholders](./06_reuse_placeholders.md) and
+Lesson 01 covered the string-modulo operator, so you already have the comparison
+above. Next, continue with the three ways of choosing arguments, and then the
+[reusing placeholders](./06_reuse_placeholders.md) and
 [conversion](./07_conversion.md) lessons.
 
 ---

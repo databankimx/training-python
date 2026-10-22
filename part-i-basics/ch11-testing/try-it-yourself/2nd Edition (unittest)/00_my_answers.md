@@ -108,9 +108,11 @@ Solution:
 
 ```python
 def city_country_pop_broken(city, country, population):
+    """Return formatted city, country, population string"""
     return f"{city}, {country} - population {population}".title()
 
 def city_country_pop(city, country, population=None):
+    """Return formatted city, country, population string"""
     if population:
         return f"{city}, {country} - population {population}".title()
     return f"{city}, {country}".title()
@@ -124,7 +126,8 @@ def city_country_pop(city, country, population=None):
 
 ```python
 import unittest
-from city_functions import city_country_pop, city_country_pop_broken
+from city_functions import city_country_pop
+# from city_functions import city_country_pop_broken
 
 def main():
     unittest.main()
@@ -132,10 +135,9 @@ def main():
 class CityCountryPopTestCase(unittest.TestCase):
     def test_city_country(self):
         location = city_country_pop("dublin", "ireland")
-        # Un-comment the following line for a failed test
         # location = city_country_pop_broken("dublin", "ireland")
         self.assertEqual(location, "Dublin, Ireland")
-        
+
     def test_city_country_pop(self):
         location = city_country_pop("dublin", "ireland", 544_107)
         self.assertEqual(location, "Dublin, Ireland - Population 544107")
@@ -149,6 +151,10 @@ if __name__ == "__main__":
 </details>
 <br>
 
+> Note: to see the failure below, uncomment the `city_country_pop_broken` import
+> (line 20 of the code file) and the call in `test_city_country()` (line 32).
+> Comment them out again to see the passing run.
+
 <details>
 <summary>Output (Failure)</summary>
 
@@ -158,7 +164,7 @@ E.
 ERROR: test_city_country (__main__.CityCountryPopTestCase.test_city_country)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "...\02_population.py", line 23, in test_city_country
+  File "...\02_population.py", line 32, in test_city_country
     location = city_country_pop_broken("dublin", "ireland")
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 TypeError: city_country_pop_broken() missing 1 required positional argument: 'population'
@@ -184,7 +190,6 @@ OK
 ```
 
 </details>
-<br>
 
 ---
 
@@ -214,7 +219,8 @@ class Employee():
 
     def show_details(self):
         """Show details of the employee"""
-        print(f"{self.first_name} {self.last_name} - Salary : ${self.annual_salary}".title())
+        print(f"{self.first_name} {self.last_name} - Salary : " + \
+              f"${self.annual_salary}".title())
 
     def give_raise(self, amount = 5000):
         """Give the employee a raise"""
@@ -239,6 +245,8 @@ class EmployeeTestCase(unittest.TestCase):
 
     def test_give_custom_raise(self):
         self.employee.give_raise(10_000)
+        # Note: This test uses the value from setUp and does not
+        #       include the increment from the previous unit test
         self.assertEqual(self.employee.annual_salary, 60_000)
 
 def main():
@@ -268,4 +276,3 @@ OK
 <br>
 
 ---
-

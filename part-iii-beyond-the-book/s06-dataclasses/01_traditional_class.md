@@ -1,6 +1,6 @@
 ## Review: A Traditional Class
 
-Let's take a look at how we might create a class without using DataClasses.
+Let's take a look at how we might create a class without using dataclasses.
 
 ---
 
@@ -37,7 +37,10 @@ carry data.
 
 #### Override `__repr__()`
 
-Since there is no way to print a class instance meaningfully, we should probably implement either a `__str__()` or `__repr__()` method.
+Without a `__repr__()` method, printing an instance shows only Python's default
+form, which includes the class name and the object's memory address. So we
+should implement `__repr__()` to show the data. (A `__str__()` method also works
+for `print`, but if it's missing, `print` falls back to `__repr__()`.)
 
 ```python
 # -- SNIP --
@@ -51,14 +54,14 @@ Since there is no way to print a class instance meaningfully, we should probably
 We can then create and print an instance:
 
 ```python
-emp = Employee("Scott", "smclean", 53, "Dallas")
+emp = Employee("Scott McLean", "smclean", 53, "Dallas")
 print(emp)
 ```
 
 Output:
 
 ```
-Employee (name: Scott, id: smclean, age: 53, city: Dallas)
+Employee (name: Scott McLean, id: smclean, age: 53, city: Dallas)
 ```
 
 ---
@@ -73,18 +76,26 @@ same object in memory.
 # -- SNIP --
 
     def __eq__(self, value: object) -> bool:
+        """Check if two Employee objects contain the same data"""
+        if not isinstance(value, Employee):
+            return NotImplemented
         return (self.name, self.emp_id, self.age, self.city) == \
             (value.name, value.emp_id, value.age, value.city)
 ```
+
+The `isinstance` check matters. Without it, comparing an `Employee` with a value
+of another type would raise an `AttributeError`, because the method would try to
+read `value.name`. Returning `NotImplemented` tells Python to try the comparison
+from the other side, and if that also fails, the result is `False`.
 
 Now we can compare two instances:
 
 ```python
 # -- SNIP --
 
-emp_1 = Employee("Scott", "smclean", 53, "Dallas")
+emp_1 = Employee("Scott McLean", "smclean", 53, "Dallas")
 emp_2 = Employee("John Smith", "jsmith", 30, "Cleveland")
-emp_3 = Employee("Scott", "smclean", 53, "Dallas")
+emp_3 = Employee("Scott McLean", "smclean", 53, "Dallas")
 
 print(f"emp_1 == emp_2? {emp_1 == emp_2}")
 print(f"emp_1 == emp_3? {emp_1 == emp_3}")
@@ -101,13 +112,13 @@ emp_1 == emp_3? True
 
 ### What's Wrong with That?
 
-In the above code, the biggest problem lies in passing the argument in 
-`__init__`, `__repr__`, and `__eq__`.
+The biggest problem is repetition. Each attribute has to be listed in
+`__init__()`, `__repr__()`, and `__eq__()`. Adding a field means changing all
+three places, and it's easy to miss one.
 
-Each time it has to copy its properties and return the object. It is a good 
-way of dealing with a small amount of data, but suppose we work with 
-large data. It makes your code more complicated.
+With four attributes, that's manageable. With twenty, the class becomes long,
+and most of the code is the same pattern repeated.
 
-As you'll soon see, DataClasses can be implemented to simplify coding.
+As you'll soon see, dataclasses can be implemented to remove that repetition.
 
 ---

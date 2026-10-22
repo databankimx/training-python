@@ -47,11 +47,11 @@ from the $\&$ operation.
 As long as we understand that what's being compared are the individual
 bits, we can express the values in any base with the same results
 
-See [bitwise_and.py](./11_bitwise_and.py)
+The code for this lesson is in [11_bitwise_and.py](./11_bitwise_and.py).
 
 ```python
-a = 0b1001_1100 # 156
-b = 0b0011_0100 # 52
+a = 0b10011100 # 156
+b = 0b00110100 # 52
 print(f"{bin(a & b)[2:]:>08}") # --> 00010100 (20)
 
 x = 156
@@ -68,36 +68,39 @@ Output:
 
 ---
 
-### A Simple Example: Checking for an Even Number ###
+### A Simple Example: Checking for Even Numbers
 
 There are many places where it's useful to check if a number is odd or even.
+There are two ways to check it: the modulo operator you probably learned first,
+and a bitwise AND.
 
 #### Using Modulo
 
-Typically, most of us have been taught to do that using a modulo (or 
-remainder) computation like this:
-
-See [even_numbers.py](./11_even_numbers.py) and the [even numbers lesson](./11_even_numbers.md)
+The modulo (or remainder) operator `%` gives the remainder after division. An
+even number divides by 2 with no remainder, so `n % 2` is `0` for even numbers
+and `1` for odd numbers. Because `0` is false in Python, `not n % 2` is `True`
+for even numbers:
 
 ```python
-def is_even(n: int) -> bool:
+def is_even_mod(n: int) -> bool:
+    """Check if a number is even (using modulo)"""
     return not n % 2
 ```
 
----
+#### Using Bitwise AND
 
-### Using Bitwise AND
-
-Another approach would be to perform a bitwise check on the ones-place bit.
-
-See [even_numbers.py](./11_even_numbers.py)
+Every number is stored in binary, and the ones place (the rightmost bit) is
+`1` only for odd numbers. Since the only other bits are powers of two, which
+are all even, `n & 1` keeps just the ones-place bit. So `n & 1` is `0` for
+even numbers and `1` for odd numbers:
 
 ```python
-def is_even(n: int) -> bool:
+def is_even_and(n: int) -> bool:
+    """Check if a number is even (using bitwise AND)"""
     return not n & 1
 ```
 
-Let's imagine checking the number 42
+Let's check the number 42 and the number 73 by hand:
 
 > |||
 > |-:|-:|
@@ -105,9 +108,7 @@ Let's imagine checking the number 42
 > |$\underline{\&~0000~0001_2}$|$(1_{10})$|
 > |$0000~0000_2$|$(0_{10})$|
 
-Since no position has ones in both numbers, the result is zero (even)
-
-or 73...
+Since no position has ones in both numbers, the result is zero (even).
 
 > |||
 > |-:|-:|
@@ -116,16 +117,40 @@ or 73...
 > |$0000~0001_2$|$(1_{10})$|
 
 The ones place has ones in both numbers, as it must for an odd number, 
-since $2^0=1$ is the only odd power of two, so the result is one (odd)
+since $2^0=1$ is the only odd power of two, so the result is one (odd).
+
+#### Running the Checks
+
+The script's `main()` checks both numbers with both methods, after the AND
+examples above:
+
+```python
+for n in [42, 73]:
+    print(f"Using 'n % 2', {n} is {('even' if is_even_mod(n) else 'odd')}")
+    print(f"Using 'n & 1', {n} is {('even' if is_even_and(n) else 'odd')}")
+```
+
+Full output of the script:
+
+```
+00010100
+20
+Using 'n % 2', 42 is even
+Using 'n & 1', 42 is even
+Using 'n % 2', 73 is odd
+Using 'n & 1', 73 is odd
+```
+
+Both methods give the same answers. Historically, a bitwise check was faster than
+a modulo computation, because division was costly for the hardware. Compilers now
+optimize well-known patterns like this one, so in Python the speed difference is
+negligible, and you should choose whichever reads better for your code.
 
 ---
 
-The bitwise comparison is inherently faster than a modulo computation, 
-because division is a cumbersome process in a computer.
+### Try It
 
-Of course, in modern programming languages, the compilers are optimized for
-well-known scenarios like this one, so ```n % 2``` will compile to the same
-assembly language instructions as ```n & 1```, which means that there 
-isn't a  practical reason to choose one over the other.
+Add a few more numbers to the list in `main()`, including zero, a large number,
+and a negative number, and check that both methods still agree.
 
 ---

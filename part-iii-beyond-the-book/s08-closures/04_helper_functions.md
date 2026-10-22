@@ -101,7 +101,7 @@ string (path only), we open the file, so either path passes a file object.
 
 ---
 
-### Testing
+### Running It
 
 Putting it all together, we have this overall function:
 
@@ -156,7 +156,7 @@ with open(file_path, encoding="utf-8") as file_obj:
     process_hotspots(file_obj)
 ```
 
-Output:
+Output (the script also prints the headers `Call with path...` and `Call with file...`, which are left out here):
 
 ```
 There are 3319 Wi-Fi hotspots in NYC.

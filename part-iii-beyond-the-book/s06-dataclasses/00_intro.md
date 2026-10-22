@@ -1,20 +1,17 @@
-## Understanding Python DataClasses
+## Understanding Python Dataclasses
 
-The DataClasses library was added in python 3.7+ as a utility tool for making 
-classes whose primary purpose is storing data.
+The dataclasses library was added in Python 3.7 as a utility tool for making 
+classes whose primary purpose is storing data. It's part of the standard
+library, so no installation is needed.
 
-DataClasses provides a decorator and functions for automatically adding 
-generated special methods such as `__init__()`, `__repr__()`, and `__eq__()` 
-to user-defined classes.
+The `@dataclass` decorator automatically adds generated special methods such as
+`__init__()`, `__repr__()`, and `__eq__()` to user-defined classes.
 
-[DataClasses Documentation](https://docs.python.org/3/library/dataclasses.html)
+[Dataclasses Documentation](https://docs.python.org/3/library/dataclasses.html)
 
-DataClasses are like normal classes in Python, but they have some basic 
+Dataclasses are like normal classes in Python, but they have some basic 
 functions like instantiation, comparing, and printing the classes already 
 implemented.
-
-DataClasses are included in the standard library from Python 3.7 onward, so
-no installation is needed.
 
 Syntax Notes:
 
@@ -32,5 +29,9 @@ optional arguments.
     - unsafe_hash: If False __hash__() method is generated according to how eq and frozen are set
     - frozen: If true assigning to fields will generate an exception.
 ```
+
+These are the arguments from Python 3.7. The `match_args`, `kw_only`, and `slots`
+arguments were added in Python 3.10, and the later lessons use `match_args` and
+`kw_only`, so those lessons need Python 3.10 or later.
 
 ---

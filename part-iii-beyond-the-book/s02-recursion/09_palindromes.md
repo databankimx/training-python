@@ -14,7 +14,7 @@ So, we have a couple of tasks in order to check if a string is a palindrome:
     * Standardize the case to all-upper or all-lower case
 2. Check if the remaining characters are palindromic
 
-> Full code example in [palindromes.py](./09_palindromes.py)
+> Full code example in [09_palindromes.py](./09_palindromes.py)
 
 ---
 
@@ -31,6 +31,15 @@ def clean_text(text: str) -> str:
     return "".join([(text[i] if text[i].isalpha() else "")
                     for i in range(len(text))]).lower()
 ```
+
+> Tip: a generator expression that loops over the characters directly is
+> simpler, and it avoids indexing the string:
+>
+> ```python
+> def clean_text(text: str) -> str:
+>     """Remove non-letters and standardize case"""
+>     return "".join(char for char in text if char.isalpha()).lower()
+> ```
 
 We can test this by just passing in a string with characters we don't want to
 include:
@@ -55,17 +64,10 @@ There is a clear and obvious way to test if a string is a palindrome in
 Python: We just check if the string is equivalent to its reverse.
 
 ```python
-text = clean_text("Madam, I'm Adam.")
-if text == text[::-1]:
-    print(f"{text} is a palindrome!")
-else:
-    print(f"{text} is not a palindrome!")
-```
-
-Output:
-
-```
-madamimadam is a palindrome!
+def is_palindrome_simple(text: str) -> bool:
+    """Checks if a word or phrase is a palindrome"""
+    clean = clean_text(text)
+    return clean == clean[::-1]
 ```
 
 ---
@@ -93,19 +95,24 @@ And we have a hint that recursion might be involved in the word "repeat."
 So we can put together a recursive algorithm for palindrome checking:
 
 ```python
-def is_palindrome(text: str) -> bool:
+def is_palindrome_recursive(text: str) -> bool:
     """Checks if a word or phrase is a palindrome"""
     if len(text) < 2:
         return True
-    return text[0] == text[-1] and is_palindrome(text[1:-1])
+    return text[0] == text[-1] and is_palindrome_recursive(text[1:-1])
 ```
+
+Each call removes two characters, so the recursion depth grows by one for every
+two letters. With the default recursion limit of 1000, this version fails on
+inputs of roughly 2,000 letters. For long text, use the iterative version below
+or the simple version above.
 
 Which we can check like this:
 
 ```python
 words = ["foo", "race car", "boot", "toot", "Madam, I'm Adam."]
 for word in words:
-    infix = "" if is_palindrome(clean_text(word)) else "not "
+    infix = "" if is_palindrome_recursive(clean_text(word)) else "not "
     print(f"- '{word}' is {infix}a palindrome")
 ```
 
@@ -131,7 +138,7 @@ This approach is basically identical to the one we used in our recursive
 function but uses a while loop instead.
 
 ```python
-def is_palindrome(text: str) -> bool:
+def is_palindrome_iterative(text: str) -> bool:
     """Checks if a word or phrase is a palindrome"""
     while len(text) > 1:
         if text[0] != text[-1]:
@@ -145,7 +152,7 @@ Let's run the same tests:
 ```python
 words = ["foo", "race car", "boot", "toot", "Madam, I'm Adam."]
 for word in words:
-    infix = "" if is_palindrome(clean_text(word)) else "not "
+    infix = "" if is_palindrome_iterative(clean_text(word)) else "not "
     print(f"- '{word}' is {infix}a palindrome")
 ```
 
@@ -160,5 +167,9 @@ Output:
 ```
 
 And we got the same output. So this one works too.
+
+> Note: the code file's `main()` runs all three versions. It prints a heading
+> before each set of results, so the full output has three blocks, each starting
+> with `Test with ... algorithm:`. The results above are the same in each block.
 
 ---

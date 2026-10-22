@@ -8,7 +8,7 @@ def count_leaves(items: list[str | list]) -> int:
     i = 0
     while True:
         if i == len(current_list):
-            if current_list == items:
+            if current_list is items:
                 return count
             current_list, i = stack.pop()
             i += 1

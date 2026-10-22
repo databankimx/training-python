@@ -1,41 +1,60 @@
 ## What is Python?
 
 Python is a popular programming language. It was created by Guido van 
-Rossum, and released in 1991.
+Rossum, and first released in 1991. The name comes from the comedy group
+Monty Python, not the snake.
+
+This course uses Python 3. Python 2 reached end of life in 2020, so you may
+see older tutorials that use Python 2 syntax. The examples here won't run on it.
 
 ---
 
-### What Is It Used For?
+### What Is Python Used For?
 
-* web development (server-side),
-* software development,
-* mathematics,
-* system scripting.
+Python is a general-purpose language, so it shows up in many kinds of work:
 
----
-
-### What Can Python Do?
-
-* Python can be used on a server to create web applications.
-* Python can be used alongside software to create workflows.
-* Python can connect to database systems. It can also read and modify files.
-* Python can be used to handle big data and perform complex mathematics.
-* Python can be used for rapid prototyping, or for production-ready 
-  software development.
+* Web development: Python can run on a server to power web applications.
+* Automation and scripting: Python can handle repetitive jobs, such as renaming
+  or sorting large numbers of files, or reading and updating spreadsheets.
+* Databases and files: Python can connect to database systems, and it can read
+  and modify files.
+* Data and mathematics: Python can handle big data and complex calculations.
+* Software development: Python can be used for rapid prototyping, or for
+  production-ready software.
 
 ---
 
 ### Why Use Python
 
-* Python works on different platforms (Windows, Mac, Linux, Raspberry Pi, 
+* Python works on different platforms (Windows, Mac, Linux, Raspberry Pi,
   etc).
-* Python has a simple syntax similar to the English language.
-* Python has syntax that allows developers to write programs with fewer 
-  lines than some other programming languages.
-* Python runs on an interpreter system, meaning that code can be executed 
-  as soon as it is written.  
-  This means that prototyping can be very quick.
-* Python can be treated as procedural, object-oriented, or 
-  functional.
+* Python has readable syntax that's often compared to plain English.
+* Python often needs fewer lines of code than some other programming languages
+  to do the same job.
+* Python runs through an interpreter, so you can run code as soon as you write
+  it. This makes prototyping quick.
+* Python can be written in procedural, object-oriented, or functional styles.
+* Python is free, and it comes with a large standard library of ready-made
+  modules. Many more packages are available from the Python Package Index
+  (PyPI).
+
+---
+
+### A First Look
+
+Here's a complete Python program. It prints one line of text:
+
+```python
+print("Hello, World!")
+```
+
+Output:
+
+```
+Hello, World!
+```
+
+Later lessons will explain each part of this program. For now, notice how little
+code it takes to do something visible.
 
 ---

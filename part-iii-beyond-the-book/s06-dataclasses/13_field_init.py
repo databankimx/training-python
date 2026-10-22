@@ -12,16 +12,16 @@ class Employee:
 
 def main() -> None:
     """Main Function"""
-    emp = Employee("Scott", 53, "smclean")
+    emp = Employee("Scott McLean", 53, "smclean")
     print(emp)
     # pylint: disable=no-member
     print(emp.__dataclass_fields__["city"])
 
     # This would produce a TypeError, because the `city` attribute is not
     #     permitted to appear in the constructor
-    # emp_2 = Employee("Saul", "sgoodman", 47, "Albuquerque")
+    # emp_2 = Employee("Saul Goodman", 47, "sgoodman", "Albuquerque")
 
-    emp_2 = Employee("Saul", 47, "sgoodman")
+    emp_2 = Employee("Saul Goodman", 47, "sgoodman")
     emp_2.city = "Albuquerque"
     print(emp_2)
 

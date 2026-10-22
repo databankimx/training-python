@@ -72,7 +72,7 @@ This starts to matter when we have multiple values, like this:
 
 ```python
 qty, item, price = 5, "bananas", 0.39
-total = qty * price
+total = round(qty * price, 2)
 template = "{0} {1} cost ${2}"
 values = (qty, item, total)
 print(template.format(*values))
@@ -84,14 +84,20 @@ Output:
 5 bananas cost $1.95
 ```
 
+We round the total to two decimal places. Floating-point arithmetic isn't exact,
+so `5 * 0.39` is really `1.9500000000000002`, and rounding keeps the output clean.
+
 Again, there is no reason we could not have skipped creating the `template`
 and `values` variables and just done this:
 
 ```python
 qty, item, price = 5, "bananas", 0.39
-total = qty * price
+total = round(qty * price, 2)
 print("{0} {1} cost ${2}".format(qty, item, total))
 ```
+
+> Note: the code file turns off a Pylint warning (`consider-using-f-string`) on
+> these `print` lines. Those comments stay in the code file.
 
 ---
 
@@ -101,7 +107,7 @@ As long as there are arguments for each index specified, the order in which they
 
 ```python
 qty, item, price = 5, "bananas", 0.39
-total = qty * price
+total = round(qty * price, 2)
 template = "{2} {0} cost ${1}"
 values = (item, total, qty)
 print(template.format(*values))

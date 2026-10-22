@@ -24,12 +24,12 @@ def fibonacci_iterative(n: int) -> int:
     values = [0, 1]
     for i in range(2, n + 1):
         values.append(values[i - 1] + values[i - 2])
-    return values[-1]
+    return values[n]
 
 @CountCalls
-def fibonacci_formulaic(n):
+def fibonacci_formulaic(n: int) -> int:
     """Return the nth Fibonacci number approximation (formulaic algorithm)"""
     if n in [0, 1]:
         return n
     phi = (1 + 5 ** 0.5) / 2
-    return int((phi ** n - (1 - phi) ** n) / (phi - (1 - phi)))
+    return round((phi ** n - (1 - phi) ** n) / (phi - (1 - phi)))

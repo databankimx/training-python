@@ -59,8 +59,7 @@ following effects:
 
 * For non-decimal integer types, the `#` character adds a label indicating the
   type base.
-* For the general type, the `#` character adds a decimal point whether or not 
-  it is required for the value
+* For the general type, the `#` character keeps trailing zeros and always shows the decimal point
 
 ```python
 answer = 42

@@ -13,7 +13,7 @@ def main() -> None:
             if key != "population":
                 while not datum:
                     datum = input(f"Please enter a {key}: ")
-                if datum.lower()[0] == "q":
+                if datum.lower() == "q" or datum.lower() == "quit":
                     done = True
                     break
                 obj[key] = datum

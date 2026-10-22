@@ -16,11 +16,14 @@ Developers are always hunting for straightforward ways to do things like:
 
 Python has gone through a number of evolutions in this regard:
 
-* C-Like Placeholders (`%d`, `%s`, etc.)
-* The String-Modulo Operator `<template> % (<values_tuple>)`
-* The String `.format()` function
+* C-style placeholders (`%d`, `%s`, etc.)
+* The string-modulo operator `<template> % (<values_tuple>)`
+* The string `.format()` method
 * Interpolated f-strings
-* And a Robust Sub-Language of Format Specifiers
+* A robust sub-language of format specifiers
+
+For new code, f-strings are the usual choice (Python 3.6 and later). The other
+methods still appear in older code, so it's useful to recognize them.
 
 ---
 
@@ -28,8 +31,7 @@ Python has gone through a number of evolutions in this regard:
 
 This section covers the following topics:
 
-* [The String-Modulo Operator `%`](./01_string_modulo.md)  
-  
+* [The String-Modulo Operator `%`](./01_string_modulo.md)
 * [The `string.format()` Function](./02_string_format.md)
     * [Using Indices](./03_format_indices.md)
     * [Using Keyword Arguments](./04_format_keywords.md)

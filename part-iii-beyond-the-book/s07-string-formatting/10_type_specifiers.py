@@ -12,7 +12,7 @@ def data_types() -> None:
     print(f"X: {answer:X}")
     print(f"%: {answer / 100:.0%}")
     print(f"c: {answer:c}")
-    print(f"s: {str(answer):s}\n")
+    print(f"s: {str(answer):s}")
 
 def data_type_labels() -> None:
     """Demonstrates the use of format specifiers to label data types"""
@@ -20,7 +20,7 @@ def data_type_labels() -> None:
     print(f"b: {answer:#b}")
     print(f"o: {answer:#o}")
     print(f"X: {answer:#X}")
-    print(f"g: {answer:#g}\n")
+    print(f"g: {answer:#g}")
 
 def main() -> None:
     """Main function"""

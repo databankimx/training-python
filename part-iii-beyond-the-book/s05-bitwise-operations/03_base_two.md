@@ -34,8 +34,8 @@ This means in our binary byte we have the following places:
 
 ### Computed Values
 
-Reading binary numbers is similar to decimal: the sum of the non-zero 
-position values.
+Reading binary numbers is similar to decimal: the sum of the place values where
+the digit is 1.
 
 So:
 
@@ -50,5 +50,7 @@ That means that there are $256$ possible values available in an $8$-bit
 byte, which makes perfect sense, since $2^8=256$.
 
 And for an unsigned $8$-bit integer, these values range from $0$ to $255$
+
+The same 8 bits can also represent negative numbers, which the next lessons cover.
 
 ---

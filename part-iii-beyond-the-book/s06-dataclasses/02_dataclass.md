@@ -1,10 +1,10 @@
-## Using a DataClass
+## Using a Dataclass
 
-Let's build the same `Employee` class as a DataClass.
+Let's build the same `Employee` class as a dataclass.
 
 ---
 
-### A Simple `Employee` DataClass
+### A Simple `Employee` Dataclass
 
 Here is the implementation using the same four attributes:
 
@@ -30,12 +30,21 @@ Note that we have done the following:
 1. Decorated the class with `@dataclass`
 2. Declared our attributes in the form: `name: type_hint`
 
+The type hints document the intended types, and tools such as type checkers use
+them. Python doesn't check them at runtime, so `Employee(53, 42, "x", "Dallas")`
+would still be accepted without an error.
+
 ---
 
 ### What About the Missing Stuff?
 
-With a DataClass, the `__init__()`, `__repr__()` and `__eq__()` methods are
+With a dataclass, the `__init__()`, `__repr__()` and `__eq__()` methods are
 automatically generated. We don't need to code them at all.
+
+Because `__eq__()` is generated without a `__hash__()` method, Python sets
+`__hash__` to `None` for the class. That makes its instances unhashable, so they
+can't be used as dictionary keys or stored in a set. Later lessons cover how to
+change that.
 
 Let's test this code:
 
@@ -63,7 +72,8 @@ emp_1 == emp_2? False
 emp_1 == emp_3? True
 ```
 
-Those results are nearly identical to our results from the traditional class,
-but we wrote a whole lot less code to get there.
+The comparison results match the traditional class. The printed form differs,
+because the traditional class has its own `__repr__()`, and the dataclass uses the
+generated one. But we wrote a whole lot less code to get there.
 
 ---

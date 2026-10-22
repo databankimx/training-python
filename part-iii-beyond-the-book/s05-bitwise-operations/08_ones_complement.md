@@ -110,6 +110,10 @@ This business of wrapping the lost carry bit doesn't make sense without
 extra hardware (and extra memory, since we don't have a fifth bit to hold 
 it in).
 
+Adding the lost carry back into the lowest bit is called an *end-around carry*.
+It works, but it needs extra hardware, and it leaves the negative zero in place.
+The two's complement lessons address both problems.
+
 So, how do we address the problem of getting results that are off by one?
 And is there a way to get rid of that pesky negative zero?
 

@@ -4,8 +4,7 @@ Recursion occurs when a function calls itself. That may sound weird, but there
 are many scenarios where a recursive algorithm is the most sensible approach to a problem, including:
 
 * Sorting Algorithms
-* Traversing Complex Data Structures Like Trees  
-  and famously...
+* Traversing Complex Data Structures Like Trees, and famously
 * The Fibonacci Sequence (ooh... foreshadowing)
 
 ---
@@ -77,11 +76,14 @@ Traceback (most recent call last):
 RecursionError: maximum recursion depth exceeded
 ```
 
+> Note: the code file turns off a Sonar warning on the deliberate infinite
+> recursion in `recursion_overflow()`. That comment stays in the code file.
+
 ---
 
 ### A Little Setup
 
-I have provided a special class known as a decorator in the following:
+I have provided a class that works as a decorator in the following:
 
 <details>
 <summary>The CountCalls Class</summary>
@@ -90,21 +92,24 @@ I have provided a special class known as a decorator in the following:
 In [count_calls.py](./count_calls.py)
 
 ```python
+from collections.abc import Callable
+from typing import Any
+
 class CountCalls:
     """Class to allow counting the times a recursive function is called"""
 
-    def __init__(self, func: callable):
+    def __init__(self, func: Callable) -> None:
         """Initialize"""
         self._count = 0
         self._func = func
 
-    def __call__(self, *args, **kwargs):
+    def __call__(self, *args: Any, **kwargs: Any) -> Any:
         """Magic method override to add to counter and execute function"""
         self._count += 1
         return self._func(*args, **kwargs)
-    
+
     @property
-    def call_count(self):
+    def call_count(self) -> int:
         """Number of times the recursive function has been called"""
         return self._count
 ```

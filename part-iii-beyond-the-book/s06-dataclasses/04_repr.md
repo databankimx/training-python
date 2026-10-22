@@ -1,7 +1,8 @@
-## The DataClass `repr` Argument
+## The Dataclass `repr` Argument
 
-When the `repr` argument is `True` (which is the default value), the DataClass generates a `__repr__()` method automatically, which includes (in
-the order declared) all fields in the class.
+When the `repr` argument is `True` (which is the default value), the dataclass
+generates a `__repr__()` method automatically, which includes (in the order
+declared) all fields in the class.
 
 Setting this to `False` will prevent that method from being generated.
 
@@ -32,8 +33,8 @@ Output:
 <__main__.Employee object at 0x000001DE68E3FAD0>
 ```
 
-Lacking a `__repr__()` method, we cannot print a meaningful string
-representation.
+Without a `__repr__()` method, Python falls back to its default form, which shows
+the class name and memory address, but not the field values.
 
 ---
 
@@ -58,5 +59,9 @@ Output:
 ```
 Employee (name: Scott McLean, id: smclean, age: 54, city: Dallas)
 ```
+
+> Note: you can also leave `repr` set to `True` and write `__repr__()` yourself.
+> The generated method isn't added to a class that already defines one, so your
+> version is the one that runs.
 
 ---

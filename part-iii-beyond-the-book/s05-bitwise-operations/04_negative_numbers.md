@@ -39,7 +39,8 @@ $0000~0001_2=1_{10}$
 The sign bit is zero (positive), and the value of the remaining bits is 1
 
 $1000~0001_2=-1_{10}$  
-The sign bit is one (negative), and the value of the remaining bits is 1
+This reads the bits as a simple sign and magnitude. Modern integer implementations
+refine this, as the next lessons explain.
 
 ... and so on
 
@@ -48,8 +49,8 @@ The sign bit is one (negative), and the value of the remaining bits is 1
 ### So we lose half of our (absolute) values
 
 The result of this is that where previously we had $2^8$ (or $256$) values 
-using $8$ bits, now we have $2^7$ ($128$) values (since one bit has been 
-borrowed), but every value (or *almost* every value) can be either 
+using $8$ bits, now we have $2^7$ ($128$) magnitudes (since one bit has been 
+borrowed), each of which can be either 
 positive or negative.
 
 We still need to account for zero, and as we'll see later, it would be

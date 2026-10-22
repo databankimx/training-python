@@ -27,7 +27,7 @@ class EmployeeTestCase(unittest.TestCase):
         self.assertEqual(self.employee.annual_salary, 55_000)
 
     def test_give_custom_raise(self):
-        """Test the give_raise function with defaults"""
+        """Test the give_raise function with a custom amount"""
         self.employee.give_raise(10_000)
         # Note: This test uses the value from setUp and does not
         #       include the increment from the previous unit test
