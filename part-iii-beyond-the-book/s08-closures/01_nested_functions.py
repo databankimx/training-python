@@ -5,13 +5,13 @@ from collections.abc import Callable
 def outer_function() -> None:
     """Executes the inner function"""
     def inner_function() -> None:
-        print("Hello World!")
+        print("Hello World!\n")
     inner_function()
 
 def outer_function_with_args(name: str) -> None:
     """Executes the inner function (sharing variable 'name')"""
     def inner_function() -> None:
-        print(f"Hello {name.title()}!")
+        print(f"Hello {name.title()}!\n")
     inner_function()
 
 def add(x: int, y: int) -> int:
@@ -25,7 +25,7 @@ def calculate(func: Callable, x: int, y: int) -> int:
 def greeting(name: str) -> Callable:
     """Returns a function that greets a user"""
     def hello() -> None:
-        print(f"Hello {name.title()}!")
+        print(f"Hello {name.title()}!\n")
     return hello
 
 def main() -> None:
@@ -34,7 +34,7 @@ def main() -> None:
     outer_function_with_args("Scott")
     x, y = 2, 3
     z = calculate(add, x, y)
-    print(f"{x} + {y} = {z}")
+    print(f"{x} + {y} = {z}\n")
     hello_scott = greeting("Scott")
     hello_scott()
 

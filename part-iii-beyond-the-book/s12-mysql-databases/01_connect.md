@@ -39,13 +39,16 @@ settings = get_settings()
 The `get_settings()` function looks like this:
 
 ```python
-def get_settings(file: str="settings.json", folder: str="files") -> dict[str, str]:
+def get_settings(file: str = "settings.json", folder: str = "files") -> dict[str, str]:
     """Get settings dictionary from JSON file"""
     return json.loads(Path(get_path(file, folder)).read_text())
 ```
 
 Since this is not a lesson on reading a file, I will omit this instruction
 in all later lessons in this section.
+
+> Note: the code file has a Pylint comment (`no-name-in-module`) on the `mysql.connector`
+> import, which the lesson doesn't need to show. That comment stays in the code file.
 
 ---
 
@@ -69,13 +72,14 @@ conn = mysql.connector.connect(
     user=settings["username"],
     password=settings["password"]
 )
-print(f"Connected to {conn.server_host}: {conn.server_port}")
+print(f"Connected to {conn.server_host}: {conn.server_port}\n")
 ```
 
 Output (port may vary):
 
 ```
 Connected to localhost: 3306
+
 ```
 
 ---
@@ -142,14 +146,21 @@ cursor.execute(sql)
 
 Now, the cursor contains several rows in which the database list appears.
 
-To display them, we'll just iterate over the results in a loop.
+To display them, we'll just iterate over the results in a loop. `fetchall()` returns
+every row as a list of tuples, which is clearer about when the rows are read, and
+which the type checker accepts.
+
+> Note: calling `fetchall()` is optional here. The cursor can also be iterated directly
+> (`for database in cursor:`), and that works at runtime. We use `fetchall()` because
+> the type checker doesn't accept the direct loop for a `MySQLCursor`, and because it
+> makes the read explicit.
 
 Each result in the cursor is returned as a tuple, so we'll extract index
 0 to get just the database name:
 
 ```python
 print("DATABASES:")
-for database in cursor:
+for database in cursor.fetchall():
     print(f" - {database[0]}")
 ```
 
@@ -169,7 +180,7 @@ DATABASES:
 ### Disconnecting
 
 Although some database architectures will automatically disconnect the
-session (in our case the `mysql.connector.connection`), others will not.
+session (in our case the `MySQLConnection` object), others will not.
 
 It is critical not to leave behind orphaned open sessions on a database
 server, as these can result in locking or blocking issues that can affect

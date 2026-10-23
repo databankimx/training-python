@@ -20,6 +20,8 @@ value.
 Let's create a `TiffCompression` enum class:
 
 ```python
+from enum import Enum, auto
+
 class TiffCompression(Enum):
     """Defines names for TIFF compression types"""
     NONE = auto()
@@ -39,6 +41,9 @@ Let's take a look at the effect of that.
 ```python
 print(TiffCompression.CCITT_T6.name, TiffCompression.CCITT_T6.value)
 print(TiffCompression.GROUP_IV.name, TiffCompression.GROUP_IV.value)
+
+print()
+
 ```
 
 Output:
@@ -46,6 +51,7 @@ Output:
 ```
 CCITT_T6 6
 CCITT_T6 6
+
 ```
 
 Notice how the alias is only used to access the variant. But under the
@@ -77,8 +83,8 @@ Output:
 }
 ```
 
-> Note: It doesn't pretty-print like the output above. I added 
-> formatting for ease of reading.
+> Note: The output is wrapped in `mappingproxy(...)`, a read-only mapping. It's shown 
+> on several lines here for readability. Python prints it on one line.
 
 ---
 
@@ -114,5 +120,9 @@ Traceback (most recent call last):
     raise ValueError(...)
 ValueError: duplicate values found in <enum 'NoRepeats'>: TRES -> THREE
 ```
+
+> Note: The code file comments out the `TRES = 3` line, so the module runs. Uncomment
+> it to see this error. The traceback comes from a standalone version of the file, so
+> its line numbers won't match the code file.
 
 ---

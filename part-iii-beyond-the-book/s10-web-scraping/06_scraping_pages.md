@@ -10,7 +10,7 @@ The next step is to add code to scrape each of those pages and extract the data 
 
 We'll need two functions for this task:
 
-#### Content-Parsing Function:
+#### Content-Parsing Function
 
 This is similar to our previous version, except that we don't need to
 look for tag indicators (since `BeautifulSoup` has removed the HTML for
@@ -26,9 +26,11 @@ def parse_text_content(text: str, search: str) -> str:
 
 ---
 
-#### Page Scraping Function:
+#### Page Scraping Function
 
-This will perform all of the scraping tasks on the page
+This will perform all of the scraping tasks on the page. It has the same name as
+the `scrape_page()` function in the first lesson, but it does more: it parses and
+reports one page, rather than only fetching its HTML.
 
 ```python
 def scrape_page(url: str, data: list[str]) -> None:
@@ -47,6 +49,8 @@ def scrape_page(url: str, data: list[str]) -> None:
 
 ### Testing
 
+We use `get_links()` and `scrape_with_soup()` from the earlier lessons.
+
 Let's test the program:
 
 ```python
@@ -57,6 +61,9 @@ for link in links:
     url = base_url + "/" + link.split("/")[-1]
     scrape_page(url, data)
 ```
+
+> Note: the code file turns off a Sonar warning on the base URL. That comment stays in
+> the code file.
 
 Output:
 

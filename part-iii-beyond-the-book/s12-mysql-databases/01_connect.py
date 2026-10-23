@@ -2,9 +2,10 @@
 
 import mysql.connector
 # pylint: disable=no-name-in-module
+from mysql.connector.connection import MySQLConnection
 from utility_functions import get_settings
 
-def connect(settings: dict[str, str]) -> mysql.connector.connection:
+def connect(settings: dict[str, str]) -> MySQLConnection:
     """Connect to MySQL Server"""
     conn = mysql.connector.connect(
         host=settings["host"],
@@ -14,12 +15,12 @@ def connect(settings: dict[str, str]) -> mysql.connector.connection:
     print(f"Connected to {conn.server_host}: {conn.server_port}\n")
     return conn
 
-def disconnect(conn: mysql.connector.connection) -> None:
+def disconnect(conn: MySQLConnection) -> None:
     """Disconnect from MySQL Server"""
     if conn is not None and conn.is_connected():
         conn.disconnect()
 
-def list_databases(conn: mysql.connector.connection) -> None:
+def list_databases(conn: MySQLConnection) -> None:
     """List the available databases on the MySQL Server"""
     if not conn.is_connected():
         print("No active connection to MySQL Server!")
@@ -28,7 +29,7 @@ def list_databases(conn: mysql.connector.connection) -> None:
     sql = "SHOW DATABASES"
     cursor.execute(sql)
     print("DATABASES:")
-    for database in cursor:
+    for database in cursor.fetchall():
         print(f" - {database[0]}")
 
 def main() -> None:

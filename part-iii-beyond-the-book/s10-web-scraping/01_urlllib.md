@@ -15,6 +15,10 @@ example site.
 
 First we'll make a function that reads and returns the HTML content from the URL.
 
+The function decodes the bytes as UTF-8. That works for many pages, but a page in a
+different encoding will fail or show garbled text, so check the encoding if you
+scrape other sites.
+
 ```python
 from urllib.request import urlopen
 

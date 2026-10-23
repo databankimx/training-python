@@ -22,7 +22,7 @@ and executes the inner function.
 def outer_function() -> None:
     """Executes the inner function"""
     def inner_function() -> None:
-        print("Hello World!")
+        print("Hello World!\n")
     inner_function()
 
 outer_function()
@@ -32,6 +32,7 @@ Output:
 
 ```
 Hello World!
+
 ```
 
 ---
@@ -46,7 +47,7 @@ access to the variable.
 def outer_function(name: str) -> None:
     """Executes the inner function (sharing variable 'name')"""
     def inner_function() -> None:
-        print(f"Hello {name.title()}!")
+        print(f"Hello {name.title()}!\n")
     inner_function()
 
 outer_function("Scott")
@@ -56,6 +57,7 @@ Output:
 
 ```
 Hello Scott!
+
 ```
 
 ---
@@ -89,13 +91,14 @@ We can then execute the `add()` function by passing it to `calculate()`:
 ```python
 x, y = 2, 3
 z = calculate(add, x, y)
-print(f"{x} + {y} = {z}")
+print(f"{x} + {y} = {z}\n")
 ```
 
 Output:
 
 ```
 2 + 3 = 5
+
 ```
 
 ---
@@ -115,7 +118,7 @@ from collections.abc import Callable
 def greeting(name: str) -> Callable:
     """Returns a function that greets a user"""
     def hello() -> None:
-        print(f"Hello {name.title()}!")
+        print(f"Hello {name.title()}!\n")
     return hello
 ```
 
@@ -131,6 +134,7 @@ Output:
 
 ```
 Hello Scott!
+
 ```
 
 ---

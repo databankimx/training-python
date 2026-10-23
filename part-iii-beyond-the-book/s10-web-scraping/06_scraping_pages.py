@@ -12,7 +12,7 @@ def scrape_with_soup(url: str) -> BeautifulSoup:
 def get_links(url: str) -> list[str]:
     """Obtain the links to the profile pages"""
     soup = scrape_with_soup(url)
-    return [l["href"] for l in soup.find_all("a")]
+    return [link["href"] for link in soup.find_all("a")]
 
 def parse_text_content(text: str, search: str) -> str:
     """Read information from the text"""

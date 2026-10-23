@@ -4,7 +4,7 @@ def integer_grouping() -> None:
     """Adding grouping separators to integers"""
     n = 1234567
     print(f"{n:,d}\t{n:_d}")
-    print(f"{n:,}\t{n:_}")
+    print(f"{n:,}\t{n:_}\n")
 
 def float_grouping() -> None:
     """Adding grouping separators to floating point numbers"""
@@ -12,7 +12,7 @@ def float_grouping() -> None:
     print(f"{n:,f}\t{n:_f}")
     print(f"{n:,}\t{n:_}")
     print(f"{n:,.2f}\t{n:_.2f}")
-    print(f"{n:,}\t{n:_}")
+    print(f"{n:,}\t{n:_}\n")
 
 def main() -> None:
     """Main program"""

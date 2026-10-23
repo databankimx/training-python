@@ -22,7 +22,7 @@ benefits:
 
 * A more useful `__repr__()` that you would have with a standalone
   global variable.
-* Type-safety (since the enum is a data type)
+* Type-safety (an enum member is its own type, not a plain number)
 * Meaningful name/value relationships
 * And other features depending on the type of enumeration
 
@@ -67,13 +67,14 @@ class Weekday(Enum):
 We can access a variant by the value that we assigned to it:
 
 ```python
-print(Weekday(3))
+print(Weekday(3), "\n")
 ```
 
 Output:
 
 ```
 Weekday.WEDNESDAY
+
 ```
 
 ---
@@ -85,7 +86,7 @@ includes the variant name.
 
 ```python
 print(repr(Weekday(2)))
-print(str(Weekday(2)))
+print(str(Weekday(2)), "\n")
 ```
 
 Output:
@@ -93,6 +94,7 @@ Output:
 ```
 <Weekday.TUESDAY: 2>
 Weekday.TUESDAY
+
 ```
 
 ---
@@ -102,13 +104,14 @@ Weekday.TUESDAY
 We can also access a variant by its name
 
 ```python
-print(Weekday.THURSDAY)
+print(Weekday.THURSDAY, "\n")
 ```
 
 Output:
 
 ```
 Weekday.THURSDAY
+
 ```
 
 ---
@@ -119,7 +122,7 @@ Enums expose two useful properties: `name` and `value`:
 
 ```python
 print(Weekday.FRIDAY.name)
-print(Weekday.FRIDAY.value)
+print(Weekday.FRIDAY.value, "\n")
 ```
 
 Output:
@@ -127,6 +130,7 @@ Output:
 ```
 FRIDAY
 5
+
 ```
 
 ---
@@ -147,5 +151,20 @@ Output:
 <enum 'Weekday'>
 True
 ```
+
+Even though the members have values of 1 through 7, the member is not equal to
+the plain number:
+
+```python
+print(Weekday.MONDAY == 1)
+```
+
+Output:
+
+```
+False
+```
+
+So a member can't be mixed up with a plain integer by accident.
 
 ---

@@ -25,11 +25,14 @@ import re
 def parse_html_tag(html: str, tag_to_find: str) -> str:
     """Read content of the specified HTML tag"""
     pattern = f"<.*?{tag_to_find}.*?>.*?<.*?/{tag_to_find}.*?>.*?"
-    matches = re.search(pattern, html, re.IGNORECASE)
-    if not matches:
+    match = re.search(pattern, html, re.IGNORECASE)
+    if not match:
         return f"'{tag_to_find}' not found"
-    return re.sub("<.*?>", "", matches.group())
+    return re.sub("<.*?>", "", match.group())
 ```
+
+> Note: this function uses `scrape_page()` from the previous lesson, which returns
+> the HTML for a URL.
 
 We can test this with our formerly "bad" URL:
 
@@ -45,5 +48,12 @@ Output:
 ```
 Profile: Poseidon
 ```
+
+The pattern has a limit: `.` doesn't match a newline by default, so it only finds a
+tag that sits on one line. A tag split across lines won't match, so check a page's
+HTML before relying on this approach.
+
+> Note: the code file turns off Sonar warnings on two lines (the `re.sub()` return
+> and the list of page URLs). Those comments stay in the code file.
 
 ---

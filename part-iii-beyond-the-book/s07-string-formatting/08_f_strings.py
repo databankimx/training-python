@@ -5,20 +5,20 @@ from datetime import datetime
 def hello_f_string() -> None:
     """Using a simple f-string with one interpolation"""
     name = "World"
-    f_string = f"Hello, {name}!"
+    f_string = f"Hello, {name}!\n"
     print(f_string)
 
 def price_f_string(item: str, qty: int, price: float) -> None:
     """Using an f-string with multiple interpolations"""
     total = round(price * qty, 2)
-    f_string = f"{qty} {item} cost ${total}"
+    f_string = f"{qty} {item} cost ${total}\n"
     print(f_string)
 
 def convert_f_string() -> None:
     """Using an f-string with conversion"""
     now = datetime.now()
     print(f"{now!s}")
-    print(f"{now!r}")
+    print(f"{now!r}\n")
 
 def replace_invalid_f_string(invalid_string: str) -> str:
     """Escape non-ASCII characters in a string using ascii()"""

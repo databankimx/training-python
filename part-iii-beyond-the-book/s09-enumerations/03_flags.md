@@ -15,7 +15,9 @@ more information.
 Let's convert our `Weekday` enum to a flag enum.
 
 ```python
+from datetime import date
 from enum import Flag
+from typing import Self
 
 class Weekday(Flag):
     """Defines names for days of the week as bit-flags"""
@@ -28,7 +30,7 @@ class Weekday(Flag):
     SUNDAY = 64
 
     @classmethod
-    def from_date(cls, day: date) -> Flag:
+    def from_date(cls, day: date) -> Self:
         """Get weekday name of the given date"""
         return cls(2 ** day.weekday())
 ```
@@ -42,7 +44,7 @@ today = Weekday.from_date(date.today())
 print(f"Today is {today.name.title()}.\n")
 
 first_weekday = Weekday.MONDAY
-print(first_weekday, first_weekday.value)
+print(first_weekday.name, first_weekday.value, "\n")
 ```
 
 Output:
@@ -51,7 +53,10 @@ Output:
 Today is Wednesday.
 
 MONDAY 1
+
 ```
+
+Your day may vary, of course.
 
 So what's different about this?
 
@@ -67,13 +72,14 @@ Here, we'll create a `weekend` variable that includes both
 
 ```python
 weekend = Weekday.SATURDAY | Weekday.SUNDAY
-print(weekend, weekend.value)
+print(weekend, weekend.value, "\n")
 ```
 
 Output:
 
 ```
 Weekday.SATURDAY|SUNDAY 96
+
 ```
 
 ---
@@ -90,13 +96,14 @@ So, we can get `Weekday.MONDAY|FRIDAY` this way:
 
 ```python
 first_last_weekdays = 17
-print(Weekday(first_last_weekdays))
+print(Weekday(first_last_weekdays), "\n")
 ```
 
 Output:
 
 ```
 Weekday.MONDAY|FRIDAY
+
 ```
 
 ---
@@ -107,26 +114,26 @@ We can use these combined variants in logic and loops. Loops in
 particular provide a special feature of the `Flags` type.
 
 ```python
-    today = Weekday.from_date(date.today())
+today = Weekday.from_date(date.today())
 
-    in_weekend = today & weekend == today
-    infix = "" if in_weekend else "not "
-    print(f"{today.name.title()} is {infix}part of the weekend.\n")
+in_weekend = today & weekend == today
+infix = "" if in_weekend else "not "
+print(f"{today.name.title()} is {infix}part of the weekend.\n")
 
-    print("Weekend Days:")
-    for day in weekend:
-        print(f" - {day.name.title()}")
-    print()
+print("Weekend Days:")
+for day in weekend:
+    print(f" - {day.name.title()}")
+print()
 ```
 
 Output:
 
 ```
 Wednesday is not part of the weekend.
-
 Weekend Days:
  - Saturday
  - Sunday
+
 ```
 
 We use a bitwise AND `&` to check if today is a member of the `weekend`
@@ -158,7 +165,7 @@ my_chores = {
     "do the dishes": Weekday.TUESDAY | Weekday.THURSDAY,
     "answer stack overflow questions": Weekday.MONDAY | Weekday.SATURDAY,
 }
-            
+
 show_chores(my_chores, Weekday.MONDAY)
 ```
 

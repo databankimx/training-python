@@ -32,7 +32,7 @@ print(f"o: {answer:o}")
 print(f"X: {answer:X}")
 print(f"%: {answer / 100:.0%}")
 print(f"c: {answer:c}")
-print(f"s: {str(answer):s}")
+print(f"s: {str(answer):s}\n")
 ```
 
 Output:
@@ -48,6 +48,7 @@ X: 2A
 %: 42%
 c: *
 s: 42
+
 ```
 
 ---
@@ -66,7 +67,7 @@ answer = 42
 print(f"b: {answer:#b}")
 print(f"o: {answer:#o}")
 print(f"X: {answer:#X}")
-print(f"g: {answer:#g}")
+print(f"g: {answer:#g}\n")
 ```
 
 Output:
@@ -76,6 +77,7 @@ b: 0b101010
 o: 0o52
 X: 0X2A
 g: 42.0000
+
 ```
 
 ---

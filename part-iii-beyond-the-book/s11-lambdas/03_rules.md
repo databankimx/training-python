@@ -27,11 +27,20 @@ Output:
 SyntaxError: invalid syntax
 ```
 
-> Side-note: Lambdas do not support type hints, so this would also result
-> in a SyntaxError:
+> Side-note: Lambdas do not support type hints. This is a SyntaxError, because the
+> lambda body ends at `int`, and the second colon is invalid:
 >
 > ```python
-> bad = lambda x: int : x + 1 -> int
+> bad = lambda x: int: x + 1
+> ```
+>
+> Output:
+>
+> ```
+> File "...\bad_type_hint.py", line 5
+>     bad = lambda x: int: x + 1
+>                        ^
+> SyntaxError: invalid syntax
 > ```
 
 ---
@@ -56,11 +65,15 @@ print(even_odd(3))
 > even_odd = lambda x: "odd" if x % 2 else "even"
 > ```
 
+> Note: the code file turns off a Pylint warning (`unnecessary-lambda-assignment`) on
+> the `even_odd` line. That comment stays in the code file.
+
 Output:
 
 ```
 even
 odd
+
 ```
 
 ---

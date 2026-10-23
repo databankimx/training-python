@@ -1,6 +1,6 @@
 ## Key Functions and Filters
 
-Functions like sort(), sorted(), min(), and max() accept keys, for which 
+Functions like `list.sort()`, `sorted()`, `min()`, and `max()` accept keys, for which 
 a lambda is often an optimal choice.
 
 ---
@@ -24,7 +24,8 @@ If we try to sort the list ...
 print(sorted(ids))
 ```
 
-... the items are sorted lexically (because they contain letters) ...
+... the items are compared as strings, character by character, so `"id100"`
+sorts before `"id2"`, because `"1"` comes before `"2"` ...
 
 Output:
 
@@ -53,6 +54,7 @@ Output:
 
 ```
 ['id1', 'id2', 'id3', 'id22', 'id30', 'id100']
+
 ```
 
 Which seems like a much more appropriate result.
@@ -90,6 +92,7 @@ Output:
 
 ```
 ['Cat', 'Dog', 'Turtle']
+
 ```
 
 Because this is a very simple example, the lambda method is arguably more
@@ -142,10 +145,15 @@ Output:
 
 ```
 [2, 4, 6, 8, 10]
+
 ```
 
-But it's reasonable to conclude that the second lambda method provides
-the greatest flexibility.
+> Note: the code file turns off a Sonar warning on the `map()` line, and a Pylint warning
+> (`unnecessary-lambda-assignment`) on the `even` line. Those comments stay in the code
+> file.
+
+But it's reasonable to conclude that the stored lambda provides the greatest
+flexibility.
 
 Will that always be the case?
 

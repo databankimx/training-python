@@ -31,8 +31,9 @@ bot's functionality.
 
 ```python
 import mechanicalsoup
+from bs4 import BeautifulSoup
 
-def log_in(url: str, un: str, pw: str) -> str:
+def log_in(url: str, un: str, pw: str) -> BeautifulSoup:
     """Log in to a website and return the HTML from the landing page"""
     browser = mechanicalsoup.Browser()
     login_page = browser.get(url)
@@ -43,6 +44,12 @@ def log_in(url: str, un: str, pw: str) -> str:
     profiles_page = browser.submit(login_form, login_page.url)
     return profiles_page.soup
 ```
+
+The `log_in()` function returns a `BeautifulSoup` object, which is the parsed page.
+
+> Note: the sample site's login is public test data, so the password here is harmless.
+> In real code, don't put credentials in source files. Read them from environment
+> variables or a secrets store instead.
 
 We can test our ability to log in and verify that we receive the HTML
 for the profiles page.
@@ -78,5 +85,8 @@ Output:
 </body>
 </html>
 ```
+
+> Note: the code file turns off a Sonar warning on the login URL and the password line.
+> Those comments stay in the code file.
 
 ---
