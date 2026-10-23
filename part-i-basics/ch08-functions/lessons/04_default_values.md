@@ -68,4 +68,3 @@ See bonus lesson 16, [Mutable Defaults](./16_bonus_mutable_defaults.md), for an 
 behavior.
 
 ---
-

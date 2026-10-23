@@ -41,19 +41,17 @@ We can still access the values as normal:
 
 ```python
 today = Weekday.from_date(date.today())
-print(f"Today is {today.name.title()}.\n")
+print(f"Today is {today.name.title()}.")
 
 first_weekday = Weekday.MONDAY
-print(first_weekday.name, first_weekday.value, "\n")
+print(first_weekday.name, first_weekday.value)
 ```
 
 Output:
 
 ```
 Today is Wednesday.
-
 MONDAY 1
-
 ```
 
 Your day may vary, of course.
@@ -72,14 +70,13 @@ Here, we'll create a `weekend` variable that includes both
 
 ```python
 weekend = Weekday.SATURDAY | Weekday.SUNDAY
-print(weekend, weekend.value, "\n")
+print(weekend, weekend.value)
 ```
 
 Output:
 
 ```
 Weekday.SATURDAY|SUNDAY 96
-
 ```
 
 ---
@@ -96,14 +93,13 @@ So, we can get `Weekday.MONDAY|FRIDAY` this way:
 
 ```python
 first_last_weekdays = 17
-print(Weekday(first_last_weekdays), "\n")
+print(Weekday(first_last_weekdays))
 ```
 
 Output:
 
 ```
 Weekday.MONDAY|FRIDAY
-
 ```
 
 ---
@@ -118,12 +114,11 @@ today = Weekday.from_date(date.today())
 
 in_weekend = today & weekend == today
 infix = "" if in_weekend else "not "
-print(f"{today.name.title()} is {infix}part of the weekend.\n")
+print(f"{today.name.title()} is {infix}part of the weekend.")
 
 print("Weekend Days:")
 for day in weekend:
     print(f" - {day.name.title()}")
-print()
 ```
 
 Output:
@@ -133,7 +128,6 @@ Wednesday is not part of the weekend.
 Weekend Days:
  - Saturday
  - Sunday
-
 ```
 
 We use a bitwise AND `&` to check if today is a member of the `weekend`

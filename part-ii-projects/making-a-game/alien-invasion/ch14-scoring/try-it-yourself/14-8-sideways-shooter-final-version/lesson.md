@@ -173,3 +173,5 @@ hits left are shown at the top of the window. The game ends with a message after
 - `game_stats.py`: the score, the level, the hits and the high score
 - `scoreboard.py`: the score, high score, level and hits left
 - `rocket.py`, `missile.py`, `alien.py`, `button.py`: the moving parts and the Play button
+
+---

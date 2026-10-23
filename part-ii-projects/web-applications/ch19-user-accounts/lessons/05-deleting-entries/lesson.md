@@ -98,3 +98,5 @@ The confirmation page, showing the note and the **Delete entry** button.
 - `learning_logs/templates/learning_logs/topic.html`: adds the delete link under each entry
 - `learning_logs/templates/learning_logs/edit_entry.html`: adds the delete link
 - `learning_logs/tests.py`: adds tests for deleting entries
+
+---

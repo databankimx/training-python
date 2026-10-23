@@ -165,3 +165,5 @@ F(40) = 102334155 : 1 call(s)
 - A mutable default is evaluated once, when the function is defined, and shared by every call.
 - If you want a fresh object on each call, default to `None` and create the object inside the function.
 - A shared mutable default can be useful when you want state to persist between calls, such as a memo.
+
+---

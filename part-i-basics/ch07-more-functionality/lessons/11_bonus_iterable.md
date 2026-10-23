@@ -127,4 +127,3 @@ Output:
 > Chapter 8. Read it for now as a preview of what iterators can do.
 
 ---
-

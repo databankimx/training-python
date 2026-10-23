@@ -108,4 +108,3 @@ a good tool, but they shouldn't be the only tool. In this case, keeping at least
 loops would make the code clearer, and nobody would mind the extra two lines.
 
 ---
-

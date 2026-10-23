@@ -27,14 +27,13 @@ if conn.is_connected():
     cursor = conn.cursor()
     cursor.execute(sql)
     conn.commit()
-    print(f"Database '{name}' created successfully!\n")
+    print(f"Database '{name}' created successfully!")
 ```
 
 Output:
 
 ```
 Database 'mydatabase' created successfully!
-
 ```
 
 You'll notice one significant difference between this and the previous

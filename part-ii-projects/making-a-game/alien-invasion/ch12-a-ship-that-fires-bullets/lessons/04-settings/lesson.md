@@ -115,3 +115,5 @@ changed.
 ![Light gray Pygame window](../03-background-color/lesson-images/gray-background.png)
 
 The screenshot from the previous step is reused here.
+
+---

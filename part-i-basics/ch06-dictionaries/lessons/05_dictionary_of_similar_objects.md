@@ -31,4 +31,3 @@ Looking up one person by name is easy. Looking through everyone's answers takes 
 we'll get to looping over dictionaries in lessons 6.7 through 6.9.
 
 ---
-

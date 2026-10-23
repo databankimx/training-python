@@ -84,4 +84,7 @@ Output:
 ('Amy', 'Apple st 652', 3)
 ```
 
+> Note: the code file has a Pylint comment (`no-name-in-module`) on the `mysql.connector`
+> import, which stays in the code file.
+
 ---

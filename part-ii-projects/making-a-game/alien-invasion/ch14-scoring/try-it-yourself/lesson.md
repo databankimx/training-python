@@ -19,3 +19,5 @@ To run an exercise, open a terminal in its folder, and run the program named on 
 ## Images
 
 Each exercise that shows output has a `lesson-images` folder beside its lesson.
+
+---

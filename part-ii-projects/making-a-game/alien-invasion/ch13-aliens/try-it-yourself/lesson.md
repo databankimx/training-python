@@ -20,3 +20,5 @@ with `python`.
 Each exercise has its own `images` folder. The star images are in `13-1-stars` and
 `13-2-better-stars`, the raindrop images are in `13-3-raindrops` and `13-4-steady-rain`, and the
 rocket image is in `13-5-sideways-shooter-2` and `13-6-game-over`.
+
+---

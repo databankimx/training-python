@@ -77,3 +77,5 @@ The edit form, with the Knights entry's text in the box.
 - `flask_log/templates/edit_entry.html` (new): the edit form
 - `flask_log/templates/topic.html`: an Edit entry link for each entry
 - `tests/test_edit_entry.py` (new): tests for the edit form
+
+---

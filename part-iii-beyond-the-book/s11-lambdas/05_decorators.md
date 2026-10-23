@@ -31,7 +31,6 @@ Output:
 ```
 [TRACE] func: add_two, args: (3,), kwargs: {}
 5
-
 ```
 
 However, we don't have to decorate a function. We could instead pass a
@@ -52,7 +51,6 @@ Output:
 ```
 [TRACE] func: <lambda>, args: (3,), kwargs: {}
 5
-
 ```
 
 ---
@@ -73,7 +71,6 @@ Output:
 [TRACE] func: <lambda>, args: (1,), kwargs: {}
 [TRACE] func: <lambda>, args: (2,), kwargs: {}
 [0, 2, 4]
-
 ```
 
 ---

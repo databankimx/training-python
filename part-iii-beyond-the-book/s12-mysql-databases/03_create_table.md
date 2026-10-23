@@ -96,7 +96,7 @@ if conn.is_connected():
     cursor.execute("SHOW COLUMNS in customers")
     existing = [column[0] for column in cursor.fetchall()]
     if "id" in existing:
-        print("Column `id` already exists!\n")
+        print("Column `id` already exists!")
     else:
         sql = "ALTER TABLE customers " + \
               "ADD COLUMN id INT AUTO_INCREMENT PRIMARY KEY"

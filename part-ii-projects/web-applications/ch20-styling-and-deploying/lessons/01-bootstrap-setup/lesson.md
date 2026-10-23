@@ -77,3 +77,5 @@ The home page at `http://127.0.0.1:8000/`. It's still plain, because this step o
 - `requirements.txt`: adds `django-bootstrap5`
 - `ll_project/settings.py`: adds `django_bootstrap5` to the installed apps
 - `ll_project/test_bootstrap.py` (new): tests for the setup
+
+---

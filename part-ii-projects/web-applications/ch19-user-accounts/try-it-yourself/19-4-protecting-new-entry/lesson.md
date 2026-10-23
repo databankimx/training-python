@@ -57,3 +57,5 @@ You should see `Ran 1 test` and `OK`.
 ## Output
 
 None. This exercise is about checking code that's already in place. The test result is the proof.
+
+---

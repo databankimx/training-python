@@ -200,3 +200,5 @@ they're the next place to explore.
 - `game_stats.py`: resets the level
 - `scoreboard.py`: adds the level and the ships
 - `alien_invasion.py`: updates the level and the ships display
+
+---

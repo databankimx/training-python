@@ -24,7 +24,6 @@ Output:
 
 ```
 6
-
 ```
 
 ---
@@ -42,7 +41,6 @@ Output:
 
 ```
 6
-
 ```
 
 ---
@@ -60,7 +58,6 @@ Output:
 
 ```
 6
-
 ```
 
 ---
@@ -77,7 +74,6 @@ Output:
 
 ```
 6
-
 ```
 
 ---
@@ -94,7 +90,6 @@ Output:
 
 ```
 6
-
 ```
 
 ---
@@ -113,7 +108,6 @@ Output:
 
 ```
 6
-
 ```
 
 > Note: the code file prints a heading before each result (for example,

@@ -4,8 +4,8 @@ from os import path
 
 ROOT_DIR = None
 
-def get_path(file_name: str, folder: str | None=None, parent_levels: int | None=0,
-             debug: bool | None=False) -> str:
+def get_path(file_name: str, folder: str | None = None, parent_levels: int | None = 0,
+             debug: bool | None = False) -> str:
     """
     Find the relative path to a specified file
 
@@ -27,7 +27,7 @@ def get_path(file_name: str, folder: str | None=None, parent_levels: int | None=
         print(f"Set file path: {file_path}")
     return file_path
 
-def initialize(debug: bool | None=False) -> None:
+def initialize(debug: bool | None = False) -> None:
     """
     Store the root directory
 

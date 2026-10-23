@@ -71,3 +71,5 @@ the loop.
 The window is filled with sky blue.
 
 ![Blue sky window](lesson-images/blue-sky.png)
+
+---

@@ -48,4 +48,3 @@ trillion = 1000000000000
 Same values, far less squinting.
 
 ---
-

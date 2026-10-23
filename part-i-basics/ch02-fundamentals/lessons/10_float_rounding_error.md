@@ -105,3 +105,4 @@ You can't make floats exact, but you can plan for the error. Some options:
 The main thing is to know that rounding error will happen, and to write your code
 so it doesn't decide your final results.
 
+---

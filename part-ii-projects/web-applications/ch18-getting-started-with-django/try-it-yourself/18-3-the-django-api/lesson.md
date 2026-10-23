@@ -47,3 +47,5 @@ There's no code to submit. Your check is that you can run each query above, and 
 ## Output
 
 The shell's results for each query, such as the list of Chess and Rock Climbing topics.
+
+---

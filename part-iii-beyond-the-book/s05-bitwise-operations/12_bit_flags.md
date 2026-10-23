@@ -244,4 +244,3 @@ are enumerated as powers of two, and the bit-size of the integer in which
 you store the values determines the number of values you can store.
 
 ---
-

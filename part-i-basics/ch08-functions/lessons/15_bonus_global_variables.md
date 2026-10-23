@@ -182,3 +182,5 @@ Read the output from top to bottom. The `fantastic` line comes and goes without 
 - Assigning to a name inside a function creates a local, unless you declare it `global` first.
 - Use `global` to change or create a module-level variable.
 - Use `nonlocal` to change a variable in an enclosing function.
+
+---

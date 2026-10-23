@@ -98,3 +98,5 @@ The new topic form, showing the duplicate message after `chess` is entered.
 - `flask_log/templates/new_topic.html` (new): the form
 - `flask_log/templates/topics.html`: an Add a new topic button
 - `tests/test_new_topic.py` (new): tests for the form and its checks
+
+---

@@ -139,4 +139,3 @@ That works, but it computes `x ** 2` twice, once to test it and once to keep it.
 lets you compute it once.
 
 ---
-

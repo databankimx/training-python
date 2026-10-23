@@ -67,14 +67,13 @@ class Weekday(Enum):
 We can access a variant by the value that we assigned to it:
 
 ```python
-print(Weekday(3), "\n")
+print(Weekday(3))
 ```
 
 Output:
 
 ```
 Weekday.WEDNESDAY
-
 ```
 
 ---
@@ -86,7 +85,7 @@ includes the variant name.
 
 ```python
 print(repr(Weekday(2)))
-print(str(Weekday(2)), "\n")
+print(str(Weekday(2)))
 ```
 
 Output:
@@ -94,7 +93,6 @@ Output:
 ```
 <Weekday.TUESDAY: 2>
 Weekday.TUESDAY
-
 ```
 
 ---
@@ -104,14 +102,13 @@ Weekday.TUESDAY
 We can also access a variant by its name
 
 ```python
-print(Weekday.THURSDAY, "\n")
+print(Weekday.THURSDAY)
 ```
 
 Output:
 
 ```
 Weekday.THURSDAY
-
 ```
 
 ---
@@ -122,7 +119,7 @@ Enums expose two useful properties: `name` and `value`:
 
 ```python
 print(Weekday.FRIDAY.name)
-print(Weekday.FRIDAY.value, "\n")
+print(Weekday.FRIDAY.value)
 ```
 
 Output:
@@ -130,7 +127,6 @@ Output:
 ```
 FRIDAY
 5
-
 ```
 
 ---

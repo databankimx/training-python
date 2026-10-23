@@ -147,4 +147,3 @@ worth checking before you trust the loop.
 > get their own chapter, Chapter 6, so you'll see them again then.
 
 ---
-

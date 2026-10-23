@@ -96,4 +96,3 @@ A typo in the value is the usual cause. Check the spelling, and check that the v
 really is in the list before you call `remove()`.
 
 ---
-

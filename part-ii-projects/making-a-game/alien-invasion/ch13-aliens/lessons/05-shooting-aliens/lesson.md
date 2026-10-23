@@ -74,3 +74,5 @@ Aliens disappear when a bullet hits them. The fleet loses aliens from the bottom
 ## Changed files
 
 - `alien_invasion.py`: `_update_bullets()` removes bullets and aliens that collide
+
+---

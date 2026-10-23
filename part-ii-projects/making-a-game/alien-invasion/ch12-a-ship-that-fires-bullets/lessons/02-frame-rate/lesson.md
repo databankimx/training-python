@@ -72,3 +72,5 @@ steady rate, which you can't see here, but which matters once the game has movin
 ![Empty Pygame window at a steady frame rate](../01-window-and-events/lesson-images/empty-game-window.png)
 
 The screenshot from the first step is reused here, since the window looks the same.
+
+---

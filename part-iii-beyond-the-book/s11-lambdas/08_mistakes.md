@@ -72,7 +72,6 @@ Output:
 
 ```
 [0, 1, 1, 2, 2, 3, 3, 4, 4, 5]
-
 ```
 
 Now, you may or may not have figured out that you're using the `map()`
@@ -99,7 +98,6 @@ Output:
 
 ```
 [0, 1, 1, 2, 2, 3, 3, 4, 4, 5]
-
 ```
 
 Heck, we can even still use a lambda for the integer division, but I'll

@@ -88,4 +88,3 @@ long condition onto one line, quickly turns code into a puzzle. When that happen
 `if` and `else` block. The next developer will thank you.
 
 ---
-

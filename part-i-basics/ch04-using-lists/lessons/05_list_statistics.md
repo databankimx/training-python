@@ -120,4 +120,3 @@ The line with `if` is the conditional. It says: if the average has no fractional
 turn it into an integer. Otherwise, keep it as it is.
 
 ---
-

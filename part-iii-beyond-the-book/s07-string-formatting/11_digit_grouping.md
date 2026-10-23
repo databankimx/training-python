@@ -21,7 +21,7 @@ or without the type parameter.
 ```python
 n = 1234567
 print(f"{n:,d}\t{n:_d}")
-print(f"{n:,}\t{n:_}\n")
+print(f"{n:,}\t{n:_}")
 ```
 
 Output:
@@ -29,7 +29,6 @@ Output:
 ```
 1,234,567       1_234_567
 1,234,567       1_234_567
-
 ```
 
 For integers, the `d` type indicator is optional and gives the same result, so
@@ -66,7 +65,7 @@ We can fix this by specifying the decimal precision (covered in the next lesson)
 ```python
 n = 1234567.89
 print(f"{n:,.2f}\t{n:_.2f}")
-print(f"{n:,}\t{n:_}\n")
+print(f"{n:,}\t{n:_}")
 ```
 
 Output:
@@ -74,7 +73,6 @@ Output:
 ```
 1,234,567.89    1_234_567.89
 1,234,567.89    1_234_567.89
-
 ```
 
 > Rule of Thumb: 

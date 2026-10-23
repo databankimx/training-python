@@ -118,3 +118,5 @@ until the game ends.
 - `ship.py`, `bullet.py`, `target.py`: the three moving objects
 - `game_stats.py`: the miss count and whether the game is active
 - `button.py`: the Play button
+
+---

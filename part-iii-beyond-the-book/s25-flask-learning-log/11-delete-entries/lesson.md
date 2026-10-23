@@ -84,3 +84,5 @@ The confirmation page for an entry, with the Delete entry and Cancel buttons.
 - `flask_log/templates/delete_entry.html` (new): the confirmation page
 - `flask_log/templates/topic.html`: a Delete entry link beside each Edit entry link
 - `tests/test_delete_entry.py` (new): tests for deleting entries
+
+---

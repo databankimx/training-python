@@ -51,14 +51,13 @@ string data.
 
 ```python
 s = "abcdef"
-print(f"'{s:5.5}'\n")
+print(f"'{s:5.5}'")
 ```
 
 Output:
 
 ```
 'abcde'
-
 ```
 
 Be careful using this option, as it truncates the string to the set character
@@ -118,14 +117,13 @@ To center the string, include a `^` character before the width number.
 
 ```python
 s = "abc"
-print(f"center:        '{s:^9}'\n")
+print(f"center:        '{s:^9}'")
 ```
 
 Output:
 
 ```
 center:        '   abc   '
-
 ```
 
 ---

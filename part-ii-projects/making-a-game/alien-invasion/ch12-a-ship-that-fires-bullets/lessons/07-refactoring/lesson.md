@@ -85,3 +85,5 @@ The screenshot from the previous step is reused here.
 
 - `alien_invasion.py`: `run_game()` calls two new helper methods, `_check_events()` and
   `_update_screen()`
+
+---

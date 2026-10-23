@@ -152,4 +152,3 @@ Finished making your pizza!
 ```
 
 ---
-

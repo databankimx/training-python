@@ -103,3 +103,5 @@ The rocket starts in the center of the window. Use the arrow keys to move it, an
 reach each edge.
 
 ![Rocket in the window](lesson-images/rocket.png)
+
+---

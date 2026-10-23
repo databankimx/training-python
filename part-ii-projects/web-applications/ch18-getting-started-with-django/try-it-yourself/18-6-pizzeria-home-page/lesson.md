@@ -63,3 +63,5 @@ path("", include("pizzas.urls")),
 The Pizzeria home page at `http://127.0.0.1:8000/`, with the top bar and one sentence.
 
 ![The Pizzeria home page](lesson-images/pizzeria-home.png)
+
+---

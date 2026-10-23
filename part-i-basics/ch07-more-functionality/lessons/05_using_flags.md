@@ -48,4 +48,3 @@ The loop terminated because the 'active' flag is now 'False'
 > error, and the example is clearer with the `else` left in.
 
 ---
-

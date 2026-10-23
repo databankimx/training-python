@@ -102,5 +102,3 @@ its value. This is the form you'll use most from here on.
 > and it's why you'll sometimes see templates saved in variables.
 
 ---
-
-

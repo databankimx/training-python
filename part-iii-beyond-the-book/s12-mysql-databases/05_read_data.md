@@ -49,7 +49,6 @@ Output:
 ('Chuck', 'Main Road 989', 13)
 ('Viola', 'Sideway 1633', 14)
 ('Michelle', 'Blue Village', 15)
-
 ```
 
 ---
@@ -90,7 +89,6 @@ Output:
 ('Chuck', 'Main Road 989')
 ('Viola', 'Sideway 1633')
 ('Michelle', 'Blue Village')
-
 ```
 
 As you'll note, the rows are returned as tuples.
@@ -110,14 +108,13 @@ if conn.is_connected():
     sql = "SELECT * FROM customers"
     cursor = conn.cursor()
     cursor.execute(sql)
-    print(cursor.fetchone(), "\n")
+    print(cursor.fetchone())
 ```
 
 Output:
 
 ```
 ('John', 'Highway 21', 1)
-
 ```
 
 ---

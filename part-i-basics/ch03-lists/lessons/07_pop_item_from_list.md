@@ -65,4 +65,3 @@ If you find yourself removing from the front a lot, keep that cost in mind. It's
 good reason to choose a different structure, and Python has several.
 
 ---
-

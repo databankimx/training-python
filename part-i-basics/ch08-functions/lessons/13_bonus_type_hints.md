@@ -204,4 +204,3 @@ function has more than six return statements, so Pylint raises `too-many-return-
 `.py` file turns off both warnings, because the clear structure is worth more than fewer returns.
 
 ---
-

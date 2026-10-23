@@ -64,3 +64,5 @@ The home page, with the two example posts, newest first.
 - `blog_project/`: the project settings, URLs, WSGI and ASGI files
 - `blogs/`: the app, with its models, forms, views, templates, admin registration, migration and tests
 - `manage.py`: the command-line tool
+
+---

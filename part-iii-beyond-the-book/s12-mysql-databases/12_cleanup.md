@@ -3,6 +3,9 @@
 We're going to remove the database and tables we created during this 
 lesson just to clean up after ourselves.
 
+> Warning: `DROP TABLE` and `DROP DATABASE` can't be undone. Use these commands only
+> on the training database.
+
 ---
 
 ### Removing a Table with `DROP TABLE`
@@ -61,7 +64,7 @@ if conn.is_connected():
     sql = "SHOW TABLES"
     cursor.execute(sql)
     print("TABLES:")
-    for table in cursor:
+    for table in cursor.fetchall():
         print(f" - {table[0]}")
 ```
 
@@ -72,6 +75,9 @@ TABLES:
 ```
 
 No tables are listed any more.
+
+> Note: the code file lists the tables before and after dropping them, so you'll see
+> the list twice. The lesson shows only the state after the drop.
 
 ---
 
@@ -128,8 +134,8 @@ if conn.is_connected():
     sql = "SHOW DATABASES"
     cursor.execute(sql)
     print("DATABASES:")
-    for table in cursor:
-        print(f" - {table[0]}")
+    for database in cursor.fetchall():
+        print(f" - {database[0]}")
 ```
 
 Output:
@@ -144,5 +150,10 @@ DATABASES:
 ```
 
 We no longer see 'mydatabase' listed.
+
+> Note: the code file lists the databases before and after dropping `mydatabase`, and
+> prints a heading above each list. Those extra listings and headings are left out here.
+> The code file has a Pylint comment on the `mysql.connector` import, which stays in the
+> code file.
 
 ---

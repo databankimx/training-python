@@ -73,7 +73,6 @@ Output:
 ```
 even
 odd
-
 ```
 
 ---

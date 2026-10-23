@@ -33,7 +33,6 @@ Output:
 closure(5) = 9
 closure(6) = 11
 closure(7) = 13
-
 ```
 
 ---

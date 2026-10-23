@@ -126,3 +126,5 @@ The entry list on the admin site, showing the notes you added.
 - `learning_logs/admin.py`: registers `Entry` with the admin site
 - `learning_logs/migrations/0002_entry.py`: the table for entries
 - `learning_logs/tests.py`: the tests for entries, and the admin page for them
+
+---

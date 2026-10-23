@@ -102,3 +102,5 @@ When you clear the fleet, a new one appears at the top of the window straight aw
 
 - `settings.py`: sets `bullet_speed` to 2.5
 - `alien_invasion.py`: adds `_check_bullet_alien_collisions()`, which also creates new fleets
+
+---

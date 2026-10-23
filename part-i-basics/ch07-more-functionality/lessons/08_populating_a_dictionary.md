@@ -50,4 +50,3 @@ poll going. Stripping spaces and lowercasing first means `  N  ` and `No` also c
 > name, the second answer replaces the first. We saw that in lesson 6.1.
 
 ---
-

@@ -124,3 +124,5 @@ the left, and repeats.
 - `settings.py`: adds `fleet_drop_speed` and `fleet_direction`
 - `alien.py`: adds `check_edges()`, and moves the alien in the fleet's direction
 - `alien_invasion.py`: checks the edges before moving the fleet, and adds the direction change
+
+---

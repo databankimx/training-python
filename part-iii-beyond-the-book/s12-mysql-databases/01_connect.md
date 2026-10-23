@@ -72,14 +72,13 @@ conn = mysql.connector.connect(
     user=settings["username"],
     password=settings["password"]
 )
-print(f"Connected to {conn.server_host}: {conn.server_port}\n")
+print(f"Connected to {conn.server_host}: {conn.server_port}")
 ```
 
 Output (port may vary):
 
 ```
 Connected to localhost: 3306
-
 ```
 
 ---

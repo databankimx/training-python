@@ -64,3 +64,5 @@ pattern an uneven, more natural look, like a real night sky.
 The stars are scattered across the window, with no grid pattern.
 
 ![Scattered stars](lesson-images/better-stars.png)
+
+---

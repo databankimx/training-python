@@ -41,9 +41,6 @@ Let's take a look at the effect of that.
 ```python
 print(TiffCompression.CCITT_T6.name, TiffCompression.CCITT_T6.value)
 print(TiffCompression.GROUP_IV.name, TiffCompression.GROUP_IV.value)
-
-print()
-
 ```
 
 Output:
@@ -51,7 +48,6 @@ Output:
 ```
 CCITT_T6 6
 CCITT_T6 6
-
 ```
 
 Notice how the alias is only used to access the variant. But under the

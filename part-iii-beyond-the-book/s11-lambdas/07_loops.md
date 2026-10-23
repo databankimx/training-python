@@ -46,7 +46,6 @@ Output:
 
 ```
 1 2 3
-
 ```
 
 ... which is exactly what we expect.
@@ -82,7 +81,6 @@ Output:
 
 ```
 3 3 3
-
 ```
 
 And that's definitely *not* what we expected.

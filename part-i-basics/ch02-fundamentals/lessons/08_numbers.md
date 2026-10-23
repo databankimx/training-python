@@ -117,4 +117,3 @@ The parentheses run first (`3 + 2` -> `5`), which turns the expression into:
 > has available.
 
 ---
-

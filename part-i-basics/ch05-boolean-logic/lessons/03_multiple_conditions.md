@@ -321,4 +321,3 @@ The direction matters. Chain comparisons that point the same way:
   read, and you'll probably have to think about it twice.
 
 ---
-

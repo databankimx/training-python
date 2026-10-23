@@ -108,3 +108,5 @@ level.
 - `alien_invasion.py`: three Play buttons, and the difficulty choice
 - `settings.py`: the speeds for each level, and the speed-up on every level
 - `ship.py`: keeps the decimal position for smooth movement
+
+---

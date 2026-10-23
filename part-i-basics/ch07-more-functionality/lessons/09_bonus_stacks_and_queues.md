@@ -74,4 +74,3 @@ Queue: [1, 2, 3, 4, 5]
 > It's just a review of how you can control the order items come out, the way those structures do.
 
 ---
-

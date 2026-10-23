@@ -62,7 +62,7 @@ if conn.is_connected():
     cursor.execute(sql, values)
     conn.commit()
     print(f"{cursor.rowcount} row(s) inserted.")
-    print(f"Last inserted ID: {cursor.lastrowid}\n")
+    print(f"Last inserted ID: {cursor.lastrowid}")
 ```
 
 Output:
@@ -70,7 +70,6 @@ Output:
 ```
 1 row(s) inserted.
 Last inserted ID: 1
-
 ```
 
 ---
@@ -105,7 +104,7 @@ if conn.is_connected():
     cursor.executemany(sql, values)
     conn.commit()
     print(f"{cursor.rowcount} row(s) inserted.")
-    print(f"Last inserted ID: {cursor.lastrowid}\n")
+    print(f"Last inserted ID: {cursor.lastrowid}")
 ```
 
 Output:
@@ -113,7 +112,6 @@ Output:
 ```
 13 row(s) inserted.
 Last inserted ID: 2
-
 ```
 
 Note: The `cursor.lastrowid` value from a call to `executemany()` will be
@@ -135,7 +133,7 @@ if conn.is_connected():
     cursor.execute(sql, values)
     conn.commit()
     print(f"{cursor.rowcount} row(s) inserted.")
-    print(f"Last inserted ID: {cursor.lastrowid}\n")
+    print(f"Last inserted ID: {cursor.lastrowid}")
 ```
 
 Output:
@@ -143,7 +141,6 @@ Output:
 ```
 1 row(s) inserted.
 Last inserted ID: 15
-
 ```
 
 You can see that we've now inserted 15 rows into the table

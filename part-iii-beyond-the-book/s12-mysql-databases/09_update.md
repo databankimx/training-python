@@ -36,8 +36,8 @@ Output:
 
 ### Parameterizing an Update
 
-As always, you should parameterize values in the `SET` and `WHERE` 
-clauses.
+Whenever a value comes from outside the code, such as user input, parameterize it
+in the `SET` and `WHERE` clauses.
 
 ```python
 if conn.is_connected():
@@ -54,5 +54,8 @@ Output:
 ```
 1 record(s) affected
 ```
+
+> Note: the code file has a Pylint comment (`no-name-in-module`) on the `mysql.connector`
+> import, which stays in the code file.
 
 ---

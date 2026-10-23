@@ -96,3 +96,5 @@ and the cursor is hidden.
 
 - `alien_invasion.py`: adds `_start_game()`, and the P key handler
 - `ship.py`: keeps the decimal position for smooth movement
+
+---

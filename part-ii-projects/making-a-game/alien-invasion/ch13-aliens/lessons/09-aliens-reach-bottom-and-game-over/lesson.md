@@ -158,3 +158,5 @@ statistics from this chapter are the base for that work.
 ## Changed files
 
 - `alien_invasion.py`: adds `game_active`, `_check_aliens_bottom()`, and the ship-count check in `_ship_hit()`
+
+---

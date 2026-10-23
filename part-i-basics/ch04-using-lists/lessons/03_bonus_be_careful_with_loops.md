@@ -71,4 +71,3 @@ removing items until a list is empty. They work differently, and they don't have
 problem.
 
 ---
-

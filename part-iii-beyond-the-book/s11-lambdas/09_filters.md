@@ -54,7 +54,6 @@ Output:
 
 ```
 ['id1', 'id2', 'id3', 'id22', 'id30', 'id100']
-
 ```
 
 Which seems like a much more appropriate result.
@@ -92,7 +91,6 @@ Output:
 
 ```
 ['Cat', 'Dog', 'Turtle']
-
 ```
 
 Because this is a very simple example, the lambda method is arguably more
@@ -145,7 +143,6 @@ Output:
 
 ```
 [2, 4, 6, 8, 10]
-
 ```
 
 > Note: the code file turns off a Sonar warning on the `map()` line, and a Pylint warning

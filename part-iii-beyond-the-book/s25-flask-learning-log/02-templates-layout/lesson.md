@@ -89,3 +89,5 @@ The home page with the navigation bar and the banner.
 - `flask_log/templates/index.html` (new): the home page, which extends the layout
 - `flask_log/__init__.py`: the home page route renders its template
 - `tests/test_layout.py` (new): tests for the layout
+
+---

@@ -86,4 +86,3 @@ Notice that `0.3` prints cleanly on its own, and the trouble only appears once
 arithmetic gets involved. That's the part that bites people.
 
 ---
-

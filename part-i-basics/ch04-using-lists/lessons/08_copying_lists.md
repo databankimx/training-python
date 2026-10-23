@@ -143,4 +143,3 @@ of strings or numbers, that doesn't matter. With nested structures, you'd want
 `copy.deepcopy()` from the `copy` module, which copies the nested objects too.
 
 ---
-

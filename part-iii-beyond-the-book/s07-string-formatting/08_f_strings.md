@@ -93,7 +93,7 @@ Here's a simple example
 
 ```python
 name = "World"
-f_string = f"Hello, {name}!\n"
+f_string = f"Hello, {name}!"
 print(f_string)
 ```
 
@@ -101,7 +101,6 @@ Output:
 
 ```
 Hello, World!
-
 ```
 
 ---
@@ -113,7 +112,7 @@ Here's an example with multiple variables
 ```python
 item, qty, price = "bananas", 5, 0.39
 total = round(price * qty, 2)
-f_string = f"{qty} {item} cost ${total}\n"
+f_string = f"{qty} {item} cost ${total}"
 print(f_string)
 ```
 
@@ -121,7 +120,6 @@ Output:
 
 ```
 5 bananas cost $1.95
-
 ```
 
 ---
@@ -136,7 +134,7 @@ from datetime import datetime
 
 now = datetime.now()
 print(f"{now!s}")
-print(f"{now!r}\n")
+print(f"{now!r}")
 ```
 
 Output:
@@ -144,7 +142,6 @@ Output:
 ```
 2024-08-18 12:22:23.902714
 datetime.datetime(2024, 8, 18, 12, 22, 23, 902714)
-
 ```
 
 ---

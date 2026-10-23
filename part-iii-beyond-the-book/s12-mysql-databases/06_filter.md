@@ -86,8 +86,8 @@ term "way" anywhere in the value.
 ### Parameterization
 
 We previously discussed parameterization of values when populating data.
-The same tactic is just as vital when retrieving data. You should never
-include a where clause without parameterizing the values.
+The same tactic is just as vital when retrieving data. Whenever a value comes from outside the code, such as user input, parameterize it
+in the `WHERE` clause.
 
 The technique is similar:
 
@@ -106,5 +106,8 @@ Output:
 ```
 ('Vicky', 'Yellow Garden 2', 10)
 ```
+
+> Note: the code file has a Pylint comment (`no-name-in-module`) on the `mysql.connector`
+> import, which stays in the code file.
 
 ---

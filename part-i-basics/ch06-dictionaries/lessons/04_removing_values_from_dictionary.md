@@ -70,4 +70,3 @@ KeyError: 'points'
 Check that the key is there with `in` before you delete it, if there's any chance it isn't.
 
 ---
-

@@ -114,4 +114,3 @@ message = 'One of Python\'s strengths is its diverse community'
 Either works. Pick the one that makes the code easier to read.
 
 ---
-
