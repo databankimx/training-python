@@ -40,7 +40,7 @@ def timed_function():
 ```
 
 ## Timer Class
-To use the execution timer class, simply import it and decorate the function you want to count with "@Timed"
+To use the timer class, simply import it and decorate the function you want to time with "@Timed"
 ```py
 # @Timed example
 from sm_utils import Timed
@@ -84,7 +84,7 @@ file = file_path("YOUR_FILE_NAME", "YOUR_OPTIONAL_SUBFOLDER")
 ```
 
 ## Run Function Lists
-There are two function lists functions:
+There are two function-list functions:
 
 - run(functions, *args, **kwargs)  
 Executes each of the functions in the list (passing all additional arguments)  

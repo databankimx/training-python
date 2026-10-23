@@ -27,7 +27,7 @@ def product_x(arr_a: np.ndarray, arr_b: np.ndarray) -> None:
     print("Product (x-Axis):")
     print(f"arr_a:                       {arr_a}")
     print(f"arr_b:                       {arr_b}")
-    print(f"np.prod([arr_a, arr_b]):     {np.prod([arr_a, arr_b], axis=1)}\n")
+    print(f"np.prod([arr_a, arr_b], axis=1): {np.prod([arr_a, arr_b], axis=1)}\n")
 
 def cumulative_product(arr: np.ndarray) -> None:
     """Cumulative product of an array"""

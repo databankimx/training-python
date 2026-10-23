@@ -2,7 +2,7 @@
 
 import pandas as pd
 
-def load_from_csv(filepath: str, printout: bool=False) -> pd.DataFrame:
+def load_from_csv(filepath: str, printout: bool = False) -> pd.DataFrame:
     """Load data from a CSV file into a Pandas DataFrame"""
     df = pd.read_csv(filepath, quotechar="'", quoting=2)
     if printout:
@@ -10,9 +10,9 @@ def load_from_csv(filepath: str, printout: bool=False) -> pd.DataFrame:
         print(df.tail(10), "\n")
     return df
 
-def drop_duplicates(df: pd.DataFrame) -> None:
-    """Drop duplicate rows from the DataFrame"""
-    df.drop_duplicates()
+def drop_duplicates(df: pd.DataFrame) -> pd.DataFrame:
+    """Return the DataFrame with duplicate rows removed"""
+    return df.drop_duplicates()
 
 def standardize_quotes(df: pd.DataFrame) -> None:
     """Remove any stray single quotes so every Date value is plain text"""
@@ -42,7 +42,7 @@ def fix_invalid_durations(df: pd.DataFrame) -> None:
 def clean_data_file(csv: str) -> pd.DataFrame:
     """Run every cleaning step on the CSV file and return the DataFrame"""
     df = load_from_csv(csv)
-    drop_duplicates(df)
+    df = drop_duplicates(df)
     format_dates(df)
     add_missing_dates(df)
     add_missing_calories(df)

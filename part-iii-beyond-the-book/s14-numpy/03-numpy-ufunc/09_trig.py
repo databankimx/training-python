@@ -7,7 +7,7 @@ def show_radians(lst: list[int]) -> None:
     print("Degrees to Radians:")
     r_arr = np.radians(lst)
     for d, r in zip(lst, r_arr):
-        print(f"{d:>3}° = {r / np.pi:.2f}πᶜ")
+        print(f"{d:>3}° = {r / np.pi:.2f} π rad")
     print()
 
 def show_hypotenuse(base: int|float, perp: int|float) -> None:
@@ -25,7 +25,7 @@ def print_out(txt: str, lbl: str, lst: list[int], arr: np.ndarray) -> None:
             r = 0.0
         if abs(d) > 1000000:
             d = np.inf
-        if r > 1000000:
+        if abs(r) > 1000000:
             r = np.inf
         if isinstance(d, int):
             print(f"{lbl}({d:>3}) = {r:>5.2f}")

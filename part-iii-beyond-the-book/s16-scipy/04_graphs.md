@@ -136,14 +136,21 @@ Each function returns the order in which the nodes were visited, along with the
 predecessor of each node:
 
 ```python
+import numpy as np
+from scipy.sparse import csr_matrix
 from scipy.sparse.csgraph import depth_first_order, breadth_first_order
 
-print(depth_first_order(csr, 1))
-print(breadth_first_order(csr, 1))
+arr = np.array([[0, 1, 1, 0, 0], [1, 0, 0, 1, 0], [1, 0, 0, 0, 1], [0, 1, 0, 0, 0], [0, 0, 1, 0, 0]])
+csr = csr_matrix(arr)
+print(depth_first_order(csr, 0))
+print(breadth_first_order(csr, 0))
 ```
 
-The script runs both traversals on a four-node graph. Run it and compare the two
-orders: the depth-first order follows one branch to the end before it returns.
+The script runs both traversals on a five-node graph, starting from node 0. The
+graph has the edges 0-1, 0-2, 1-3, and 2-4. Depth-first search follows node 1
+and then node 3 before it returns to visit node 2, so node 3 is reached before
+node 2. Breadth-first search visits all of node 0's neighbors (1 and 2) before
+it moves on to node 3 and node 4. Run the script and compare the two orders.
 
 ---
 
@@ -155,7 +162,7 @@ Run the script, and press Enter to move through each section:
 python 04_graphs.py
 ```
 
-Then change the matrix to add a fourth node that is not connected to the
+Then change the matrix to add a sixth node that is not connected to the
 others. Check how the component count changes.
 
 ---

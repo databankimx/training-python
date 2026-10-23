@@ -22,8 +22,8 @@ def indices_1d_by_value() -> None:
     print(f"Found {n} at indices:", indices, "\n")
 
 # pylint: disable=fixme
-# TODO: Research how to use np.where() for 2D arrays #NOSONAR
-#       This does not work as expected
+# TODO: np.where() on 2D arrays returns a tuple of row and column index arrays #NOSONAR
+#       Document how to read that result before using it
 # def indices_2d_by_value() -> None:
 #     """Get the index of a value in a 2D array"""
 #     arr = np.array([[1, 2, 3, 4], [6, 5, 4, 4]])

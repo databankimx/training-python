@@ -17,7 +17,7 @@ def shape_error() -> None:
         arr_2 = np.array([4, 5])
         print(f"{arr_2} has shape {arr_2.shape}")
         arr = np.array([arr_1, arr_2])
-        print(f"{arr_2} has shape {arr.shape}")
+        print(f"{arr} has shape {arr.shape}")
     except ValueError as e:
         print("----------\nShape Error:", e, "\n----------\n")
 

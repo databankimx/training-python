@@ -69,12 +69,12 @@ def find_shortest_path_negative(arr: np.ndarray) -> None:
     pause()
 
 def traverse_graph(arr: np.ndarray) -> None:
-    """Visit the nodes depth-first and breadth-first from node 1"""
+    """Visit the nodes depth-first and breadth-first from node 0"""
     clear_terminal()
     csr = csr_matrix(arr)
     print(f"CSR Matrix:\n{csr}\n")
-    print(f"Depth-first order from node 1: {depth_first_order(csr, 1)}\n")
-    print(f"Breadth-first order from node 1: {breadth_first_order(csr, 1)}")
+    print(f"Depth-first order from node 0: {depth_first_order(csr, 0)}\n")
+    print(f"Breadth-first order from node 0: {breadth_first_order(csr, 0)}")
     pause()
 
 def main() -> None:
@@ -86,7 +86,7 @@ def main() -> None:
     find_all_shortest_paths(csr)
     find_shortest_path_bellman_ford(csr)
     find_shortest_path_negative(np.array([[0, -1, 2], [1, 0, 0], [2, 0, 0]]))
-    traverse_graph(np.array([[0, 1, 0, 1], [1, 1, 1, 1], [2, 1, 1, 0], [0, 1, 0, 1]]))
+    traverse_graph(np.array([[0, 1, 1, 0, 0], [1, 0, 0, 1, 0], [1, 0, 0, 0, 1], [0, 1, 0, 0, 0], [0, 0, 1, 0, 0]]))
 
 if __name__ == "__main__":
     main()

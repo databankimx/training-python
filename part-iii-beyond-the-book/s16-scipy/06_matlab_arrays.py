@@ -13,7 +13,7 @@ def save_vector(filepath: str) -> None:
     io.savemat(filepath, {"vec": arr})
     print(f"Saved the vector to {os.path.basename(filepath)}\n")
 
-def load_vector(filepath: str, squeeze: bool=False) -> np.ndarray:
+def load_vector(filepath: str, squeeze: bool = False) -> np.ndarray:
     """Load the vector from a MATLAB (.mat) file"""
     data = io.loadmat(filepath, squeeze_me=squeeze)
     return data["vec"]

@@ -21,8 +21,8 @@ NumPy stands for *Numerical Python*.
 
 * In Python we have lists that serve the purpose of arrays, but they are 
   slow to process.
-* NumPy aims to provide an array object that is up to 50x faster than 
-  traditional Python lists.
+* NumPy aims to provide an array object that can be much faster than lists for many
+  numerical operations.
 * The array object in NumPy is called `ndarray`. It provides a lot of 
   supporting functions that make working with `ndarray` very easy.
 * Arrays are very frequently used in data science, where speed and 

@@ -1,6 +1,6 @@
 ## DataFrame from JSON
 
-Many APIs, especially web services return data as JSON. Pandas provides the
+Many APIs, especially web services, return data as JSON. Pandas provides the
 `read_json()` function to load a `DataFrame` from a JSON file.
 
 For this example, I have included a [data.json](./data/data.json) file.
@@ -14,7 +14,7 @@ Let's load and print the `DataFrame`
 ```python
 import pandas as pd
 
-print(f"Loading data from data.json:")
+print("Loading data from data.json:")
 df = pd.read_json("./data/data.json")
 print(df)
 ```
@@ -40,7 +40,7 @@ Loading data from data.json:
 ```
 
 Notice that the default string representation truncates the data if there 
-are more than ten rows, showing only the first and last five.
+are more than 60 rows (the default `max_rows` setting), showing only the first and last five rows.
 
 ---
 

@@ -1,16 +1,15 @@
 ## Arithmetic `ufunc` Functions
 
-NumPy exposes `ufunc` functions for all of the standard arithmetic 
-operations. The implementation of `ndarray` also implements overrides for
-the arithmetic operations `__add__` and `__sub__`, e.g., so these 
-functions can be accessed using the arithmetic operators as well.
+NumPy exposes `ufunc` functions for all of the standard arithmetic
+operations. The implementation of `ndarray` also overrides the arithmetic
+operators, so these functions can be accessed using the operators as well.
 
 There are two main differences between the NumPy implementations and the
 standard Python implementations of these functions:
 
 1. The NumPy `ufunc` functions operate on each index in the array
-2. For the NumPy functions, all array arguments must share the same shape
-   and data type.
+2. For the NumPy functions, array arguments are broadcast to a common shape,
+   and mixed data types are promoted to a common type.
 
 We'll review an example of each arithmetic `ufunc` operation.
 
@@ -170,7 +169,7 @@ arr_x // arr_y:                [2 4 5 5 6 6]
 
 ### Remainder/Modulo
 
-For remainder/modulo, NumPy provides two functions: `np.mod()` and 
+For remainder/modulo, NumPy provides two functions: `np.mod()` and
 `np.remainder()`
 
 ```python
@@ -202,7 +201,7 @@ arr_x % arr_y:              [2 0 0 5 2 6]
 
 ### Integer Division and Remainder
 
-For integer division and remainder calculation, NumPy provides the 
+For integer division and remainder calculation, NumPy provides the
 `np.divmod()` function.
 
 ```python
@@ -233,7 +232,7 @@ np.divmod(arr_x, arr_y): [2 4 5 5 6 6] [2 0 0 5 2 6]
 
 ### Absolute Values
 
-For absolute value calculation, NumPy provides the `np.abs()` and 
+For absolute value calculation, NumPy provides the `np.abs()` and
 `np.absolute()` functions.
 
 ```python

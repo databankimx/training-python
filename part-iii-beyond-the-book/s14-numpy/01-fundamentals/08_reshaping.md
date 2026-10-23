@@ -19,7 +19,7 @@ We'll start with a one-dimensional array:
 import numpy as np
 
 arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
-print(f"Original 1D array:\n{arr}\n")
+print(f"Original 1D array:\n{arr}")
 ```
 
 Output:
@@ -114,7 +114,7 @@ Shape = (2, 3, 2)
 If a dimension's shape is unknown, we can specify a value of `-1` for
 that dimension.
 
-Numpy will then calculate the shape of the remaining dimension.
+NumPy will then calculate the shape of the remaining dimension.
 
 ```python
 import numpy as np
@@ -148,25 +148,22 @@ Shape = (2, 2, 3)
 Of course, we can also reduce dimensions. When reducing to a single
 dimension, we refer to this as *flattening*.
 
-We can accomplish this by either:
-
-* Calling `reshape()` with only one dimension value  
-  or
-* Calling `flatten()`
+We can accomplish this by either calling `reshape()` with only one
+dimension value, or calling `flatten()`.
 
 ```python
 import numpy as np
 
 arr = np.array([[1, 2], [3, 4], [5, 6]])
-print(f"Original 2D array:\n{arr}\n")
+print(f"Original 2D array:\n{arr}")
 
 new_arr = arr.reshape(-1)
 print(f"Reshaped 1D array:\n{new_arr}")
-print(f"Shape = {new_arr.shape}\n")
+print(f"Shape = {new_arr.shape}")
 
 new_arr = arr.flatten()
 print(f"Flattened 1D array:\n{new_arr}")
-print(f"Shape = {new_arr.shape}\n")
+print(f"Shape = {new_arr.shape}")
 ```
 
 Output:

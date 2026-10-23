@@ -3,7 +3,7 @@
 import pandas as pd
 from utilities import file_path
 
-def load_from_csv(filepath: str, printout: bool=False) -> pd.DataFrame:
+def load_from_csv(filepath: str, printout: bool = False) -> pd.DataFrame:
     """Load data from a CSV file into a Pandas DataFrame"""
     df = pd.read_csv(filepath)
     if printout:

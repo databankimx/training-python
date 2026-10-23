@@ -1,13 +1,13 @@
 ## The Binomial Distribution
 
-A *binomial distribution*, as its name indicates, requires two values to 
+A *binomial distribution*, as its name indicates, requires two values to
 compute: number of trials *n* and probability of desired outcome *p*.
 
-It is useful for analyzing data with a known probability distribution, 
+It is useful for analyzing data with a known probability distribution,
 like:
 
-* Flipping a coin
-* Rolling a die
+* Flipping a coin and counting heads
+* Rolling a die and counting how many times a particular face (such as a six) comes up
 * etc.
 
 The formula for the binomial distribution is:
@@ -23,9 +23,9 @@ Its graph looks like this:
 
 NumPy's `random.binomial()` function takes three arguments:
 
-`n`: number of trials
-`p`: probability of desired outcome
-`size`: shape of the resulting array (`int` or `tuple`)
+* `n`: number of trials
+* `p`: probability of desired outcome
+* `size`: shape of the resulting array (`int` or `tuple`)
 
 When we generate a distribution, we should use a NumPy generator instance
 rather than calling the function off of `random` itself. In the code
@@ -35,7 +35,7 @@ examples, I will use the `random.default_rng()` random number generator.
 
 ### The Coin Flip
 
-Let's look at the simple example of a coin flip. The probability of 
+Let's look at the simple example of a coin flip. The probability of
 *heads* is 50%: `p = 0.5`. We'll flip the coin ten times: `n = 10`. And
 we'll repeat the entire experiment 1000 times to get a distribution of the
 number of successful outcomes.
@@ -52,8 +52,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 rng = random.default_rng()
-bin = rng.binomial(n=10, p=0.5, size=1000)
-sns.kdeplot(bin, fill=True, color="blue")
+binom = rng.binomial(n=10, p=0.5, size=1000)
+sns.kdeplot(binom, fill=True, color="blue")
 plt.show()
 ```
 
@@ -75,8 +75,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 rng = random.default_rng()
-bin = rng.binomial(n=10, p=0.5, size=1000)
-sns.histplot(bin)
+binom = rng.binomial(n=10, p=0.5, size=1000)
+sns.histplot(binom)
 plt.show()
 ```
 
@@ -104,9 +104,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 rng = random.default_rng()
-bin = rng.binomial(n=10, p=0.5, size=1000)
+binom = rng.binomial(n=10, p=0.5, size=1000)
 norm = rng.normal(loc=5, scale=1, size=1000)
-sns.kdeplot(bin, fill=True, color="blue")
+sns.kdeplot(binom, fill=True, color="blue")
 sns.kdeplot(norm, fill=True, color="red")
 plt.show()
 ```
@@ -115,7 +115,7 @@ Output:
 
 <img src="../images/binomial_v_normal.png" style="width:300px">
 
-You can see how the normal distribution (red) is a more continuous curve 
+You can see how the normal distribution (red) is a more continuous curve
 across the possible values.
 
 ---

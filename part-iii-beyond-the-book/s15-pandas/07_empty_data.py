@@ -3,7 +3,7 @@
 import pandas as pd
 from utilities import file_path
 
-def load_from_csv(filepath: str, printout: bool=False) -> pd.DataFrame:
+def load_from_csv(filepath: str, printout: bool = False) -> pd.DataFrame:
     """Load data from a CSV file into a Pandas DataFrame"""
     df = pd.read_csv(filepath)
     if printout:
@@ -18,9 +18,9 @@ def remove_rows(df: pd.DataFrame) -> None:
     print(new_df.tail(10), "\n")
 
 def remove_in_place(df: pd.DataFrame) -> pd.DataFrame:
-    """Remove rows with missing columns"""
+    """Remove rows with missing columns and return the result"""
     df = df.dropna()
-    print("Removed rows with missing columns (in place):")
+    print("Removed rows with missing columns (reassigned, then returned):")
     print(df.tail(10), "\n")
     return df
 

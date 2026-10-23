@@ -51,6 +51,7 @@ Output:
 
 ```
 Today is Wednesday.
+
 MONDAY 1
 ```
 

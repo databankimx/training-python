@@ -20,7 +20,7 @@ import pandas as pd
 
 # -- SNIP --
 
-print(f"DataFrame Info:")
+print("DataFrame Info:")
 df.info()  # info() prints its own output and returns None
 ```
 
@@ -51,8 +51,6 @@ Pandas 3.0 prints the class as `pandas.DataFrame`. Pandas 2.x prints
 The `head()` method returns a `DataFrame` containing the first rows in the
 existing `DataFrame`.
 
-. . . . . . . . . .
-
 #### Default (5 Rows)
 
 By default, the `head()` method returns the first five rows
@@ -78,8 +76,6 @@ Top 5 rows:
 4        45    117       148     406.0
 ```
 
-. . . . . . . . . .
-
 #### Top *n* Rows
 
 We can pass an optional integer argument for the number of rows desired.
@@ -89,7 +85,7 @@ import pandas as pd
 
 # -- SNIP --
 
-print(f"Top 10 rows:")
+print("Top 10 rows:")
 print(df.head(10))
 ```
 
@@ -117,8 +113,6 @@ Top 10 rows:
 The `tail()` method returns a `DataFrame` containing the last rows in the
 existing `DataFrame`.
 
-. . . . . . . . . .
-
 #### Default (5 Rows)
 
 By default, the `tail()` method returns the last five rows
@@ -144,8 +138,6 @@ Bottom 5 rows:
 168        75    125       150     330.4
 ```
 
-. . . . . . . . . .
-
 #### Bottom *n* Rows
 
 We can pass an optional integer argument for the number of rows desired.
@@ -155,7 +147,7 @@ import pandas as pd
 
 # -- SNIP --
 
-print(f"Bottom 10 rows:")
+print("Bottom 10 rows:")
 print(df.tail(10))
 ```
 

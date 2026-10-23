@@ -35,7 +35,8 @@ the three points that form one triangle. The triangles are listed by index,
 not by coordinates, so use the indices to look up the points.
 
 The point list above contains `[1, 2]` twice, at indices 5 and 8. Delaunay treats
-the repeated point as the same location, so index 8 does not appear in any triangle.
+the repeated point as the same location, so index 8 may not appear in any triangle.
+Check the output to see which indices are used.
 
 ---
 
@@ -69,13 +70,13 @@ from scipy.spatial import KDTree
 points = [(1, -1), (2, 3), (-2, 3), (2, -3)]
 tree = KDTree(points)
 distance, index = tree.query((1, 1))
-print(f"Nearest point is index {index} at distance {distance:.4f}")
+print(f"Nearest point to {(1, 1)} is index {index} at distance {distance:.4f}")
 ```
 
 Output:
 
 ```
-Nearest point is index 0 at distance 2.0000
+Nearest point to (1, 1) is index 0 at distance 2.0000
 ```
 
 The point `(1, -1)` is the closest to `(1, 1)`, two units away.

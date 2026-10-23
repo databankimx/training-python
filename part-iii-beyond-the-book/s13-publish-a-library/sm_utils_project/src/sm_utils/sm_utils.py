@@ -4,9 +4,11 @@ import timeit
 import sys
 import os
 import json
+from collections.abc import Callable
+from typing import Any
 
 #region Execution Timer
-def timer(func: callable) -> callable:
+def timer(func: Callable) -> Callable:
     """Time the execution of a the decorated function"""
     def wrapped(*args, **kwargs):
         start = timeit.default_timer()
@@ -39,7 +41,7 @@ class Timed():
         """Initialize callable state for the decorated function"""
         self._arg = arg
 
-    def __call__(self, *args, **kwargs) -> callable:
+    def __call__(self, *args, **kwargs) -> Any:
         """Time the function and print out the result"""
         start = timeit.default_timer()
         res = self._arg(*args, **kwargs)
@@ -53,70 +55,75 @@ class Timed():
 
 #region Relative Path Functions
 # Default folder for accessing files
-default_path: str|None=None
+default_path: str | None = None
 
 def root_path() -> str:
     """Return the root execution path of the script"""
     return os.path.dirname(sys.argv[0])
 
-def set_path(folder: str|None=None) -> str:
+def set_path(folder: str | None = None) -> str | None:
     """Set the default folder for accessing files"""
+    # pylint: disable=global-statement
+    global default_path
     if folder:
+        default_path = folder
         return folder
     json_path = os.path.join(root_path(), "sm_utils.json")
     if not os.path.isfile(json_path):
-        return "data"
-    with open(json_path, encoding="utf-8") as f:
+        return default_path
+    with open(json_path, encoding="UTF-8") as f:
         data = json.load(f)
-    # pylint: disable=global-statement
-    global default_path
     default_path = data["default_path"]
-    return data["default_path"]
+    return default_path
 
 set_path()
 
-def dir_path(folder_path: str=default_path) -> str:
+def dir_path(folder_path: str | None = None) -> str:
     """Return the specified path under the root directory"""
+    folder_path = folder_path or default_path
     if not folder_path:
         return root_path()
     return os.path.join(root_path(), folder_path)
 
-def file_path(filename: str, folder_path: str = default_path) -> str:
+def file_path(filename: str, folder_path: str | None = None) -> str:
     """Return the specified complete file path"""
     return os.path.join(dir_path(folder_path), filename)
 
 class RelativePath:
     """Class to support relative paths in VS Code without changing terminal directory"""
 
-    def __init__(self, folder: str|None=None):
+    def __init__(self, folder: str | None = None):
         """Initialize the paths"""
         self.root_path = os.path.dirname(sys.argv[0])
+        self.default_path = None
         self.set_path(folder)
 
-    def set_path(self, folder: str|None=None) -> None:
+    def set_path(self, folder: str | None = None) -> None:
         """Set the default folder for accessing files"""
         if folder:
+            self.default_path = folder
             return
         json_path = os.path.join(self.root_path, "sm_utils.json")
         if not os.path.isfile(json_path):
             return
-        with open(json_path, encoding="utf-8") as f:
+        with open(json_path, encoding="UTF-8") as f:
             data = json.load(f)
             self.default_path = data["default_path"]
 
-    def dir_path(self, folder: str = default_path) -> str:
+    def dir_path(self, folder: str | None = None) -> str:
         """Return the specified path under the root directory"""
+        folder = folder or self.default_path
         if not folder:
-            return os.path.join(self.root_path, self.default_path)
+            return self.root_path
         return os.path.join(self.root_path, folder)
 
-    def file_path(self, filename: str, folder: str=default_path) -> str:
+    def file_path(self, filename: str, folder: str | None = None) -> str:
         """Return the specified complete file path"""
         return os.path.join(self.dir_path(folder), filename)
 #endregion
 
 #region Run List of Functions
-def run(functions: list[callable], *args, **kwargs) -> dict[str, callable]:
+def run(functions: list[Callable], *args, **kwargs) -> dict[str, Any]:
     """Execute a list of functions"""
     ret = {}
     for function in functions:
@@ -124,7 +131,7 @@ def run(functions: list[callable], *args, **kwargs) -> dict[str, callable]:
         ret[function.__name__] = function(*args, **kwargs)
     return ret
 
-def run_repeat(repeat: int, functions: list[callable], *args, **kwargs) -> dict[str, callable]:
+def run_repeat(repeat: int, functions: list[Callable], *args, **kwargs) -> dict[str, Any]:
     """Execute a list of functions, repeating each a specified number of times"""
     ret = {}
     for function in functions:
@@ -135,7 +142,7 @@ def run_repeat(repeat: int, functions: list[callable], *args, **kwargs) -> dict[
 #endregion
 
 #region Call Counter
-def counter(func: callable) -> callable:
+def counter(func: Callable) -> Callable:
     """Counts the number of calls to the passed function"""
     def wrapped(*args, **kwargs):
         wrapped.calls += 1
@@ -143,36 +150,36 @@ def counter(func: callable) -> callable:
     wrapped.calls = 0
     return wrapped
 
-def reset_counter(func: callable) -> None:
+def reset_counter(func: Callable) -> None:
     """Resets the count for a decorated function to zero"""
     func.calls = 0
 
 class Counted():
     """Decorator class to count calls to the decorated function"""
-    def __init__(self, arg: any):
+    def __init__(self, arg: Any):
         """Initialize counter for the decorated function"""
         self._arg = arg
         self.reset()
 
-    def __call__(self, *args, **kwds) -> callable:
+    def __call__(self, *args, **kwds) -> Any:
         """Increment counter when the decorated function is called"""
         self.count += 1
         return self._arg(*args, **kwds)
 
-    def reset(self, n: int=0):
+    def reset(self, n: int = 0):
         """Reset counter for the decorated function"""
         self.count = n
 #endregion
 
 #region Terminal Interactions
-def pause(end: bool=False) -> None:
+def pause(end: bool = False) -> None:
     """Wait for user input"""
     act = "end program" if end else "continue"
     input(f"Press <ENTER> to {act}...")
     if end:
         sys.exit()
 
-def clear_terminal(end: str="") -> None:
+def clear_terminal(end: str = "") -> None:
     """Clear the terminal"""
     print("\033c", end=end)
 #endregion

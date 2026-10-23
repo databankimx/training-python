@@ -5,7 +5,7 @@ wrong, like if someone registered `199` instead of `1.99`.
 
 Sometimes you can spot wrong data by looking at the data set, because you have an expectation of what it should be.
 
-If you take a look at the same bad data set we have been using, you can see that in row 7, the duration is 450, but for all the other rows the duration is between 30 and 60.
+If you take a look at the same bad data set we have been using, you can see that in row 7, the duration is 450, but in the rows shown, all the other durations are between 30 and 60.
 
 ```
 Obtained bad data:
@@ -42,7 +42,7 @@ Of course, one available strategy is to remove any rows containing bad
 data. Here, we'll assume anything greater than 120 minutes is invalid.
 
 ```python
-df.drop(df[df["Duration"] > 120].index, inplace=True)
+df = df.drop(df[df["Duration"] > 120].index)
 print("Dropped invalid durations:")
 print(df.head(10))
 ```

@@ -131,8 +131,8 @@ dtype: int64
 
 ### Create Series with Filter
 
-We can filter which keys are included in the series by also passing an
-array of indices matching some or all of the keys.
+We can filter which keys are included in the series by also passing a
+list of keys that matches some or all of the dictionary's keys.
 
 ```python
 import pandas as pd

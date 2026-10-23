@@ -85,8 +85,6 @@ Around:   [-3.17  3.67]
 Round:    [-3.17  3.67]
 ```
 
-. . . . . . . . . .
-
 Note: Like the `round()` function in the Python Standard Library, this 
 function uses the *banker's rounding* strategy, which means that when the
 decimal to be rounded is exactly .5, the number is rounded toward the 

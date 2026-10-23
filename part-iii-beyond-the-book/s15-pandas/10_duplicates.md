@@ -36,7 +36,7 @@ df = pd.read_csv("./data/bad_data.csv")
 ### Identifying Duplicate Rows
 
 By default, the `duplicated()` function returns any rows that contain the
-same data in all columns (except ID).
+same data in all columns.
 
 ```python
 duplicates = df[df.duplicated()]

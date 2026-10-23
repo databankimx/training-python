@@ -2,7 +2,7 @@
 
 import numpy as np
 
-def unidimensional():
+def unidimensional() -> None:
     """Indexing a one-dimensional array"""
     arr = np.array([1, 2, 3, 4])
     print("1-D:")

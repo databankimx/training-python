@@ -20,7 +20,7 @@ def ufunc_add(lx: list[int], ly: list[int]) -> None:
     print(f"List Y: {ly}")
     print(f"Result: {az}\n")
 
-def ufunc_add_arrays(lx: np.ndarray[int], ly: np.ndarray[int]) -> None:
+def ufunc_add_arrays(lx: np.ndarray, ly: np.ndarray) -> None:
     """Merge two arrays using NumPy's ufunc `add`"""
     az = np.add(lx, ly)
     print("NumPy Add Arrays:")

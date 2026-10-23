@@ -1,18 +1,31 @@
 ## What Is SciPy?
 
-SciPy is a scientific computation library that layers atop NumPy. This adds
-utility functions for optimization, statistics, and signal processing.
+SciPy is a scientific computation library built on top of NumPy. It adds
+functions for optimization, statistics, integration, signal processing, and
+more.
 
-Where NumPy is the go-to library for creating and manipulating n-dimensional
-arrays, SciPy is the extension to use those arrays for modern data science.
+Where NumPy provides the n-dimensional arrays and the basic operations on them,
+SciPy provides the tools for analyzing that data: solving equations, fitting
+curves, testing hypotheses, and working with the frequencies in a signal.
 
-> **<span style="color:salmon">Study Warning!</span>**
->
-> I have not yet really absorbed the use of SciPy. As a result, though I
-> have included examples of its functionality, the lessons in this 
-> section are inferior to most of what I have included in the repo.
->
-> I recommend further study for anyone planning to use this library.
+### What This Section Covers
+
+The lessons in this section introduce the main SciPy modules:
+
+* [Constants](./01_constants.md): physical and unit conversion constants
+* [Optimizers](./02_optimizers.md): finding roots and minimum values
+* [Sparse Data](./03_sparse.md): storing and working with mostly-empty arrays
+* [Graphs](./04_graphs.md): connected components and shortest paths
+* [Spatial Data](./05_spatial_data.md): triangulation, convex hulls, and distance metrics
+* [MATLAB Arrays](./06_matlab_arrays.md): reading and writing `.mat` files
+* [Interpolation](./07_interpolation.md): estimating values between known points
+* [Significance Tests](./08_significance_tests.md): testing whether results are likely to be real
+* [Integration](./09_integrate.md): estimating the area under a curve
+* [Linear Algebra](./10_linalg.md): solving systems of equations, determinants, and inverses
+* [Probability Distributions](./11_stats_distributions.md): exact distribution functions in `scipy.stats`
+* [Fourier Transform](./12_fft.md): finding the frequencies in a signal
+* [Finding Peaks](./13_signal_peaks.md): locating maxima in data
+* [Special Functions](./14_special.md): combinations, the gamma function, and the error function
 
 ---
 
@@ -41,6 +54,8 @@ Output:
 ```
 Running SciPy version: 1.14.0
 ```
+
+Your version number may be newer. The lessons were written with SciPy 1.14.
 
 ---
 

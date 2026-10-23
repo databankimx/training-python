@@ -1,13 +1,13 @@
 ## Probability Distributions
 
-Probability distributions compute the probability of events occurring over 
-time.
+Probability distributions describe how likely each possible outcome of a random
+event is.
 
 Mathematically, events can be discrete, like the possible faces of a die,
 or continuous, like average height in a population.
 
-There are many types of probability distributions used in data analysis, 
-and The NumPy `random` library exposes functions for quite a few.
+There are many types of probability distributions used in data analysis,
+and the NumPy `random` library exposes functions for quite a few.
 
 ---
 

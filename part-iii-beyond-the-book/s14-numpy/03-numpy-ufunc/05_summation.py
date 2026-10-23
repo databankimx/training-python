@@ -20,14 +20,14 @@ def summation_y(arr_a: np.ndarray, arr_b: np.ndarray) -> None:
     print("Summation (y-Axis):")
     print(f"arr_a:                {arr_a}")
     print(f"arr_b:                {arr_b}")
-    print(f"np.sum(arr_a, arr_b): {np.sum([arr_a, arr_b])}\n")
+    print(f"np.sum([arr_a, arr_b]): {np.sum([arr_a, arr_b])}\n")
 
 def summation_x(arr_a: np.ndarray, arr_b: np.ndarray) -> None:
     """Sum two arrays"""
     print("Summation (x-Axis):")
     print(f"arr_a:                {arr_a}")
     print(f"arr_b:                {arr_b}")
-    print(f"np.sum(arr_a, arr_b): {np.sum([arr_a, arr_b], axis=1)}\n")
+    print(f"np.sum([arr_a, arr_b], axis=1): {np.sum([arr_a, arr_b], axis=1)}\n")
 
 def cumulative_summation(arr: np.ndarray) -> None:
     """Cumulative sum of an array"""

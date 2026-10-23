@@ -11,7 +11,7 @@ def log_calc() -> None:
     print(f"Log₁₀: {np.log10(arr)}")
     print(f"Logₑ:  {np.log(arr)}")
 
-def log_any_base():
+def log_any_base() -> None:
     """Calculate Logarithm to Any Base of an Array"""
     nplog = np.frompyfunc(log, 2, 1)
     arr = np.arange(1, 11)
@@ -21,7 +21,7 @@ def log_any_base():
         print(f"{n:.2f}", end=" ")
     print("\b]")
 
-def main():
+def main() -> None:
     """Main Function"""
     flt_fmt = "{:.2f}".format
     np.set_printoptions(formatter={"float_kind": flt_fmt})

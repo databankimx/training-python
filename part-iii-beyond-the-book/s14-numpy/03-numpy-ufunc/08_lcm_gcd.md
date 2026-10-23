@@ -128,8 +128,8 @@ list of integers:
 def my_list_lcm(lst: list[int]) -> int:
     """Calculate LCM for multiple integers"""
     lst = list(set(lst))
-    lcm = lst[0]
-    for n in lst[1:]:
+    lcm = 1
+    for n in lst:
         lcm = my_lcm(lcm, n)
     return lcm
 
@@ -248,11 +248,11 @@ def test_np_lcm(arr: np.ndarray) -> int:
 lst = [12, 15, 27, 30]
 arr = np.array(lst)
 
-print(f"My GCD of the list {lst}: {test_my_gcd(lst)}\n")
-print(f"NumPy GCD of the array {arr}: {test_np_gcd(arr)}\n")
+print(f"My GCD of the list {lst}: {test_my_gcd(lst)}")
+print(f"NumPy GCD of the array {arr}: {test_np_gcd(arr)}")
 
-print(f"My LCM of the list {lst}: {test_my_lcm(lst)}\n")
-print(f"NumPy LCM of the array {arr}: {test_np_lcm(arr)}\n")
+print(f"My LCM of the list {lst}: {test_my_lcm(lst)}")
+print(f"NumPy LCM of the array {arr}: {test_np_lcm(arr)}")
 ```
 
 Output:
@@ -270,6 +270,8 @@ My LCM of the list [12, 15, 27, 30]: 540
 Execution Time: 3.7 µs
 NumPy LCM of the array [12 15 27 30]: 540
 ```
+
+> Note: These timings come from one run on one machine, so your results will differ.
 
 For GCD, NumPy's function appears to run about 15% faster.  
 For LCM, NumPy's function appears to run about 36% faster.
