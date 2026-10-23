@@ -108,3 +108,5 @@ live site, in the deployment step.
 - `learning_logs/templates/404.html` (new): the friendly 404 page
 - `learning_logs/templates/500.html` (new): the standalone error page
 - `learning_logs/test_errors.py` (new): tests for the error page and settings
+
+---

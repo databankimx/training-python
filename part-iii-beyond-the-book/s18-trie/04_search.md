@@ -43,7 +43,7 @@ letters as opposed to finding a specific word.
 
 For example, if you need to search for both "anyone" and "anybody," it 
 could be useful to first check to see if the prefix "any" occurs, since 
-it's  a shorter search that, if false, would negate the need to check 
+it's a shorter search that, if false, would negate the need to check 
 either of the full words.
 
 The algorithm for a check prefix function is identical to the search except
@@ -62,6 +62,9 @@ word.
             current_node = current_node.children[ord(c) - self.offset]
         return True
 ```
+
+> Note: The version in `trie.py` also takes a `get_node` argument, which returns the
+> node at the end of the prefix instead of `True`. It is explained in the classes lesson.
 
 ---
 

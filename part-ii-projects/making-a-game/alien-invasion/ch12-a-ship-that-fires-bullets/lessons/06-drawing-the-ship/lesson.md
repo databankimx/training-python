@@ -84,3 +84,5 @@ When you run the game, the ship sits at the bottom center of the gray window.
 ## Changed files
 
 - `alien_invasion.py`: imports `Ship`, creates it in `__init__()`, and draws it in the loop
+
+---

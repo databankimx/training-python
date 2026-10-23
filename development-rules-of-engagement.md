@@ -57,7 +57,15 @@ until development leadership determines otherwise.
 
 ## 4. Roles and Responsibilities
 
-### Development Director or Delegated Development Leadership
+### Development Director or Delegated Leadership
+
+In this document, development leadership means the Development Director or an alternate acting
+within authority delegated by the Development Director.
+
+The Development Director may designate an alternate approver, including a member of Professional
+Services leadership. The delegation must identify its scope and duration. The alternate must obtain
+development-team input before approving exceptions affecting technical standards, security, source
+control, code review, or CI scanning.
 
 Development leadership is responsible for:
 
@@ -94,6 +102,15 @@ The reviewer is responsible for:
 - Blocking delivery when code does not meet standards, does not work, is not understood, or creates
   unacceptable risk.
 
+### Solution Architects and Presales
+
+Solution architects review requirements and identify custom development needs. Sales or the
+solution architect engages development through the Salesforce SME request process. A developer
+works with the solution architect or salesperson to prepare an estimate for Deal Desk to use in
+preparing the client-facing statement of work. Development leadership must approve the development
+scope, estimate, and commitments before they are included in a client-facing proposal or statement
+of work.
+
 ### Sales, Project, and Support Teams
 
 Sales, project, and support teams are responsible for involving development leadership when a client
@@ -104,15 +121,18 @@ to a client without approved development input.
 
 ## 5. Billing and Quoting Rules
 
-### 5.1 Custom Code Is Not Free
+### 5.1 Custom Development Is Billable Professional Services
 
-DataBank does not give away custom code or custom code changes.
+Custom development and changes to custom deliverables require a billable engagement unless an
+authorized approver documents an exception under section 16. Professional Services leadership can
+help coordinate scope and commercial questions with development leadership.
 
-Any custom code creates potential future support responsibility. Even small changes can create a
-non-billable support burden if they are not quoted, reviewed, stored, and delivered properly.
+Custom code creates an ongoing support responsibility. Quoting, reviewing, storing, and delivering
+the work consistently helps us plan for that responsibility and set clear expectations with clients.
 
-Unless development leadership explicitly approves an exception, custom code must be tied to a
-billable project, statement of work, quote, or approved billable engagement.
+Custom development must be tied to a billable project, statement of work, quote, or approved billable
+engagement unless an exception is approved under section 16. Break-fix work covered by an existing
+support agreement follows the support boundary in section 6.
 
 ### 5.2 A Development Quote Is Required
 
@@ -135,22 +155,38 @@ This applies to:
 
 ### 5.3 Quotes Require Development Approval
 
-Any development quote must be approved by the Development Director or delegated development
-leadership before being sent to Sales, a client, or any external party.
+The Development Director or delegated leadership must approve development quotes before they
+are released to Sales as approved quotes or provided to a client or any external party.
 
-Developers may assist with internal estimates, but they must not provide external estimates,
-budgetary numbers, implementation promises, or delivery commitments unless development leadership
-has approved them.
+Developers may collaborate with solution architects, Sales, and Deal Desk on internal working
+estimates. These estimates must be identified as preliminary and subject to development approval.
+External estimates, budgetary numbers, implementation promises, and delivery commitments require
+development leadership approval.
 
-If a client or Sales requests an estimate during a discussion, the correct response is to route the
-request through development leadership.
+When a client or Sales requests an estimate during a discussion, involve development leadership
+so the team can confirm scope, effort, and an appropriate response.
+
+### 5.4 Approval Coordination and Response Expectations
+
+To help development leadership plan a timely review, requests should include the available
+requirements, proposed scope, and requested response date. Development leadership will identify
+any additional information needed and communicate an expected review timeframe.
+
+For urgent requests or when an expected response date has passed, the requesting team should
+coordinate with development leadership or the designated alternate to agree on next steps.
+Approval remains necessary before an external commitment, even when the requested response
+date has passed.
 
 ## 6. Support Boundary
 
 Support work is limited to break-fix activity for supported custom code.
 
-The following are not ordinary support and require a billable development engagement unless
-development leadership approves otherwise:
+For this policy, supported custom code means DataBank-developed code in the version delivered or
+subsequently approved by DataBank, without unapproved modifications by a client or third party.
+Support coverage remains subject to the applicable support agreement.
+
+The activities listed below require separate billable development engagements unless an
+authorized approver documents an exception under section 16:
 
 - Enhancements
 - New features
@@ -245,9 +281,8 @@ The standards policy scan, SonarQube, and Snyk exist to catch different classes 
 
 Source code for delivered custom projects is available to clients, except for DataBank product code.
 
-However, source-code delivery is not automatic free work. Preparing source code for delivery
-requires additional billable time and must be included in the development quote or handled as a
-separate billable engagement.
+Preparing source code for delivery requires additional billable time and must be included in the
+development quote or handled as a separate billable engagement.
 
 Source-code delivery preparation may include:
 
@@ -336,7 +371,7 @@ around the normal development, review, source-control, and CI process.
 Before custom code is delivered to a client, all of the following must be true:
 
 - The work is tied to a billable project, quote, or approved engagement.
-- The quote was approved by the Development Director or delegated development leadership.
+- The quote was approved by the Development Director or delegated leadership.
 - The scope of the deliverable is clear.
 - The code is committed to the correct GitHub Enterprise repository, or has been handed off to the
   development team for repository intake before or during review.
@@ -356,7 +391,7 @@ approved by development leadership.
 
 ## 16. Exceptions
 
-Exceptions must be approved by the Development Director or delegated development leadership.
+Exceptions must be approved by the Development Director or delegated leadership.
 
 Exceptions should be documented with:
 

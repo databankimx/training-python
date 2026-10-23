@@ -16,11 +16,12 @@ import re
 from pathlib import Path
 
 from markdown_it import MarkdownIt
+from markdown_it.token import Token
 from mdit_py_plugins.dollarmath import dollarmath_plugin
 
 #pylint: disable=unused-argument, line-too-long
 
-CSS = """
+CSS: str = """
 body { background: #1E1E1E; color: #D4D4D4; font-family: "Segoe UI", sans-serif;
        font-size: 15px; line-height: 1.5; margin: 0; padding: 16px 24px; }
 h1, h2, h3 { color: #569CD6; }
@@ -54,7 +55,7 @@ img { max-width: 100%; height: auto; }
 .token.operator, .token.punctuation { color: #D4D4D4; }
 """
 
-LIGHT_CSS = """
+LIGHT_CSS: str = """
 body { background: #FFFFFF; color: #1E1E1E; font-family: "Segoe UI", sans-serif;
        font-size: 15px; line-height: 1.5; margin: 0; padding: 16px 24px; }
 h1, h2, h3 { color: #0451A5; }
@@ -88,7 +89,7 @@ img { max-width: 100%; height: auto; }
 .token.operator, .token.punctuation { color: #1E1E1E; }
 """
 
-HEAD = """<!doctype html>
+HEAD: str = """<!doctype html>
 <html><head><meta charset="utf-8">
 <style>__CSS__</style>
 <script>
@@ -107,7 +108,7 @@ window.MathJax = {
 </head><body>
 """
 
-TAIL = """
+TAIL: str = """
 <script>
 if (window.Prism) {
   // Control-flow keywords get their own color, as in Visual Studio.
@@ -136,10 +137,10 @@ def make_parser() -> MarkdownIt:
           .enable("table")
           .use(dollarmath_plugin))
 
-    def inline_math(renderer, tokens, idx, options, env):
+    def inline_math(renderer: object, tokens: list[Token], idx: int, options: object, env: object) -> str:
         return "\\(" + html.escape(tokens[idx].content) + "\\)"
 
-    def block_math(renderer, tokens, idx, options, env):
+    def block_math(renderer: object, tokens: list[Token], idx: int, options: object, env: object) -> str:
         return "\\[" + html.escape(tokens[idx].content) + "\\]\n"
 
     md.add_render_rule("math_inline", inline_math)
@@ -147,13 +148,13 @@ def make_parser() -> MarkdownIt:
     return md
 
 
-_PARSER = make_parser()
+_PARSER: MarkdownIt = make_parser()
 
 # A table header row whose cells are all empty. The lessons use these as spacers.
-EMPTY_HEADER = re.compile(r"<thead>\s*<tr>(?:\s*<th[^>]*></th>)+\s*</tr>\s*</thead>")
+EMPTY_HEADER: re.Pattern[str] = re.compile(r"<thead>\s*<tr>(?:\s*<th[^>]*></th>)+\s*</tr>\s*</thead>")
 
 
-MATH_SPAN = re.compile(r"\$\$[^$]+\$\$|\$[^$\n]+\$")
+MATH_SPAN: re.Pattern[str] = re.compile(r"\$\$[^$]+\$\$|\$[^$\n]+\$")
 
 
 def math_symbols(markdown_text: str) -> str:

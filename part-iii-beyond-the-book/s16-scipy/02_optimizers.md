@@ -3,8 +3,8 @@
 Optimizers are a set of procedures defined in SciPy that either find the
 minimum value of a function, or the root of an equation.
 
-Essentially, any algorithm in Machine Learning is nothing more than a 
-complex equation that needs to be minimized with the help of given data.
+Essentially, many machine learning algorithms reduce to finding the minimum of a
+complex equation, called a loss function, using the given data.
 
 ---
 
@@ -31,7 +31,7 @@ We can implement a simple function for x + cos(x):
 from math import cos
 from numpy import ndarray
 
-def x_plus_cos_x(x: int|float|ndarray[int|float]) -> int|float:
+def x_plus_cos_x(x: int|float|ndarray) -> int|float:
     """Compute x plus cos(x)"""
     if isinstance(x, ndarray): x = x[0]
     return x + cos(x)
@@ -116,7 +116,7 @@ Let's consider the equation `x² + x + 2`
 First, we create a function that computes the equation:
 
 ```python
-def x_squared_plus_x_plus_2(x: int|float|ndarray[int|float]) -> int|float:
+def x_squared_plus_x_plus_2(x: int|float|ndarray) -> int|float:
     """Compute x² + x + 2"""
     if isinstance(x, ndarray):
         x = x[0]

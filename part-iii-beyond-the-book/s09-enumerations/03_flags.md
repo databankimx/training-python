@@ -15,7 +15,9 @@ more information.
 Let's convert our `Weekday` enum to a flag enum.
 
 ```python
+from datetime import date
 from enum import Flag
+from typing import Self
 
 class Weekday(Flag):
     """Defines names for days of the week as bit-flags"""
@@ -28,7 +30,7 @@ class Weekday(Flag):
     SUNDAY = 64
 
     @classmethod
-    def from_date(cls, day: date) -> Flag:
+    def from_date(cls, day: date) -> Self:
         """Get weekday name of the given date"""
         return cls(2 ** day.weekday())
 ```
@@ -39,10 +41,10 @@ We can still access the values as normal:
 
 ```python
 today = Weekday.from_date(date.today())
-print(f"Today is {today.name.title()}.\n")
+print(f"Today is {today.name.title()}.")
 
 first_weekday = Weekday.MONDAY
-print(first_weekday, first_weekday.value)
+print(first_weekday.name, first_weekday.value)
 ```
 
 Output:
@@ -52,6 +54,8 @@ Today is Wednesday.
 
 MONDAY 1
 ```
+
+Your day may vary, of course.
 
 So what's different about this?
 
@@ -107,23 +111,21 @@ We can use these combined variants in logic and loops. Loops in
 particular provide a special feature of the `Flags` type.
 
 ```python
-    today = Weekday.from_date(date.today())
+today = Weekday.from_date(date.today())
 
-    in_weekend = today & weekend == today
-    infix = "" if in_weekend else "not "
-    print(f"{today.name.title()} is {infix}part of the weekend.\n")
+in_weekend = today & weekend == today
+infix = "" if in_weekend else "not "
+print(f"{today.name.title()} is {infix}part of the weekend.")
 
-    print("Weekend Days:")
-    for day in weekend:
-        print(f" - {day.name.title()}")
-    print()
+print("Weekend Days:")
+for day in weekend:
+    print(f" - {day.name.title()}")
 ```
 
 Output:
 
 ```
 Wednesday is not part of the weekend.
-
 Weekend Days:
  - Saturday
  - Sunday
@@ -158,7 +160,7 @@ my_chores = {
     "do the dishes": Weekday.TUESDAY | Weekday.THURSDAY,
     "answer stack overflow questions": Weekday.MONDAY | Weekday.SATURDAY,
 }
-            
+
 show_chores(my_chores, Weekday.MONDAY)
 ```
 

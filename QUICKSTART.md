@@ -43,7 +43,7 @@ or run one part by hand.
 | **Git** (optional) | Updating the repository | `git --version` |
 
 When you run the Python installer, tick **Add python.exe to PATH**, and tick **tcl/tk and IDLE**. The second option is what gives you `tkinter`, which the
-Tkinter chapter and the lesson runner's logo use.
+Tkinter chapter uses.
 
 Restart PowerShell after installing, so the new PATH is picked up.
 
@@ -87,7 +87,7 @@ What each one is for:
 | `build`, `twine` | Part III S13 (publishing a library). The lessons build packages, they don't upload them |
 | `pymongo`, `mysql-connector-python` | Part III S17 and S12. These install the client only, see the note below |
 
-The standard library covers everything else, including the Part III chapters S01 to S09, S11, S18, S19 (`tkinter`), S20 to S22.
+The standard library covers everything else, including the Part III chapters S01 to S09, S11, S18, S19 (`tkinter`), S20 to S22, S26, and S27.
 
 **Note on S12 and S17:** these two chapters talk to a MySQL or MongoDB server. The libraries install here, but the examples fail with a connection error
 until you have a server. That's expected, and the lessons explain the setup in `00_mysql_setup.md` and the S17 notes.
@@ -192,8 +192,7 @@ about.
 | Web | Web Applications, Chapter 18, step 1 | The build runs its checks, and the browser opens the start page |
 | Flask | Part III, S25, step 1 | The build runs its checks, and the browser opens the home page |
 
-**The first web run asks for an admin account.** A dialog asks for a username and password, once per session. The username is lowercase letters and numbers,
-from 3 to 30 characters. The password is at least 8 characters. The runner creates the account in the local build, so you can sign in to the sites you build.
+**The first web run asks for an admin account.** A dialog asks for a username and password, once per session. The username is lowercase letters and numbers only. The password is at least 8 characters. The runner creates the account in the local build, so you can sign in to the sites you build.
 Keep these details somewhere safe, because the runner asks again next time you start it.
 
 ---

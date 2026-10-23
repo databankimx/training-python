@@ -90,3 +90,5 @@ The home page with the navigation bar, and the page after signing in.
 
 - `learning_logs/templates/learning_logs/base.html`: the new navigation bar, with the Bootstrap tags
 - `learning_logs/test_navbar.py` (new): tests for the navigation bar
+
+---

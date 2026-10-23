@@ -3,6 +3,7 @@
 from time import perf_counter_ns
 from functools import reduce
 from math import factorial
+from collections.abc import Callable
 
 def factorial_rec(n: int) -> int | None:
     """Recursively calculate the factorial of n"""
@@ -37,7 +38,7 @@ def factorial_def(n: int) -> int | None:
         return None
     return factorial(n)
 
-def check_performance(func: callable, n: int, r: int) -> int:
+def check_performance(func: Callable, n: int, r: int) -> int:
     """Evaluate how long it takes to calculate n! r times"""
     start = perf_counter_ns()
     for _ in range(r):

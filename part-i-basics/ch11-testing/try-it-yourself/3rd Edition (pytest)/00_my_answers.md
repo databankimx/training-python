@@ -7,6 +7,10 @@ Here are my solutions for the chapter 11 try-it-yourself exercises.
 > these editions for each problem. This file covers the 3rd edition answers,
 > which use the `pytest` library.
 
+> Note: `test_cities.py` and `test_employee.py` keep several versions of their
+> tests as comments. Uncomment the tests for the part you're running, and comment
+> out the others. Each section below says which tests are active.
+
 ---
 
 ### Assignment 11.1 - City, Country
@@ -58,6 +62,9 @@ def test_city_country():
 
 <details>
 <summary>Output</summary>
+
+This output is from running `test_cities.py` with only the 11.1 test active (the
+11.2 tests commented out).
 
 ```
 =================== test session starts ===================
@@ -156,6 +163,10 @@ def test_city_country_pop():
 </details>
 <br>
 
+> Note: to see the failure, uncomment the `city_country_population_broken` import
+> (line 41) and the broken tests (lines 53 to 61), and comment out the two working
+> tests (lines 43 to 51). Reverse these steps for the passing run.
+
 <details>
 <summary>Output</summary>
 <br>
@@ -178,7 +189,7 @@ ____________________ test_city_country_no_pop_broken ____________________
 >       result = city_country_population_broken("santiago", "chile")
 E       TypeError: city_country_population_broken() missing 1 required positional argument: 'population'
 
-test_cities.py:43: TypeError
+test_cities.py:55: TypeError
 ======================== short test summary info ========================
 FAILED test_cities.py::test_city_country_no_pop_broken - TypeError: city_country_population_broken() missing 1 required positional argument: 'population'
 ====================== 1 failed, 1 passed in 0.08s ======================
@@ -204,7 +215,6 @@ test_cities.py ..                                                  [100%]
 </details>
 
 </details>
-<br>
 
 ---
 
@@ -287,8 +297,8 @@ from employee import Employee
 @pytest.fixture
 def employee():
     """An Employee object that will be available to all test functions."""
-    employee = Employee("scott", "mclean", 65_000)
-    return employee
+    fixed_employee = Employee("scott", "mclean", 65_000)
+    return fixed_employee
 
 def test_give_default_raise(employee: Employee):
     """Test that a default raise works correctly."""
@@ -305,6 +315,12 @@ def test_give_custom_raise(employee: Employee):
 
 </details>
 <br>
+
+> Note: the test file turns off a Pylint warning about the fixture name being
+> redefined in the test functions. That comment stays in the test file.
+>
+> `test_employee.py` has the fixture version active. To run the version without a
+> fixture, comment out the fixture version and uncomment the tests without one.
 
 <details>
 <summary>Output</summary>
@@ -347,3 +363,60 @@ test_employee.py ..                                  [100%]
 
 ---
 
+### Trying It by Hand: `cities.py`
+
+The file `cities.py` lets you enter a city, a country, and an optional population,
+and it prints the formatted result. Enter `q` at any prompt to quit. Leave the
+population blank to skip it.
+
+```python
+def main() -> None:
+    """Main process"""
+    done = False
+    while not done:
+        obj = {"city": "", "country": "", "population": None}
+        for key in obj:
+            datum = None
+            if key != "population":
+                while not datum:
+                    datum = input(f"Please enter a {key}: ")
+                if datum.lower() == "q" or datum.lower() == "quit":
+                    done = True
+                    break
+                obj[key] = datum
+            else:
+                datum = input(f"Please enter a {key}: ")
+                if not datum:
+                    obj[key] = None
+                else:
+                    if datum.lower() == "q" or datum.lower() == "quit":
+                        done = True
+                        break
+                    try:
+                        obj[key] = int(datum)
+                    except ValueError:
+                        print(f"{datum} is not a number. Passing 'None' for population.")
+                        obj[key] = None
+        if not done:
+            print(city_country_population(obj["city"], obj["country"], obj["population"]))
+```
+
+Run it from the terminal with `python cities.py`. A sample session looks like
+this:
+
+```
+Please enter a city: quito
+Please enter a country: ecuador
+Please enter a population: 1800000
+Quito, Ecuador - Pop: 1800000
+Please enter a city: quebec
+Please enter a country: canada
+Please enter a population:
+Quebec, Canada
+Please enter a city: q
+```
+
+> Note: `cities.py` turns off Pylint's `no-name-in-module` warning for the import
+> from `city_functions`. That comment stays in the code file.
+
+---

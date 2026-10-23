@@ -1,9 +1,16 @@
 """Chapter tree and step list. Used as a mixin by MainWindow."""
 
+# pylint: disable=line-too-long
+
 from __future__ import annotations
+
+from typing import TYPE_CHECKING
 
 from PySide6.QtCore import QSize, Qt #pylint: disable=no-name-in-module #NOSONAR
 from PySide6.QtWidgets import QListWidgetItem, QTreeWidgetItem #pylint: disable=no-name-in-module #NOSONAR
+
+if TYPE_CHECKING:
+    from core.discovery import Chapter
 
 
 class NavigationMixin:
@@ -20,7 +27,7 @@ class NavigationMixin:
                 scope_item.addChild(self.chapter_item(chapter))
             scope_item.setExpanded(False)
 
-    def chapter_item(self, chapter) -> QTreeWidgetItem:
+    def chapter_item(self, chapter: Chapter) -> QTreeWidgetItem:
         """A tree item for a chapter, with its nested children (such as Try it Yourself)."""
         item = QTreeWidgetItem([chapter.name])
         item.setData(0, Qt.ItemDataRole.UserRole, chapter)
@@ -42,7 +49,7 @@ class NavigationMixin:
                 return found
         return None
 
-    def on_tree_changed(self, current, _previous) -> None:
+    def on_tree_changed(self, current: QTreeWidgetItem | None, _previous: QTreeWidgetItem | None) -> None:
         """Load the chapter's steps when a chapter is selected."""
         if current is None:
             return

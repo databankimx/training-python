@@ -93,12 +93,15 @@ Output:
 
 As you'll note, the rows are returned as tuples.
 
+> Note: the code file has a Pylint comment (`no-name-in-module`) on the `mysql.connector`
+> import, which stays in the code file.
+
 ---
 
 ### Retrieving a Single Record
 
 We can retrieve a single record by using `fetchone()` instead of
-`fetchall()`
+`fetchall()`. Each call returns the next row, or `None` when no rows are left.
 
 ```python
 if conn.is_connected():

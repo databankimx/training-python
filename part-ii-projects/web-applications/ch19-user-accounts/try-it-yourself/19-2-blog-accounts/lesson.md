@@ -65,3 +65,5 @@ The Blog top bar after signing in, showing the greeting and the Log out button.
 - `blog_project/urls.py`: includes the accounts addresses
 - `accounts/`: the new app, with its URLs, views, templates and tests
 - `blogs/templates/blogs/base.html`: the sign-in state in the top bar
+
+---

@@ -12,7 +12,9 @@ lambda.
 Here is an example of a traditional closure function.
 
 ```python
-def wrapped_function(n: int) -> callable:
+from collections.abc import Callable
+
+def wrapped_function(n: int) -> Callable:
     """Simple wrapper for a closure"""
     def func() -> None:
         """The inner function captures n as a closure"""
@@ -89,15 +91,21 @@ What gives?!
 
 ### How Lambdas Work
 
-We aren't immediately invoking the lambda, which means that the value of
-`n` is evaluated during runtime, not when the lambda is defined. As a
-result, we have what's known as a *modified closure*, where the captured
-value has been mutated before it can be used.
+We aren't immediately invoking the lambda, so every lambda in `funcs` refers to
+the same variable `n` from the loop's scope, not to its own copy. This is called
+*late binding*: `n` is looked up when the lambda runs, not when it's defined.
 
-In effect, each of the closure lambdas in the `for func in funcs:` loop
-possesses the last captured value `3` by the time it executes.
+By the time the `for func in funcs:` loop runs, the first loop has finished, and
+`n` holds its last value, `3`. So each lambda prints `3`.
+
+The traditional closure avoids this, because each call to `wrapped_function(n)`
+creates a new scope with its own `n`.
 
 So how do we fix this?
+
+> Note: the code file has a Pylint disable (`cell-var-from-loop`) and a `# NOSONAR`
+> comment on the plain-lambda loop, which demonstrate the problem. Those comments
+> stay in the code file.
 
 ---
 
@@ -122,6 +130,20 @@ def call_wrapped_lambda_defined() -> None:
         func()
     print()
 ```
+
+The `n=n` in `lambda n=n:` has two different `n` names, and they do different jobs:
+
+* **The `n` on the left of `=`** is the lambda's own parameter. It's local to the lambda,
+  and it's the name the lambda's body uses.
+* **The `n` on the right of `=`** is the loop variable in `call_wrapped_lambda_defined()`.
+  Python evaluates it once, when the lambda is defined, so it takes the value the loop
+  has at that moment: `1` for the first lambda, `2` for the second, and `3` for the third.
+
+That value becomes the parameter's default. Each lambda now has its own `n`, stored
+as its default, so later changes to the loop variable don't affect it.
+
+When `func()` is called with no arguments, the lambda uses its default value for `n`,
+which is the value it was given when it was defined.
 
 Now, calling this function...
 

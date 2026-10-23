@@ -14,7 +14,7 @@ Let's load and print the `DataFrame`
 ```python
 import pandas as pd
 
-print(f"Loading data from data.csv:")
+print("Loading data from data.csv:")
 df = pd.read_csv("./data/data.csv")
 print(df)
 ```
@@ -40,7 +40,7 @@ Loading data from data.csv:
 ```
 
 Notice that the default string representation truncates the data if there 
-are more than ten rows, showing only the first and last five.
+are more than 60 rows (the default `max_rows` setting), showing only the first and last five rows.
 
 ---
 

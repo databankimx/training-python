@@ -1,33 +1,35 @@
 ## Data Distribution
 
-Data (or probability) distribution is a list of all possible values, and 
+Data (or probability) distribution is a list of all possible values, and
 how often each value occurs.
 
 Such lists are important when working with statistics and data science.
 
-The `numpy.random` module offer methods that returns randomly generated 
+The `numpy.random` module offers methods that return randomly generated
 data distributions.
+
+> For a tour of specific distribution types (normal, binomial, Poisson, uniform, and others), see the [Distribution Types](./02a-distribution-types/00_distributions.md) lessons.
 
 ---
 
 ### Random Distributions
 
-A random distribution is a set of random numbers that follow a certain 
-probability density function (a function that describes a continuous 
-probability).
+A random distribution is a set of random values drawn according to a set of
+probabilities. For discrete values like these, the probabilities are given by a
+probability mass function, which gives the chance of each value.
 
 Generating a random distribution requires two sets of data:
 
 * A list or array of possible values that may appear
-* A list or array of the probability that each value appear
+* A list or array of the probability that each value appears
 
-For example, we might have four possible values: 3, 5, 7 or 9 with the
+For example, we might have four possible values: 3, 5, 7, or 9 with the
 following probabilities of appearance:
 
 * Value 3 probability of appearance is 10%
 * Value 5 probability of appearance is 30%
 * Value 7 probability of appearance is 60%
-* Value 9 probability of appearance is  0%
+* Value 9 probability of appearance is 0%
 
 We could express these like this:
 
@@ -56,7 +58,7 @@ The sum of probabilities in the list should equal 1.
 #### Side-Lesson: `numpy.unique()`
 
 The `numpy.unique()` function that I use below returns an array of the
-unique values in the array passed to it. If we add the 
+unique values in the array passed to it. If we add the
 `return_counts=True` argument, it returns a tuple including a second
 array, which contains the counts of each of the unique values.
 
@@ -79,13 +81,12 @@ unique_vals, val_counts = np.unique(arr, return_counts=True)
 ### Generating a 1D Random Distribution
 
 We'll use the `data` and `prob` variables we created above and generate a
-one-dimensional array containing a random distribution of values 
+one-dimensional array containing a random distribution of values
 according to the probability distribution provided:
 
 ```python
+import numpy as np
 from numpy import random
-
-# -- SNIP --
 
 ar_sz = 100
 arr = random.choice(data, p=prob, size=ar_sz)
@@ -120,9 +121,8 @@ We can repeat the process to generate a random distribution in two
 dimensions:
 
 ```python
+import numpy as np
 from numpy import random
-
-# -- SNIP --
 
 ar_sz = (10, 10)
 arr = random.choice(data, p=prob, size=ar_sz)
@@ -134,7 +134,6 @@ for n in data:
     if n in counter:
         infix = f"appears {counter[n]} times"
     print(f"• {n} {infix} in the array.")
-print()
 ```
 
 Output:

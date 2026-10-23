@@ -1,18 +1,16 @@
-## Working with Class Attributes
+## Working with Attributes
 
-As models for objects, classes' ability to carry related data is paramount in
-their functionality.
-
-Likewise, controlling that data is where developers can best take advantage of object-oriented programming.
+Classes are good at carrying related data. Controlling that data is where they
+really earn their keep.
 
 ---
 
-### Default Class Attributes
+### Default Attributes
 
-Python supports initializing properties that are not included in the `__init__`
-function's arguments to default values.
+Python lets you set attributes that aren't passed into the `__init__` function.
+Give them a default value, and every instance starts out with it.
 
-This is useful when there is a known starting value for a given property. For
+This is useful when there is a known starting value for a given attribute. For
 example, a new automobile has zero miles on the odometer.
 
 Here is a simple class modeling a car:
@@ -38,25 +36,26 @@ class Car:
         print(f"This car has {self.odometer_reading} miles on it.")
 ```
 
-Note that the `odometer_reading` property is not passed to the constructor. 
-Instead it is automatically initialized to zero.
+Note that the `odometer_reading` attribute is not passed to the constructor.
+Instead, it is automatically initialized to zero.
 
-Additionally, we've created a function `read_odometer()` that accesses the
-`odometer_reading` property for us.
+We've also added a method, `read_odometer()`, that accesses the
+`odometer_reading` attribute for us.
 
 ---
 
-### Interacting with Class Attributes
+### Interacting with Attributes
 
-Even though we don't set the `odometer_reading` in the calling code, because it
-is initialized as a property of `self` in the `__init__` function, it is 
-accessible like any other property.
+Even though we don't set `odometer_reading` in the calling code, it is
+initialized as an attribute of `self` in the `__init__` method, so it is
+accessible like any other attribute.
 
 ```python
 my_new_car = Car("dodge", "challenger", 2014)
 print(my_new_car.get_descriptive_name())
-# Access `odometer_reading` either directly or via the function that reads it
+# Access `odometer_reading` either directly or via the method that reads it
 my_new_car.read_odometer()
+print()
 print(my_new_car.odometer_reading)
 ```
 
@@ -65,21 +64,21 @@ Output:
 ```
 2014 Dodge Challenger
 This car has 0 miles on it.
+
 0
 ```
 
 ---
 
-### Modifying Class Attributes
+### Modifying Attributes
 
-All member attributes of a class instance are public (and therefore directly accessible).
+Python doesn't hide attributes, so anyone can reach them directly. However, you
+get more control over your program's behavior if you create dedicated methods
+that handle changes to an attribute, rather than leaving every developer to
+manage those changes on their own.
 
-However, it gives you greater control over your program's behavior if you
-create dedicated functions that handle modifying the attributes rather than 
-having developers manage that behavior on their own.
-
-Here is an expanded version of our car class with functions added to modify 
-the `odometer_reading` attribute:
+Here is an expanded version of our car class with methods added to modify the
+`odometer_reading` attribute:
 
 ```python
 class Car:
@@ -99,7 +98,7 @@ class Car:
 
     def read_odometer(self):
         """Get the odometer mileage"""
-        print(f"This car has {self.odometer_reading} miles on it.\n")
+        print(f"This car has {self.odometer_reading} miles on it.")
 
     def set_odometer(self, mileage):
         """Set the odometer mileage"""
@@ -124,6 +123,7 @@ We can create a new instance just like we did previously:
 my_new_car = Car("dodge", "challenger", 2014)
 print(my_new_car.get_descriptive_name())
 my_new_car.read_odometer()
+print()
 ```
 
 Output:
@@ -131,6 +131,7 @@ Output:
 ```
 2014 Dodge Challenger
 This car has 0 miles on it.
+
 ```
 
 ---
@@ -142,48 +143,57 @@ Of course, you can modify the attributes of a class instance directly.
 ```python
 my_new_car = Car("dodge", "challenger", 2014)
 my_new_car.read_odometer()
+print()
 
 my_new_car.odometer_reading = 15_000
 my_new_car.read_odometer()
+print()
 
 my_new_car.odometer_reading = -1_000
 my_new_car.read_odometer()
+print()
 
 my_new_car.odometer_reading += 2_000
 my_new_car.read_odometer()
+print()
 
 my_new_car.odometer_reading -= 1_001
 my_new_car.read_odometer()
+print()
 ```
 
 Output:
 
 ```
 This car has 0 miles on it.
+
 This car has 15000 miles on it.
+
 This car has -1000 miles on it.
+
 This car has 1000 miles on it.
+
 This car has -1 miles on it.
+
 ```
 
 That worked exactly as expected, but:
 
-* This technique forces the developer to keep track of the value in the 
+* This technique forces the developer to keep track of the value in the
   calling code.
 * And it requires the developer to understand the rules of the model.
-    * This is a car, so it should not permit a negative odometer reading
+    * This is a car, so it should not permit a negative odometer reading.
 
 ---
 
-### Using the Attribute-Modifying Functions
+### Using the Attribute-Modifying Methods
 
-That's why it's considered a best practice to create functions that can be 
-called to modify the attributes according to rules you establish when
-creating the class.
+That's why it's considered a best practice to create methods that modify the
+attributes according to rules you establish when creating the class.
 
 ---
 
-#### The `set_odometer()` Method:
+#### The `set_odometer()` Method
 
 By creating a method to set the odometer, we prevent the issue we had
 previously, where a negative value could be set.
@@ -191,12 +201,15 @@ previously, where a negative value could be set.
 ```python
 my_new_car = Car("dodge", "challenger", 2014)
 my_new_car.read_odometer()
+print()
 
 my_new_car.set_odometer(14_000)
 my_new_car.read_odometer()
+print()
 
 my_new_car.set_odometer(-1_000)
 my_new_car.read_odometer()
+print()
 ```
 
 Output:
@@ -209,6 +222,7 @@ This car has 14000 miles on it.
 
 You can't roll back an odometer!
 This car has 14000 miles on it.
+
 ```
 
 Attempting to set `-1_000` on the odometer was not permitted.
@@ -217,21 +231,25 @@ Attempting to set `-1_000` on the odometer was not permitted.
 
 #### The `increment_odometer()` Method
 
-Having a method to increment the odometer either by `1` (default) or by
-a specified amount again keeps control of the behavior.
+Having a method to increment the odometer, either by `1` (the default) or by a
+specified amount, again keeps control of the behavior.
 
 ```python
 my_new_car = Car("dodge", "challenger", 2014)
 my_new_car.read_odometer()
+print()
 
 my_new_car.increment_odometer()
 my_new_car.read_odometer()
+print()
 
 my_new_car.increment_odometer(1_000)
 my_new_car.read_odometer()
+print()
 
 my_new_car.increment_odometer(-100)
 my_new_car.read_odometer()
+print()
 ```
 
 Output:
@@ -247,16 +265,17 @@ This car has 1001 miles on it.
 
 You can't add negative miles!
 This car has 1001 miles on it.
+
 ```
 
 ---
 
-### Everything is Still Public
+### Everything Is Still Accessible
 
-Even though we have made these functions, another developer could still
-manually modify the attributes.
-
-However, by creating purpose-built methods and exposing them in the class, we
-discourage this sort of risky use.
+Even though we've written these methods, another developer could still modify
+the attributes directly. The methods aren't security. They're a convention that
+discourages risky use, and they only work if everyone follows it. Anyone with
+access to the code can still set the odometer to any value. Real security takes
+more care than the checks shown here.
 
 ---

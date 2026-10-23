@@ -1,6 +1,6 @@
 ## Refactoring Code
 
-Thus far, we have created a program with a function that performs the 
+Thus far, we have created a program with a function that performs the
 following operational processes:
 
 * Generate a file path to `./Files/user.json`
@@ -17,10 +17,11 @@ This is where refactoring comes in.
 
 ### Best Practices
 
-The following guidelines are considered best practices when programming in 
+The following guidelines are considered best practices when programming in
 Python (or most programming languages for that matter):
 
-* No operational processes should exist outside of functions
+* Operational processes should live inside functions. The code outside the
+  functions should only call those functions, and present results to the user.
 * Each function should perform one and only one operational process.
 * Variable values should not be hard-coded in functions
 
@@ -36,9 +37,14 @@ Below, we'll refactor our existing solution.
 
 > Note: For this lesson, I have split the 2nd and 3rd edition code samples
 > into two different python files to prevent name collisions and provide (in
-> each case) a complete file showing our solution.
+> each case) a complete file showing our solution:
+> * [14a_2nd_ed_refactor_remember_user.py](./14a_2nd_ed_refactor_remember_user.py)
+> * [14b_3rd_ed_refactor_remember_user.py](./14b_3rd_ed_refactor_remember_user.py)
 
-Select the edition of the textbook you're using below to see the 
+The code files clear the terminal before they run, so each one starts with a clean
+screen.
+
+Select the edition of the textbook you're using below to see the
 relevant lesson(s).
 
 ---
@@ -54,13 +60,17 @@ we'll start with this:
 ```python
 import os
 import json
+from sm_utils import clear_terminal
 ```
+
+The `clear_terminal()` function from the `sm_utils` library clears the terminal
+window. We'll call it once, at the start of the file.
 
 ---
 
 ### Global Constants
 
-Since the program needs to know what file to look for, and we want to avoid 
+Since the program needs to know what file to look for, and we want to avoid
 hard-coding that in the function, we'll set constant values for the filename
 and the directory containing it like so:
 
@@ -90,10 +100,10 @@ Now we'll move the process of reading in the user dictionary from the file
 into another function:
 
 ```python
-def read_user_file(file_path: str) -> dict[str, str]:
+def read_user_file(file_path: str) -> dict[str, str] | None:
     """Reads the user JSON file and returns the `user` dictionary"""
     try:
-        with open(file_path) as f:
+        with open(file_path, encoding="UTF-8") as f:
             return json.load(f)
     except FileNotFoundError:
         return None
@@ -108,7 +118,7 @@ Of course, we need a function to write a new JSON file as well
 ```python
 def write_user_file(user: dict[str, str], file_path: str) -> None:
     """Writes the `user` dictionary to the user JSON file"""
-    with open(file_path, "w") as f:
+    with open(file_path, "w", encoding="UTF-8") as f:
         json.dump(user, f)
 ```
 
@@ -120,6 +130,7 @@ And a function is required for getting data from user input
 
 ```python
 def get_user_input() -> dict[str, str]:
+    """Collects user input and returns the `user` dictionary"""
     user = {
         "first_name": input("Enter your first name:\n> "),
         "last_name": input("Enter your last name:\n> ")
@@ -137,6 +148,7 @@ display the appropriate greeting.
 
 ```python
 def check_returning_user() -> None:
+    """Checks if a user is returning or not"""
     path = get_user_path()
     user = read_user_file(path)
     if user is None:
@@ -147,7 +159,7 @@ def check_returning_user() -> None:
         print(f"Welcome back, {user['username']}!")
 ```
 
-Note how this function calls all of the previous functions at points in its 
+Note how this function calls all of the previous functions at points in its
 process.
 
 ---
@@ -195,16 +207,20 @@ It's best to import any needed libraries at the beginning of the file, so
 we'll start with this:
 
 ```python
-from relative_paths import get_path
-from pathlib import Path
 import json
+from pathlib import Path
+from sm_utils import clear_terminal
+from relative_paths import get_path
 ```
+
+The `clear_terminal()` function from the `sm_utils` library clears the terminal
+window. We'll call it once, at the start of the file.
 
 ---
 
 ### Global Constants
 
-Since the program needs to know what file to look for, and we want to avoid 
+Since the program needs to know what file to look for, and we want to avoid
 hard-coding that in the function, we'll set constant values for the filename
 and the directory containing it like so:
 
@@ -237,7 +253,7 @@ def read_user_file(file_path: str) -> dict[str, str] | None:
     """Reads the user JSON file and returns the `user` dictionary"""
     try:
         path_obj = Path(file_path)
-        return json.loads(path_obj.read_text())
+        return json.loads(path_obj.read_text(encoding="UTF-8"))
     except FileNotFoundError:
         return None
 ```
@@ -252,7 +268,7 @@ Of course, we need a function to write a new JSON file as well
 def write_user_file(user: dict[str, str], file_path: str) -> None:
     """Writes the `user` dictionary to the user JSON file"""
     path_obj = Path(file_path)
-    path_obj.write_text(json.dumps(user))
+    path_obj.write_text(json.dumps(user), encoding="UTF-8")
 ```
 
 ---
@@ -263,6 +279,7 @@ And a function is required for getting data from user input
 
 ```python
 def get_user_input() -> dict[str, str]:
+    """Collects user input and returns a dictionary"""
     user = {
         "first_name": input("Enter your first name:\n> "),
         "last_name": input("Enter your last name:\n> ")
@@ -280,6 +297,7 @@ display the appropriate greeting.
 
 ```python
 def check_returning_user() -> None:
+    """Checks if a user is returning and stores their information"""
     path = get_user_path()
     user = read_user_file(path)
     if user is None:
@@ -290,7 +308,7 @@ def check_returning_user() -> None:
         print(f"Welcome back, {user['username']}!")
 ```
 
-Note how this function calls all of the previous functions at points in its 
+Note how this function calls all of the previous functions at points in its
 process.
 
 ---
@@ -328,4 +346,3 @@ Content of `./Files/user.json`:
 </details>
 
 ---
-

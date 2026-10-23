@@ -11,6 +11,7 @@ print("Try-it-Yourself:")
 print("Assignment 4.2")
 
 animals = ["octopus", "squid", "cuttlefish"]
+# choice() picks at random, so the output will differ from run to run.
 verbs = ["eat", "devour", "dine on"]
 for animal in animals:
     print(f"I like to {choice(verbs)} {animal}.")

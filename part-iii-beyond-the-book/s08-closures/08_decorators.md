@@ -15,7 +15,9 @@ As an example, let's create a decorator that reports the function's arguments
 as a debugging task.
 
 ```python
-def debug(func: callable) -> callable:
+from collections.abc import Callable
+
+def debug(func: Callable) -> Callable:
     """Print out debug information when another function is called"""
 
     def _debug(*args, **kwargs):
@@ -31,6 +33,13 @@ The `debug()` function accepts a callable function as its sole parameter.
 
 It then creates and returns a closure that executes its passed function while
 logging the function arguments.
+
+> Note: this version of the wrapper hides the original function's name. With the
+> wrapper in place, `add.__name__` would return `"_debug"`. `@functools.wraps(func)`
+> copies the original name, docstring, and other metadata onto the wrapper, so tools
+> like `help()` and tracebacks show the function you wrote. It's optional for these
+> examples, since the outputs don't change without it, but it's a good habit for real
+> decorators. The code file uses it.
 
 ---
 
@@ -102,7 +111,7 @@ like this:
 ```python
 import timeit
 
-def timer(func: callable) -> callable:
+def timer(func: Callable) -> Callable:
     """Time the execution of a decorated function"""
 
     def _timer(*args, **kwargs):
@@ -112,15 +121,20 @@ def timer(func: callable) -> callable:
         end = timeit.default_timer()
         delta = end - start
 
-        if delta > 60: ex_time = f"{int(delta // 60)} m : {round(delta % 60, 4)} s"
-        elif delta * 1_000_000 < 1: ex_time = f"{round(delta * 1_000_000_000, 4)} ns"
-        elif delta * 1_000 < 1: ex_time = f"{round(delta * 1_000_000, 4)} µs"
-        elif delta < 1: ex_time = f"{round(delta * 1000, 4)} ms"
-        else: ex_time = f"{round(delta, 4)} s"        
+        if delta > 60:
+            ex_time = f"{int(delta // 60)} m : {round(delta % 60, 4)} s"
+        elif delta * 1_000_000 < 1:
+            ex_time = f"{round(delta * 1_000_000_000, 4)} ns"
+        elif delta * 1_000 < 1:
+            ex_time = f"{round(delta * 1_000_000, 4)} µs"
+        elif delta < 1:
+            ex_time = f"{round(delta * 1000, 4)} ms"
+        else:
+            ex_time = f"{round(delta, 4)} s"
         print(f"Execution Time: {ex_time}")
 
         return res
-    
+
     return _timer
 ```
 
@@ -138,6 +152,10 @@ def fibonacci(n: int, cache: dict[int, int]={0: 0, 1: 1}) -> int:
     cache[n] = fibonacci(n - 1, cache) + fibonacci(n - 2, cache)
     return cache[n]
 ```
+
+> Note: the code file turns off a Pylint warning (`dangerous-default-value`) on this
+> function's `cache` default. That's deliberate, because the cache is meant to persist
+> between calls. That comment stays in the code file.
 
 Since that's a recursive function, and we don't want to time each call separately, we'll create a wrapping function to use the `@timer` decorator.
 
@@ -164,7 +182,7 @@ Execution Time: 30.3 µs
 F(50) = 12,586,269,025
 ```
 
-Pretty cool...
+Your timing will differ, since it depends on your computer. Pretty cool...
 
 ---
 
@@ -188,8 +206,11 @@ Output:
 
 ```
 run_fibonacci(args: (50,), kwargs: {}) -> 12586269025
-Execution Time: 347.8 µs
+Execution Time: <much shorter than the first run>
 F(50) = 12,586,269,025
 ```
+
+> Note: `fibonacci()` has already cached `F(50)` from the earlier run, so this
+> call is much faster than the first one. Your timing will differ.
 
 ---

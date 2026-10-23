@@ -29,7 +29,7 @@ def flatten_array(arr: np.ndarray) -> None:
     print(f"Flattened 1D array:\n{new_arr}")
     print(f"Shape = {new_arr.shape}\n")
 
-def main():
+def main() -> None:
     """Main Function"""
     arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
     print(f"Original 1D array:\n{arr}\n")

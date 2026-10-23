@@ -1,16 +1,16 @@
 """Assignment 9.6"""
 
-# Ice Cream Stand: An ice cream stand is a specific kind of restaurant.
-#                  Write a class called `IceCreamStand` that inherits from
-#                  the `Restaurant` class you wrote in Exercise 9.1 or
-#                  Exercise 9.4. Either version of the class will work;
-#                  just pick the one you like better. Add an attribute
-#                  called `flavors` that stores a list of ice cream flavors.
-#                  Write a method that displays these flavors. Create an
-#                  instance of `IceCreamStand`, and call this method.
+# Ice Cream Stand: An ice cream stand is a specific kind of restaurant. Write a
+#                  class called IceCreamStand that inherits from the Restaurant
+#                  class you wrote in Exercise 9-1 (page 162) or Exercise 9-4
+#                  (page 166). Either version of the class will work; just pick
+#                  the one you like better. Add an attribute called flavors that
+#                  stores a list of ice cream flavors. Write a method that
+#                  displays these flavors. Create an instance of IceCreamStand,
+#                  and call this method.
 
 print("Try-it-Yourself:")
-print("Assignment 9.6")
+print("Assignment 9.6\n")
 
 class Restaurant:
     """Defines a restaurant object"""
@@ -23,7 +23,7 @@ class Restaurant:
 
     def describe(self):
         """Print a description of the restaurant"""
-        print(f"\n{self.name.title()} proudly serves {self.cuisine.title()}!")
+        print(f"{self.name.title()} proudly serves {self.cuisine.title()}!")
 
     def open(self):
         """Open the restaurant"""
@@ -31,7 +31,7 @@ class Restaurant:
 
     def get_number_served(self):
         """Get the number of people served by the restaurant"""
-        print(f"We have served {self.number_served} people today.\n")
+        print(f"We have served {self.number_served} people today.")
 
     def set_number_served(self, num):
         """Set the number of people served by the restaurant"""
@@ -59,7 +59,7 @@ class IceCreamStand(Restaurant):
 
     def list_flavors(self):
         """Print out a list of the available flavors"""
-        print(f"\n{self.name.title()} has the following flavors available:")
+        print(f"{self.name.title()} has the following flavors available:")
         for flavor in self.flavors:
             print(f" - {flavor.title()}")
 
@@ -75,10 +75,13 @@ class IceCreamStand(Restaurant):
 
 my_stand = IceCreamStand("Frosty Freeze", "ice cream",
                          ["chocolate", "vanilla", "strawberry", "pistachio"])
+print()
 my_stand.list_flavors()
 
 my_stand.add_flavor("rocky road")
+print()
 my_stand.list_flavors()
 
 my_stand.remove_flavor("pistachio")
+print()
 my_stand.list_flavors()

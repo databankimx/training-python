@@ -2,8 +2,8 @@
 
 import pandas as pd
 
-def create_series(data: list[int], named: bool=False,
-                  names: list[str]=None) -> pd.Series:
+def create_series(data: list[int], named: bool = False,
+                  names: list[str] | None = None) -> pd.Series:
     """Create a Series from a list"""
     if named:
         return pd.Series(data, index=names)
@@ -16,8 +16,8 @@ def create_series(data: list[int], named: bool=False,
 def view_indices(series: pd.Series) -> None:
     """View the indices of a Series"""
     print("View the indices of a Series:")
-    for i, val in enumerate(series):
-        print(f"series[{i}] = {val}")
+    for i in range(len(series)):
+        print(f"series[{i}] = {series[i]}")
     print()
 
 def view_named(series: pd.Series, names: list[str]) -> None:
@@ -27,8 +27,8 @@ def view_named(series: pd.Series, names: list[str]) -> None:
         print(f"series[{name}] = {series[name]}")
     print()
 
-def create_series_from_dict(data: dict[str,int],
-                            sift: list["str"]=None) -> pd.Series:
+def create_series_from_dict(data: dict[str, int],
+                            sift: list[str] | None = None) -> pd.Series:
     """Create a Series from a dictionary"""
     infix = "filtered " if sift else ""
     print(f"Create a {infix}Series from a dictionary:")

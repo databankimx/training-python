@@ -3,29 +3,37 @@
 print("Chapter 4:")
 print("Exercise 9 - Tuples")
 
-dimensions = (200, 50)
-print(f"\nDimensions: {dimensions[0]} x {dimensions[1]}")
+coords = (1, 3)
+print(f"x: {coords[0]}, y: {coords[1]}")
 
-three = (3,)
+# Tuples are immutable. Uncomment the next two lines to see the TypeError.
+# coords[0] = 2
+# print(coords)
 
-for dim in dimensions:
-    print(dim)
+coords = (2, 3)
+print(f"x: {coords[0]}, y: {coords[1]}")
 
-print("\nOriginal dimensions:")
-for dim in dimensions:
-    print(dim)
+x = (2,)
+y = (3,)
+print(f"x: {x[0]}, y: {y[0]}")
 
-dimensions = (250, 50)
-print("\nModified dimensions:")
-for dim in dimensions:
-    print(dim)
+dimensions = (3, 4, 5)
+for d in dimensions:
+    print(d)
 
-coordinates = (2, 6)
-x, y = coordinates
-print(f"\nCoordinates: {coordinates}\nx = {x}\ny = {y}")
+coords = (1, 3)
+x, y = coords
+print(f"x: {x}, y: {y}")
 
 letters = ["a", "b", "c"]
 numbers = [1, 2, 3]
 tuples = zip(letters, numbers)
-print()
 print(list(tuples))
+
+numbers = [1, 2, 3, 4]
+tuples = zip(letters, numbers)
+print(list(tuples))
+
+# Uncomment these lines to see the ValueError from strict=True (Python 3.10 and later)
+# tuples = zip(letters, numbers, strict=True)
+# print(list(tuples))

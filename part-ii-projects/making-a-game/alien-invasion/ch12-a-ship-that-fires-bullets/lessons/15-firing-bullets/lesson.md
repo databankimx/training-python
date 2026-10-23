@@ -98,3 +98,5 @@ Press the space bar. Bullets fire from the top of the ship and travel up the scr
 ## Changed files
 
 - `alien_invasion.py`: creates the bullet group, fires bullets on the space bar, and draws them
+
+---

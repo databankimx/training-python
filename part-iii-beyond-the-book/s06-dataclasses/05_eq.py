@@ -11,6 +11,8 @@ class Employee:
     city: str
 
     def __eq__(self, value: object) -> bool:
+        if not isinstance(value, Employee):
+            return NotImplemented
         return self.name == value.name \
            and self.emp_id == value.emp_id \
            and self.age == value.age \

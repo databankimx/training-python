@@ -51,4 +51,9 @@ Pausing for 1 second...
 The result of your dice roll is: 2
 ```
 
+The dice values are random, so your numbers will differ on each run.
+
+> Note: the code file turns off a Sonar warning on the dice URL. That comment stays in
+> the code file.
+
 ---

@@ -1,20 +1,20 @@
 """Poisson Distribution"""
 
-from numpy import random, ndarray, long
+from numpy import random, ndarray
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-def poisson_kde(poi: ndarray[long]) -> None:
+def poisson_kde(poi: ndarray) -> None:
     """Plot a Poisson distribution's KDE curve"""
     sns.kdeplot(poi)
     plt.show()
 
-def poisson_hist(poi: ndarray[long]) -> None:
+def poisson_hist(poi: ndarray) -> None:
     """Plot a Poisson distribution's histogram"""
     sns.histplot(poi)
     plt.show()
 
-def poisson_compare(poi: ndarray[long], norm: ndarray[long]) -> None:
+def poisson_compare(poi: ndarray, norm: ndarray) -> None:
     """Compare a Poisson distribution to a normal distribution"""
     sns.kdeplot(poi, fill=True, color="blue", label="Poisson")
     sns.kdeplot(norm, fill=True, color="red", label="Normal")

@@ -55,11 +55,13 @@ Using regular expressions, we can match them all with one pattern.
 We can match a lot of things:
 
 * A specific letter, like `A`
-* A range of letters, like `A-z`
+* A range of letters, like `A-Z`
 * A specific number, like `0`
 * A range of numbers, like `0-9`
 * A set of characters, like `[-.,]`
-* Any character escape, `\a  \b  \f  \n  \N  \r  \t  \u  \U  \v  \x  \\`
+* Common character escapes, such as `\n` (newline) and `\t` (tab). Some escapes,
+  such as `\u` and `\x`, need extra characters after them, and `\b` means
+  something different inside a set (backspace) than outside one (word boundary).
 
 ---
 
@@ -79,8 +81,8 @@ In a regular expression, you can also match any of these special characters:
 |+?|One or more of the immediately preceding item (non-greedy match)|
 |??|Zero or one of the immediately preceding item (non-greedy match)|
 |{n}|Matches exactly n instances of the preceding item|
-|{m, n}|Matches m to n instances of the preceding item|
-|{m, n}?|Matches m to n instances of the preceding item (non-greedy match)|
+|{m,n}|Matches m to n instances of the preceding item|
+|{m,n}?|Matches m to n instances of the preceding item (non-greedy match)|
 |\\ |Escapes special characters or signals special sequence|
 |[]|Set: matches any character in the contained set|
 |a\|b|Matches regex a or regex b|
@@ -134,11 +136,11 @@ Not a carriage return -> \n
 In order to take advantage of regular expressions, we need to import the `re`
 library.
 
-We then use two functions from that library to create and use the regular 
-expression.
+We then use two methods to create and use the regular expression.
 
 * `re.compile(raw_string)` converts the string into a regular expression
-* `re.search(regex)` reviews a string to determine if the pattern is found
+* `regex.search(string)` reviews a string to determine if the pattern is found
+  (the compiled pattern's method, so it takes just the string to search)
 
 ```python
 import re
@@ -194,7 +196,7 @@ We'll use:
 ```python
 import re
 
-phone_numbers = # -- SNIP (see above) --
+# phone_numbers is the list shown above
 
 pattern = r"\d{10}"
 print(f"Using pattern: `{pattern}`\nMatches:")
@@ -218,7 +220,8 @@ units as large as you can without allowing an errant character to break the
 match.
 
 > Note: From this point forward, only the patterns change, so I won't keep
-> including the entire code snippet.
+> including the entire code snippet. The code file clears the terminal and pauses
+> between patterns, so you can read each set of results.
 
 ---
 
@@ -370,7 +373,7 @@ This includes:
       might not appear
 
 ```python
-pattern = r"^\(?\d{3}\)?[-.,]?\s?\d{3}[-.,]?\d{4}\s?e?x?t?:?\s?\d*$"
+pattern = r"^\(?\d{3}\)?\s?[-.,]?\d{3}[-.,]?\d{4}\s?e?x?t?:?\s?\d*$"
 ```
 
 Output:

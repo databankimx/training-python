@@ -1,12 +1,12 @@
 ## Logistic Distribution
 
-A *Logistic Distribution* is very similar in appearance to a normal 
-distribution in that it takes the form of a symmetric curve that peaks at 
+A *Logistic Distribution* is very similar in appearance to a normal
+distribution in that it takes the form of a symmetric curve that peaks at
 the mean.
 
-However in the logistic distribution, the tails are heavier and wider, and
-the peak is lower, which makes it useful for certain large data problems
-where it is more consistent with the data at extreme values.
+However, in the logistic distribution, the tails are heavier, and the peak is
+lower. Values far from the mean are more likely than a normal distribution
+would predict, which makes it a better fit for data with more extreme values.
 
 The formula for the logistic distribution is:
 
@@ -20,10 +20,11 @@ The NumPy `random.logistic()` function accepts the same three arguments
 as `normal()`:
 
 * `loc`: the arithmetic mean *μ*
-* `scale`: the standard deviation *s*
+* `scale`: the scale parameter *s*, which is related to but not the same as the standard deviation
 * `size`: the shape of the resulting array (`int` or `tuple`)
 
-Almost all values in the distribution should fall between -3σ and 3σ.
+Unlike the normal distribution, the logistic distribution does not keep almost all of its values
+within three standard deviations of the mean. Its tails are heavier, so more values fall far from the center.
 
 When we generate a distribution, we should use a NumPy generator instance
 rather than calling the function off of `random` itself. In the code
@@ -81,7 +82,7 @@ Note how the tails extend wider (don't collapse to zero as soon).
 
 ### Comparing Logistic and Normal Distributions
 
-Here is an example showing a logistic distribution and a normal 
+Here is an example showing a logistic distribution and a normal
 distribution.
 
 > Note: These are not comparing the same data. The idea is to visually
@@ -97,6 +98,7 @@ log = rng.logistic(size=1000)
 norm = rng.normal(size=1000)
 sns.kdeplot(log, fill=True, color="blue", label="Logistic")
 sns.kdeplot(norm, fill=True, color="red", label="Normal")
+plt.legend()
 plt.show()
 ```
 

@@ -18,7 +18,7 @@ def code_font(size: int) -> QFont:
     return font
 
 
-def stylesheet(c: dict) -> str:
+def stylesheet(c: dict[str, str]) -> str:
     """Application stylesheet for one palette. Fonts are set in code, not here."""
     return f"""
     QMainWindow, QWidget#root {{ background: {c['bg']}; }}
@@ -53,7 +53,7 @@ def stylesheet(c: dict) -> str:
     """
 
 
-def tooltip_style(c: dict) -> str:
+def tooltip_style(c: dict[str, str]) -> str:
     """Application-level style for tooltips. Tooltips are separate popups, so the window's sheet doesn't reach them."""
     return (f"QToolTip {{ background: {c['panel']}; color: {c['fg']}; border: 1px solid {c['border']};"
             f" padding: 4px 6px; }}")

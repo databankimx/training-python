@@ -1,10 +1,13 @@
 """Decorators"""
 
+import functools
 import timeit
+from collections.abc import Callable
 
-def debug(func: callable) -> callable:
+def debug(func: Callable) -> Callable:
     """Print out debug information when another function is called"""
 
+    @functools.wraps(func)
     def _debug(*args, **kwargs):
         """Inner function to perform the work on the decorated function"""
         result = func(*args, **kwargs)
@@ -13,9 +16,10 @@ def debug(func: callable) -> callable:
 
     return _debug
 
-def timer(func: callable) -> callable:
+def timer(func: Callable) -> Callable:
     """Time the execution of a decorated function"""
 
+    @functools.wraps(func)
     def _timer(*args, **kwargs):
         """Write out elapsed time of function execution"""
         start = timeit.default_timer()

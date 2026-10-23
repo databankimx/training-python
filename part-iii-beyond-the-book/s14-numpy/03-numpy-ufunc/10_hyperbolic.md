@@ -9,7 +9,9 @@ NumPy exposes the hyperbolic functions as well:
 * `arccosh()`
 * `arctanh()`
 
-We'll handle these just like we did in the previous examples:
+We'll handle these just like we did in the previous examples. As with the
+trigonometric functions, they take their input in radians, so the degrees are
+converted first:
 
 ```python
 import numpy as np

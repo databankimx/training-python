@@ -121,3 +121,5 @@ The Learning Log home page at `http://127.0.0.1:8000/`, with the address bar vis
 - `learning_logs/templates/learning_logs/index.html` (new): the home page
 - `ll_project/urls.py`: includes the app's addresses
 - `learning_logs/tests.py`: adds tests for the home page
+
+---

@@ -29,7 +29,7 @@ main_folder/
   # `obj_1, obj_2, ...` is a comma delimited list of functions and classes
   from .project_name import obj_1, obj_2, ...
   ```
-    * Only objects listed in `__init__.py` will be uploaded in the project
+    * Objects listed in `__init__.py` are the names users can import directly from the package. The whole package is uploaded.
 
 In the case of my example project, `__init__.py` contains this:
 
@@ -92,7 +92,7 @@ authors = [
   { name="Your Name", email="your_email@databankimx.com" },
 ]
 description = "Description of your project"
-readme = "readme.md"
+readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -113,7 +113,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sm_utils"
-version = "0.2.8"
+version = "0.2.9"
 authors = [
   { name="Scott McLean", email="smclean@databankimx.com" },
 ]

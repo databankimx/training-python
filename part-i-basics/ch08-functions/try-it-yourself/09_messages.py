@@ -1,11 +1,11 @@
 """Assignment 8.9"""
 
-# Messages: Make a list containing a series of short text messages.
-#           Pass the list to a function called `show_messages()`,
-#           which prints each text message.
+# Messages: Make a list containing a series of short text messages. Pass the
+#           list to a function called show_messages(), which prints each text
+#           message.
 
 print("Try-it-Yourself:")
-print("Assignment 8.9")
+print("Assignment 8.9\n")
 
 def show_messages(messages):
     """Print each message from the list"""

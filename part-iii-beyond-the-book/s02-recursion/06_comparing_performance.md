@@ -26,7 +26,7 @@ For factorial computation, let's compare four approaches:
       functions, you'll run into it as a common approach
 * Python's `math.factorial()` function
 
-See [comparing_performance.py](./06_comparing_performance.py) for full code 
+See [06_comparing_performance.py](./06_comparing_performance.py) for full code 
 including all algorithms and test script.
 
 ---
@@ -84,6 +84,9 @@ def factorial_red(n: int) -> int | None:
     return reduce(lambda x, y: x * y, range(1, n + 1) or [1])
 ```
 
+For `n = 0`, `range(1, 1)` is empty, and an empty range is falsy. That makes
+`or [1]` supply the single value that `reduce()` needs, which gives `0! = 1`.
+
 ---
 
 #### Using `math.factorial`
@@ -91,6 +94,8 @@ def factorial_red(n: int) -> int | None:
 Here is an implementation leveraging the built-in `factorial()` function from the `math` library
 
 ```python
+from math import factorial
+
 def factorial_def(n: int) -> int | None:
     """Calculate the factorial of n using `math.factorial()`"""
     if not isinstance(n, int) or n < 0:
@@ -112,9 +117,10 @@ after, but that would be a lot of redundant code, so let's create a function
 that takes our functions as an argument and performs the tests.
 
 ```python
+from collections.abc import Callable
 from time import perf_counter_ns
 
-def check_performance(func: callable, n: int, r: int) -> int:
+def check_performance(func: Callable, n: int, r: int) -> int:
     """Evaluate how long it takes to calculate n! r times"""
     start = perf_counter_ns()
     for _ in range(r):
@@ -131,11 +137,15 @@ Each time you call `perf_counter_ns()` it provides the current time to
 nanosecond precision, so the duration necessary for our repeated tests is
 just the time at the start subtracted from the time at the end.
 
+> Note: for serious benchmarks, the standard `timeit` module handles repeats and
+> warm-up for you. The simpler approach here is enough to compare these four
+> methods.
+
 ---
 
-### Testing
+### Running It
 
-Now, to test the code, we'll need to select a value to compute, a number of 
+Now, to run the code, we'll need to select a value to compute, a number of 
 times to test, and which function to run. In Python, all functions are
 first-class objects, so we can easily pass them as variables.
 
@@ -185,18 +195,18 @@ It turns out that our iterative function is about twice as fast as our
 recursive function and measurably faster than the `reduce()` alternative as
 well.
 
-That said, it's clear that it's pretty inefficient overall, since Python's
-`math.factorial()` is by far the fastest of the four. The exact ratio depends
-on your machine, so the timings you see will differ from the example output.
+Our hand-written versions are all slower than the built-in. `math.factorial()`
+is by far the fastest of the four. The exact ratio depends on your machine, so
+the timings you see will differ from the example output.
 
-That's because the `math.factorial()` method is:
+That's because the `math.factorial()` function is:
 
 1. A very well optimized algorithm based on decades of research
 2. Implemented in C, not in Python itself
 
-Ignoring that, however, since most problems we solve won't be (or at least
-shouldn't be) ones for which Python has ready-made functions, we can conclude
-that our iterative approach is the best of the implementations we tried.
+Setting that aside, the iterative version is the best of the hand-written
+options we tested. Most problems we solve won't be ones for which Python has a
+ready-made function, so this comparison is still useful.
 
 That doesn't make it the best possible algorithm, just the best we tested.
 

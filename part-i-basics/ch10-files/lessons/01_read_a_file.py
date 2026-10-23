@@ -15,13 +15,13 @@ file_path = os.path.join(ROOT_DIR, "Files", "pi_digits.txt")
 
 file_object = open(file_path, encoding="UTF-8")
 text = file_object.read()
-print(text.rstrip(), "\n")
+print(text.rstrip())
 file_object.close()
+print()
 
 with open(file_path, encoding="UTF-8") as file_object:
     text = file_object.read()
 print(text.rstrip())
-
 print()
 
 # --- 3rd Edition Method ---

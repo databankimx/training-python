@@ -108,3 +108,5 @@ The fleet moves to the right, and the aliens leave the right side of the window.
 - `settings.py`: adds `alien_speed`
 - `alien.py`: keeps the settings, and adds `update()`
 - `alien_invasion.py`: adds `_update_aliens()` and calls it in the loop
+
+---

@@ -11,4 +11,5 @@ print("Assignment 2.9")
 print(4 + 4)
 print(2 * 4)
 print(10 - 2)
+# Integer division (//) keeps the result as an int. Regular division (/) would print 8.0.
 print(16 // 2)

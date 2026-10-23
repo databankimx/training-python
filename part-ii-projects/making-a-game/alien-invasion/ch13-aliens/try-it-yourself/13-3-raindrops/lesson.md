@@ -88,3 +88,5 @@ already has rain spread across the window.
 Raindrops are spread across the window, falling. Over time they leave the bottom of the screen.
 
 ![Raindrops falling](lesson-images/raindrops.png)
+
+---

@@ -16,7 +16,7 @@ class Car:
         self.model = model
         self.year = year
         self.odometer_reading = 0
-        self.fuel_level = 0
+        self.fuel_level = 0.0
 
     def get_descriptive_name(self) -> str:
         """
@@ -30,7 +30,7 @@ class Car:
 
     def read_odometer(self) -> None:
         """Get the odometer mileage"""
-        print(f"This car has {self.odometer_reading} miles on it.\n")
+        print(f"This car has {self.odometer_reading} miles on it.")
 
     def set_odometer(self, mileage: int) -> None:
         """
@@ -75,4 +75,4 @@ class Car:
             fuel_state = "one quarter full"
         elif self.fuel_level > 0.0:
             fuel_state = "running on fumes"
-        print(f"Fuel Status: {fuel_state}\n")
+        print(f"Fuel Status: {fuel_state}")

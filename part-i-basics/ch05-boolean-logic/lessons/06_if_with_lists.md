@@ -1,18 +1,16 @@
 ## Using `if` with Lists
 
-Redundancy (adding the same code more than once) is not a best practice when
-coding. Python lists provide a great way to avoid otherwise clunky, repetitive 
-code.
+Repeating the same code over and over is not a good habit. Python lists give you an easy
+way to avoid clunky, repetitive code.
 
 ### Mitigating Redundancy
 
-Using a list (with a loop) reduces the need to type redundant conditional 
-statements.
+A list and a loop let you handle many items without writing a separate `if` for each one:
 
 ```python
 requested_toppings = ["mushrooms", "green peppers", "extra cheese"]
 for requested_topping in requested_toppings:
-    print( f"Adding {requested_topping}.")
+    print(f"Adding {requested_topping}.")
 print("Finished making your pizza!")
 ```
 
@@ -29,8 +27,7 @@ Finished making your pizza!
 
 ### Comparing Against Specific Values
 
-When working with a list, often you want to perform a different task only if a
-value matches something specific.
+Often, you want to do something different only when an item matches a specific value.
 
 ```python
 requested_toppings = ["mushrooms", "green peppers", "extra cheese"]
@@ -38,7 +35,7 @@ for requested_topping in requested_toppings:
     if requested_topping == "green peppers":
         print("Sorry, we are out of green peppers right now.")
     else:
-        print( f"Adding {requested_topping}.")
+        print(f"Adding {requested_topping}.")
 print("Finished making your pizza!")
 ```
 
@@ -55,8 +52,8 @@ Finished making your pizza!
 
 ### Comparing Against a List of Specific Values
 
-Similarly, there could be a second list of specific values that need to trigger
-the alternate behavior.
+There could be a second list of values that should trigger the alternate behavior. Use `in`
+to check membership:
 
 ```python
 out_of_stock = ["green peppers", "anchovies"]
@@ -65,7 +62,7 @@ for requested_topping in requested_toppings:
     if requested_topping in out_of_stock:
         print(f"Sorry, we are out of {requested_topping} right now.")
     else:
-        print( f"Adding {requested_topping}.")
+        print(f"Adding {requested_topping}.")
 print("Finished making your pizza!")
 ```
 
@@ -80,15 +77,14 @@ Finished making your pizza!
 
 ---
 
-### Comparing an Empty List
+### Checking for an Empty List
 
-When you use `if` with a list as its condition, the condition is `True` if the
-list contains at least one element and `False` if it is empty.
+When you use a list as the condition in an `if`, the condition is `True` if the list has at
+least one element, and `False` if it's empty. That's a handy shortcut.
 
-This is an important concept in Boolean logic. A number of data types can be
-evaluated as Boolean expressions, where specific values are *falsy* (that is,
-they will evaluate as `False` in a Boolean condition even though they are not
-strictly of the `bool` type).
+This is an important idea in Boolean logic. Many data types can be used as Boolean
+expressions, and some values count as *falsy*. Those values evaluate as `False` in a
+condition, even though they aren't of the `bool` type:
 
 |Data Type|Falsy Value|Truthy Values|
 |-|-|-|
@@ -104,11 +100,13 @@ strictly of the `bool` type).
 |`None`|null: `None`|any non-None value|
 |`bool`|`False`|`True`|
 
+Here's the empty-list check in action:
+
 ```python
 requested_toppings = []
 if requested_toppings:
     for requested_topping in requested_toppings:
-        print( f"Adding {requested_topping}.")
+        print(f"Adding {requested_topping}.")
     print("Finished making your pizza!")
 else:
     print("Finished your plain pizza.")
@@ -124,11 +122,13 @@ Finished your plain pizza.
 
 ### Comparing Against Multiple Lists
 
-Sometimes, you may have multiple optional behaviors, depending on whether an
-item appears in one of multiple lists.
+Sometimes you have more than one optional behavior, depending on which list an item appears in.
+Nested `if` blocks handle that cleanly:
 
 ```python
-available_toppings = ["mushrooms", "olives", "green peppers", "pepperoni", "pineapple", "extra cheese"]
+available_toppings = [
+    "mushrooms", "olives", "green peppers", "pepperoni", "pineapple", "extra cheese"
+]
 out_of_stock = ["green peppers", "mushrooms"]
 requested_toppings = ["mushrooms", "french fries", "extra cheese"]
 for requested_topping in requested_toppings:
@@ -136,9 +136,9 @@ for requested_topping in requested_toppings:
         if requested_topping in out_of_stock:
             print(f"Sorry, we're out of {requested_topping}.")
         else:
-            print( f"Adding {requested_topping}.")
+            print(f"Adding {requested_topping}.")
     else:
-        print( f"Sorry, we don't offer {requested_topping}.")
+        print(f"Sorry, we don't offer {requested_topping}.")
 print("Finished making your pizza!")
 ```
 

@@ -1,6 +1,8 @@
 """Closures"""
 
-def generate_power(exponent: int) -> callable:
+from collections.abc import Callable
+
+def generate_power(exponent: int) -> Callable:
     """Closure factory (creates a new closure each time it is called)"""
     def power(base: int) -> int:
         """Inner function will be created with the exponent known"""

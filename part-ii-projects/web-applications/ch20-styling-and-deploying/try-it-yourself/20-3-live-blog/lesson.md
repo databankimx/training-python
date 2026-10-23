@@ -67,3 +67,5 @@ None. This exercise changes the settings and error pages, and the tests show tha
 - `blogs/templates/404.html` (new): the Blog's friendly 404 page
 - `blogs/templates/500.html` (new): the standalone error page
 - `blogs/test_deploy.py` (new): tests for the error page and settings
+
+---

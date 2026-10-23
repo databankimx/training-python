@@ -1,10 +1,10 @@
 ## Examples of String Literals
 
-In Python, a string (a series of characters) can be surrounded by either
-double quotes (`"`) or single quotes (`'`)
+In Python, a string (a series of characters) can be wrapped in double quotes
+(`"`) or single quotes (`'`).
 
-Some languages distinguish between these two symbols, but in Python, they
-can be used interchangeably.
+Some languages treat the two differently. Python doesn't. Use whichever you
+like, as long as you're consistent within a single string.
 
 ---
 
@@ -28,8 +28,8 @@ print(message)
 
 ### Including double-quotes in your strings
 
-When you enclose a string with single-quotes, double-quotes are 
-automatically interpreted as literals
+When you wrap a string in single quotes, double quotes inside it are just
+characters. Python doesn't mind.
 
 ```python
 message = 'I told my friend, "Python is my favorite language!"'
@@ -38,8 +38,10 @@ print(message)
 
 ---
 
-However, when your string is enclosed in double-quotes, including a
-double-quote in the string requires the use of an *escape sequence* `\"`
+Wrap the string in double quotes instead, and a double quote inside it would
+end the string early. To keep it, put a backslash in front of it. That's an
+*escape sequence*, and it tells Python, "This quote is part of the text, not
+the end of it."
 
 ```python
 message = "I told my friend, \"Python is my favorite language!\""
@@ -50,8 +52,8 @@ print(message)
 
 ### Including single-quotes in your strings
 
-When you enclose a string with double-quotes, single-quotes are 
-automatically interpreted as literals
+The same rule works the other way around. Wrap a string in double quotes, and
+single quotes inside it are just characters.
 
 ```python
 message = "The language 'Python' is named after Monty Python, not the snake."
@@ -60,8 +62,8 @@ print(message)
 
 ---
 
-As above, when your string is enclosed in single-quotes, including a
-single-quote in the string requires the use of an *escape sequence* `\'`
+Single quotes inside single quotes need the same treatment: a backslash in
+front of each one.
 
 ```python
 message = 'The language \'Python\' is named after Monty Python, not the snake.'
@@ -72,42 +74,43 @@ print(message)
 
 ### Avoiding Syntax Errors
 
-Using unescaped quotes in a string can result in a syntax error. Consider
-this code:
+Leave an unescaped quote of the same kind inside a string, and you get a syntax
+error. Consider this code:
 
 ```python
 message = 'One of Python's strengths is its diverse community'
 print(message)
 ```
 
-> Note: VS Code will help you out here. As you can see above, the syntax
-> highlighting is showing much of the text highlighted as if it was Python
-> and the `print()` method as if it was in a string.
+> Note: VS Code will help you out here. Look at the code above. The syntax
+> highlighting colors much of the text as if it were Python, and the `print()`
+> call as if it were part of a string.
 >
-> Any time you see this, it likely means you have a mismatched quote
-> somewhere in the code.
+> Any time you see that, you probably have a mismatched quote somewhere.
 
-Because the string is surrounded by single-quotes, the apostrophe ends the
-string after `Python`, and the result is a `SyntaxError`.
+Here's what Python sees. The string starts at the first single quote and ends
+at the apostrophe in `Python's`. Python then tries to read `s strengths is its
+diverse community'` as code. It can't, so it stops with a `SyntaxError`:
 
 ```
-File "\string_error.py", line 1
+File "...\string_error.py", line 1
     message = 'One of Python's strengths is its diverse community'
                                                                  ^
 SyntaxError: unterminated string literal (detected at line 1)
 ```
 
-We can fix this either by changing the string to be surrounded by
-double-quotes...
+There are two ways out. You can wrap the string in double quotes...
 
 ```python
 message = "One of Python's strengths is its diverse community"
 ```
 
-... or by escaping the apostrophe.
+... or you can escape the apostrophe.
 
 ```python
 message = 'One of Python\'s strengths is its diverse community'
 ```
+
+Either works. Pick the one that makes the code easier to read.
 
 ---

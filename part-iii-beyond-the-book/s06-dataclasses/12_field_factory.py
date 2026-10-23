@@ -1,11 +1,13 @@
 """Field Factory Functions"""
 
 from dataclasses import dataclass, field
+from itertools import count
 
-def get_emp_id():
-    """Factory Function"""
-    new_id = "smclean"
-    return new_id
+_id_counter = count(1)
+
+def get_emp_id() -> str:
+    """Factory Function: returns the next employee ID"""
+    return f"emp{next(_id_counter):04d}"
 
 @dataclass
 class Employee:
@@ -17,8 +19,9 @@ class Employee:
 
 def main() -> None:
     """Main Function"""
-    emp_1 = Employee("Scott", 54)
-    emp_2 = Employee("Saul", 47, "sgoodman", "Albuquerque")
+    emp_1 = Employee("Scott McLean", 54)
+    emp_2 = Employee("Saul Goodman", 47, "sgoodman", "Albuquerque")
+    emp_3 = Employee("Jane Doe", 30)
 
     print(emp_1.emp_id)
 
@@ -27,6 +30,7 @@ def main() -> None:
 
     print(emp_1)
     print(emp_2)
+    print(emp_3)
 
 if __name__ == "__main__":
     main()

@@ -49,91 +49,96 @@
                 font-size: 8px;
             }
         </style>
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
         <script>
-            $(document).ready(function() {
-                var poss = [
-                    [true, true],
-                    [true, false],
-                    [false, true],
-                    [false, false]
-                ];
+            // Every possible pair of (left, right) values, in truth-table order
+            const poss = [
+                [true, true],
+                [true, false],
+                [false, true],
+                [false, false]
+            ];
 
-                $("select").on("change", function() {
-                    try {
-                        var left = $("#left").val() === "true";
-                        var right = $("#right").val() === "true";
-                        var op = $("#operator").val();
-                        $("#op_name").html(op);
-                        $(".left").show();
-                        var cond = [left, right];
-                        var index = getIndexOf(poss, cond);
-                        var max = op === "not" ? poss.length / 2 : poss.length;
-                        var result = false;
-
-                        $("#truth_table_body").empty();
-                        for (var i = 0; i < max; i++)
-                        {
-                            var l = poss[i][0];
-                            var r = poss[i][1];
-                            var and = l && r;
-                            var or = l || r;
-                            var not = !r;
-                            var xor = or && !and;
-                            var res = false;
-                            switch (op) {
-                                case "and":
-                                    res = and;
-                                    break;
-                                case "or":
-                                    res = or;
-                                    break;
-                                case "not":
-                                    res = not;
-                                    break;
-                                case "xor":
-                                    res = xor;
-                                    break;
-                            }
-                            if (i === index) result = res;
-                            var row = `<tr${i === index ? " class='active'" : ""}>`;
-                            row += `<td class='left'>${poss[i][0].toString().substring(0, 1)}</td>`;
-                            row += `<td>${res.toString().substring(0, 1).toUpperCase()}</td>`;
-                            row += `<td>${poss[i][1].toString().substring(0, 1)}</td></tr>`;
-                            $("#truth_table_body").append(row);
-                        }
-                        var end = "<tr><td colspan='3' class='small result'>&nbsp;</td></tr>";
-                        var expression = op === "not"
-                            ? `${op.toUpperCase()} ${right} = ${result}`
-                            : `${left} ${op.toUpperCase()} ${right} = ${result}`;
-                        end += `<tr><td colspan='3' class='result'>${expression}</td></tr>`;
-                        $("#truth_table_body").append(end);
-
-                        if (op === "not") $(".left").hide();
-                    } catch (e) {
-                    console.log(`ERROR: ${e}`);
-                    }
-                });
-                $("#operator").change();
-            });
-
-            // Find index of array in 2-d array
+            // Find the row index whose values match the given pair
             function getIndexOf(arr, sub_arr) {
+                for (let i = 0; i < arr.length; i++) {
+                    if (arr[i][0] === sub_arr[0] && arr[i][1] === sub_arr[1]) {
+                        return i;
+                    }
+                }
+                return undefined;
+            }
+
+            function updateTable() {
                 try {
-                    for (let i = 0; i < arr.length; i++) {
-                        let found = true;
-                        for (let j = 0; j < sub_arr.length; j++) {
-                            if (arr[i][j] !== sub_arr[j]) {
-                                found = false;
+                    const left = document.getElementById("left").value === "true";
+                    const right = document.getElementById("right").value === "true";
+                    const op = document.getElementById("operator").value;
+
+                    document.getElementById("op_name").textContent = op;
+                    document.querySelectorAll(".left").forEach(cell => cell.style.display = "");
+
+                    const cond = [left, right];
+                    // NOT only uses the right operand, so its row is chosen from that alone
+                    const index = op === "not" ? (right ? 0 : 1) : getIndexOf(poss, cond);
+                    const max = op === "not" ? poss.length / 2 : poss.length;
+                    let result = false;
+
+                    const body = document.getElementById("truth_table_body");
+                    body.innerHTML = "";
+
+                    for (let i = 0; i < max; i++) {
+                        const l = poss[i][0];
+                        const r = poss[i][1];
+                        const and = l && r;
+                        const or = l || r;
+                        const not = !r;
+                        const xor = or && !and;
+                        let res = false;
+                        switch (op) {
+                            case "and":
+                                res = and;
                                 break;
-                            }
+                            case "or":
+                                res = or;
+                                break;
+                            case "not":
+                                res = not;
+                                break;
+                            case "xor":
+                                res = xor;
+                                break;
                         }
-                        if (found) return i;
+                        if (i === index) result = res;
+
+                        const activeClass = i === index ? " class='active'" : "";
+                        let row = `<tr${activeClass}>`;
+                        row += `<td class='left'>${poss[i][0].toString().substring(0, 1)}</td>`;
+                        row += `<td>${res.toString().substring(0, 1).toUpperCase()}</td>`;
+                        row += `<td>${poss[i][1].toString().substring(0, 1)}</td></tr>`;
+                        body.insertAdjacentHTML("beforeend", row);
+                    }
+
+                    let end = "<tr><td colspan='3' class='small result'>&nbsp;</td></tr>";
+                    const expression = op === "not"
+                        ? `${op.toUpperCase()} ${right} = ${result}`
+                        : `${left} ${op.toUpperCase()} ${right} = ${result}`;
+                    end += `<tr><td colspan='3' class='result'>${expression}</td></tr>`;
+                    body.insertAdjacentHTML("beforeend", end);
+
+                    if (op === "not") {
+                        document.querySelectorAll(".left").forEach(cell => cell.style.display = "none");
                     }
                 } catch (e) {
                     console.log(`ERROR: ${e}`);
                 }
             }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                document.querySelectorAll("select").forEach(select => {
+                    select.addEventListener("change", updateTable);
+                });
+                updateTable();
+            });
         </script>
     </head>
     <body>

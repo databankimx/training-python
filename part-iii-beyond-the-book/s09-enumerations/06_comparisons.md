@@ -3,6 +3,9 @@
 Logical comparisons using Enums can be a bit complicated if we don't 
 understand what we're looking at.
 
+> Note: The code file pauses between sections and clears the terminal before each one,
+> so you can read each set of results.
+
 ---
 
 ### Understanding Types
@@ -187,9 +190,12 @@ On Python 3.12, `IntWeekday.MONDAY is 1` is `True`, while `Weekday.MONDAY is 1` 
 
 > Note: `is` compares object identity, not value. Whether two integer objects are
 > the same object is an implementation detail, so `is` with a literal (such as
-> `is 1`) is not reliable. Code analysis tools (SonarQube rule S5795) flag it for
+> `is 1`) is not reliable. Code analysis tools such as SonarQube flag it for
 > that reason. Use `==` to compare values. The `# NOSONAR` comments in the script
 > mark the lines that are here only to show this behavior.
+>
+> The code file also has a Pylint comment (`literal-comparison`) for the same reason.
+> That comment stays in the code file.
 
 ---
 
@@ -222,6 +228,10 @@ Traceback (most recent call last):
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 TypeError: '<' not supported between instances of 'Weekday' and 'Weekday'
 ```
+
+> Note: The code file comments out the `Weekday` inequality line, so the module runs.
+> Uncomment it to see this error. The traceback comes from a standalone version of the
+> file, so its line numbers won't match the code file.
 
 Remember that `Enum` types do not behave like integers.
 

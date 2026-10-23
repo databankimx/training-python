@@ -2,26 +2,27 @@
 
 import mysql.connector
 # pylint: disable=no-name-in-module
+from mysql.connector.connection import MySQLConnection
 from utility_functions import get_settings
 
-def connect(settings: dict[str, str]) -> mysql.connector.connection:
+def connect(settings: dict[str, str]) -> MySQLConnection:
     """Connect to MySQL Server"""
     conn = mysql.connector.connect(
         host=settings["host"],
         user=settings["username"],
         password=settings["password"],
-        database = settings["schema"]
+        database=settings["schema"]
     )
     print(f"Connected to {conn.server_host}: {conn.server_port}\n")
     return conn
 
-def disconnect(conn: mysql.connector.connection) -> None:
+def disconnect(conn: MySQLConnection) -> None:
     """Disconnect from MySQL Server"""
     if conn is not None and conn.is_connected():
         conn.disconnect()
-    print("Connection closed")
+        print("Connection closed")
 
-def sort_data(conn: mysql.connector.connection) -> None:
+def sort_data(conn: MySQLConnection) -> None:
     """Retrieve rows from `customers` sorted by name"""
     if not conn.is_connected():
         print("No active connection to MySQL Server!")
@@ -33,7 +34,7 @@ def sort_data(conn: mysql.connector.connection) -> None:
         print(row)
     print()
 
-def sort_desc(conn: mysql.connector.connection) -> None:
+def sort_desc(conn: MySQLConnection) -> None:
     """Retrieve rows from `customers` reverse sorted by address"""
     if not conn.is_connected():
         print("No active connection to MySQL Server!")

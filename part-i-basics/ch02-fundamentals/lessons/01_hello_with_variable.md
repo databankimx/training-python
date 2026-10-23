@@ -4,28 +4,29 @@
 
 [Tim Peters](https://en.wikipedia.org/wiki/Tim_Peters_(software_engineer)),
 the creator of the TimSort algorithm and a significant contributor to the
-Python language, created a set of 19 guiding principles for developing
-programs. These principles influenced the design of Python, and code that
-adheres to them is referred to as "Pythonic."
+Python language, wrote a set of 19 guiding principles for writing programs.
+They shaped the design of Python, and code that follows them is called
+"Pythonic." Tim published them as PEP 20, which is where you'll find them if
+you want the official version.
 
-You can read the principles by following these steps:
+You can read the principles yourself:
 
-In your terminal, execute the following command:
+In your terminal, run the following command:
 
 ```
 python
 ```
 
-This will take you into the Python interpreter, which you can recognize by
-the appearance of the Python prompt: `>>>`
+That takes you into the Python interpreter. You'll know you're there when you
+see the Python prompt: `>>>`
 
-At the Python prompt, execute the following command:
+At the Python prompt, run the following command:
 
 ```
 import this
 ```
 
-That command will display this:
+That command displays this:
 
 ```
 The Zen of Python, by Tim Peters
@@ -51,8 +52,7 @@ If the implementation is easy to explain, it may be a good idea.
 Namespaces are one honking great idea -- let's do more of those!
 ```
 
-When you're done, be sure to return to your normal command prompt by
-executing the following command:
+When you're done, return to your normal command prompt by running:
 
 ```
 exit()
@@ -62,27 +62,22 @@ exit()
 
 ### Interpreted, Not Compiled
 
-Many programming languages are compiled to machine language (the
-non-human-readable CPU instructions for a given architecture) before they are
-executed.
+Many languages are compiled into machine language (the CPU instructions for a
+particular chip, which nobody reads for fun) before they run.
 
-Python, by contrast, is interpreted, not compiled*. This means that a
-separate program (the Python interpreter) reads your code line-by-line and
-creates the machine instructions on-the-fly while executing.
+Python works differently. A separate program, the Python interpreter, reads your
+code and carries it out, one line at a time.
 
-> *Note: As we'll see later (when we create and import our own modules),
-> there are times where Python is partially compiled (to bytecode) before
-> being used.
+> *Note: Python does compile your code to bytecode behind the scenes. You'll
+> see that when we create and import our own modules. It's a detail for now, not
+> a reason to worry.
 
-This has advantages, in that your code will run until it encounters a runtime
-error, so it can be easy to tell where something went awry.
-
-However, there are also limitations. For example, because the code has to
-run on the interpreter and be compiled on-the-go, Python can be slower than
-some compiled languages. Additionally, with a compiled language, you might
-identify errors earlier, since those languages separate runtime errors from
-compile-time errors. Other than errors in your syntax, Python only has errors
-during runtime.
+Interpreting has an upside. Your code runs until it reaches a line it can't
+handle, so you can usually see where things went wrong. The downside is speed:
+an interpreter has more work to do while the program runs, so Python can be
+slower than some compiled languages. Compiled languages also catch more problems
+before the program starts. Python catches syntax errors when it reads the file,
+but most other mistakes only show up when the line runs.
 
 ---
 
@@ -90,25 +85,28 @@ during runtime.
 
 #### Comments
 
-Any line or partial line of code starting with `#` + a whitespace character
-is a comment:
+Any line or partial line of code starting with `#` followed by a space is a
+comment:
 
 ```python
 # This is a comment
 print("I created a comment!") # This is also a comment
 ```
 
-There is no syntax for a multi-line comment. However, because string
-literals are ignored if not assigned to a variable or passed to a function,
-you can use multiline strings as comments:
+Python has no syntax for a multi-line comment. You can fake one with a string
+that isn't assigned to anything, which Python reads and then throws away:
 
 ```python
 def my_function():
     """
-    This is a multi-line comment.
-    This form is typically used for function documentation (doc strings).
+    This works as a multi-line comment, too.
+    Python keeps a string like this as the function's documentation (its docstring).
     """
 ```
+
+Notice that Python doesn't throw this one away. It saves it as the function's
+documentation, so tools and other developers can read it. For a real comment,
+though, use `#` on each line.
 
 ---
 
@@ -116,14 +114,26 @@ def my_function():
 
 **Rules:**
 
-- Only use ASCII characters
 - May contain letters, numbers, and underscores
 - May not start with a number
-- May not contain spaces
-- Should not use Python reserved words
-- Avoid `l` and `O` which may be mistaken for `1` and `0`
-- Names are case-sensitive
-- Except where specifically recommended, avoid upper-case letters
+- May not contain spaces (use an underscore instead)
+- Must not be a Python keyword, such as `if` or `for`
+- Should not be the name of a built-in function, such as `print`, even though
+  Python won't stop you. Python will let you overwrite it, and then `print()`
+  stops working for the rest of the program. It's a small mess, and easy to
+  avoid.
+- Names are case-sensitive, so `message` and `Message` are different variables
+
+**Recommendations:**
+
+- Use descriptive names. `name` is better than `n`, `student_name` is better
+  than `s_n`, and `name_length` is better than `length_of_persons_name`. Future
+  you will be grateful.
+- Avoid `l` and `O`. In some fonts they look like `1` and `0`.
+- Stick to lowercase letters, except where a convention calls for capitals (see
+  below). Uppercase letters have special meanings in later chapters.
+- Use only ASCII characters. Python 3 accepts Unicode names, but PEP 8, the
+  official style guide, recommends ASCII, so most Python code sticks to it.
 
 ---
 
@@ -132,7 +142,7 @@ def my_function():
 `snake_case` is used for:
 - modules and packages
 - variables
-- method/function names
+- method and function names
 
 `PascalCase` is used for:
 - class names
@@ -140,19 +150,20 @@ def my_function():
 - exceptions (also append "Error")
 
 `ALL_CAP_SNAKE_CASE` is used for:
-- "constants" - Python doesn't have true constants, so this is a convention
-  to warn other developers not to modify a variable
+- "constants." Python doesn't have true constants, so this is a convention that
+  warns other developers not to change the value
 
-`camelCase` - not used in Python standards
+`camelCase` is not used in Python standards.
 
-`kebab-case` - not used in Python standards (and will not work at all in Python)
+`kebab-case` is not used in Python standards, and it won't work at all in
+Python, because the hyphens look like subtraction.
 
 ---
 
 ### Data Types
 
 Variables can store data of different types, and different types can do
-different things. In Python, even primitive types are defined as classes.
+different things. In Python, even the basic types are classes.
 
 | Category | Data Types |
 |-|-|
@@ -169,21 +180,19 @@ different things. In Python, even primitive types are defined as classes.
 
 ### Using a Variable in "Hello World"
 
-Instead of passing the string `"Hello World"` directly to `print()`, we can
-store the value in a variable first.
+Instead of passing the string `"Hello World"` straight to `print()`, we can
+store it in a variable first.
 
-A variable is a name for a place in memory where you have stored a value*.
-It is much more convenient to access values by name than to track memory
-addresses directly.
+A variable is a name for a spot in memory where a value lives. Working with names
+is much easier than tracking memory addresses yourself.
 
-> *Note: This is an over-simplification. There is a lot more going on under
-> the covers, and eventually you will want to understand ideas like the
-> `stack` and the `heap`, `pointers`, `mutability`, and so on. For now,
-> though, it is accurate enough.
+> *Note: This is a simplification. There's a lot going on under the covers, and
+> eventually you'll want to understand the `stack`, the `heap`, `pointers`,
+> `mutability`, and so on. For now, this is accurate enough.
 
-In Python, the syntax for declaring a variable is `name = value`. The
-variable is created at the time a value is assigned and does not require a
-separate declaration.
+In Python, you create a variable by assigning a value to a name, with
+`name = value`. The variable exists from the moment you assign it. There's no
+separate declaration step.
 
 ```python
 # Store the value in a variable
@@ -203,7 +212,7 @@ Hello World
 
 ### Changing the Value of a Variable
 
-We can modify a variable by assigning a different value to it:
+Assign a different value to a variable, and it changes:
 
 ```python
 message = "Hello World"
@@ -224,8 +233,8 @@ Goodbye World
 
 ### Changing the Type of a Variable
 
-Python is a dynamically typed language. Unlike many other languages, you can
-change the data type of a variable at runtime:
+Python is dynamically typed. You can change the type of a variable while the
+program runs, which other languages often won't let you do:
 
 ```python
 message = "Hello "
@@ -246,8 +255,7 @@ Hello Hello
 
 ### Type Casting
 
-If you want to specify the data type of a variable, you can do so with
-casting functions:
+If you want a specific type, you can ask for it with a casting function:
 
 ```python
 x = str(3)    # x will be '3'
@@ -267,7 +275,7 @@ Output:
 
 ### Identifying Type
 
-The `type()` function returns the data type of a variable:
+The `type()` function tells you what type a variable holds:
 
 ```python
 msg = "Hello"
@@ -285,8 +293,8 @@ Output:
 
 ### Memory References
 
-The `id()` function returns the memory address where a variable is stored.
-Not commonly needed, but occasionally useful for debugging:
+The `id()` function returns the memory address where a variable is stored. You
+won't need it often, but it's handy for debugging:
 
 ```python
 msg = "Hello"
@@ -304,8 +312,8 @@ Output (your result will differ):
 
 ### Variables and the `NameError`
 
-Both the spelling and capitalization of variable names matter. This code will
-result in an error:
+Spelling and capitalization both matter for variable names. This code causes an
+error:
 
 ```python
 message = "Hello Python Crash Course reader!"
@@ -316,7 +324,7 @@ Output:
 
 ```
 Traceback (most recent call last):
-  File "...\hello.py", line 2, in <module>
+  File "...\hello_world.py", line 2, in <module>
     print(mesage)
           ^^^^^^
 NameError: name 'mesage' is not defined. Did you mean: 'message'?

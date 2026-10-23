@@ -14,7 +14,7 @@ for food in menu:
 # Uncomment this line to see the immutability error:
 # menu[0] = "toast"
 
-menu = ("toast", "pastry", "coffee", "tea", "yoghurt")
+menu = ("toast", "pastry", "coffee", "tea", "yogurt")
 print("Updated Menu:")
 for food in menu:
     print(f" - {food}")

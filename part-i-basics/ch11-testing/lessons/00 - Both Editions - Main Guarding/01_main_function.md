@@ -187,10 +187,14 @@ if __name__ == "__main__":
     main()
 ```
 
-This general structure is included in the ready-made snippet file
+A simplified version of this template is in the ready-made snippet file
 [python.json](../../../../resources/snippets/python.json)
 included in this repository, which can be imported into VS Code and accessed
 by typing `&template` in any Python code file.
 
----
+> Note: the code file turns off Pylint's `unused-import` and
+> `import-outside-toplevel` warnings in `main()`. Those comments stay in the code
+> file. The code file also pauses between sections, and clears the terminal
+> before each section.
 
+---

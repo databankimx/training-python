@@ -65,7 +65,7 @@ Remember our two possible cases are:
 * The call includes a middle name
 * The call omits the middle name
 
-Python provides a library `pytest` that allows you to create tests for parts 
+The third-party library `pytest` allows you to create tests for parts 
 of your software that validate that your code produces the expected results.
 
 > Note: Unlike `unittest`, `pytest` is not part of the standard library.   
@@ -165,6 +165,11 @@ FAILED test_name_function.py::test_first_last_middle_name - AssertionError: asse
 As expected, both tests fail with an `AssertionError`, because the function
 returns `None`, which doesn't match our expected result.
 
+> Note: the code file `name_function.py` keeps two earlier versions of
+> `formatted_name()` as comments. To see each output, uncomment one version and
+> comment out the active version. The line numbers in the output stay the same
+> either way.
+
 ---
 
 ### Writing Some Code and Retesting
@@ -174,7 +179,7 @@ Let's have a first go at the function code:
 ```python
 def formatted_name(first: str, last: str, middle: str | None="") -> str:
     """Generate a neatly formatted full name."""
-    full_name =  f"{first} {middle} {last}"
+    full_name = f"{first} {middle} {last}"
     return full_name.title()
 ```
 
@@ -270,3 +275,53 @@ At last, we see `..`, so our tests passed, and our function is debugged.
 
 ---
 
+### Testing by Hand
+
+The file `01_testing_functions.py` lets you type names yourself and see the
+formatted result. It's useful for trying the function on names that aren't in
+the tests:
+
+```python
+def main() -> None:
+    """User testing for formatted name function"""
+
+    print("Enter 'q' at any time to quit.")
+
+    while True:
+        first = input("\nPlease give me a first name: ")
+        if first.lower() == "q":
+            break
+        middle = input("Please give me a middle name (optional): ")
+        if middle.lower() == "q":
+            break
+        last = input("Please give me a last name: ")
+        if last.lower() == "q":
+            break
+        if not middle:
+            middle = None
+        print(f"\nName: {formatted_name(first, last, middle)}")
+```
+
+Run the file from the terminal with `python 01_testing_functions.py`. Press
+Enter without typing anything for the middle name to leave it out. A sample
+session looks like this:
+
+```
+Enter 'q' at any time to quit.
+
+Please give me a first name: wolfgang
+Please give me a middle name (optional): amadeus
+Please give me a last name: mozart
+
+Name: Wolfgang Amadeus Mozart
+
+Please give me a first name: janis
+Please give me a middle name (optional):
+Please give me a last name: joplin
+
+Name: Janis Joplin
+
+Please give me a first name: q
+```
+
+---

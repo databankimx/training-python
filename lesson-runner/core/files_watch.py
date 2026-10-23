@@ -7,9 +7,9 @@ import subprocess
 import sys
 from pathlib import Path
 
-SKIP_DIRS = {"__pycache__"}
+SKIP_DIRS: set[str] = {"__pycache__"}
 # Files shown in the system's text editor, because Windows often has no default program for them.
-TEXT_SUFFIXES = {".json", ".txt", ".csv", ".log", ".md", ".py"}
+TEXT_SUFFIXES: set[str] = {".json", ".txt", ".csv", ".log", ".md", ".py"}
 
 
 def snapshot(folder: Path) -> dict[str, float]:

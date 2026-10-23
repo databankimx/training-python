@@ -77,7 +77,7 @@ computers, but if you're storing active license information in a database,
 it's using eight columns (at a minimum of one byte apiece) for this 
 information.
 
-Supposing MacroWare sells a billion copies, that's consuming about $8$GB 
+Supposing MacroWare sells a billion copies, that's consuming about $8$ GB 
 of disk space.
 
 ---
@@ -86,9 +86,9 @@ of disk space.
 
 Suppose, instead of using one byte per product, instead, you used one bit. 
 That would reduce the size of the licensing data eightfold, and the 
-database licensing data would be only $1$GB.
+database licensing data would be only $1$ GB.
 
-The idea sounds great, but how would we do it.
+The idea sounds great, but how would we do it?
 
 One approach would be to define each product as a binary bit position 
 value in an integer enum.
@@ -147,6 +147,12 @@ if licenses & wp != wp:
 # -- SNIP --
 ```
 
+> Note: In Python, `&` binds more tightly than `!=`, so `licenses & wp != wp` is
+> read as `(licenses & wp) != wp`. In C, comparison binds more tightly than `&`,
+> so the same expression needs parentheses there. The `!= wp` comparison matters
+> only for a mask with more than one bit. Since each enum value here has a single
+> bit, `not licenses & wp` is enough, which is the form the full example uses.
+
 ---
 
 ### Explanation
@@ -193,7 +199,7 @@ So we know that word processing is not licensed.
 
 ### The Full Example
 
-See [bit_flags.py](./12_bit_flags.py)
+See [12_bit_flags.py](./12_bit_flags.py)
 
 ```python
 from enum import IntFlag
@@ -211,9 +217,9 @@ class ProductLicenses(IntFlag):
 
 def main() -> None:
     licenses = 11
-    for l in ProductLicenses:
-        if not licenses & l: continue
-        print(l.name)
+    for product in ProductLicenses:
+        if not licenses & product: continue
+        print(product.name)
 
 if __name__ == "__main__":
     main()

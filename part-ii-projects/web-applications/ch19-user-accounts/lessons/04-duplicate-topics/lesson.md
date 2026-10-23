@@ -94,3 +94,5 @@ The new topic form, showing the message after a repeated name is entered.
 - `learning_logs/forms.py`: checks the name against the user's topics
 - `learning_logs/views.py`: passes the signed-in user to the form
 - `learning_logs/tests.py`: adds tests for duplicate names
+
+---

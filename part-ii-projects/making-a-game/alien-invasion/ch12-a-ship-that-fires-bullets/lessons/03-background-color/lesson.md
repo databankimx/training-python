@@ -77,3 +77,5 @@ python build_stage.py ch12 3 --run
 The window is now light gray rather than black.
 
 ![Light gray Pygame window](lesson-images/gray-background.png)
+
+---

@@ -28,7 +28,7 @@ print("π =", sc.pi)
 Output:
 
 ```
-π = 3.141592653589793 
+π = 3.141592653589793
 ```
 
 ---
@@ -38,5 +38,8 @@ Output:
 I will forgo including all of the constants in these notes, but the
 associated code file: [constants.py](./01_constants.py) includes examples
 of many of them.
+
+> Note: The code file clears the terminal and pauses between groups of constants,
+> so you can read each group before the next one appears.
 
 ---

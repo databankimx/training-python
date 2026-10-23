@@ -1,10 +1,11 @@
 """Update documents in MongoDB collection"""
 
+from typing import Any
 from login import get_settings, get_client, server_connected
 from pymongo import MongoClient
 from pymongo.synchronous.collection import Collection
 
-def connect(settings: dict[str, any]=None) -> tuple[MongoClient, Collection]|None:
+def connect(settings: dict[str, Any] | None = None) -> tuple[MongoClient, Collection] | None:
     """Connect to MongoDB database"""
     if not settings:
         settings = get_settings()
@@ -22,8 +23,8 @@ def connect(settings: dict[str, any]=None) -> tuple[MongoClient, Collection]|Non
     print(f"Connected to collection: `{col.name}`\n")
     return (client, col)
 
-def update_single(col: Collection, query: dict[str,str],
-                  update: dict[str,dict[str,str]]) -> None:
+def update_single(col: Collection, query: dict[str, Any],
+                  update: dict[str, Any]) -> None:
     """Update a single document in the collection"""
     print(f"Updating single document matching: `{query}`")
     print(f"  with new values: `{update['$set']}`")
@@ -31,8 +32,8 @@ def update_single(col: Collection, query: dict[str,str],
     print(f"Updated {res.modified_count} document(s)\n")
     view_all(col)
 
-def update_multiple(col: Collection, query: dict[str,str],
-                  update: dict[str,dict[str,str]]) -> None:
+def update_multiple(col: Collection, query: dict[str, Any],
+                  update: dict[str, Any]) -> None:
     """Update multiple documents in the collection"""
     print(f"Updating multiple documents matching: `{query}`")
     print(f"  with new values: `{update['$set']}`")

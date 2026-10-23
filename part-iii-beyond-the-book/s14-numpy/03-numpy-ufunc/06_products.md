@@ -9,8 +9,8 @@ to reach a result.
 So, if we had two arrays [1, 2, 3] and [4, 5, 6]:
 
 * Multiplying results in [4, 10, 18]
-* Product computation results in [6, 120] or 720 depending on the axis of 
-  computation.
+* Computing each array's product separately results in [6, 120]
+* Multiplying all of the values together results in 720
 
 ---
 
@@ -42,7 +42,7 @@ np.multiply(arr_a, arr_b): [ 5 12 21 32]
 
 ### Computing the Product of an Array
 
-Computing the product of a single array will always result in a scalar 
+Computing the product of a single array will always result in a scalar
 value equivalent to multiplying all the elements together.
 
 ```python
@@ -64,10 +64,10 @@ np.prod(arr):                24
 
 ---
 
-### Computing the Product of Two Arrays on the Y Axis
+### Computing the Product of Two Arrays Without an Axis
 
-When we compute the product of two arrays on the Y Axis (`axis=0` - 
-default), we receive the product of the products of the arrays.
+If we don't specify an axis, `np.prod()` multiplies every member of every array, so
+the result is a single scalar.
 
 ```python
 import numpy as np
@@ -89,11 +89,15 @@ arr_b:                       [5 6 7 8]
 np.prod([arr_a, arr_b]):     40320
 ```
 
+Specifying `axis=0` instead multiplies down each column of the stacked arrays, giving
+`[5 12 21 32]`, one product per index.
+
 ---
 
 ### Computing the Product of Two Arrays on the X Axis
 
-When we compute the product of two arrays on the X Axis (`axis=1`), we receive an array containing the products of the arrays.
+When we compute the product of two arrays on the X Axis (`axis=1`), we receive an
+array containing the products of the arrays.
 
 ```python
 import numpy as np
@@ -119,8 +123,8 @@ np.prod([arr_a, arr_b], axis=1): [  24 1680]
 
 ### Cumulative Products
 
-When computing a cumulative product each element in the resulting array is 
-the product of the array up to that element's index but ignoring higher 
+When computing a cumulative product each element in the resulting array is
+the product of the array up to that element's index but ignoring higher
 indices.
 
 If we perform a cumulative product on the array `[1, 2, 3, 4]`
@@ -134,9 +138,7 @@ We compute it like this:
 |2|1 * 2 * 3|6|
 |3|1 * 2 * 3 * 4|24|
 
-Which results in `[1, 3, 6, 24]`
-
-. . . . . . . . . .
+Which results in `[1, 2, 6, 24]`
 
 NumPy provides the `cumprod()` function for cumulative products:
 
@@ -146,7 +148,7 @@ import numpy as np
 arr = np.array([1, 2, 3, 4])
 print("Cumulative product:")
 print(f"Array:                       {arr}")
-print(f"np.cumprod(arr):             {np.cumprod(arr)}\n")
+print(f"np.cumprod(arr):             {np.cumprod(arr)}")
 ```
 
 Output:

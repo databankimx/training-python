@@ -139,3 +139,5 @@ When an alien hits the rocket for the third time, the game freezes and the messa
 - `game_stats.py` (new): the `GameStats` class
 - `alien.py` (new): the `Alien` class
 - `sideways_shooter.py`: replaces `blue_sky.py`, with the hit counts, the game-over check and the message
+
+---

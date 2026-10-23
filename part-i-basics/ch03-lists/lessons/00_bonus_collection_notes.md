@@ -1,21 +1,23 @@
 ## Collection Types in Python
 
-Python includes several collection types, each with different rules defining
-how they behave.
+Python has several collection types. Each one holds a group of values, but they
+don't all behave the same way. Some keep things in order, some let you change
+them, and some won't let you store the same value twice.
 
-The rules are:
+This lesson is a preview. You'll get full coverage of lists in this chapter, and
+tuples, sets, and dictionaries come later in the book. For now, the goal is to
+see how they differ.
 
-* **Ordered** collections' members can be accessed by index (address).
-* **Mutable** collections' members can be modified after they are initialized.
-* Collections with the **Add/Remove** behavior permit items to be added to or 
-  removed from the collection.
-* Collections with the **Duplicates** behavior can have multiple instances of
-  the same collection value.
+The behaviors that matter are:
+
+* **Ordered** collections let you reach a member by its position (its index).
+* **Mutable** collections let you change their members after they're created.
+* Collections with **Add/Remove** let you add or remove items.
+* Collections with **Duplicates** can hold the same value more than once.
 
 ---
 
-The table below lists how the  behaviors of collection types apply to the main 
-Python collection types.
+Here's how the main collection types stack up:
 
 |Type|Syntax|Ordered|Mutable|Add/Remove|Duplicates|
 |-|-|:-:|:-:|:-:|:-:|
@@ -23,26 +25,26 @@ Python collection types.
 |Tuple|`(1, 2, 3)`|X|||X|
 |Set|`{1, 2, 3}`|||X||
 |Dictionary|`{'a': 1, 'b': 2, 'c': 3}`|X|X|X||
-|||||||
 
 > Notes:
-> 
-> * Dictionaries technically *can* have duplicate values, but they *cannot* contain duplicate keys.
-> * Dictionaries prior to Python 3.7 did not maintain insertion order, so in older versions, they do not possess the **Ordered** behavior.
+>
+> * Dictionaries can have duplicate values, but they can't have duplicate keys.
+> * Dictionaries before Python 3.7 didn't guarantee insertion order, so older
+>   versions don't have the **Ordered** behavior.
 
 ---
 
-This brief code sample illustrates each of these behaviors using a list:
+Here's a short sample that shows these behaviors, using a list:
 
 ```python
 my_list = [1, 2, 3]
 
 print(my_list)
-print(my_list[1]) # Ordered members accessed by index
-my_list[1] = 4    # Mutable collections' members can be modified
+print(my_list[1]) # Ordered members can be reached by position
+my_list[1] = 4    # Mutable collections let you change their members
 print(my_list)
 my_list.append(3) # Add an item to a collection
-print(my_list)    # Note: We added a duplicate value
+print(my_list)    # Note: we added a duplicate value
 ```
 
 Output:
@@ -53,5 +55,11 @@ Output:
 [1, 4, 3]
 [1, 4, 3, 3]
 ```
+
+---
+
+The `.py` file shows the other types as well. One thing to watch: a set doesn't
+have an order. The sample prints its items in order, but that's luck, not a rule,
+so don't count on a set printing the same way twice.
 
 ---

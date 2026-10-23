@@ -1,12 +1,12 @@
 """Assignment 8.13"""
 
-# User Profile: Start with a copy of user_profile.py. Build a profile
-#               of yourself by calling `build_profile()`, using your
-#               first and last names and three other key-value pairs
-#               that describe you.
+# User Profile: Start with a copy of user_profile.py from page 148. Build a
+#               profile of yourself by calling build_profile(), using your
+#               first and last names and three other key-value pairs that
+#               describe you.
 
 print("Try-it-Yourself:")
-print("Assignment 8.13")
+print("Assignment 8.13\n")
 
 def build_profile(first, last, **user_info):
     """Populate a user-profile dictionary"""

@@ -1,11 +1,11 @@
 """Assignment 10.12 (3rd Edition)"""
 
-# Favorite Number Remembered: Combine the two programs from Exercise 10.11
-#                             into one file. If the number is already stored,
-#                             report the favorite number to the user. If not,
-#                             prompt for the user's favorite number and store
-#                             it in a file. Run the program twice to see that
-#                             it works.
+# Favorite Number Remembered: Combine the two programs you wrote in Exercise
+#                             10-11 into one file. If the number is already
+#                             stored, report the favorite number to the user.
+#                             If not, prompt for the user's favorite number and
+#                             store it in a file. Run the program twice to see
+#                             that it works.
 
 import json
 from pathlib import Path
@@ -24,7 +24,7 @@ def store_favorite_number(filepath):
         except ValueError:
             print("Your entry must be a number!\n")
     file = Path(filepath)
-    file.write_text(json.dumps(num), encoding="utf-8")
+    file.write_text(json.dumps(num), encoding="UTF-8")
     print(f"I saved {num} as your favorite number!\n")
     return num
 
@@ -32,7 +32,7 @@ def get_favorite_number(filepath):
     """Attempt to read user's favorite number from a file"""
     file = Path(filepath)
     if file.exists():
-        num = json.loads(file.read_text(encoding="utf-8"))
+        num = json.loads(file.read_text(encoding="UTF-8"))
         return num
     return store_favorite_number(filepath)
 

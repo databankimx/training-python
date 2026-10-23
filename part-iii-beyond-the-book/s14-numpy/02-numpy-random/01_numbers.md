@@ -3,22 +3,27 @@
 There are many scenarios where generating a random number (or a group of
 random numbers) is necessary in code.
 
-The `numpy.random` library provides mechanisms for generating random 
+The `numpy.random` library provides mechanisms for generating random
 numbers and arrays of random numbers.
+
+> Note: The functions in this lesson (`randint()`, `rand()`, and `choice()`) are
+> NumPy's module-level functions. The distribution lessons use a generator object
+> created with `random.default_rng()`, which NumPy recommends for new code.
 
 ---
 
 ### Generate a Random Integer
 
 Generating a random integer in NumPy with the `random.randint()` function
-is identical to using the standard `random` library.
+is similar to using the standard `random` library. Note that the upper bound
+is exclusive, so we pass `high + 1` to include 100.
 
 ```python
 from numpy import random
 
-min, max = 1, 100
-x = random.randint(min, max + 1)
-print(f"Random integer ({min} to {max}):\n{x}")
+low, high = 1, 100
+x = random.randint(low, high + 1)
+print(f"Random integer ({low} to {high}):\n{x}")
 ```
 
 Output:
@@ -32,8 +37,8 @@ Random integer (1 to 100):
 
 ### Generate a Random Floating-Point Number
 
-Similarly, using `random.rand()` function works as it did in the standard
-`random` library.
+`random.rand()` is the NumPy equivalent of the standard library's `random.random()`.
+It returns a float from 0 up to, but not including, 1.
 
 ```python
 from numpy import random
@@ -61,16 +66,16 @@ arrays of random numbers.
 #### 1D Array of Random Integers
 
 To generate an array of random integers, we add an extra argument to the
-`randint()` function: `size=n` (where *n* is the number of elements in a 
+`randint()` function: `size=n` (where *n* is the number of elements in a
 1D array).
 
 ```python
 from numpy import random
 
 ar_sz = 5
-min, max = 1, 100
+low, high = 1, 100
 arr = random.randint(1, 101, ar_sz)
-print(f"Random 1D int array ({min} to {max})", end=" ")
+print(f"Random 1D int array ({low} to {high})", end=" ")
 print(f"size: ({ar_sz}):\n{arr}")
 ```
 
@@ -92,9 +97,9 @@ We can generate a multidimensional array by providing a tuple to the
 from numpy import random
 
 ar_sz = (5, 3)
-min, max = 1, 100
+low, high = 1, 100
 arr = random.randint(1, 101, size=ar_sz)
-print(f"Random 2D int array ({min} to {max})", end=" ")
+print(f"Random 2D int array ({low} to {high})", end=" ")
 print(f"size: {ar_sz}:\n{arr}")
 ```
 
@@ -150,7 +155,7 @@ from numpy import random
 ar_sz = (5, 3)
 arr = random.rand(*ar_sz)
 print(f"Random 2D float array", end=" ")
-print(f"size: {ar_sz}:\n{arr}\n")
+print(f"size: {ar_sz}:\n{arr}")
 ```
 
 Output:
@@ -173,6 +178,9 @@ exposes a `choice()` function.
 
 The NumPy implementation adds the ability to both generate arrays and
 to use arrays as the source data to choose among.
+
+By default, `choice()` samples with replacement, so the same value can be
+chosen more than once.
 
 ---
 

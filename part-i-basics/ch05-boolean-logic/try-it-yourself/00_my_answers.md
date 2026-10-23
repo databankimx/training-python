@@ -68,6 +68,11 @@ print(year >= 2020)   # False
 print(year < 2020)    # True
 print(year <= 2020)   # True
 
+print(make.lower() == "dodge" and model.lower() == "challenger") # True
+print(make.lower() == "dodge" and model.lower() == "charger")   # False
+print(make.lower() == "dodge" or model.lower() == "charger")    # True
+print(make.lower() == "fiat" or model.lower() == "spider")      # False
+
 stats = [2014, "dodge", "challenger"]
 print("fiat" in stats)           # False
 print("dodge" in stats)          # True
@@ -154,6 +159,8 @@ You earned 5 points!
 Turn the `if`-`else` into an `if`-`elif`-`else` chain. Green: 5 pts. Yellow:
 10 pts. Red: 15 pts. Write three versions.
 
+One loop handles all three colors, so the single loop below covers all three versions.
+
 <details>
 <summary>Spoiler Code</summary>
 
@@ -226,9 +233,21 @@ for certain fruits.
 
 ```python
 favorite_fruits = ["grapefruit", "key lime", "apple", "blackberry"]
-for fruit in ["peach", "apple", "guava", "blackberry", "grapefruit"]:
-    if fruit in favorite_fruits:
-        print(f"{fruit} is one of your favorites")
+fruit = "peach"
+if fruit in favorite_fruits:
+    print(f"{fruit} is one of your favorites")
+fruit = "apple"
+if fruit in favorite_fruits:
+    print(f"{fruit} is one of your favorites")
+fruit = "guava"
+if fruit in favorite_fruits:
+    print(f"{fruit} is one of your favorites")
+fruit = "blackberry"
+if fruit in favorite_fruits:
+    print(f"{fruit} is one of your favorites")
+fruit = "grapefruit"
+if fruit in favorite_fruits:
+    print(f"{fruit} is one of your favorites")
 ```
 
 </details>
@@ -330,7 +349,7 @@ lower_case_users = [user.lower() for user in current_users]
 new_users = ["abigail", "bob", "curtis", "diana", "edward"]
 for user in new_users:
     if user.lower() in lower_case_users:
-        print(f"Sorry. Username {user} is already in use.")
+        print(f"Sorry. Username {user} is already in use. Choose another username")
     else:
         print(f"Username {user} is available.")
         current_users.append(user.title())
@@ -347,9 +366,9 @@ print(current_users)
 
 ```
 Username abigail is available.
-Sorry. Username bob is already in use.
+Sorry. Username bob is already in use. Choose another username
 Username curtis is available.
-Sorry. Username diana is already in use.
+Sorry. Username diana is already in use. Choose another username
 Username edward is available.
 Final list of users:
 ['Anna', 'Bob', 'Charlie', 'Diana', 'Admin', 'Abigail', 'Curtis', 'Edward']
@@ -367,7 +386,8 @@ Store 1-9 in a list. Loop and print each with the correct ordinal suffix.
 <summary>Spoiler Code</summary>
 
 ```python
-for numeral in range(1, 10):
+numerals = list(range(1, 10))
+for numeral in numerals:
     if numeral == 1:
         suffix = "st"
     elif numeral == 2:

@@ -13,13 +13,13 @@ class Blackjack():
     INITIAL_BANKROLL = 5_000
     DEALER_STANDS = 17
 
-    def __init__(self, color: Colors=Colors.WHITE) -> None:
+    def __init__(self, color: Colors = Colors.WHITE) -> None:
         """Initialize"""
         self.game = "blackjack"
         self.color = color
-        self.deck: Deck = None
-        self.player_hands: list[Hand]|None = None
-        self.dealer_hand: Hand = None
+        self.deck: Deck | None = None
+        self.player_hands: list[Hand] | None = None
+        self.dealer_hand: Hand | None = None
         self.player_bankroll: int
         self.reset_bankroll()
 
@@ -156,7 +156,7 @@ class Blackjack():
         print("  In case of a tie, the bet is returned to the player.")
         print("  The dealer stops hitting at 17.")
 
-    def game_over(self, lost: bool=False) -> None:
+    def game_over(self, lost: bool = False) -> None:
         """Close out the game"""
         if lost:
             print("You're broke!\nGood thing you weren't playing with real money.")

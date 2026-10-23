@@ -17,7 +17,6 @@ def main() -> None:
     """Main function"""
     for day in [Weekday.SATURDAY, Weekday.SUNDAY, Weekday.WEEKEND]:
         print(day, "=", day.value)
-    print()
     for i in [2 ** n for n in range(7)]:
         print(f"{i:>2}", Weekday(i))
 

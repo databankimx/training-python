@@ -48,3 +48,27 @@ Imag = 5.0
 ```
 
 ---
+
+### Accessing Items
+
+The same idea works for dictionary keys and list indices. Put the key in square
+brackets inside the placeholder:
+
+```python
+person = {"name": "Scott", "city": "Dallas"}
+print("{0[name]} lives in {0[city]}".format(person))
+```
+
+Output:
+
+```
+Scott lives in Dallas
+```
+
+Because the key is inside the placeholder, you don't need to pull the values out
+of the dictionary first.
+
+> Note: the code file turns off a Pylint warning (`consider-using-f-string`) on
+> these `print` lines. Those comments stay in the code file.
+
+---

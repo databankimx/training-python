@@ -12,10 +12,10 @@ def scrape_page(url: str) -> str:
 def parse_html_tag(html: str, tag_to_find: str) -> str:
     """Read content of the specified HTML tag"""
     pattern = f"<.*?{tag_to_find}.*?>.*?<.*?/{tag_to_find}.*?>.*?"
-    matches = re.search(pattern, html, re.IGNORECASE)
-    if not matches:
+    match = re.search(pattern, html, re.IGNORECASE)
+    if not match:
         return f"'{tag_to_find}' not found"
-    return re.sub("<.*?>", "", matches.group()) #NOSONAR
+    return re.sub("<.*?>", "", match.group()) #NOSONAR
 
 def main() -> None:
     """Read web pages and print the titles"""

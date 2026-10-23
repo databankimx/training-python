@@ -111,3 +111,5 @@ The ship fires missiles across the screen from its position on the left edge, an
 disappears at the right edge.
 
 ![Sideways shooter window](lesson-images/shooter.png)
+
+---

@@ -1,27 +1,22 @@
 ## Bonus Lesson: Using `iter()`
 
-Iteration is a key to the processing of collections of information. We have
-already looked at iteration in the form of loops, but sometimes, it is 
-necessary to approach iteration with more direct, granular control.
+Iteration is at the heart of processing collections of data. So far, we've used loops to iterate.
+Sometimes you need more direct, step-by-step control over iteration. For that, Python provides the
+`iter()` function, which returns an *iterator* object. An iterator has a `next()` function that
+produces the next item.
 
-For this, Python exposes the `iter()` function, which returns an `iterator`
-object, which in turn exposes a `next()` function to perform iterations.
+A `for` loop calls `iter()` for you behind the scenes. Calling `iter()` yourself gives you control over
+each step:
 
-Using `iter()` offers several advantages over loops:
-
-* Efficient Iteration: When traversing a collection, access one element at 
-  a time instead of loading the entire collection into memory.
-* Lazy Evaluation: Generate values only as needed, which is useful when 
-  dealing with infinite (or very large) sequences.
-* Granular Control: Perform each iteration only when your code indicates 
-  that it is needed, and stop iterating when desired.
+* Lazy evaluation: an iterator produces values only when you ask for them. That's useful for very large
+  or endless sequences, and for files, where you don't want to load everything into memory at once.
+* Granular control: you decide when each iteration happens, and when to stop.
 
 ---
 
 ### TypeError with `iter()`
 
-The `iter()` function will throw a TypeError if the argument passed is not
-an iterable type.
+The `iter()` function raises a `TypeError` if you pass it something that isn't iterable.
 
 ```python
 iter(None)
@@ -31,10 +26,9 @@ Output:
 
 ```
 Traceback (most recent call last):
-  File "...\11_bonus_iterable.py", line 40, in <module>
-    main()
-  File "...\11_bonus_iterable.py", line 25, in main
+  File "...\iter_none.py", line 1, in <module>
     iter(None)
+    ^^^^^^^^^^
 TypeError: 'NoneType' object is not iterable
 ```
 
@@ -42,13 +36,10 @@ TypeError: 'NoneType' object is not iterable
 
 ### Checking if a Variable is Iterable
 
-To avoid these errors, it is useful to check if a variable is iterable. We
-can accomplish this using a `try`/`except` block.
+To avoid that error, check whether a variable is iterable first. A `try`/`except` block does the job:
 
 ```python
-from typing import Iterable
-
-def is_iterable(obj: any) -> Iterable|None:
+def is_iterable(obj):
     """Check if the given object is iterable"""
     try:
         return iter(obj)
@@ -63,18 +54,17 @@ if not (iter_obj := is_iterable(x)):
 Output:
 
 ```
-'NoneType' is not iterable
+`NoneType` is not iterable.
 ```
 
-We're now able to identify if an object is iterable and generate an 
-iterator from it. Now we need to use the `next()` method to perform the
-iterations.
+Now we can tell whether an object is iterable, and create an iterator from it. Next, we need to call
+`next()` to perform the iterations.
 
 ---
 
 ### The `StopIteration` Error
 
-There is a problem with simply calling `next()` in a loop without checking if the iterator has more elements.
+Calling `next()` in a loop without checking whether the iterator has more items causes a problem:
 
 ```python
 arr = [1, 2, 3]
@@ -92,30 +82,25 @@ Output:
 2
 3
 Traceback (most recent call last):
-  File "...\11_bonus_iterable.py", line 41, in <module>
-    main()
-  File "...\11_bonus_iterable.py", line 29, in main
+  File "...\stop_iteration.py", line 6, in <module>
     print(next(iter_obj))
           ^^^^^^^^^^^^^^
 StopIteration
 ```
 
-Once the iterator is exhausted, calling `next()` will raise a `StopIteration` error.
+Once an iterator runs out, calling `next()` raises a `StopIteration` error.
 
 ---
 
 ### Fixing the `StopIteration` Problem
 
-We could use a `for` loop or a counter variable to limit the number of
-iterations, and that would work fine for types like `list` or `tuple`,
-but if we're working with something like a text file (type:
-`TextIOWrapper`) the lazy-load behavior of the iterator means we don't
-know how many iterations to perform in advance.
+You could use a `for` loop or a counter to limit the number of iterations. That works fine for a `list`
+or a `tuple`. But for something like a text file (type: `TextIOWrapper`), the iterator loads lazily, so
+you can't know in advance how many iterations there will be.
 
-We can fix this issue by again using a `try`/`except` block.
+The fix is another `try`/`except` block, this time around the `next()` call:
 
 ```python
-
 arr = [1, 2, 3]
 if not (iter_obj := is_iterable(arr)):
     print(f"`{type(arr).__name__}` is not iterable.\n")
@@ -134,5 +119,11 @@ Output:
 2
 3
 ```
+
+---
+
+> **About the `.py` file:** it includes `show_iteration()`, a helper that prints a collection and any
+> collections nested inside it. It uses recursion, a function that calls itself, which is covered in
+> Chapter 8. Read it for now as a preview of what iterators can do.
 
 ---

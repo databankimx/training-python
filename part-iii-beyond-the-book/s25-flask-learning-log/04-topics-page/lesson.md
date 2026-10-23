@@ -78,3 +78,5 @@ The topics page with Chess and Rock Climbing.
 - `flask_log/templates/base.html`: the Topics link in the navigation bar
 - `flask_log/templates/topics.html` (new): the list of topics
 - `tests/test_topics_page.py` (new): tests for the topics page
+
+---

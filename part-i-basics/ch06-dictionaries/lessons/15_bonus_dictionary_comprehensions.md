@@ -1,17 +1,16 @@
 ## Dictionary Comprehensions
 
-Like lists, dictionaries can be expressed as comprehensions. This enables you
-to write more concise code with fewer nested loops.
+Like lists, dictionaries can be written as comprehensions. A comprehension lets you write
+the same logic in less code, with fewer nested loops.
 
 ---
 
 ### Using a Loop to Merge Two Lists
 
-Consider the case where we have two lists and want to combine them into one
-dictionary such that for each index `n`, the key is `list1[n]` and the value
-is `list2[n]`.
+Suppose you have two lists, and you want to combine them into one dictionary. For each index `n`,
+the key should be `list1[n]`, and the value should be `list2[n]`.
 
-We can use a loop the way we've done thus far:
+We can use a loop, the way we've done so far:
 
 ```python
 keys = ["a", "b", "c", "d", "e"]
@@ -32,11 +31,9 @@ Output:
 
 ### Converting a Loop to a Comprehension
 
-Just as we learned when we were reviewing list comprehensions, the loop can be
-encapsulated as the range for a dictionary comprehension.
-
-Of course, in a comprehension for a dictionary, we must specify both parts of
-the `key: value` pair.
+Just as we saw with list comprehensions, the loop's body becomes the expression at the front of
+the comprehension. For a dictionary, that expression has to supply both parts of the `key: value`
+pair.
 
 ```python
 keys = ["a", "b", "c", "d", "e"]
@@ -55,8 +52,8 @@ Output:
 
 ### Using `zip()` in the Comprehension
 
-Since the `zip()` function produces a list of tuples from two lists, we can
-use it to avoid needing to use an index like `i` above.
+`zip()` pairs up the items from two lists, and it returns an iterator of tuples. Pairing the two
+lists this way removes the need for an index like `i`:
 
 ```python
 keys = ["a", "b", "c", "d", "e"]
@@ -75,13 +72,13 @@ Output:
 
 ### Adding Conditions
 
-Lastly, we can filter the results being populated in the new dictionary by
-adding a condition to the comprehension.
+Finally, you can filter the entries that go into the new dictionary by adding a condition to the
+comprehension. This example keeps only the odd values:
 
 ```python
 keys = ["a", "b", "c", "d", "e"]
 values = [1, 2, 3, 4, 5]
-odd_dict = {key: value for (key, value) in zip(keys, values) if value % 2}
+odd_dict = {key: value for (key, value) in zip(keys, values) if value % 2 == 1}
 print(odd_dict)
 ```
 

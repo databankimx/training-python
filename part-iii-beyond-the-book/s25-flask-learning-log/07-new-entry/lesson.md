@@ -86,3 +86,5 @@ The Chess topic page, with the Add new entry link.
 - `flask_log/templates/new_entry.html` (new): the form
 - `flask_log/templates/topic.html`: the Add new entry link
 - `tests/test_new_entry.py` (new): tests for the form and its checks
+
+---

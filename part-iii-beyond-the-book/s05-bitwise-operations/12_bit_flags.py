@@ -17,10 +17,10 @@ class ProductLicenses(IntFlag):
 def main() -> None:
     """Displays names of the product licenses that are enabled"""
     licenses = 11
-    for l in ProductLicenses:
-        if not licenses & l:
+    for product in ProductLicenses:
+        if not licenses & product:
             continue
-        print(l.name)
+        print(product.name)
 
 if __name__ == "__main__":
     main()

@@ -13,8 +13,8 @@ first name, last name, age, and city. Print each piece of information.
 <summary>Spoiler Code</summary>
 
 ```python
-person = {"first_name": "Scott", "last_name": "McLean",
-          "age": 54, "city": "Lewisville"}
+person = {"first_name": "Dana", "last_name": "Whitfield",
+          "age": 41, "city": "Akron"}
 print(f"First Name: {person['first_name']}")
 print(f"Last Name:  {person['last_name']}")
 print(f"Age:        {person['age']}")
@@ -28,10 +28,10 @@ print(f"City:       {person['city']}")
 <summary>Output</summary>
 
 ```
-First Name: Scott
-Last Name:  McLean
-Age:        54
-City:       Lewisville
+First Name: Dana
+Last Name:  Whitfield
+Age:        41
+City:       Akron
 ```
 
 </details>
@@ -62,6 +62,20 @@ print(f"John's favorite number is {favorite_numbers['John']}")
 ```
 
 </details>
+<br>
+
+<details>
+<summary>Output</summary>
+
+```
+Scott's favorite number is 42
+Andy's favorite number is 37
+René's favorite number is 343
+Matt's favorite number is 12
+John's favorite number is √-1
+```
+
+</details>
 
 ---
 
@@ -89,6 +103,30 @@ print(f"\nCode:\n{coding_terms['Code']}")
 ```
 
 </details>
+<br>
+
+<details>
+<summary>Output</summary>
+
+```
+
+Program:
+A collection of instructions, which perform a specific task
+
+Boolean:
+An expression used for statements that are TRUE or FALSE
+
+Bug:
+A term used to denote an error or defect in hardware or software
+
+Object:
+Combination of related variables, which can be used together.
+
+Code:
+A set of instructions using the protocols of a given language
+```
+
+</details>
 
 ---
 
@@ -106,6 +144,8 @@ coding_terms = { ... }  # same as 6.3
 for term, definition in coding_terms.items():
     print(f"\n{term}:\n{definition}")
 
+print("-------------------------------------------------------------------")
+
 more_coding_terms = {
     "List": "An ordered, mutable set of objects",
     "PEP 8": "The Python Enhancement Proposal is a style guide of Python code",
@@ -116,6 +156,61 @@ more_coding_terms = {
 coding_terms.update(more_coding_terms)
 for term, definition in coding_terms.items():
     print(f"\n{term}:\n{definition}")
+```
+
+</details>
+<br>
+
+<details>
+<summary>Output</summary>
+
+```
+
+Program:
+A collection of instructions, which perform a specific task
+
+Boolean:
+An expression used for statements that are TRUE or FALSE
+
+Bug:
+A term used to denote an error or defect in hardware or software
+
+Object:
+Combination of related variables, which can be used together.
+
+Code:
+A set of instructions using the protocols of a given language
+-------------------------------------------------------------------
+
+Program:
+A collection of instructions, which perform a specific task
+
+Boolean:
+An expression used for statements that are TRUE or FALSE
+
+Bug:
+A term used to denote an error or defect in hardware or software
+
+Object:
+Combination of related variables, which can be used together.
+
+Code:
+A set of instructions using the protocols of a given language
+
+List:
+An ordered, mutable set of objects
+
+PEP 8:
+The Python Enhancement Proposal is a style guide of Python code
+
+Literal:
+A data item that has a fixed value
+
+Loop:
+A loop is used for iterating over a sequence
+
+Module:
+A Python code file that can be imported and reused
 ```
 
 </details>
@@ -219,7 +314,7 @@ Loop through and print everything about each person.
 <summary>Spoiler Code</summary>
 
 ```python
-person1 = {"first_name": "Scott", "last_name": "McLean", "age": 52, "city": "Lewisville"}
+person1 = {"first_name": "Marcus", "last_name": "Reyes", "age": 38, "city": "Toledo"}
 person2 = {"first_name": "Jeremy", "last_name": "McLean", "age": 47, "city": "Columbus"}
 person3 = {"first_name": "Hillary", "last_name": "Taylor", "age": 50, "city": "Twinsburg"}
 people = [person1, person2, person3]
@@ -227,6 +322,30 @@ for person in people:
     print()
     for key, value in person.items():
         print(f"{key} = {value}")
+```
+
+</details>
+<br>
+
+<details>
+<summary>Output</summary>
+
+```
+
+first_name = Marcus
+last_name = Reyes
+age = 38
+city = Toledo
+
+first_name = Jeremy
+last_name = McLean
+age = 47
+city = Columbus
+
+first_name = Hillary
+last_name = Taylor
+age = 50
+city = Twinsburg
 ```
 
 </details>
@@ -287,6 +406,27 @@ for name, places in favorite_places.items():
 ```
 
 </details>
+<br>
+
+<details>
+<summary>Output</summary>
+
+```
+
+Scott's favorite places include:
+        Ireland
+        Spain
+        Mexico
+
+Matt's favorite places include:
+        Puerto Rico
+
+Pat's favorite places include:
+        Minnesota
+        Scotland
+```
+
+</details>
 
 ---
 
@@ -303,7 +443,7 @@ favorite_numbers = {
     "Scott": [42, 73],
     "Sean": [13, 42],
     "Andy": [37],
-    "Rene": [1, 2, 343],
+    "René": [1, 2, 343],
     "Matt": [12, 6, 4, 3],
     "John": ["i", "√-1"],
 }
@@ -311,6 +451,41 @@ for name, numbers in favorite_numbers.items():
     print(f"\n{name.title()}'s favorite numbers include:")
     for number in numbers:
         print(f"\t{number}")
+```
+
+</details>
+<br>
+
+<details>
+<summary>Output</summary>
+
+```
+
+Scott's favorite numbers include:
+        42
+        73
+
+Sean's favorite numbers include:
+        13
+        42
+
+Andy's favorite numbers include:
+        37
+
+René's favorite numbers include:
+        1
+        2
+        343
+
+Matt's favorite numbers include:
+        12
+        6
+        4
+        3
+
+John's favorite numbers include:
+        i
+        √-1
 ```
 
 </details>
@@ -349,6 +524,39 @@ for city, facts in cities.items():
         if heading == "country":
             fact = fact.title()
         print(f"\t{heading.upper()}:\n\t\t{fact}")
+```
+
+</details>
+<br>
+
+<details>
+<summary>Output</summary>
+
+```
+
+Cleveland
+        COUNTRY:
+                United States
+        POPULATION:
+                383331
+        FACT:
+                Home of the Rock & Roll Hall of Fame
+
+London
+        COUNTRY:
+                England
+        POPULATION:
+                8982000
+        FACT:
+                Hosted the 2012 Summer Olympics
+
+Ensenada
+        COUNTRY:
+                Mexico
+        POPULATION:
+                443807
+        FACT:
+                Known as the 'Capital del vino Mexicano' (Capital of Mexican wine)
 ```
 
 </details>

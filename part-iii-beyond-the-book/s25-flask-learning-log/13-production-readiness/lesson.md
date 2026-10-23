@@ -106,3 +106,5 @@ The friendly 404 page, as a learner sees it.
 - `flask_log/templates/404.html` (new): the friendly 404 page, in the shared layout
 - `flask_log/templates/500.html` (new): the standalone error page
 - `tests/test_production.py` (new): tests for production readiness
+
+---

@@ -22,33 +22,60 @@ class Employee:
     emp_id: str
     city: str = field(init=False, default="Dallas")
 
-emp = Employee("Scott", 53, "smclean")
+emp = Employee("Scott McLean", 53, "smclean")
 print(emp)
 ```
 
 Output:
 
 ```
-Employee(name='Scott', emp_id='smclean', city='Dallas')
+Employee(name='Scott McLean', emp_id='smclean', city='Dallas')
+```
+
+The `age` field is left out of the string, but it's still stored. The `repr`
+setting only affects the string output:
+
+```python
+print(emp.age)
+```
+
+Output:
+
+```
+53
 ```
 
 ---
 
 ### Effect on `__dataclass_fields__`
 
-Like the other field settings, setting the `repr` attribute on a field 
-affects the `__dataclass_fields__`
+Like the other field settings, setting the `repr` attribute on a field affects
+its entry in `__dataclass_fields__`. Printing the `age` entry:
+
+```python
+print(emp.__dataclass_fields__["age"])
+```
+
+Output (formatted across lines for readability, and the memory address will
+vary):
 
 ```
-...
 Field(
     name='age',
     type=<class 'int'>,
-    ...
+    default=<dataclasses._MISSING_TYPE object at 0x0000013E2E2455D0>,
+    default_factory=<dataclasses._MISSING_TYPE object at 0x0000013E2E2455D0>,
+    init=True,
     repr=False,
-    ...
+    hash=None,
+    compare=True,
+    metadata=mappingproxy({}),
+    kw_only=False,
+    _field_type=_FIELD
 )
-...
 ```
+
+> Note: the code file turns off a Pylint warning about `__dataclass_fields__`
+> (no-member). That comment stays in the code file.
 
 ---

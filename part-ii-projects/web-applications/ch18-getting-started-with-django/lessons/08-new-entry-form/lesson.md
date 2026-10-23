@@ -130,3 +130,5 @@ The new entry form on a topic's page, with the large text box and the **Add entr
 - `learning_logs/templates/learning_logs/new_entry.html` (new): the entry form page
 - `learning_logs/templates/learning_logs/topic.html`: adds the link to the entry form
 - `learning_logs/tests.py`: adds tests for the entry form
+
+---

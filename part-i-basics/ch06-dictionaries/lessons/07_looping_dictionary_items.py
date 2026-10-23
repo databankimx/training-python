@@ -12,10 +12,8 @@ user = {
 print(user.items())
 
 for key, value in user.items():
-    print(f"\nKey:   {key}")
-    print(f"Value: {value}")
-
-print()
+    print(f"Key:   {key}")
+    print(f"Value: {value}\n")
 
 favorite_languages = {
     "jen": "python",
@@ -24,10 +22,10 @@ favorite_languages = {
     "phil": "python",
 }
 
-for key, value in favorite_languages.items():
-    print(f"{key.title()}'s favorite language is {value.title()}.")
+for name, language in favorite_languages.items():
+    print(f"{name.title()}'s favorite language is {language.title()}.")
 
 print()
 
-for name, language in favorite_languages.items():
-    print(f"{name.title()}'s favorite language is {language.title()}.")
+for key, value in favorite_languages.items():
+    print(f"{key.title()}'s favorite language is {value.title()}.")

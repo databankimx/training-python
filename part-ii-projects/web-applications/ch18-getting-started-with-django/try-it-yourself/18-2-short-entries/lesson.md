@@ -43,3 +43,5 @@ The tests in `learning_logs/tests.py` check both cases: a long entry is shortene
 The admin list with one short entry shown in full, and one long entry shown with its ellipsis.
 
 ![Admin entry list with a short and a long entry](lesson-images/admin-entry-ellipsis.png)
+
+---

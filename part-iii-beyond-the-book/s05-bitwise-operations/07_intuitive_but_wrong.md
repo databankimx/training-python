@@ -53,7 +53,8 @@ This approach introduces two major flaws:
     * This is wasteful, since there is no mathematical difference between
       $0$ and $-0$
     * It also results in the possibility that adding zero could flip the
-      sign on the number to which it's being added.
+      sign on the number to which it's being added. For example, $0101_2 + 1000_2 = 1101_2$,
+      so adding $-0$ turns $5$ into $-5$.
 
 2. The way the adder circuit works, we would get incorrect answers, so this
    would necessitate a more complicated circuit, affecting performance.
@@ -66,7 +67,7 @@ This approach introduces two major flaws:
 
 ### Adding Our Invalid Negatives
 
-Recall that $0-1$ is the same as $0+-1$ so let's look at the
+Recall that $1-1$ is the same as $1+(-1)$, so let's look at the
 result of that (using our intuitive system) in binary addition
 
 $1_{10}$ (as 4-bit binary) is $0001_2$
@@ -85,7 +86,8 @@ So according to our system, $1-1=-2$, which is obviously wrong
 
 ### Overflowing into the Sign Bit
 
-Other numbers can lose a carry bit and flip the sign.
+Other numbers can lose a carry out of the leftmost bit, and the result wraps
+around to a wrong value.
 
 Consider $7-3$ or $7+-3$
 

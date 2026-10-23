@@ -97,3 +97,5 @@ The ship moves a little faster than in the last step. Its speed is set by `ship_
 
 - `settings.py`: adds `ship_speed`
 - `ship.py`: stores the position as a float, and moves by `ship_speed`
+
+---

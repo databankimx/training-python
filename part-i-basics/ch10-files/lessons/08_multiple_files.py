@@ -17,7 +17,7 @@ def count_words(filename):
     """Get the approximate word count from a file."""
     file_path = os.path.join(ROOT_DIR, "Files", filename)
     try:
-        with open(file_path, encoding="utf-8") as f:
+        with open(file_path, encoding="UTF-8") as f:
             contents = f.read()
     except FileNotFoundError:
         print(f"Sorry, the file {filename} does not exist.")
@@ -46,7 +46,7 @@ def count_file_words(filename):
     file_path = get_path(filename, "Files")
     try:
         file = Path(file_path)
-        contents = file.read_text(encoding="utf-8")
+        contents = file.read_text(encoding="UTF-8")
     except FileNotFoundError:
         print(f"Sorry, the file {filename} does not exist.")
     # pylint: disable=broad-except

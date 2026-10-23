@@ -70,3 +70,5 @@ The character appears at the center of the sky blue window. Its background blend
 window, so only the character is visible.
 
 ![Game character at the center of the window](lesson-images/character.png)
+
+---

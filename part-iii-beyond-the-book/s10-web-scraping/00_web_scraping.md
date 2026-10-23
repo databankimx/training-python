@@ -37,7 +37,7 @@ server(s).
 Many websites (including the ones developed by my team) include code
 specifically meant to thwart web scraping bots.
 
-It isn't illegal, and it is in high demand, but it's up to you as a 
+It isn't necessarily illegal (rules are evolving and depend on location and the site's terms of use), and it is in high demand, but it's up to you as a 
 developer to identify where you draw the line ethically.
 
 Some folks are making their entire annual income delivering web scraping

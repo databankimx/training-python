@@ -51,7 +51,7 @@ Solution:
 ```python
 guests = input("How many guests in your party?\n> ")
 guests = int(guests)
-if (guests > 8):
+if guests > 8:
     print("There will be a little wait for a table.")
 else:
     print("Your table is ready.")
@@ -102,9 +102,9 @@ Enter a number, and I will tell you if it is a multiple of 10:
 42 is not a multiple of 10.
 ```
 
----
-
 </details>
+
+---
 
 ### Assignment 7.4 - Pizza Toppings
 
@@ -222,14 +222,27 @@ Solution:
 <summary>Spoiler Code</summary>
 
 ```python
-message = ""
+# Version 1: a conditional test in the while statement
+message = input("Enter a topping or 'quit':\n> ")
+while message.lower() != "quit":
+    print(f" - Added {message}")
+    message = input("Enter a topping or 'quit':\n> ")
+
+# Version 2: an active variable controls the loop
 active = True
 prompt = "Enter a topping or 'quit':\n> "
 while active:
     message = input(prompt)
     if message.lower() == "quit":
-        # Only one of these is needed (bullets 2 and 3)
         active = False
+    else:
+        print(f" - Added {message}")
+
+# Version 3: a break statement exits the loop
+prompt = "Enter a topping or 'quit':\n> "
+while True:
+    message = input(prompt)
+    if message.lower() == "quit":
         break
     print(f" - Added {message}")
 ```
@@ -239,6 +252,8 @@ while active:
 
 <details>
 <summary>Output</summary>
+
+Each version prints the same output:
 
 ```
 Enter a topping or 'quit':
@@ -277,6 +292,8 @@ while num <= 10:
 
 <details>
 <summary>Output</summary>
+
+Sample output (the loop never ends on its own, so this is cut short):
 
 ```
 1
@@ -409,8 +426,8 @@ while polling_active:
     name = input("\nWhat is your name?\n> ")
     response = input("Where would you take your dream vacation?\n> ")
     responses[name] = response
-    repeat = input("Would you like to let another person respond? (yes/no)\n> ").lower()[0]
-    if repeat == "n":
+    repeat = input("Would you like to let another person respond? (yes/no)\n> ").strip().lower()
+    if repeat == "n" or repeat == "no":
         polling_active = False
 
 print("\n--- Poll Results ---")

@@ -122,3 +122,5 @@ move a little faster.
 
 - `settings.py`: splits the static and dynamic settings, and adds `speedup_scale` and `increase_speed()`
 - `alien_invasion.py`: resets the dynamic settings on Play, and speeds the game up when a fleet is cleared
+
+---

@@ -105,3 +105,5 @@ is lost, the Play button returns and the cursor reappears.
 ## Changed files
 
 - `alien_invasion.py`: handles clicks on the Play button, resets the game, and shows or hides the cursor
+
+---

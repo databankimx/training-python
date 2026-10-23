@@ -69,3 +69,5 @@ The terminal prints `Ship hit!!!` each time an alien touches the ship. The windo
 ## Changed files
 
 - `alien_invasion.py`: `_update_aliens()` checks for alien-ship collisions and prints a message
+
+---

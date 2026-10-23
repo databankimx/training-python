@@ -101,3 +101,5 @@ Run `alien_invasion.py`. You should see an empty window, which is black by defau
 ## Changed files
 
 - `alien_invasion.py` (new)
+
+---

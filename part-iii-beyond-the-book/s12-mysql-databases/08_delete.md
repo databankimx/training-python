@@ -46,12 +46,13 @@ Output:
 
 ### Parameterizing the Query
 
-As always, you should parameterize values in the `WHERE` clause
+Whenever a value comes from outside the code, such as user input, parameterize it
+in the `WHERE` clause
 
 ```python
 if conn.is_connected():
     sql = "DELETE FROM customers WHERE address = %s"
-    params = ("Yellow Garden 2", )
+    params = ("Yellow Garden 2",)
     cursor = conn.cursor()
     cursor.execute(sql, params)
     conn.commit()
@@ -63,5 +64,8 @@ Output:
 ```
 1 record(s) deleted
 ```
+
+> Note: the code file has a Pylint comment (`no-name-in-module`) on the `mysql.connector`
+> import, which stays in the code file.
 
 ---

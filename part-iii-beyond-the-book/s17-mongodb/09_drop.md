@@ -3,8 +3,9 @@
 To perform a final cleanup of our practice work, we'll review how to remove
 the collection and database from MongoDB.
 
-For the examples below, we'll assume that we have already obtained the 
-`MongoClient` as `client` and `Database` as `db`
+For the examples below, we'll assume that we have already obtained the
+`MongoClient` as `client`, the `Database` as `db`, and the settings dictionary as
+`settings`.
 
 ---
 
@@ -66,7 +67,8 @@ for name in client.list_database_names():
 
 print(f"Removing database: `{db_name}`...")
 client.drop_database(db_name)
-print(f"Database '{db_name}' removed.\n")
+print(f"Database '{db_name}' removed.")
+print()
 
 print("Available databases:")
 for name in client.list_database_names():

@@ -1,18 +1,16 @@
 ## Positional Versus Keyword Arguments
 
-So far, we've only looked at positional arguments. These are unnamed arguments
-that must be passed to the function in the order they appear in the function 
-signature.
+So far, we've only looked at positional arguments. These are unnamed arguments that must be passed to
+the function in the order they appear in the function signature.
 
-Python also permits passing keyword arguments. These calls include the name of 
-the argument and can be passed in any order.
+Python also lets you pass keyword arguments. These include the name of the parameter, so they can be
+passed in any order.
 
 ---
 
 ### Positional Arguments
 
-Positional arguments must be passed to the function in the order they appear
-in the function signature.
+Positional arguments must be passed to the function in the order they appear in the function signature.
 
 So, if we have this function:
 
@@ -23,8 +21,7 @@ def describe_pet(animal_type, pet_name):
     print(f"My {animal_type}'s name is {pet_name.title()}.")
 ```
 
-We must pass the arguments to the function in order: `animal_type` and then
-`pet_name`.
+We must pass the arguments in order: `animal_type` first, then `pet_name`.
 
 ```python
 describe_pet("dog", "fido")
@@ -56,11 +53,10 @@ My fido's name is Dog.
 
 ### Keyword Arguments
 
-When we pass the arguments as keywords, the order doesn't matter.
+When you pass arguments as keywords, the order doesn't matter. Include the parameter names in your call.
+The names are case-sensitive and must match exactly.
 
-Using the same function we defined earlier, we simply include the parameter
-names (which is case-sensitive and must match exactly) in our arguments, and even when we pass them 
-out of order...
+Using the same function, we can pass the arguments out of order:
 
 ```python
 describe_pet(pet_name="fido", animal_type="dog")
@@ -73,37 +69,36 @@ I have a dog.
 My dog's name is Fido.
 ```
 
-... the results are as we expected.
+The results are the same as before.
 
 ---
 
-### All Argument Are Required
+### All Arguments Are Required
 
-By default, every argument is required. If we omit an argument when calling
-a function, we will receive a `TypeError`.
+By default, every argument is required. If you leave one out when calling a function, Python raises
+a `TypeError`.
 
 ```python
 describe_pet("fido")
 ```
 
-Output:
+Output (the file name and line number depend on your program):
 
 ```
 Traceback (most recent call last):
-  File "...\03_positional_versus_keyword_args.py", line 18, in <module>      
+  File "...\03_positional_versus_keyword_args.py", line 18, in <module>
     describe_pet("fido")
 TypeError: describe_pet() missing 1 required positional argument: 'pet_name'
 ```
 
 ---
 
-### Functions Don't Always Return Values
+### Functions Don't Always Return a Value
 
-You should not make the mistake of assuming that you can capture the results
-of a function.
+Don't assume that a function gives you something back just because you called it. A function that
+doesn't use `return` gives back `None`.
 
-We will discuss how to make a function pass back a value in a couple of
-lessons. For now, just note that this will print `None`
+We'll cover how to return a value in a couple of lessons. For now, just notice that this prints `None`:
 
 ```python
 message = describe_pet("fish", "bubbles")
@@ -115,5 +110,10 @@ Output:
 ```
 None
 ```
+
+> **About the Pylint comment:** the `.py` file turns off a Pylint warning on that assignment. Pylint
+> notices that `describe_pet()` never returns a value, so it flags the assignment. That warning is the
+> point of this example, so the comment is there to keep the file clean while the lesson shows the
+> `None`.
 
 ---

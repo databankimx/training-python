@@ -1,6 +1,6 @@
 ## Accessing `__dataclass_fields__`
 
-An instance of a DataClass exposes a description of all of its member 
+An instance of a dataclass exposes a description of all of its member 
 fields as `__dataclass_fields__`
 
 ---
@@ -20,9 +20,11 @@ class Employee:
     age: int
     city: str
 
-emp = Employee("Scott", "McLean", 53, "Dallas")
+emp = Employee("Scott McLean", "smclean", 53, "Dallas")
 print(emp.__dataclass_fields__)
 ```
+
+> Note: the code file turns off a Pylint warning about `__dataclass_fields__` (no-member). That comment stays in the code file.
 
 > Note: When actually printed out, this won't be formatted. I added carriage
 > returns and indentation to make the first field more readable.
@@ -101,12 +103,12 @@ these later in the lesson):
 |-|-|
 |`name`|Name of the field (declared in the class)|
 |`type`|Data type of the field (per the type hint in the declaration)|
-|`default`|Specifies the default value for the field|
+|`default`|Specifies the default value for the field (`_MISSING_TYPE` if there isn't one)|
 |`default_factory`|Function that returns the default value for the field|
 |`init`|If `True`, the field is included in the generated `__init__` method|
 |`repr`|If `True`, the field is included in the generated `__repr__` method|
-|`hash`|If `True`, the field is included in the generated `__hash__` method|
-|`compare`|If `True`, field is included in `__eq__`  and `__gt__` methods|
+|`hash`|Default `None` follows `compare`; `True` or `False` forces the field in or out of the generated `__hash__` method|
+|`compare`|If `True`, field is included in `__eq__` and the ordering methods|
 |`metadata`|Dictionary (or None) defining additional data about the field|
 |`kw_only`|If `True`, the field can only be a keyword argument in `__init__`|
 |`_field_type`|The type of field implemented. In this lesson all are `_FIELD`|

@@ -112,3 +112,5 @@ No change yet. The next step fires bullets.
 
 - `settings.py`: adds the bullet settings
 - `bullet.py` (new): the `Bullet` class
+
+---

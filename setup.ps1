@@ -120,7 +120,7 @@ Write-Note "Found Python $pythonVersion."
 $tkOk = $true
 try { & python -c "import tkinter" 2>$null | Out-Null; if ($LASTEXITCODE -ne 0) { $tkOk = $false } } catch { $tkOk = $false }
 if (-not $tkOk) {
-    Add-Warning "tkinter isn't available. The Tkinter chapter and the lesson runner's logo need it. winget doesn't always include it: run the Python 3.12 installer from python.org again, choose Modify, and tick 'tcl/tk and IDLE'."
+    Add-Warning "tkinter isn't available. The Tkinter chapter needs it. winget doesn't always include it: run the Python 3.12 installer from python.org again, choose Modify, and tick 'tcl/tk and IDLE'."
 }
 $script:results["Python $pythonVersion"] = "ok"
 

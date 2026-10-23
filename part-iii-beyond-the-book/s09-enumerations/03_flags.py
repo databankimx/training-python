@@ -1,7 +1,8 @@
 """Flags"""
 
-from enum import Flag
 from datetime import date
+from enum import Flag
+from typing import Self
 
 class Weekday(Flag):
     """Defines names for days of the week as bit-flags"""
@@ -14,7 +15,7 @@ class Weekday(Flag):
     SUNDAY = 64
 
     @classmethod
-    def from_date(cls, day: date) -> Flag:
+    def from_date(cls, day: date) -> Self:
         """Get weekday name of the given date"""
         return cls(2 ** day.weekday())
 

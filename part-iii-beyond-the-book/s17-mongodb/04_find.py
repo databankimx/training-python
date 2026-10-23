@@ -1,10 +1,11 @@
 """Retrieve records from MongoDB collection"""
 
+from typing import Any
 from login import get_settings, get_client, server_connected
 from pymongo import MongoClient
 from pymongo.synchronous.collection import Collection
 
-def connect(settings: dict[str, any]=None) -> tuple[MongoClient, Collection]|None:
+def connect(settings: dict[str, Any] | None = None) -> tuple[MongoClient, Collection] | None:
     """Connect to MongoDB database"""
     if not settings:
         settings = get_settings()
@@ -45,7 +46,7 @@ def get_all_records(col: Collection) -> None:
         print(res)
     print()
 
-def get_filtered_records(col: Collection, doc_filter: dict[str, any]) -> None:
+def get_filtered_records(col: Collection, doc_filter: dict[str, Any]) -> None:
     """Retrieve records from MongoDB collection based on filter"""
     if col is None:
         print("No active MongoDB collection")

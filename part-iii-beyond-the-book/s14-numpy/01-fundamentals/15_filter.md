@@ -1,7 +1,7 @@
 ## Filtering Arrays
 
 It is often necessary to obtain only values from an array that meet
-certain criteria. NumPy arrays include methodology for filtering their
+certain criteria. NumPy arrays include methods for filtering their
 contents.
 
 The syntax for obtaining a filtered array is:
@@ -27,8 +27,8 @@ def sieve(n) -> list[bool]:
     for p in range(2, int(n ** 0.5) + 1):
         if not primes[p]:
             continue
-        for n in range(p * 2, n + 1, p):
-            primes[n] = False
+        for m in range(p * 2, n + 1, p):
+            primes[m] = False
     return primes
 ```
 
@@ -36,8 +36,8 @@ def sieve(n) -> list[bool]:
 
 ### Filtering with a Boolean Index List
 
-The easiest way to perform filtering is to generate a list of boolean 
-values. When used as an index list, any index where the value is 
+The easiest way to perform filtering is to generate a list of boolean
+values. When used as an index list, any index where the value is
 `True` is included in the filter, and any index where the value is
 `False` is excluded.
 
@@ -46,25 +46,28 @@ import numpy as np
 
 arr = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 print(f"Array: {arr}")
-filter = sieve(len(arr) - 1)
-print(f"Filter: {filter}")
-print(f"Filtered array: {arr[filter]}")
+arr_filter = sieve(len(arr) - 1)
+print(f"Filter: {arr_filter}")
+print(f"Filtered array: {arr[arr_filter]}")
 ```
 
 Output:
 
 ```
 Array: [0 1 2 3 4 5 6 7 8 9]
-Filter: [False, False, True, True, False, True, False, True, False, True]
-Filtered array: [2 3 5 7 9]
+Filter: [False, False, True, True, False, True, False, True, False, False]
+Filtered array: [2 3 5 7]
 ```
+
+The filter is `True` only at the prime indices. The value 9 is not prime, because
+3 divides it, so it is excluded.
 
 ---
 
 ### Creating a Filter with a Loop
 
 Another simple way to generate a filter list is with a loop. Here, we
-iterate over each element of the array and append a NumPy boolean 
+iterate over each element of the array and append a NumPy boolean
 value (`np.True_` or `np.False_`) to the filter based on whether the
 element meets some specified criteria (in this case, even numbers).
 
@@ -87,6 +90,9 @@ Array: [1 2 3 4 5 6]
 Filter: [np.False_, np.True_, np.False_, np.True_, np.False_, np.True_]
 Filtered array: [2 4 6]
 ```
+
+The `np.False_` and `np.True_` display is from NumPy 2. NumPy 1.x prints `False` and
+`True`.
 
 ---
 

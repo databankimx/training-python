@@ -7,8 +7,8 @@
 print("Try-it-Yourself:")
 print("Assignment 6.1")
 
-person = {"first_name": "Scott", "last_name": "McLean",
-          "age": 54, "city": "Lewisville"}
+person = {"first_name": "Dana", "last_name": "Whitfield",
+          "age": 41, "city": "Akron"}
 print(f"First Name: {person['first_name']}")
 print(f"Last Name:  {person['last_name']}")
 print(f"Age:        {person['age']}")

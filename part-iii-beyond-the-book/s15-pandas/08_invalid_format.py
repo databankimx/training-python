@@ -3,7 +3,7 @@
 import pandas as pd
 from utilities import file_path
 
-def load_from_csv(filepath: str, printout: bool=False) -> pd.DataFrame:
+def load_from_csv(filepath: str, printout: bool = False) -> pd.DataFrame:
     """Load data from a CSV file into a Pandas DataFrame"""
     df = pd.read_csv(filepath, quotechar="'", quoting=2)
     if printout:
@@ -24,7 +24,7 @@ def format_dates(df: pd.DataFrame) -> None:
     print(df.tail(10), "\n")
 
 def add_missing_dates(df: pd.DataFrame) -> None:
-    """Add missing date values by interpolating"""
+    """Fill missing date values by shifting the previous date forward one day"""
     df.fillna({"Date": df["Date"].shift() + pd.DateOffset(1)}, inplace=True)
     print(df.tail(10), "\n")
 

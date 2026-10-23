@@ -119,7 +119,7 @@ If you perform a bitwise OR on those values...
 > |||
 > |-:|-:|
 > |$0000~0001_2$|$(1_{10})$|
-> |$\underline{~\|~~0000~1000_2}$|$(8_{10})$|
+> |$\underline{~\mid~~0000~1000_2}$|$(8_{10})$|
 > |$0000~1001_2$|$(9_{10})$|
 
 ... you end up with the value 9, where both bits are set.
@@ -222,7 +222,7 @@ Ready for word processing...
 
 ---
 
-### We Compared a Bit_mask Against a Bit-Flag
+### We Compared a Bit-Mask Against a Bit-Flag
 
 This works because now, you have the Word Processing bit set in each 
 package that includes it.
@@ -244,7 +244,7 @@ packages are modified. You only need to change the enum.
 
 ### The Full Example
 
-See [bit_flags_redux.py](./14_bit_flags_redux.py)
+See [14_bit_flags_redux.py](./14_bit_flags_redux.py)
 
 ```python
 from enum import IntFlag
@@ -266,9 +266,9 @@ class ProductLicenses(IntFlag):
 
 def main() -> None:
     licenses = ProductLicenses.work
-    for l in ProductLicenses:
-        if not licenses & l: continue
-        print(l.name)
+    for product in ProductLicenses:
+        if not licenses & product: continue
+        print(product.name)
 
 if __name__ == "__main__":
     main()

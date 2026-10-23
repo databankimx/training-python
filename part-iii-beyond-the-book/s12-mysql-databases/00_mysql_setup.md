@@ -10,13 +10,15 @@ If you don't already have MySQL installed, here is a Google Drive share where I 
 
 1. Download and install [MySQL 8.1](https://drive.google.com/file/d/1dHOzAvlspUtxmsafwhtd0rDLAOb3iDXY/view?usp=drive_link)
     * Configure a Username and Password  
-      Note: I use Username: *python* | Password: *training* in the lessons
+      Note: I use Username: *python* | Password: *training* in the lessons. These are
+      for a local training database only. The `GRANT ALL` statement below gives the user
+      every privilege on the server, so don't use these settings on a shared server.
         * You can use the MySQL Configurator application  
           or
         * From the MySQL Command Line Client, run the following:
           ```sql
           CREATE USER 'python'@'localhost' IDENTIFIED BY 'training';
-          USE MYSQL;
+          USE mysql;
           GRANT ALL ON *.* TO 'python'@'localhost';
           ```
 2. Download and install [MySQL Workbench 8.0](https://drive.google.com/file/d/17Try0gyy6Ai0W0ts-SRhLhmXervRp9Gh/view?usp=drive_link)
@@ -31,7 +33,8 @@ You'll also need the Python MySQL Connector
    `python -m venv .venv`
 
 2. Activate the virtual environment:  
-   `.venv\Scripts\activate`
+   `.venv\Scripts\activate`  
+   On macOS or Linux, use `source .venv/bin/activate` instead.
 
 3. Install the MySQL Connector module:  
    `python -m pip install mysql-connector-python`

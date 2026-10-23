@@ -85,3 +85,5 @@ so the stars don't need a draw method of their own.
 A grid of stars fills the window.
 
 ![Grid of stars](lesson-images/stars.png)
+
+---

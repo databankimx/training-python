@@ -12,8 +12,7 @@ module exists.
 ### What is a Random Number?
 
 The term *random* does not mean that you will generate a different number
-every time. Nor does it mean that there will not be sequences of 
-repetition.
+every time. Nor does it mean that there will not be sequences of repetition.
 
 Instead, *random* means: not able to be logically predicted.
 
@@ -21,9 +20,9 @@ Instead, *random* means: not able to be logically predicted.
 
 ### Pseudo-Random Numbers
 
-Because computers work with algorithms (repeatable series of 
+Because computers work with algorithms (repeatable series of
 instructions), it means that when a computer generates a so-called
-"random" number, it is logically predictable (i.e.: given a fixed set of 
+"random" number, it is logically predictable (i.e.: given a fixed set of
 initial conditions, the computer will always generate the same number).
 
 We refer to these numbers as *pseudo-random*, and much effort is made to
@@ -41,7 +40,7 @@ Short Answer: Yes
 
 But, as you'd expect, it's more complicated than that.
 
-In order to generate a truly random number on a computer we require 
+In order to generate a truly random number on a computer we require
 random data from some external source, such as:
 
 * Keystrokes

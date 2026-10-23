@@ -15,7 +15,7 @@ def scrape_with_soup(url: str) -> BeautifulSoup:
 def get_links(url: str) -> list[str]:
     """Obtain the links to the profile pages"""
     soup = scrape_with_soup(url)
-    return [l["href"] for l in soup.find_all("a")]
+    return [link["href"] for link in soup.find_all("a")]
 
 def parse_text_content(text: str, search: str) -> str:
     """Read information from the text"""
@@ -25,10 +25,11 @@ def parse_text_content(text: str, search: str) -> str:
 
 def download_image(url: str) -> None:
     """Store an image file"""
-    image = requests.get(url, timeout=10).content
+    response = requests.get(url, timeout=10)
+    response.raise_for_status()
     filename = url.split("/")[-1]
     filepath = Path(get_path(filename, "images"))
-    filepath.write_bytes(image)
+    filepath.write_bytes(response.content)
 
 def scrape_images(url: str, soup: BeautifulSoup) -> None:
     """Extract all images from the page"""

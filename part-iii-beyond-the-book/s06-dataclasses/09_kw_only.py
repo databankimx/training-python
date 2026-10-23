@@ -1,4 +1,4 @@
-"""DataClass with Keyword Only Arguments"""
+"""Dataclass with keyword-only arguments"""
 
 from dataclasses import dataclass
 

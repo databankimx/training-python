@@ -164,7 +164,7 @@ def pretty_folder(name: str) -> str:
     return prettify(name)
 
 
-def natural_key(text: str) -> list:
+def natural_key(text: str) -> list[int | str]:
     """Sort key that orders numbers numerically inside a name."""
     parts = re.split(r"(\d+)", text.lower())
     return [int(part) if index % 2 else part for index, part in enumerate(parts)]
@@ -523,4 +523,5 @@ def discover() -> list[Scope]:
     if flask.is_dir():
         part_three = next(scope for scope in scopes if scope.name == "Part III - Beyond the Book")
         part_three.chapters.append(web_chapter(flask))
+        part_three.chapters.sort(key=lambda chapter: natural_key(chapter.folder.name))
     return scopes

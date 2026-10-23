@@ -8,7 +8,7 @@ def fibonacci(n: int) -> int:
     values = [0, 1]
     for i in range(2, n + 1):
         values.append(values[i - 1] + values[i - 2])
-    return values[-1]
+    return values[n]
 
 def main() -> None:
     """Main function to test the Fibonacci function"""

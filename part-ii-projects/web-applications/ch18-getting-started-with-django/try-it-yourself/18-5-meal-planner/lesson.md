@@ -58,3 +58,5 @@ path("", include("meal_plans.urls")),
 The Meal Planner home page at `http://127.0.0.1:8000/`, with its title and one sentence.
 
 ![The Meal Planner home page](lesson-images/meal-planner-home.png)
+
+---

@@ -1,6 +1,6 @@
-## The DataClass `order` Argument
+## The Dataclass `order` Argument
 
-When the `order` argument is `True` (default value is `False`), the DataClass 
+When the `order` argument is `True` (default value is `False`), the dataclass 
 generates the following methods automatically
 
 * `__gt__()`
@@ -8,11 +8,13 @@ generates the following methods automatically
 * `__lt__()`
 * `__le__()`
 
-These compare all fields in the class (in the order declared) between two
-objects.
+These compare all fields in the class, in the order they are declared, between
+two objects. Two instances are compared field by field: the first field decides
+the result unless the two values are equal, in which case the next field is
+compared, and so on.
 
-Be careful with using this. Since the comparisons take place across all 
-elements, the results may be difficult to predict.
+Be careful with using this. The results depend on the order the fields are
+declared, so reordering the fields can change how instances sort.
 
 ---
 
@@ -49,8 +51,30 @@ emp_1 <= emp_3: True
 ```
 
 > Notice how `emp_1 > emp_2` returns true, even though `emp_2` has a larger
-> value for `age`. This is because before it gets to `age`, `__gt__()` has
-> already identified that `'Scott McLean'` is larger (alphabetically) than
-> `'Saul Goodman'`.
+> value for `age`. This is because the first field, `name`, decides the result:
+> `'Scott McLean'` is larger than `'Saul Goodman'` alphabetically, so `age` is
+> never compared.
+
+---
+
+### Comparing With Other Types
+
+The comparison methods only work with instances of the same class. Comparing an
+`Employee` with a value of another type returns `NotImplemented`, and Python then
+raises a `TypeError`:
+
+```python
+emp_1 < 54
+```
+
+Output:
+
+```
+TypeError: '<' not supported between instances of 'Employee' and 'int'
+```
+
+> Note: `order=True` requires `eq=True`. If you set `eq=False` and `order=True`
+> together, the dataclass raises a `ValueError`. Since `eq` is `True` by default,
+> you only run into this if you turn `eq` off.
 
 ---

@@ -17,14 +17,25 @@ the target page.
 def get_links(url: str) -> list[str]:
     """Obtain the links to the profile pages"""
     soup = scrape_with_soup(url)
-    return [l["href"] for l in soup.find_all("a")]
+    return [link["href"] for link in soup.find_all("a")]
 ```
 
 Here, we are using the `.find_all()` method to locate all `<a>` tags in
 the HTML (`<a>` or "anchor" is the HTML tag for a hyperlink).
 
+The function uses `scrape_with_soup()` from the previous lesson.
+
 Then, from each one, we're extracting the `href` attribute, which 
-contains the link URL.
+contains the link URL. Note that `link["href"]` raises a `KeyError` if an `<a>`
+tag has no `href`. `link.get("href")` returns `None` instead.
+
+> Note: the code file turns off a Sonar warning on the base URL. That comment stays
+> in the code file.
+
+The links on this page are relative (such as `/profiles/aphrodite`), so the code
+builds each full URL by joining the base URL with the last part of the link. That
+works for this site, but `urllib.parse.urljoin(base_url, href)` is the sturdier
+choice, because it handles relative and absolute links correctly.
 
 We can test thus:
 

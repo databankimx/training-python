@@ -27,8 +27,8 @@ Consider this scenario:
 
 ||
 |-:|
-|$a=1001~1100_2=156_{10}$|
-|$~a=0110~0011_2=~~99_{10}$|
+|$b=1001~1100_2=156_{10}$|
+|$\sim b=0110~0011_2=~~99_{10}$|
 
 ```python
 b = 0b10011100
@@ -46,6 +46,9 @@ b = 10011100
 n = 10011101 *wrong
 ```
 
+The minus sign is lost here. `split('b')` keeps only the digits after the `b`, so
+`-0b10011101` prints as `10011101`, which looks like a positive number.
+
 ---
 
 ### A Word of Warning
@@ -60,9 +63,12 @@ results if you're treating a bitwise value as unsigned.
 For example, when Python processes the following, it yields the wrong answer.
 
 |||
-|-:|-:|
-|$a=1001~1100_2=156_{10}$||
-|$~a=1001~1101_2=157_{10}$|(*wrong answer)|
+|:-|-:|
+|$~~~~b=~~~1001~1100_2=~~~156_{10}$||
+|$\sim b=-1001~1101_2=-157_{10}$|(*wrong answer)|
+
+Python prints this as `-10011101`, which is $-157$. Read as an unsigned 8-bit value,
+the same bit pattern would be $157$, which is why the result looks wrong.
 
 ```python
 b = 0b10011100
@@ -80,7 +86,7 @@ However, we can create a function to perform the bitwise NOT operation and
 yield the expected result.
 
 ```python
-def bitwise_not(n, num_bits=8) -> int:
+def bitwise_not(n: int, num_bits: int = 8) -> int:
     # Note: I'm cheating a little using a bit-shift here
     #       Don't worry - That lesson is coming up soon
     return ~n & ((1 << num_bits) - 1)
@@ -94,8 +100,12 @@ n = bitwise_not(b)  # 01100011 (*right answer)
 This works because the value of `(1 << num_bits) - 1` (with an 8-bit 
 value) will be `1111 1111`
 
-The `&` operation in `~n & ((1 << num_bits) - 1)` will lose the 
-sign bit and yield the correct answer.
+The `&` operation in `~n & ((1 << num_bits) - 1)` discards the leading ones that
+Python's sign extension adds, keeping only the low `num_bits` bits. That gives the
+correct 8-bit answer.
+
+For wider values, pass a larger `num_bits`, since the mask is what limits the
+result to that width.
 
 ---
 
@@ -119,10 +129,9 @@ def set_bit(word: int, pos: int, value: int) -> int:
     mask = 1 << pos
     if value == 0:
         return word & ~mask
-    elif value == 1:
+    if value == 1:
         return word | mask
-    else:
-        return word
+    return word
 
 def main() -> None:
     for pos in range(0, 8):

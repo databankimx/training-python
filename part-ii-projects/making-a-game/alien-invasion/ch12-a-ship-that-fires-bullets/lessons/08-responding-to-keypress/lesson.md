@@ -66,3 +66,5 @@ Press the right arrow key. The ship moves one pixel to the right each time.
 ## Changed files
 
 - `alien_invasion.py`: `_check_events()` responds to the right arrow key
+
+---

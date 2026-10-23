@@ -39,11 +39,21 @@ The two's complement implementation for negatives would look like this:
 * $1100_2=-4_{10}$
 * $1011_2=-5_{10}$
 * $1010_2=-6_{10}$
-* $1001_2=-7_{10}$  
-  ... which would leave a wasted bit, so ...
+* $1001_2=-7_{10}$
+
+After the seven negative patterns from `1111` down to `1001`, the pattern `1000`
+is left over. Rather than waste it, two's complement uses it for one more
+negative value:
+
 * $1000_2=-8_{10}$
 
-... and this is why we have an extra negative value in integer data types
+This is why the extra value is negative. It's the reason we promised in the
+lesson on negative numbers, and it means that a signed 8-bit integer ranges from
+−128 to 127.
+
+Note that the same pattern means different things in different systems. In a
+simple sign-and-magnitude reading, `1000 0001` is −1, as in the lesson on
+negative numbers. In two's complement, the same 8 bits are −127.
 
 ---
 
@@ -83,7 +93,8 @@ $7-3=4$
 
 Implementation of a two's complement negatives system ensures that we
 always get the correct answer when performing binary addition with our
-adder circuits, even if the signs don't match.
+adder circuits, even if the signs don't match. The answer is correct as long as
+it falls within the range the type can hold.
 
 ---
 
@@ -119,6 +130,10 @@ binary addition:
 And we see the previously inexplicable behavior of $127+1=-128$ for
 an 8-bit signed integer emerge as a result of overflowing into the sign 
 bit.
+
+> Note: as in the earlier lesson, overflowing a signed integer is undefined
+> behavior in C. The `-128` shown here is what most systems produce, but the C
+> standard doesn't guarantee it.
 
 ---
 

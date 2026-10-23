@@ -20,6 +20,7 @@ def language_survey() -> None:
 
 def main() -> None:
     """Main process"""
+    print("Chapter 11:\nExercise 2 - Testing a Class\n")
     language_survey()
 
 if __name__ == "__main__":

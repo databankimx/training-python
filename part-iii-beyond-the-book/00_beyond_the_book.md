@@ -7,7 +7,7 @@ available, which is why I selected it for teaching this course.
 However, it's impossible for an introductory textbook to include every
 possible topic that you need to learn to be ready for programming in Python.
 
-This section of lessons are add-on topics that I think are valuable for a
+This section is a collection of add-on topics that I think are valuable for a
 beginning developer.
 
 ---
@@ -29,18 +29,18 @@ beginning developer.
 * [Publishing a Library](./s13-publish-a-library/00_intro.md)
 * [NumPy](./s14-numpy/01-fundamentals/00_fundamentals.md)
 * [Pandas](./s15-pandas/00_intro.md)
-* [SciPy](./s16-scipy/00_intro.md) <span style="color:salmon">*</span>
+* [SciPy](./s16-scipy/00_intro.md)
 * [MongoDB](./s17-mongodb/00_intro.md)
 * [Trie Data Structure](./s18-trie/00_intro.md)
-* [Filter](./s19-filter/01_function_filter.md)
+* [Tkinter](./s19-tkinter/00_intro.md)
 * [Card Games](./s20-card-games/00_intro.md)
 * [Morse Code](./s21-morse-code/00_intro.md)
 * [Rochambeau (Rock, Paper, Scissors)](./s22-rochambeau/00_intro.md)
 * [Conway's Game of Life](./s23-game-of-life/00_intro.md)
 * [Built-In Functions and Modules](./s24-built-ins/00_intro.md)
-
-Lessons marked with <span style="color:salmon">*</span> are incomplete. 
-Sorry about that.
+* [Flask Learning Log](./s25-flask-learning-log/01-flask-setup/lesson.md)
+* [Itertools](./s26-itertools/00_intro.md)
+* [Functools](./s27-functools/00_intro.md)
 
 ---
 
@@ -62,6 +62,6 @@ delving into these more advanced topics.
 
 Happy Coding!
 
--ZeroKlu
+~ Scott McLean (ZeroKlu)
 
 ---

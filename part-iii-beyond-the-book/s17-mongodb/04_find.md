@@ -103,8 +103,8 @@ Find Records with Filter {'name': 'John'}:
 
 The second optional argument is the `projection`, in which we can specify
 what fields are returned. This accepts a dictionary containing fields as
-keys and `0` to exclude a field from being returned. By default, all other
-fields in the `projection` contain `1`, so that does not need to be
+keys and `0` to exclude a field from being returned. By default, every field is
+returned, so any field you don't list in the `projection` does not need to be
 specified.
 
 Since our collection contains three fields: `_id`, `name`, and `address`:

@@ -124,3 +124,5 @@ You should see `Ran 2 tests` and `OK`.
 - `manage.py`: the command-line tool
 - `ll_project\__init__.py`, `settings.py`, `urls.py`, `wsgi.py`, `asgi.py`: the project
 - `ll_project\tests.py`: the tests for this step
+
+---

@@ -1,21 +1,22 @@
 ## Using a Lambda in a Closure
 
-A closure is a function where every free variable (everything except 
-parameters) used in its outer function is bound to a specific value 
-defined in the enclosing scope of that function.
+A closure is a function that keeps references to variables from its enclosing
+scope, so it can still use them after the outer function has returned.
 
-In effect, closures define the environment in which they run, and so can 
-be called from anywhere.
+In effect, a closure carries its environment with it, so it can be called after
+the outer function has finished, wherever it has been passed.
 
 ---
 
 ### Traditional Closure
 
-We've seen in the [Closures](../s08-closures/01_nested_functions.md)
-topic how to construct a closure using a traditional function:
+We've seen in the [Closures](../s08-closures/05_closures.md)
+lesson how to construct a closure using a traditional function:
 
 ```python
-def outer_func_function(x: int) -> callable:
+from collections.abc import Callable
+
+def outer_func_function(x: int) -> Callable:
     y = 4
     def inner_func(z: int) -> int:
         return x + y + z
@@ -43,7 +44,9 @@ the same closure reworked to return a lambda instead of a traditional
 function.
 
 ```python
-def outer_func_lambda(x: int) -> callable:
+from collections.abc import Callable
+
+def outer_func_lambda(x: int) -> Callable:
     y = 4
     return lambda z: x + y + z
 

@@ -132,3 +132,5 @@ the same when a new game starts, and only changes when the score beats it.
 - `game_stats.py`: sets the high score once, in `__init__()`
 - `scoreboard.py`: shows the high score, and checks for a new one
 - `alien_invasion.py`: checks for a new high score after each hit
+
+---

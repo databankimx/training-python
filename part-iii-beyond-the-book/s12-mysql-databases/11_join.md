@@ -170,4 +170,10 @@ Output:
 
 You can see that all rows from the `products` table are returned, regardless of whether there is a match to the `users` table.
 
+> Note: MySQL doesn't guarantee the order of rows in a join unless you add an `ORDER BY`
+> clause, so your output may list the rows in a different order from the ones shown.
+> The code file also prints a heading above each result (such as "INNER JOIN"), which
+> is left out of the outputs here. The code file has a Pylint comment on the
+> `mysql.connector` import, which stays in the code file.
+
 ---

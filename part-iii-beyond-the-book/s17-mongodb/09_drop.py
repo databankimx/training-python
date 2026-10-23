@@ -1,10 +1,11 @@
 """Drop a collection from MongoDB"""
 
+from typing import Any
 from login import get_settings, get_client, server_connected
 from pymongo import MongoClient
 from pymongo.synchronous.database import Database
 
-def connect(settings: dict[str, any]=None) -> tuple[MongoClient, Database]|None:
+def connect(settings: dict[str, Any] | None = None) -> tuple[MongoClient, Database] | None:
     """Connect to MongoDB database"""
     if not settings:
         settings = get_settings()

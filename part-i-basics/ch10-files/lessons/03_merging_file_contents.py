@@ -23,7 +23,7 @@ print(pi_string)
 print(f"pi_string is {len(pi_string)} characters long.\n")
 
 with open(file_path, encoding="UTF-8") as file_object:
-    pi_string = "".join(l.strip() for l in file_object)
+    pi_string = "".join(line.strip() for line in file_object)
 
 print(pi_string)
 print(f"pi_string is {len(pi_string)} characters long.\n")
@@ -57,7 +57,7 @@ for line in lines:
 print(pi_string)
 print(f"pi_string is {len(pi_string)} characters long.\n")
 
-pi_string = "".join(l.strip() for l in text.splitlines())
+pi_string = "".join(line.strip() for line in text.splitlines())
 
 print(pi_string)
 print(f"pi_string is {len(pi_string)} characters long.\n")

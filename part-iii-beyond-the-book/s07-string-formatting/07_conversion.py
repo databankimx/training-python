@@ -11,12 +11,12 @@ def convert_dates() -> None:
     print("{!r}".format(now))
 
 def replace_invalid(invalid_string: str) -> str:
-    """Remove invalid characters from a string"""
+    """Escape non-ASCII characters in a string using ascii()"""
 
     # pylint: disable=consider-using-f-string
     return "{!a}".format(invalid_string)
 
-def main():
+def main() -> None:
     """Main function"""
     convert_dates()
     invalid_string = "Thisö stringö haö invalidö charactersö."

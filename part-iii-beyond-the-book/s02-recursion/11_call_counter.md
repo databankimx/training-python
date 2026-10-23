@@ -30,21 +30,24 @@ complete.
 See [count_calls.py](./count_calls.py)
 
 ```python
+from collections.abc import Callable
+from typing import Any
+
 class CountCalls:
     """Class to allow counting the times a recursive function is called"""
 
-    def __init__(self, func: callable):
+    def __init__(self, func: Callable) -> None:
         """Initialize"""
         self._count = 0
         self._func = func
 
-    def __call__(self, *args, **kwargs):
+    def __call__(self, *args: Any, **kwargs: Any) -> Any:
         """Magic method override to add to counter and execute function"""
         self._count += 1
         return self._func(*args, **kwargs)
-    
+
     @property
-    def call_count(self):
+    def call_count(self) -> int:
         """Number of times the recursive function has been called"""
         return self._count
 ```
@@ -62,16 +65,64 @@ recursive_function()
 print(recursive_function.call_count)
 ```
 
+> Note: the count keeps growing across calls. The class has no reset method, so
+> if you call a decorated function twice, the second count includes the calls
+> from the first.
+
+---
+
+### Counting the Calls
+
+Here's a small example using the countdown function from an earlier lesson.
+The code file applies `@CountCalls` to it:
+
+```python
+from time import sleep
+from count_calls import CountCalls
+
+@CountCalls
+def countdown(n: int) -> bool:
+    """Counts down to zero"""
+    if n < 0:
+        print("Cannot count down from a negative number!")
+        return False
+    if n == 0:
+        print("Liftoff!")
+        return True
+    print(n)
+    sleep(0.5)
+    return countdown(n - 1)
+
+n = 3
+if countdown(n):
+    print(f"\nrecursions complete after {countdown.call_count} calls...")
+else:
+    print(f"\nrecursions failed after {countdown.call_count} calls...")
+```
+
+Output:
+
+```
+3
+2
+1
+Liftoff!
+
+recursions complete after 4 calls...
+```
+
+The call for `n = 3` makes four calls in total: `countdown(3)`, `countdown(2)`,
+`countdown(1)`, and `countdown(0)`.
+
 ---
 
 ### History of the Fibonacci Sequence
 
 The Fibonacci Sequence is a well-known mathematical sequence with ties to
-countless real-world phenomena. Although its discovery is credited to
-Leonardo Fibonacci (or Leonardo of Pisa) around 1170 CE (and published in
-his book *Liber Abaci* in 1202), ancient Sanskrit texts predating Leonardo by
-centuries have been found containing both descriptions and formulae for the 
-sequence.
+countless real-world phenomena. It's named after Leonardo Fibonacci (or
+Leonardo of Pisa), whose book *Liber Abaci* (1202) introduced it to Europe.
+Earlier, Sanskrit scholars such as Pingala had described the same numbers
+while studying poetic meter, centuries before Leonardo.
 
 Regardless of its history, the Fibonacci Sequence is of profound importance in
 both mathematical and physical investigations of our world.
@@ -93,8 +144,8 @@ In mathematical terms, the properties are then:
 * `F(n) = F(n-1) + F(n-2)`
 
 You can see that for integers larger than one, the formula defining the 
-Fibonacci Sequence is recursive even before we implement any code. By
-definition, we have to call the formula to solve the formula.
+Fibonacci Sequence is recursive even before we implement any code. Computing
+F(*n*) with this definition means computing the earlier terms first.
 
 > Note: An interesting property of the Fibonacci Sequence is that as *n*
 > gets larger, F(*n*) / F(*n*-1) approaches phi (φ), the golden ratio:  

@@ -62,3 +62,5 @@ Hold an arrow key. The ship stops at the edge of the window.
 ## Changed files
 
 - `ship.py`: `update()` checks the screen edges before it moves the ship
+
+---

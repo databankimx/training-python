@@ -2,6 +2,10 @@
 
 Now that we have a database and a table, we're ready to add some data.
 
+> Note: the code file starts by clearing the table with `TRUNCATE TABLE customers`, so
+> the script can be run more than once. `TRUNCATE` deletes every row and resets the ID
+> counter, which is why the IDs start at 1 on each run. Use it only on a training database.
+
 ---
 
 ### The `INSERT` Query:
@@ -34,7 +38,7 @@ directly into the SQL like this:
 sql = f"INSERT INTO customers (name, address) VALUES ({name}, {address})"
 ```
 
-But this is a problem. We never want to embed variable data in a SQL
+But this is a problem. We never want to embed user-supplied data in a SQL
 query, because it's possible that the variable data could include SQL
 commands (a security attack known as *SQL Injection*).
 
@@ -58,7 +62,7 @@ if conn.is_connected():
     cursor.execute(sql, values)
     conn.commit()
     print(f"{cursor.rowcount} row(s) inserted.")
-    print(f"Last inserted ID: {cursor.lastrowid}\n")
+    print(f"Last inserted ID: {cursor.lastrowid}")
 ```
 
 Output:
@@ -100,7 +104,7 @@ if conn.is_connected():
     cursor.executemany(sql, values)
     conn.commit()
     print(f"{cursor.rowcount} row(s) inserted.")
-    print(f"Last inserted ID: {cursor.lastrowid}\n")
+    print(f"Last inserted ID: {cursor.lastrowid}")
 ```
 
 Output:
@@ -111,7 +115,9 @@ Last inserted ID: 2
 ```
 
 Note: The `cursor.lastrowid` value from a call to `executemany()` will be
-the ID of the first of the multiple added rows.
+the ID of the first of the multiple added rows. The ID here comes from this run, and
+it assumes the table started empty. The code file also has a Pylint comment
+(`no-name-in-module`) on the `mysql.connector` import, which stays in the code file.
 
 ---
 
@@ -127,7 +133,7 @@ if conn.is_connected():
     cursor.execute(sql, values)
     conn.commit()
     print(f"{cursor.rowcount} row(s) inserted.")
-    print(f"Last inserted ID: {cursor.lastrowid}\n")
+    print(f"Last inserted ID: {cursor.lastrowid}")
 ```
 
 Output:

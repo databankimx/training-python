@@ -37,7 +37,7 @@ Looping...
 ### Iterating over a Two-Dimensional Array
 
 However, when we get to a multidimensional array, this approach only
-evaluates the first dimension.
+iterates over the first dimension.
 
 ```python
 import numpy as np
@@ -74,7 +74,7 @@ import numpy as np
 arr = np.array([[1, 2, 3], [4, 5, 6]])
 print(f"2D Array:\n{arr}\n\nLooping rows...")
 for row in arr:
-    print(f" Looping elements in row...")
+    print(" Looping elements in row...")
     for el in row:
         print(f"  {el}")
 ```
@@ -85,6 +85,7 @@ Output:
 2D Array:
 [[1 2 3]
  [4 5 6]]
+
 Looping rows...
  Looping elements in row...
   1
@@ -111,9 +112,9 @@ import numpy as np
 arr = np.array([[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]])
 print(f"3D Array:\n{arr}\n\nLooping pages...")
 for page in arr:
-    print(f" Looping rows in page...")
+    print(" Looping rows in page...")
     for row in page:
-        print(f"  Looping elements in row...")
+        print("  Looping elements in row...")
         for el in row:
             print(f"   {el}")
 ```

@@ -96,3 +96,5 @@ The numbers are `pygame.K_RIGHT`, `pygame.K_LEFT`, `pygame.K_UP` and `pygame.K_R
 The window shows the last key's name, so you can see the same key as text.
 
 ![Keys window showing the last key pressed](lesson-images/keys.png)
+
+---

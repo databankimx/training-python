@@ -10,6 +10,7 @@ print("Try-it-Yourself:")
 print("Assignment 4.1")
 
 pizzas = ["margherita", "spinach and garlic", "feta and black olive"]
+# choice() picks at random, so the output will differ from run to run.
 adjectives = ["delicious", "tasty", "scrumptious"]
 for pizza in pizzas:
     print(f"I think {pizza} pizza is {choice(adjectives)}!")

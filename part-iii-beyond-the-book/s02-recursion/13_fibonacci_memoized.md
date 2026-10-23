@@ -23,6 +23,10 @@ def fibonacci(n: int, cache: dict[int, int]={0: 0, 1: 1}) -> int:
     return cache[n]
 ```
 
+> Note: the code file turns off Pylint's `dangerous-default-value` warning for
+> the `cache` default. That comment stays in the code file. The default is
+> deliberate, as explained below.
+
 For consistency, we'll test this improved algorithm with the same value: 
 `n = 40`
 
@@ -39,17 +43,45 @@ Calculated F(40) = 102,334,155
 call_count = 79
 ```
 
-This time, our call finished in under a second and only required 79 calls: 
-once to store each number and once to retrieve it to get to the next number.
+This time, our call finished in under a second and only required 79 calls.
+Each new value makes two calls: one that goes deeper to compute the next value,
+and one that finds a value already in the cache.
 
-As *n* increases, `2 * n` becomes a lot smaller than `2ⁿ`. We're now getting
-answers in linear time.
+For this algorithm, the call count is 2n − 1. Since that grows in direct
+proportion to *n*, we're now getting answers in linear time. Compare that with
+the roughly 331 million calls of the naive version.
 
-> Note: One interesting tidbit about Python is that if we initialize a mutable
-> variable as a default value in a function signature, it will only 
-> initialize one time. If I call this function again, after I have already 
-> used it once, the memo will still contain the previous calculation's 
-> values, so it becomes more efficient the more it is used during the 
-> program's execution.
+> Note: One common gotcha in Python is that a mutable default value, such as
+> a dictionary in a function signature, is created only once, when the function
+> is defined. Here that's exactly what we want. The memo is shared across calls,
+> so if we call this function again after using it once, the memo still holds
+> the previous values, and it becomes more efficient the more it is used during
+> the program's execution.
+>
+> The Part I bonus lesson on
+> [mutable default values](../../part-i-basics/ch08-functions/lessons/16_bonus_mutable_defaults.md)
+> explains the gotcha in more detail.
+
+Because the memo lives in the default argument, `call_count` also keeps growing
+across calls, the same as in lesson 11.
+
+### Python's Built-In Option
+
+Since Python 3.9, the standard library has a decorator that does this kind of
+memoization for you: `functools.cache`.
+
+```python
+from functools import cache
+
+@cache
+def fibonacci(n: int) -> int:
+    """Return the nth Fibonacci number (memoized by functools.cache)"""
+    if n < 2:
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
+```
+
+In practice, this is usually the better choice. The hand-written version above
+shows the idea behind it.
 
 ---

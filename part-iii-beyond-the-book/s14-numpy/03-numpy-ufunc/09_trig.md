@@ -21,21 +21,21 @@ import numpy as np
 
 lst = [45, 90, 135, 180, 225, 270, 315, 360]
 for d, r in zip(lst, np.radians(lst)):
-    print(f"{d:>3}° = {r / np.pi:.2f}πᶜ")
+    print(f"{d:>3}° = {r / np.pi:.2f} π rad")
 ```
 
 Output:
 
 ```
 Degrees to Radians:
- 45° = 0.25πᶜ
- 90° = 0.50πᶜ
-135° = 0.75πᶜ
-180° = 1.00πᶜ
-225° = 1.25πᶜ
-270° = 1.50πᶜ
-315° = 1.75πᶜ
-360° = 2.00πᶜ
+ 45° = 0.25 π rad
+ 90° = 0.50 π rad
+135° = 0.75 π rad
+180° = 1.00 π rad
+225° = 1.25 π rad
+270° = 1.50 π rad
+315° = 1.75 π rad
+360° = 2.00 π rad
 ```
 
 ---
@@ -83,7 +83,7 @@ def print_out(txt: str, lbl: str, lst: list[int], arr: np.ndarray) -> None:
         if round(d) == 0: d = 0.0
         if round(r) == 0: r = 0.0
         if abs(d) > 1000000: d = np.inf
-        if r > 1000000: r = np.inf
+        if abs(r) > 1000000: r = np.inf
         if isinstance(d, int):
             print(f"{lbl}({d:>3}) = {r:>5.2f}")
         else:

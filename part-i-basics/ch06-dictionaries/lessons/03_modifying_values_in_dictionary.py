@@ -10,7 +10,7 @@ alien["color"] = "yellow"
 print(f"The alien is now {alien['color']}")
 
 alien = {"x_position": 0, "y_position": 25, "speed": "medium"}
-print(f"\nOriginal x-position: {alien['x_position']}")
+print(f"\nStart x-position: {alien['x_position']}")
 if alien["speed"] == "slow":
     x_increment = 1
 elif alien["speed"] == "medium":
@@ -18,4 +18,9 @@ elif alien["speed"] == "medium":
 else:
     x_increment = 3
 alien["x_position"] = alien["x_position"] + x_increment
-print(f"New x-position:      {alien['x_position']}")
+print(f"End   x-position: {alien['x_position']}")
+
+# The same update, using the += shorthand
+alien = {"x_position": 0, "y_position": 25, "speed": "medium"}
+alien["x_position"] += 2
+print(f"End   x-position: {alien['x_position']}")

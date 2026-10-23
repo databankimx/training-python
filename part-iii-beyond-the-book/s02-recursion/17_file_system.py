@@ -4,11 +4,12 @@ import os
 
 class DirectoryCrawler():
     """Class for file system crawler"""
-    def __init__(self, path: str, skip_files: list[str]=None) -> None:
+    def __init__(self, path: str, skip_files: list[str] | None = None) -> None:
+        """Store the starting path and the names of folders and files to skip"""
         self.path = path
         self.skip_files = [] if skip_files is None else skip_files
 
-    def list_directory(self, path: str=None, depth: int = 1) -> None:
+    def list_directory(self, path: str | None = None, depth: int = 1) -> None:
         """List files in a directory and its subdirectories"""
         if path is None:
             path = self.path
@@ -29,18 +30,26 @@ class DirectoryCrawler():
                     self.list_directory(item_path, depth + 1)
         except FileNotFoundError:
             print(f"Directory '{path}' not found.")
+        except PermissionError:
+            print(f"Permission denied: '{path}'.")
 
-    def disk_usage(self, path: str=None, printout: bool=False) -> int:
+    def disk_usage(self, path: str | None = None, printout: bool = False) -> int:
         """Return bytes used by a file/folder and any descendants."""
         if path is None:
             path = self.path
-        total = os.path.getsize(path)
-        if os.path.isdir(path):
-            for filename in os.listdir(path):
-                child_path = os.path.join(path, filename)
-                total += self.disk_usage(child_path)
+        try:
+            total = os.path.getsize(path)
+            if os.path.isdir(path):
+                for filename in os.listdir(path):
+                    if filename in self.skip_files:
+                        continue
+                    child_path = os.path.join(path, filename)
+                    total += self.disk_usage(child_path)
+        except PermissionError:
+            print(f"Permission denied: '{path}'.")
+            return 0
         if printout:
-            print (f"{total:<7} {path}")
+            print(f"{total:<7} {path}")
         return total
 
 SKIP_FILES = [".venv", "__pycache__", "12dicts_dictionaries",

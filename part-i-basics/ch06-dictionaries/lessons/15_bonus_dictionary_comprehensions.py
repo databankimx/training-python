@@ -7,8 +7,8 @@ keys = ["a", "b", "c", "d", "e"]
 values = [1, 2, 3, 4, 5]
 
 dictionary = {}
-for i, key in enumerate(keys):
-    dictionary[key] = values[i]
+for i in range(len(keys)):
+    dictionary[keys[i]] = values[i]
 print(dictionary)
 
 dictionary = {keys[i]: values[i] for i in range(len(keys))}

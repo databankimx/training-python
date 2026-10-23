@@ -1,6 +1,8 @@
 """Closures in Loops"""
 
-def wrapped_function(n: int) -> callable:
+from collections.abc import Callable
+
+def wrapped_function(n: int) -> Callable:
     """Simple wrapper for a closure"""
     def func() -> None:
         """The inner function captures n as a closure"""

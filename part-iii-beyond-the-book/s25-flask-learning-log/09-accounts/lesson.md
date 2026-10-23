@@ -112,3 +112,5 @@ The navigation bar when signed out, and after signing in.
 - `flask_log/templates/accounts/login.html` (new): the log in form
 - `flask_log/templates/accounts/register.html` (new): the register form
 - `tests/test_accounts.py` (new): tests for accounts
+
+---

@@ -97,3 +97,5 @@ A public topic, read by a visitor who isn't signed in.
 - `seed.json`: Rock Climbing is public
 - `tests/test_public.py` (new): tests for public topics
 - `tests/test_setup.py`, `tests/test_layout.py`: create their tables, because the home page reads them
+
+---

@@ -103,3 +103,5 @@ The home page at `http://127.0.0.1:8000/`, showing Learning Log as plain text. T
 - `flask_log/database.py`: the SQLAlchemy base class, the engine and the session factory
 - `tests/test_setup.py`: tests for the setup
 - `requirements.txt`: Flask and SQLAlchemy
+
+---

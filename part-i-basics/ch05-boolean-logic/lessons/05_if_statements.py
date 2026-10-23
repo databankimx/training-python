@@ -1,5 +1,7 @@
 """Lesson 5.5"""
 
+#pylint: disable=useless-else-on-loop
+
 print("Chapter 5:")
 print("Exercise 5 - Using 'if' Statements")
 
@@ -32,6 +34,7 @@ else:
     price = 40
 print(f"Your admission cost is ${price}")
 
+age = 20
 if age < 4:
     price = 0
 elif age < 18:
@@ -42,6 +45,7 @@ else:
     price = 20
 print(f"Your admission cost is ${price}")
 
+age = 70
 price = 20
 if age < 4:
     price = 0
@@ -65,15 +69,18 @@ i = 0
 while i < 5:
     i += 1
     print(i)
-    if i > 5:
-        break
-else:
-    print("If this ran, i must be 5 or more.")
+else: #NOSONAR
+    print("If this ran, i must be 5 or more.\n")
+
+for i in range(1, 6):
+    print(i)
+else: #NOSONAR
+    print("This ran when I exhausted the range.")
 
 print()
 for i in range(1, 6):
-    print(i)
-    if i > 5:
+    if i == 3:
         break
+    print(i)
 else:
-    print("This ran when I exhausted the range.")
+    print("This won't print, because the loop stopped at 3.")

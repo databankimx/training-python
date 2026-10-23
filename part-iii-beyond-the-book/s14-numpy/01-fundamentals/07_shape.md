@@ -1,6 +1,6 @@
 ## Array Shape
 
-The *shape* of a Numpy array contains the count of elements in each 
+The *shape* of a NumPy array contains the count of elements in each 
 dimension.
 
 The counts are returned as a tuple.
@@ -62,27 +62,24 @@ Output:
 The shapes of the arrays are different, which is fine for separate arrays.
 
 However, if we try to add them as elements in a 2D array, we receive a
-ValueError.
+`ValueError`.
 
 ```python
-# -- SNIP --
 arr = np.array([arr_1, arr_2])
 ```
 
-Output:
+Because both arrays would exist at the same dimension, NumPy rejects the
+array due to their different shapes.
+
+The code file catches the error and prints it in a box:
 
 ```
-Traceback (most recent call last):
-  File "\07_shape.py", line 12, in shape_error
-    arr = np.array([arr_1, arr_2])
-          ^^^^^^^^^^^^^^^^^^^^^^^^^
-ValueError: setting an array element with a sequence.
+----------
+Shape Error: setting an array element with a sequence.
 The requested array has an inhomogeneous shape after 1 dimensions.
 The detected shape was (2,) + inhomogeneous part.
+----------
 ```
-
-Because both arrays would exist at the same dimension, Numpy rejects the
-array due to their different shapes.
 
 ---
 
@@ -98,7 +95,7 @@ import numpy as np
 arr = np.array([[[1, 2], [3, 4]], [[5, 6], [7, 8]]])
 print("3D array:")
 print(arr)
-print("shape", arr.shape, "\n")
+print("shape", arr.shape)
 ```
 
 Output:
@@ -123,7 +120,7 @@ import numpy as np
 arr = np.array([1, 2, 3, 4], ndmin=5)
 print("5D array:")
 print(arr)
-print("shape", arr.shape, "\n")
+print("shape", arr.shape)
 ```
 
 Output:

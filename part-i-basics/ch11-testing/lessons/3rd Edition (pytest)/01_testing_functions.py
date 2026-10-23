@@ -5,6 +5,7 @@ from name_function import formatted_name
 def main() -> None:
     """User testing for formatted name function"""
 
+    print("Chapter 11:\nExercise 1 - Testing a Function\n")
     print("Enter 'q' at any time to quit.")
 
     while True:

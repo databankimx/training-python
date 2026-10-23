@@ -123,7 +123,6 @@ get to the chapter that needs it.
 | `PySide6` | Qt for Python: the window, widgets, and the WebEngine that shows lessons | `pip install PySide6` |
 | `markdown-it-py` | Converts lesson Markdown to HTML | `pip install markdown-it-py` |
 | `mdit-py-plugins` | Adds `$...$` and `$$...$$` math support to `markdown-it-py` | `pip install mdit-py-plugins` |
-| `tkinter` | Standard library. Used by `logo.py`, which the Qt runner imports. Included in the python.org Windows installer | Included with Python |
 | MathJax and Prism | Typesets math and highlights code in lesson pages. These are Node.js packages, not Python packages | `npm install mathjax@3 prismjs@1`, run in `lesson-runner/vendor/` |
 
 The Python packages for the runner are listed in `lesson-runner/requirements.txt`:
@@ -131,9 +130,6 @@ The Python packages for the runner are listed in `lesson-runner/requirements.txt
 ```bash
 python -m pip install -r lesson-runner/requirements.txt
 ```
-
-The legacy Tkinter runner in `lesson-runner-tk/` also uses `tkinter`. It can
-also use `matplotlib` for math, but that is optional.
 
 #### Beyond the Book (`part-iii-beyond-the-book/`)
 
@@ -155,7 +151,7 @@ also use `matplotlib` for math, but that is optional.
 | `build` and `twine` | S13 - Publishing a library | `pip install build twine` |
 
 Several Beyond the Book chapters use only the standard library, including S19
-(`tkinter`). On Linux, tkinter must be installed separately, for example with
+(`tkinter`), S26 (`itertools`), and S27 (`functools`). On Linux, tkinter must be installed separately, for example with
 `sudo apt install python3-tk`.
 
 ### Licensing of libraries
@@ -280,7 +276,7 @@ The sun and moon switch in the title bar toggles dark and light themes.
 * **Math or code colors are missing:** the `vendor/` folder is probably not set up. See the lesson runner README.
 * **The code font is not Cascadia Mono:** Cascadia Mono is used when installed. Otherwise the runner falls back to Cascadia Code, JetBrains Mono, or Consolas.
 
-The runner's source code is in the `lesson-runner/` folder. The Tkinter version it replaced is in `lesson-runner-tk/` for reference.
+The runner's source code is in the `lesson-runner/` folder.
 
 ### Running lessons directly
 
@@ -374,8 +370,10 @@ Supplemental topics added by Scott that go beyond what the textbook covers.
 | `s21-morse-code` | Trie-based Morse code encoder/decoder |
 | `s22-rochambeau` | Rock-paper-scissors: clean OOP design in a small project |
 | `s23-game-of-life` | Conway's Game of Life: simulation and data-driven design |
-| `s24-built-ins` | Useful built-in functions: `copy`, `id`, `setdefault`, and more |
+| `s24-built-ins` | Useful built-in functions and modules: `copy`, `id`, `setdefault`, `collections`, `any` and `all`, `datetime`, and more |
 | `s25-flask-learning-log` | The Learning Log rebuilt with Flask and SQLAlchemy: routes, templates, accounts, ownership, public topics, and production readiness |
+| `s26-itertools` | The `itertools` module: infinite iterators, combinations, grouping, filtering, and pairing |
+| `s27-functools` | The `functools` module: `lru_cache`, `partial`, `reduce`, `wraps`, and `singledispatch` |
 
 ### Lesson Runner
 
@@ -406,7 +404,8 @@ This training curriculum was originally developed from my personal Python learni
 
 | Date | Changes |
 |---|---|
-| 10/10/2026 | Initial migration from personal repository. New folder structure, README, CHANGELOG. |
+| 10/23/2026 | Version 1.0.0: Part III chapters S16, S19, S20-S27 completed or added, the Qt lesson runner refined, and the code reviewed. See [CHANGELOG.md](CHANGELOG.md) |
+| 10/10/2026 | Version 0.0.9: Initial migration from personal repository. New folder structure, README, CHANGELOG. |
 
 ---
 

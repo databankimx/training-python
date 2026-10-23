@@ -6,7 +6,7 @@ print("Exercise 6 - Using 'if' with Lists")
 requested_toppings = ["mushrooms", "green peppers", "extra cheese"]
 for requested_topping in requested_toppings:
     print(f"Adding {requested_topping}.")
-print("Finished making your pizza!\n")
+print("Finished making your pizza!")
 
 requested_toppings = ["mushrooms", "green peppers", "extra cheese"]
 for requested_topping in requested_toppings:
@@ -14,7 +14,7 @@ for requested_topping in requested_toppings:
         print("Sorry, we are out of green peppers right now.")
     else:
         print(f"Adding {requested_topping}.")
-print("Finished making your pizza!\n")
+print("Finished making your pizza!")
 
 out_of_stock = ["green peppers", "anchovies"]
 requested_toppings = ["mushrooms", "green peppers", "extra cheese"]
@@ -29,9 +29,9 @@ requested_toppings = []
 if requested_toppings:
     for requested_topping in requested_toppings:
         print(f"Adding {requested_topping}.")
-    print("Finished making your pizza!\n")
+    print("Finished making your pizza!")
 else:
-    print("\nAre you sure you want a plain pizza?\n")
+    print("Finished your plain pizza.")
 
 available_toppings = ["mushrooms", "olives", "green peppers",
                       "pepperoni", "pineapple", "extra cheese"]

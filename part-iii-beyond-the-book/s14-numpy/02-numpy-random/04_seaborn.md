@@ -12,8 +12,11 @@ We'll need to install the Seaborn library:
 Making sure your virtual environment is active, run the following command:
 
 ```
-python -m pip install seaborn
+python -m pip install "seaborn<0.14"
 ```
+
+> Note: The `distplot()` examples below need Seaborn 0.13 or earlier. `distplot()` was
+> removed in Seaborn 0.14, so the version pin above is needed to run them.
 
 Note: Seaborn uses the Matplotlib PyPlot library to display graphs.
 
@@ -30,7 +33,7 @@ import numpy as np
 data = np.random.normal(size=1000)
 ```
 
-This uses a *normal* distribution (covered in the next lesson).
+This uses a *normal* distribution (covered in the distribution types lessons).
 
 ---
 

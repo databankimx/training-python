@@ -26,7 +26,7 @@ directory, it calls itself on that directory, and it passes `depth + 1` so the
 output is indented:
 
 ```python
-def list_directory(self, path: str=None, depth: int = 1) -> None:
+def list_directory(self, path: str | None = None, depth: int = 1) -> None:
     """List files in a directory and its subdirectories"""
     if path is None:
         path = self.path
@@ -47,6 +47,8 @@ def list_directory(self, path: str=None, depth: int = 1) -> None:
                 self.list_directory(item_path, depth + 1)
     except FileNotFoundError:
         print(f"Directory '{path}' not found.")
+    except PermissionError:
+        print(f"Permission denied: '{path}'.")
 ```
 
 Two things make this safe:
@@ -54,6 +56,9 @@ Two things make this safe:
 * The `os.path.isdir()` check separates the branches from the leaves.
 * The `skip_files` list lets us ignore folders we don't want to visit, such as
   `.venv` or `__pycache__`. Skipping a folder is a way to limit the recursion.
+
+The `PermissionError` case matters on Windows, where some folders can't be read
+by a regular user. Without it, one locked folder would stop the whole listing.
 
 ---
 
@@ -64,19 +69,33 @@ size is its own size. For a folder, the size is the total of everything inside
 it, found by calling the method again on each item:
 
 ```python
-def disk_usage(self, path: str=None, printout: bool=False) -> int:
+def disk_usage(self, path: str | None = None, printout: bool = False) -> int:
     """Return bytes used by a file/folder and any descendants."""
     if path is None:
         path = self.path
-    total = os.path.getsize(path)
-    if os.path.isdir(path):
-        for filename in os.listdir(path):
-            child_path = os.path.join(path, filename)
-            total += self.disk_usage(child_path)
+    try:
+        total = os.path.getsize(path)
+        if os.path.isdir(path):
+            for filename in os.listdir(path):
+                if filename in self.skip_files:
+                    continue
+                child_path = os.path.join(path, filename)
+                total += self.disk_usage(child_path)
+    except PermissionError:
+        print(f"Permission denied: '{path}'.")
+        return 0
     if printout:
         print(f"{total:<7} {path}")
     return total
 ```
+
+The skip list applies here too. Without it, the total would include large folders
+such as `.venv`, which are usually not part of the project's own size. Skipped
+folders also don't get a printout line.
+
+> Caveat: `os.path.isdir()` and `os.path.getsize()` follow symbolic links. A link
+> that points back up the tree would make this recursion run forever. The skip
+> list can prevent that, or the link can be skipped in the code.
 
 ---
 
@@ -88,11 +107,18 @@ The script crawls the folder it is in, so you can run it right away:
 python 17_file_system.py
 ```
 
-Output:
-
 The listing shows the folder name, then each file and subfolder indented under
-it. The final line shows the total number of bytes. Your output will depend on
-the folder you run it in.
+it. The final line shows the total number of bytes. The exact output depends on
+the folder you run it in, so this is only an illustration:
+
+```
+s02-recursion/
+  17_file_system.py
+  07_nested_lists.md
+  ...
+
+Disk Usage: 48,213 bytes
+```
 
 ---
 

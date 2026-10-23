@@ -1,6 +1,6 @@
 """Assignment 10.10 (2nd Edition)"""
 
-# Common Words: Visit Project Gutenberg (https:// gutenberg.org/) and find
+# Common Words: Visit Project Gutenberg (https://gutenberg.org/) and find
 #               a few texts you'd like to analyze. Download the text files
 #               for these works, or copy the raw text from your browser
 #               into a text file on your computer. You can use the count()
@@ -32,7 +32,7 @@ def examine_file(filename, search_words):
     file_path = os.path.join(ROOT_DIR, "Files", filename)
     terminators = [" ", ".", ",", "?", "\n"]
     try:
-        with open(file_path, encoding="utf-8") as f:
+        with open(file_path, encoding="UTF-8") as f:
             content = f.read().lower()
     except FileNotFoundError:
         print(f"\nFile {filename} could not be found!")
@@ -46,7 +46,7 @@ def examine_file(filename, search_words):
             print(f"'{word}': {num}")
 
 print("Try-it-Yourself:")
-print("Assignment 10.10")
+print("Assignment 10.10\n")
 
 file_names = ["frankenstein.txt", "little_fuzzy.txt",
               "star_hunter.txt", "snow_crash.txt", "the_republic.txt"]

@@ -1,5 +1,7 @@
 """Nested functions"""
 
+from collections.abc import Callable
+
 def outer_function() -> None:
     """Executes the inner function"""
     def inner_function() -> None:
@@ -16,11 +18,11 @@ def add(x: int, y: int) -> int:
     """Adds two numbers"""
     return x + y
 
-def calculate(func: callable, x: int, y: int) -> int:
+def calculate(func: Callable, x: int, y: int) -> int:
     """Calls the given function with the given arguments"""
     return func(x, y)
 
-def greeting(name: str) -> callable:
+def greeting(name: str) -> Callable:
     """Returns a function that greets a user"""
     def hello() -> None:
         print(f"Hello {name.title()}!\n")
@@ -30,7 +32,7 @@ def main() -> None:
     """Main function"""
     outer_function()
     outer_function_with_args("Scott")
-    x, y, = 2, 3
+    x, y = 2, 3
     z = calculate(add, x, y)
     print(f"{x} + {y} = {z}\n")
     hello_scott = greeting("Scott")

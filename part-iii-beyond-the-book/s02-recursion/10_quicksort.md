@@ -1,4 +1,4 @@
-## *Real* Real-World Example: Quicksort
+## Real-World Example: Quicksort
 
 Let's look at a real-world example that is actually implemented recursively: 
 *Quicksort*
@@ -45,11 +45,14 @@ Remember that when partitioning, two sub-lists that are created:
 1. Those items that are less than the pivot item
 2. Those items that are greater than the pivot item
 
-Ideally, the two sub-lists are roughly equal length, but that is true only 
-when the halves are somewhat sorted already.
+Ideally, the pivot splits the list into two sub-lists of roughly equal length.
+Whether a pivot does that depends on which item we pick, so a poor choice can
+leave one sub-list almost empty and the other almost the whole list.
 
 Because we don't know how sorted a list already is, we'll choose the median 
-of the first, last, and middle elements.
+of the first, last, and middle elements. This usually gives a pivot near the
+middle of the values, and it avoids the worst case on lists that are already
+partly sorted.
 
 ```python
 from statistics import median
@@ -83,7 +86,7 @@ def quicksort(numbers: list[int]) -> list[int]:
 
 ---
 
-### Testing
+### Running It
 
 Let's test our Quicksort function:
 
@@ -101,6 +104,18 @@ Output (your numbers will vary):
 Unsorted: [20, 77, 45, -26, -87, 63, -94, -2, -66, 45]
 Sorted:   [-94, -87, -66, -26, -2, 20, 45, 45, 63, 77]
 ```
+
+> Note: the code file runs this test in its `__main__` block. The code file's
+> `main()` function runs more cases, including an empty list, a single-element
+> list, and a random list. It's commented out in `__main__`, so uncomment it to
+> see those results.
+
+### Complexity
+
+Quicksort averages O(n log n) time, but a poor pivot choice on every step can
+slow it to O(n²). The median of three makes the poor case less likely, but it
+doesn't rule it out. For a closer look at these terms, see the
+[Big-O lesson](../s04-big-o-complexity/00_understanding_big_o.md).
 
 ---
 

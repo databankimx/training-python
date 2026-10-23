@@ -25,20 +25,20 @@ that the name would otherwise conflict with a Python reserved word.
 For example, you might name a variable `class_`
 
 **List of Python Reserved Words**
-||||||||||
+| | | | | | | | | |
 |-|-|-|-|-|-|-|-|-|
 |`False`|`def`|`if`|`raise`|`None`|`del`|`import`|`return`|`True`|
 |`elif`|`in`|`try`|`and`|`else`|`is`|`while`|`as`|`except`|
 |`lambda`|`with`|`assert`|`finally`|`nonlocal`|`yield`|`break`|`for`|`not`|
-|`class`|`from`|`or`|`continue`|`global`|`pass`||||
-|`async`|`await`|||||||
+|`class`|`from`|`or`|`continue`|`global`|`pass`|`async`|`await`||
 
 ---
 
 ### Stand-Alone Underscore: `_`
 
-A single underscore by itself `_` is used in context to create a temporary 
-variable that cannot be used outside the context.
+By convention, a single underscore by itself `_` is used for a value you don't
+need. It's a placeholder, and nothing stops you from using it later, but other
+programmers will read it as "this value is being ignored."
 
 For example:
 
@@ -73,7 +73,8 @@ thing = MyClass()
 # This works
 thing._MyClass__name = "new value"
 
-# This doesn't
+# This doesn't change the attribute. It creates a new, separate attribute named
+# __name, and the mangled attribute keeps its original value:
 thing.__name = "new value"
 ```
 
@@ -84,7 +85,7 @@ thing.__name = "new value"
 These are used for "magic" or "dunder" methods and attributes such as:
 
 * `__init__()` is the class constructor
-* `__name__` is the script name attribute
+* `__name__` holds the module's name. It's `"__main__"` when the file runs as a script
 * `__str__()` and `__repr__()` are commonly overridden magic methods
 
 While we *could* create our own dunder methods, this nomenclature is reserved 
@@ -117,5 +118,9 @@ Dunder names:
   __name__ = __main__
 ```
 
----
+> Note: the code file turns off several Pylint warnings (wildcard imports, a
+> too-few-public-methods check on `MyClass`, protected access to the mangled name,
+> and an unused private member) and a few Sonar warnings. Those comments stay in the
+> code file.
 
+---

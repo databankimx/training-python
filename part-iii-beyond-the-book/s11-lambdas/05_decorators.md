@@ -1,12 +1,14 @@
 ## Decorating a Lambda
 
-We saw in the section covering closures that we can create a decorator
+We saw in the closures lesson that we can create a decorator
 function that wraps another function in some additional work.
 
 For example:
 
 ```python
-def trace(func: callable) -> callable:
+from collections.abc import Callable
+
+def trace(func: Callable) -> Callable:
     def _trace(*args, **kwargs):
         print(f"[TRACE] func: {func.__name__}, args: {args}, kwargs: {kwargs}")
         return func(*args, **kwargs)
@@ -52,6 +54,7 @@ Output:
 ```
 
 ---
+
 ### Calling a Decorator with a Higher-Order Function and Lambda
 
 We can also use the decorator function to trace the behavior of a lambda 

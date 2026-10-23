@@ -18,30 +18,33 @@ import re
 import tokenize
 
 # Tags the highlighter can produce. Each must be configured with a color.
-SYNTAX_TAGS = ("kw", "ctl", "str", "com", "num", "typ", "fn", "var")
+SYNTAX_TAGS: tuple[str, ...] = ("kw", "ctl", "str", "com", "num", "typ", "fn", "var")
+
+# A highlighted range: (start, end, tag), where each position is (row, column).
+Span = tuple[tuple[int, int], tuple[int, int], str]
 
 # Keywords shown in the control-flow color, as in Visual Studio.
-CONTROL = {
+CONTROL: set[str] = {
     "if", "elif", "else", "for", "while", "break", "continue", "return", "yield",
     "try", "except", "finally", "raise", "with", "pass", "import", "from", "as",
     "in", "is", "not", "and", "or", "lambda", "async", "await", "match", "case",
     "assert", "del", "global", "nonlocal",
 }
 
-BUILTIN_NAMES = set(dir(builtins))
-BUILTIN_TYPES = {name for name in BUILTIN_NAMES if isinstance(getattr(builtins, name), type)}
+BUILTIN_NAMES: set[str] = set(dir(builtins))
+BUILTIN_TYPES: set[str] = {name for name in BUILTIN_NAMES if isinstance(getattr(builtins, name), type)}
 
-C_CONTROL = {
+C_CONTROL: set[str] = {
     "if", "else", "for", "while", "do", "switch", "case", "default", "break",
     "continue", "return", "goto",
 }
-C_KEYWORDS = {
+C_KEYWORDS: set[str] = {
     "int", "char", "float", "double", "void", "long", "short", "unsigned", "signed",
     "const", "static", "extern", "struct", "union", "enum", "typedef", "sizeof",
     "auto", "register", "volatile", "inline", "bool", "true", "false", "NULL",
 }
 
-C_TOKEN = re.compile(
+C_TOKEN: re.Pattern[str] = re.compile(
     r'(?P<com>//[^\n]*|/\*.*?\*/)'
     r'|(?P<str>"(?:\\.|[^"\\\n])*"|\'(?:\\.|[^\'\\\n])*\')'
     r'|(?P<dir>^[ \t]*#[^\n]*)'
@@ -51,9 +54,9 @@ C_TOKEN = re.compile(
 )
 
 
-def python_spans(code: str) -> list[tuple[tuple[int, int], tuple[int, int], str]]:
+def python_spans(code: str) -> list[Span]:
     """Return (start, end, tag) spans for Python code. Rows are 1-based, columns 0-based."""
-    spans = []
+    spans: list[Span] = []
     previous = ""
     try:
         for token in tokenize.generate_tokens(io.StringIO(code).readline):
@@ -86,7 +89,7 @@ def python_spans(code: str) -> list[tuple[tuple[int, int], tuple[int, int], str]
     return spans
 
 
-def c_spans(code: str) -> list[tuple[tuple[int, int], tuple[int, int], str]]:
+def c_spans(code: str) -> list[Span]:
     """Return (start, end, tag) spans for C code. Rows are 1-based, columns 0-based."""
     line_starts = [0] + [match.end() for match in re.finditer(r"\n", code)]
 
@@ -94,7 +97,7 @@ def c_spans(code: str) -> list[tuple[tuple[int, int], tuple[int, int], str]]:
         row = bisect.bisect_right(line_starts, offset)
         return row, offset - line_starts[row - 1]
 
-    spans = []
+    spans: list[Span] = []
     for match in C_TOKEN.finditer(code):
         kind = match.lastgroup
         text = match.group(0)

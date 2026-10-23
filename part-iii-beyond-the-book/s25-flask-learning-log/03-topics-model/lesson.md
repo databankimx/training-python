@@ -96,3 +96,5 @@ No new page. The build output shows that the seed data loaded.
 - `flask_log/__init__.py`: imports the models, and `load-seed` loads the seed file
 - `seed.json` (new): the example topics and entries
 - `tests/test_models.py` (new): tests for the models and the seed command
+
+---

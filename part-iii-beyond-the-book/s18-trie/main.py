@@ -4,7 +4,7 @@ from trie import Trie
 from sm_utils import timer, clear_terminal, pause
 
 @timer
-def initialize_trie(file_name: str, folder: str=None) ->Trie:
+def initialize_trie(file_name: str, folder: str | None = None) -> Trie:
     """Initialize the Trie for testing"""
     print("\nInitializing...")
     t = Trie()

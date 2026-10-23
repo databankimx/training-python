@@ -15,7 +15,12 @@ ROOT_DIR = os.path.dirname(__file__)
 file_name = "moby_dick.txt"
 file_path = os.path.join(ROOT_DIR, "Files", file_name)
 
-with open(file_path, encoding="utf-8") as f:
+# This version raises a UnicodeDecodeError on Windows, so it's commented out:
+# with open(file_path) as f:
+#     contents = f.read()
+#     print(len(contents))
+
+with open(file_path, encoding="UTF-8") as f:
     contents = f.read()
     print(len(contents))
 
@@ -27,5 +32,10 @@ with open(file_path, encoding="utf-8") as f:
 file_name = "moby_dick.txt"
 file_path = get_path(file_name, "Files")
 file = Path(file_path)
-contents = file.read_text(encoding="utf-8")
+
+# This version raises a UnicodeDecodeError on Windows, so it's commented out:
+# contents = file.read_text()
+# print(len(contents))
+
+contents = file.read_text(encoding="UTF-8")
 print(len(contents))

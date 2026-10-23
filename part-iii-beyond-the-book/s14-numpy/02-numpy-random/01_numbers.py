@@ -5,9 +5,9 @@ from numpy import random
 
 def random_int() -> None:
     """Generate a random integer between 1 and 100."""
-    min_n, max_n = 1, 100
-    x = random.randint(min_n, max_n + 1) #NOSONAR
-    print(f"Random integer ({min_n} to {max_n}):\n{x}\n")
+    low, high = 1, 100
+    x = random.randint(low, high + 1) #NOSONAR
+    print(f"Random integer ({low} to {high}):\n{x}\n")
 
 def random_float() -> None:
     """Generate a random floating-point number between 0 and 1."""
@@ -17,17 +17,17 @@ def random_float() -> None:
 def random_array_1d_int() -> None:
     """Generate a 1D array of random integers between 1 and 100."""
     ar_sz = 5
-    min_n, max_n = 1, 100
+    low, high = 1, 100
     arr = random.randint(1, 101, ar_sz) #NOSONAR
-    print(f"Random 1D int array ({min_n} to {max_n})", end=" ")
+    print(f"Random 1D int array ({low} to {high})", end=" ")
     print(f"size: ({ar_sz}):\n{arr}\n")
 
 def random_array_2d_int() -> None:
     """Generate a 2D array of random integers between 1 and 100."""
     ar_sz = (5, 3)
-    min_n, max_n = 1, 100
+    low, high = 1, 100
     arr = random.randint(1, 101, size=ar_sz) #NOSONAR
-    print(f"Random 2D int array ({min_n} to {max_n})", end=" ")
+    print(f"Random 2D int array ({low} to {high})", end=" ")
     print(f"size: {ar_sz}:\n{arr}\n")
 
 def random_array_1d_float() -> None:
@@ -38,7 +38,7 @@ def random_array_1d_float() -> None:
     print(f"size: ({ar_sz}):\n{arr}\n")
 
 def random_array_2d_float() -> None:
-    """Generate a 1D array of random floats between 0 and 1."""
+    """Generate a 2D array of random floats between 0 and 1."""
     ar_sz = (5, 3)
     arr = random.rand(*ar_sz) #NOSONAR
     print("Random 2D float array", end=" ")
@@ -59,7 +59,7 @@ def choose_1d_array_elements() -> None:
     print(f"{new_arr}\n")
 
 def choose_2d_array_elements() -> None:
-    """Select a 1D array of elements at random from an array."""
+    """Select a 2D array of elements at random from an array."""
     arr = np.array(range(1, 101))
     ar_sz = (5, 3)
     new_arr = random.choice(arr, size=ar_sz) #NOSONAR

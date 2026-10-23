@@ -1,29 +1,27 @@
 ## The Walrus Operator `:=`
 
-Python implements a special operator to permit assigning a variable
-within an expression.
+Python has a special operator that lets you assign a variable inside an expression.
 
-This *assignment expression operator* `:=` is affectionately called the 
-*walrus operator*.
+This *assignment expression operator*, `:=`, is affectionately called the *walrus operator*.
 
 ---
 
 ### Walrus Operator in a `print()` Statement
 
-For the sake of simplicity, let's imagine we want to square a number and 
-then compare it with a max value.
+For the sake of simplicity, let's say we want to square a number and then compare it with a maximum
+value.
 
 #### Without a Walrus Operator
 
-We might implement it like this:
+We might write it like this:
 
 ```python
-max = 100
+max_n = 100
 n = 9
 n_squared = n ** 2
 print(f"{n}² = {n_squared}")
-infix = "" if n_squared > max else "not "
-print(f"{n_squared} is {infix}greater than {max}\n")
+infix = "" if n_squared > max_n else "not "
+print(f"{n_squared} is {infix}greater than {max_n}\n")
 ```
 
 Output:
@@ -37,16 +35,15 @@ Output:
 
 #### Using the Walrus Operator
 
-However, since we don't need the variable until it is evaluated in the
-f-string in the `print()` statement, we can assign it inline there using 
-the walrus operator:
+We don't need `n_squared` until the f-string in the `print()` statement evaluates it, so we can assign
+it right there with the walrus operator:
 
 ```python
-max = 100
+max_n = 100
 n = 9
 print(f"{n}² = {(n_squared := n ** 2)}")
-infix = "" if n_squared > max else "not "
-print(f"{n_squared} is {infix}greater than {max}\n")
+infix = "" if n_squared > max_n else "not "
+print(f"{n_squared} is {infix}greater than {max_n}\n")
 ```
 
 Output:
@@ -56,15 +53,50 @@ Output:
 81 is not greater than 100
 ```
 
-The result is the same, and the value computed in the expression is
-available in the variable after the statement completes.
+The result is the same. The value computed inside the expression is still available in `n_squared`
+after the statement finishes.
+
+---
+
+### Reading Input Until a Sentinel
+
+The walrus operator really earns its keep in a `while` loop that reads input. A *sentinel* is a value
+that tells the loop to stop, such as `quit`.
+
+Without the walrus operator, you need the `input()` call twice: once before the loop, so the condition
+has something to test, and once inside the loop, to get the next value:
+
+```python
+message = input("> ")
+while message.lower() != "quit":
+    print(message)
+    message = input("> ")
+```
+
+With the walrus operator, the assignment and the test happen together in the loop condition, so the
+`input()` call appears only once:
+
+```python
+while (message := input("> ")).lower() != "quit":
+    print(message)
+```
+
+Both versions do the same thing. The `.lower()` call makes the check case-insensitive, so `QUIT` also
+ends the loop. If the user types `hi`, then `there`, then `quit`, each one prints:
+
+```
+hi
+there
+```
+
+The `quit` ends the loop and is never printed. The walrus version is shorter, and it can't fall out of
+step, because there's only one place where the input is read.
 
 ---
 
 ### Walrus Operator in a List Comprehension
 
-We can use a walrus operator in any expression. Here's an example of its
-use in a list comprehension:
+You can use the walrus operator in any expression. Here's an example in a list comprehension:
 
 ```python
 n = 9
@@ -78,14 +110,14 @@ Output:
 [1, 9, 25, 49, 81]
 ```
 
-Note how we can use the variable `y` earlier in the comprehension than we
-assign it. This results in an efficient algorithm.
+The `if` clause computes `y` and assigns it, and the expression at the front of the comprehension uses
+that same `y`. The walrus lets the condition and the output share one calculation.
 
 ---
 
 #### Why is that useful?
 
-Without using a walrus operator, we could implement a loop like this:
+Without the walrus operator, you could write a loop like this:
 
 ```python
 n = 9
@@ -96,15 +128,14 @@ for x in range(1, n + 1):
         odd_squares.append(y)
 ```
 
-But if we wanted to use a list comprehension instead of a loop, we might 
-end up with this:
+To use a list comprehension instead, you might write this:
 
 ```python
 n = 9
 odd_squares = [x ** 2 for x in range(1, n + 1) if x ** 2 % 2]
 ```
 
-That would work, but in order to both compare and obtain the square, we're
-computing `x ** 2` twice, which is wasteful of clock cycles.
+That works, but it computes `x ** 2` twice, once to test it and once to keep it. The walrus operator
+lets you compute it once.
 
 ---

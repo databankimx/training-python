@@ -1,13 +1,13 @@
 """Assignment 8.11"""
 
-# Archived Messages: Start with your work from Exercise 8.10. Call
-#                    the function `send_messages()` with a copy of
-#                    the list of messages. After calling the function,
-#                    print both of your lists to show that the
-#                    original list has retained its messages.
+# Archived Messages: Start with your work from Exercise 8-10. Call the
+#                    function send_messages() with a copy of the list of
+#                    messages. After calling the function, print both of your
+#                    lists to show that the original list has retained its
+#                    messages.
 
 print("Try-it-Yourself:")
-print("Assignment 8.11")
+print("Assignment 8.11\n")
 
 def show_messages(messages):
     """Print each message from the list"""

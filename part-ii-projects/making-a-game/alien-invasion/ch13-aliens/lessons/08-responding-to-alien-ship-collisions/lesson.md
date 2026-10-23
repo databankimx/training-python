@@ -167,3 +167,5 @@ the bottom center of the window.
 - `settings.py`: adds `ship_limit`
 - `ship.py`: adds `center_ship()`
 - `alien_invasion.py`: adds `_ship_hit()`, and calls it on an alien-ship collision
+
+---

@@ -1,6 +1,6 @@
 ## Iterating over Arrays with `nditer()`
 
-As we saw in the last lesson, iterating over NumPy arrays can quickly 
+As we saw in the last lesson, iterating over NumPy arrays can quickly
 become awkward as the number of dimensions rises.
 
 NumPy exposes a function `nditer()` to simplify array iteration.
@@ -11,7 +11,7 @@ We can see how much it helps us by reviewing some examples.
 
 ### Iterating over All Elements in a Three-Dimensional Array
 
-Using Python `for` loops, we had to nest `n` loops (where `n` is the 
+Using Python `for` loops, we had to nest `n` loops (where `n` is the
 number of dimensions).
 
 Here, using the `nditer()` function, all that nesting is taken care of
@@ -52,7 +52,7 @@ Each element:
 ### Changing Element Data Types
 
 The `nditer()` function accepts a keyword argument `op_dtypes`, which
-allows the developer to specify a data type (using the NumPy 
+allows the developer to specify a data type (using the NumPy
 abbreviations) into which each element will be converted during iteration.
 
 For example, `op_dtypes="U"` specifies that the elements should be
@@ -158,7 +158,7 @@ Enumerated 1D Iteration:
 
 #### Enumerating a 2D Array
 
-We can see the usefulness of index tuples when we examine an example with 
+We can see the usefulness of index tuples when we examine an example with
 a two-dimensional array.
 
 ```python

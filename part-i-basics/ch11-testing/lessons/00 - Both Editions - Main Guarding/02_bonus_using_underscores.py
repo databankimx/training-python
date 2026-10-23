@@ -4,11 +4,15 @@
 from underscore_module import * #NOSONAR
 import underscore_module
 
+print("Chapter 11:")
+print("Bonus - Using Underscores in Names\n")
+
 class MyClass: #pylint: disable=too-few-public-methods
     """Demonstrates name mangling"""
 
     def __init__(self):
         self.__name = "value" #pylint: disable=unused-private-member #NOSONAR
+
 
 def main() -> None:
     """Main function"""

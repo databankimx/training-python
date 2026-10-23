@@ -6,7 +6,7 @@ import re
 
 LINT_COMMENT = re.compile(r"#\s*(pylint|nosonar)", re.IGNORECASE)
 
-BADGE_RULES = (
+BADGE_RULES: tuple[tuple[re.Pattern[str], str, str], ...] = (
     (re.compile(r"pygame\.display\.set_mode\("), "Window",
      "Opens in a new window"),
     (re.compile(r"plt\.show\("), "Window",
@@ -24,7 +24,7 @@ BADGE_RULES = (
 )
 
 
-BADGE_GLYPHS = {"Window": "window", "Browser": "globe", "Input": "keyboard",
+BADGE_GLYPHS: dict[str, str] = {"Window": "window", "Browser": "globe", "Input": "keyboard",
                 "Saves file": "disk", "Internet": "cloud"}
 
 
@@ -33,7 +33,7 @@ def strip_lint_comments(source: str) -> str:
 
     A line that is only such a comment is dropped. On other lines, only the comment is cut off.
     """
-    kept = []
+    kept: list[str] = []
     for line in source.split("\n"):
         if LINT_COMMENT.search(line):
             if line.lstrip().startswith("#"):

@@ -22,7 +22,7 @@ benefits:
 
 * A more useful `__repr__()` that you would have with a standalone
   global variable.
-* Type-safety (since the enum is a data type)
+* Type-safety (an enum member is its own type, not a plain number)
 * Meaningful name/value relationships
 * And other features depending on the type of enumeration
 
@@ -147,5 +147,20 @@ Output:
 <enum 'Weekday'>
 True
 ```
+
+Even though the members have values of 1 through 7, the member is not equal to
+the plain number:
+
+```python
+print(Weekday.MONDAY == 1)
+```
+
+Output:
+
+```
+False
+```
+
+So a member can't be mixed up with a plain integer by accident.
 
 ---

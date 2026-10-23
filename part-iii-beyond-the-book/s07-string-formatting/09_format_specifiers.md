@@ -53,8 +53,13 @@ Output:
 003.14
 ```
 
-For the remainder of the lessons in this topic, I will use f-strings. But, as
-you can see, the format specifiers use the same syntax for any formatting
-mechanism.
+For the remainder of the lessons in this topic, I will use f-strings. The options
+are the same for each mechanism, but the notation differs. The string-modulo
+operator writes them as `%06.2f`, while `.format()` and f-strings put them after
+a colon, as in `:06.2f`. The colon-style mini-language is specific to `.format()`
+and f-strings.
+
+> Note: the code file turns off a Pylint warning (`consider-using-f-string`) on
+> the string-modulo and `.format()` lines. Those comments stay in the code file.
 
 ---

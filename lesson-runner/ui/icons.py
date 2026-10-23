@@ -1,6 +1,7 @@
 """Vector icons and the DataBank logo, drawn in code so they don't depend on any font."""
 
 from __future__ import annotations
+
 import math
 
 from PySide6.QtCore import QPointF, QRectF, Qt #pylint: disable=no-name-in-module #NOSONAR

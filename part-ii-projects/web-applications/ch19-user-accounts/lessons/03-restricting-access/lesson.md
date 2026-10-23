@@ -87,3 +87,5 @@ The topics page for the runner's account, showing only Chess and Rock Climbing.
 
 - `learning_logs/views.py`: requires sign-in, filters topics by owner, and checks the owner on the topic, new entry and edit pages
 - `learning_logs/tests.py`: signs in the owner in each test, and adds the access tests
+
+---

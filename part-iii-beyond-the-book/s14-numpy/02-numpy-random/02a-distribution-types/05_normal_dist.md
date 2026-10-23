@@ -20,7 +20,7 @@ the probability distributions of many common events. For example:
 
 * IQ Scores
 * Height
-* Job Satisfaction
+* Measurement errors
 * Heartrates
 * etc.
 
@@ -51,7 +51,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 rng = random.default_rng()
-arr = rng.normal(scale=1, size=20)
+arr = rng.normal(size=20)
 print(arr)
 sns.displot(arr, kde=True)
 plt.show()
@@ -65,6 +65,8 @@ Output:
  -1.1873274   0.24095434  0.22992065 -0.75510367  1.91623044  1.13151411
  -0.07135201 -1.34054844]
 ```
+
+Note: the values will differ on each run, because the generator is not seeded.
 
 Graph:
 
@@ -97,7 +99,7 @@ Graph:
 
 ---
 
-### An Example with Specified Mean and Standard Deviation 
+### An Example with Specified Mean and Standard Deviation
 
 Let's look at an example where we specify the mean and standard deviation.
 

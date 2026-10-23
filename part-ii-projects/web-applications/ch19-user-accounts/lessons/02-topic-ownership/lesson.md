@@ -96,3 +96,5 @@ The topics page for a signed-in user, with the new topic in the list.
 - `learning_logs/views.py`: requires sign-in to add a topic, and records the owner
 - `learning_logs/tests.py`: gives every topic an owner, and adds tests for ownership and sign-in
 - `seed.json`: the example topics, owned by user 1
+
+---

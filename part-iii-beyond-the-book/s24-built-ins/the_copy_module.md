@@ -7,26 +7,27 @@ gives two ways to make a real copy.
 The code for this lesson is in [the_copy_module.py](./the_copy_module.py):
 
 ```python
-"""The copy module: shallow copies and deep copies"""
-
 from copy import copy, deepcopy
 
-original = [1, 2, [3, 4]]
 
-# copy() makes a new outer list, but the nested list is still shared
-shallow = copy(original)
+def shallow_copy_example() -> None:
+    """Show that copy() makes a new outer list but shares nested lists"""
+    original = [1, 2, [3, 4]]
+    shallow = copy(original)
+    print(f"Equal values: {shallow == original}")
+    print(f"Same list object: {shallow is original}")
+    original[2].append(5)
+    print(f"Original: {original}")
+    print(f"Shallow:  {shallow}   (the nested list changed too)")
 
-# deepcopy() also copies the nested list
-deep = deepcopy(original)
 
-print(f"Equal values: {shallow == original}")
-print(f"Same list object: {shallow is original}")
-
-# Change the nested list in the original
-original[2].append(5)
-print(f"Original: {original}")
-print(f"Shallow:  {shallow}   (the nested list changed too)")
-print(f"Deep:     {deep}      (unaffected)")
+def deep_copy_example() -> None:
+    """Show that deepcopy() copies nested lists as well"""
+    original = [1, 2, [3, 4]]
+    deep = deepcopy(original)
+    original[2].append(5)
+    print(f"Original: {original}")
+    print(f"Deep:     {deep}      (unaffected)")
 ```
 
 ---
@@ -51,11 +52,14 @@ Equal values: True
 Same list object: False
 Original: [1, 2, [3, 4, 5]]
 Shallow:  [1, 2, [3, 4, 5]]   (the nested list changed too)
+
+Original: [1, 2, [3, 4, 5]]
 Deep:     [1, 2, [3, 4]]      (unaffected)
 ```
 
 The first two lines show that the copy has equal values but is a different
-object. The last three show the effect of changing the nested list.
+object. The next lines show the effect of changing the nested list: the shallow
+copy changes with it, and the deep copy does not.
 
 ---
 

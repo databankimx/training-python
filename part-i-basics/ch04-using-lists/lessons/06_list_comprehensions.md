@@ -1,17 +1,15 @@
 ## List Comprehensions
 
-List comprehensions provide a way to create a list with some set of constraints
-in a single line of code.
+A list comprehension builds a list in a single line. It's a compact way to write a loop
+whose only job is to create a list.
 
-Using comprehensions where they can logically replace more verbose code is
-often seen as a mark of competency for newer Python developers.
-
-> Note: Hiring managers often look for candidates who can write concise and readable code, and list comprehensions are a common way to demonstrate this skill.
+Comprehensions are a common idiom in Python, so you'll see them in plenty of code. Being
+able to read them comfortably is part of reading Python well.
 
 ---
 
-Up to now, we have used loops to populate lists.
-For example, this will generate a list of the first 10 squares
+Up to now, we've used loops to populate lists. For example, this creates a list of the
+first 10 squares:
 
 ```python
 squares = []
@@ -28,13 +26,11 @@ Output:
 
 ---
 
-An easy way to think of a list comprehension is a loop that computes an 
-expression on each iteration and automatically appends the result to a list.
+An easy way to think of a list comprehension is a loop that computes an expression on
+each iteration and appends the result to a list, all in one step. You describe the
+contents of the list with an expression, and the comprehension does the looping for you.
 
-A comprehension allows you to define the content of a list based on an 
-expression, simplifying the loop.
-
-Syntax:
+The syntax is:
 
 ```python
 [expression_on_var for var in collection]
@@ -42,10 +38,9 @@ Syntax:
 
 ---
 
-### List Comprehension for List of Squares
+### A List Comprehension for Squares
 
-We can accomplish the same result as the loop above with the following list
-comprehension:
+Here's the same result as the loop above, in one line:
 
 ```python
 squares = [value ** 2 for value in range(1, 11)]
@@ -60,17 +55,15 @@ Output:
 
 ---
 
-You can also add a condition to a list comprehension to filter the results
+### Adding a Condition
 
-Syntax:
+You can also add an `if` condition to filter the results. The syntax is:
 
 ```python
 [expression_on_var for var in collection if condition]
 ```
 
----
-
-### List Comprehension for List of Even Squares
+Here's a list of even squares:
 
 ```python
 even_squares = [value ** 2 for value in range(1, 11) if value % 2 == 0]
@@ -83,33 +76,35 @@ Output:
 [4, 16, 36, 64, 100]
 ```
 
+Notice the difference. The `if` at the end filters which values make it into the list. The
+expression at the front decides what each kept value becomes.
+
 ---
 
 ### Always Balance Concision with Readability
 
-You can create very complex list comprehensions
-
-Consider this example:
+Comprehensions can get very complex. Consider this example:
 
 ```python
 [["" if item == " " else item if item != "ChangeMe" else some_value for item in row][:-1] for row in response]
 ```
 
-This comprehension is iterating across rows of data and the elements in the 
-rows (omitting the last element in each) and replacing them with:
+Before you read on, know that `some_value` is a placeholder, and `response` is some
+collection of rows. The interesting part is the conditional expression. It has the form
+`value_if_true if condition else value_if_false`, and it can be chained, as it is here.
+Read from left to right:
 
-* An empty string if they contain a single space character
-* A default value if they contain the string "ChangeMe"
-* Or not at all (keep original value) under any other conditions.
+* An empty string if the item is a single space
+* Otherwise, `some_value` if the item is the string `"ChangeMe"`
+* Otherwise, the item itself
 
-It's quite concise, since it replaces two nested loops. However, it can be 
-pretty difficult for the next developer to read and understand.
+This comprehension iterates over the rows and the items in each row, dropping the last
+element of each row. It's concise, since it replaces two nested loops. It's also hard to
+read, and the next developer to look at it might spend a long time figuring out what it
+does.
 
-We've sacrificed readability in order to force-fit a list comprehension.
-
-Even though comprehensions are considered Pythonic, the tendency to use them
-should be balanced with keeping your code readable.
-
-In this instance, we might be better off keeping at least one of the loops.
+We've traded readability for brevity, and it's not a good trade here. Comprehensions are
+a good tool, but they shouldn't be the only tool. In this case, keeping at least one of the
+loops would make the code clearer, and nobody would mind the extra two lines.
 
 ---

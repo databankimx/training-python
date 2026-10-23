@@ -74,7 +74,7 @@ def main() -> int:
 
     with open(source_file, encoding="utf-8") as handle:
         source = handle.read()
-    namespace = {"__name__": "__main__", "__file__": original, "__builtins__": builtins}
+    namespace: dict[str, object] = {"__name__": "__main__", "__file__": original, "__builtins__": builtins}
     try:
         code = compile(source, original, "exec")
         #pylint: disable=exec-used

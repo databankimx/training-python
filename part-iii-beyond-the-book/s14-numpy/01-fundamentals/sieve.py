@@ -7,6 +7,6 @@ def sieve(n) -> list[bool]:
     for p in range(2, int(n ** 0.5) + 1):
         if not primes[p]:
             continue
-        for n in range(p * 2, n + 1, p):
-            primes[n] = False
+        for m in range(p * 2, n + 1, p):
+            primes[m] = False
     return primes

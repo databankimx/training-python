@@ -17,7 +17,7 @@ from trie_node import TrieNode
 class Trie:
     """Models a trie (alphabet only)"""
 
-    def __init__(self, size: int=26, base_char: str="a") -> None:
+    def __init__(self, size: int = 26, base_char: str = "a") -> None:
         """Initialize"""
         self.size = size
         self.root = TrieNode(self.size)

@@ -90,7 +90,7 @@ Intersection: [3 4]
 
 The difference of two sets is a set containing each of the unique values in the first array but not in the second array.
 
-You can think of this being similar to the bitwise AND operation combined with the bitwise NOT of the second set (`a & ~b`), only operating memberwise instead of bitwise and ignoring unique members of the second set.
+You can think of this being similar to the bitwise AND operation combined with the bitwise NOT of the second set (`a & ~b`), only operating memberwise instead of bitwise, and leaving out anything that appears only in the second array.
 
 ```python
 import numpy as np

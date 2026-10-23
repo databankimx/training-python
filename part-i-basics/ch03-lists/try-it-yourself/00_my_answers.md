@@ -47,6 +47,7 @@ be the same, but each message should be personalized with the person's name.
 <summary>Spoiler Code</summary>
 
 ```python
+friends = ["Matt", "Danica", "Becky", "Alex"]
 print(f"Hi there, {friends[0]}. You're my friend.")
 print(f"Hi there, {friends[1]}. You're my friend.")
 print(f"Hi there, {friends[-2]}. You're my friend.")
@@ -220,6 +221,7 @@ print(f"I found a bigger table that can seat {len(guests) + 3} people.")
 guests.insert(0, "Barbara Liskov")
 guests.insert(3, "Donald Knuth")
 guests.append("Margaret Hamilton")
+print(guests)
 
 print(f"{guests[0]}, would you like to join me for dinner?")
 print(f"{guests[1]}, would you like to join me for dinner?")
@@ -240,6 +242,7 @@ print(f"{guests[8]}, would you like to join me for dinner?")
 
 ```
 I found a bigger table that can seat 9 people.
+['Barbara Liskov', 'Charles Babbage', 'Ada Lovelace', 'Donald Knuth', 'George Boole', 'Grace Hopper', 'Alan Turing', 'Tim Berners-Lee', 'Margaret Hamilton']
 Barbara Liskov, would you like to join me for dinner?
 Charles Babbage, would you like to join me for dinner?
 Ada Lovelace, would you like to join me for dinner?
@@ -326,18 +329,48 @@ a list and use sort, sorted, reverse, and reversed on them.
 ```python
 places = ["cairo", "tokyo", "antarctica", "beijing", "australia"]
 print(places)
+print("---")
 print(sorted(places))
 print(places)
+print("---")
 print(sorted(places, reverse=True))
 print(places)
+print("---")
 places.reverse()
 print(places)
+print("---")
 places.reverse()
 print(places)
+print("---")
 places.sort()
 print(places)
+print("---")
 places.sort(reverse=True)
 print(places)
+```
+
+</details>
+<br>
+
+<details>
+<summary>Output</summary>
+
+```
+['cairo', 'tokyo', 'antarctica', 'beijing', 'australia']
+---
+['antarctica', 'australia', 'beijing', 'cairo', 'tokyo']
+['cairo', 'tokyo', 'antarctica', 'beijing', 'australia']
+---
+['tokyo', 'cairo', 'beijing', 'australia', 'antarctica']
+['cairo', 'tokyo', 'antarctica', 'beijing', 'australia']
+---
+['australia', 'beijing', 'antarctica', 'tokyo', 'cairo']
+---
+['cairo', 'tokyo', 'antarctica', 'beijing', 'australia']
+---
+['antarctica', 'australia', 'beijing', 'cairo', 'tokyo']
+---
+['tokyo', 'cairo', 'beijing', 'australia', 'antarctica']
 ```
 
 </details>
@@ -387,8 +420,50 @@ each function introduced in this chapter at least once.
 <summary>Spoiler Code</summary>
 
 ```python
-# This is intentionally left for you to complete on your own.
-print("You're encouraged to do this one on your own.")
+# Part 1: a list of snacks
+snacks = ["popcorn", "pretzels", "apple"]
+print(f"We start with {len(snacks)} snacks: {snacks}")   # len()
+print(snacks[0])                                          # indexing
+snacks[1] = "trail mix"                                   # modifying a value
+snacks.append("cheese")                                   # append()
+snacks.insert(0, "chips")                                 # insert()
+snacks.remove("apple")                                    # remove()
+print(snacks)
+last = snacks.pop()                                       # pop()
+first = snacks.pop(0)                                     # pop() with an index
+print(f"Popped {last} and {first}: {snacks}")
+del snacks[0]                                             # del
+print(snacks)
+
+# Part 2: sorting and reversing a list of numbers
+scores = [13, 7, 28, 3]
+scores.sort()                                             # sort()
+print(scores)
+print(sorted(scores, reverse=True))                       # sorted()
+scores.reverse()                                          # reverse()
+print(scores)
+print(list(reversed(scores)))                             # reversed()
+scores.clear()                                            # clear()
+print(scores)
+```
+
+</details>
+<br>
+
+<details>
+<summary>Output</summary>
+
+```
+We start with 3 snacks: ['popcorn', 'pretzels', 'apple']
+popcorn
+['chips', 'popcorn', 'trail mix', 'cheese']
+Popped cheese and chips: ['popcorn', 'trail mix']
+['trail mix']
+[3, 7, 13, 28]
+[28, 13, 7, 3]
+[28, 13, 7, 3]
+[3, 7, 13, 28]
+[]
 ```
 
 </details>

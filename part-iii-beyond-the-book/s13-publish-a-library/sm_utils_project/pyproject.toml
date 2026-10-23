@@ -4,12 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sm_utils"
-version = "0.2.8"
+version = "0.2.9"
 authors = [
   { name="Scott McLean", email="smclean@databankimx.com" },
 ]
 description = "Utility Scripts"
-readme = "readme.md"
+readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [
     "Programming Language :: Python :: 3",

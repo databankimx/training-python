@@ -104,3 +104,5 @@ leaves the top.
 - `settings.py`: adds `bullets_allowed`
 - `alien_invasion.py`: limits `_fire_bullet()`, and moves the bullet updates into
   `_update_bullets()`
+
+---

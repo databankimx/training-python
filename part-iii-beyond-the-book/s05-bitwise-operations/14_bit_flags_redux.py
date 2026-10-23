@@ -14,16 +14,17 @@ class ProductLicenses(IntFlag):
     project_management = 0b0100_0000
     publishing         = 0b1000_0000
     personal = word_processing | email_client
-    work = personal | spreadsheets | presentations | notebook | collaboration
+    work = personal | spreadsheets | presentations \
+         | notebook | collaboration
     ultra_deluxe = work | project_management | publishing
 
 def main() -> None:
     """Main function"""
     licenses = ProductLicenses.work
-    for l in ProductLicenses:
-        if not licenses & l:
+    for product in ProductLicenses:
+        if not licenses & product:
             continue
-        print(l.name)
+        print(product.name)
 
 if __name__ == "__main__":
     main()

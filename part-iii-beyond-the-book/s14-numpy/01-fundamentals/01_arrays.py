@@ -6,7 +6,7 @@ def array_from_list(lst: list[int]) -> np.ndarray:
     """Creates a numpy array from a list"""
     return np.array(lst)
 
-def array_from_tuple(tpl: tuple[int]) -> np.ndarray:
+def array_from_tuple(tpl: tuple[int, ...]) -> np.ndarray:
     """Creates a numpy array from a tuple"""
     return np.array(tpl)
 

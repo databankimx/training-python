@@ -69,8 +69,8 @@ Remember our two possible cases are:
 Python provides a library `unittest` that allows you to create tests for parts 
 of your software that validate that your code produces the expected results.
 
-> Note: `unittest` is an older testing method, and these days, most developers
-> use `pytest` instead (see the 3rd edition lessons in this chapter), but it's
+> Note: `unittest` is an older testing method, and many developers now use
+> `pytest` instead (see the 3rd edition lessons in this chapter), but it's
 > still useful to learn, as you may be asked to maintain older code where the
 > unit testing is still written using `unittest`.
 
@@ -100,12 +100,12 @@ import unittest
 class NamesTestCase(unittest.TestCase):
     """Tests for the `formatted_name()` function"""
 
-    def test_with_middle(self):
+    def test_with_middle(self) -> None:
         """Do names like 'Wolfgang Amadeus Mozart' work?"""
         result = formatted_name("wolfgang", "mozart", "amadeus")
         self.assertEqual(result, "Wolfgang Amadeus Mozart")
 
-    def test_without_middle(self):
+    def test_without_middle(self) -> None:
         """Do names like 'Janis Joplin' work?"""
         result = formatted_name("janis", "joplin")
         self.assertEqual(result, "Janis Joplin")
@@ -129,6 +129,10 @@ if __name__ == "__main__":
 Right now, having written no functional code in `formatted_name()`, both of our
 tests should fail, because the function will only return `None`.
 
+> Note: the code file keeps two earlier versions of `formatted_name()` as
+> comments. To see each output below, uncomment one version and comment out the
+> active version. The line numbers stay the same either way.
+
 Output:
 
 ```
@@ -138,7 +142,7 @@ FAIL: test_with_middle (__main__.NamesTestCase.test_with_middle)
 Do names like 'Wolfgang Amadeus Mozart' work?
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "...\01_testing_functions.py", line 25, in test_with_middle
+  File "...\01_testing_functions.py", line 31, in test_with_middle
     self.assertEqual(result, "Wolfgang Amadeus Mozart")
 AssertionError: None != 'Wolfgang Amadeus Mozart'
 
@@ -147,7 +151,7 @@ FAIL: test_without_middle (__main__.NamesTestCase.test_without_middle)
 Do names like 'Janis Joplin' work?
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "...\01_testing_functions.py", line 30, in test_without_middle
+  File "...\01_testing_functions.py", line 36, in test_without_middle
     self.assertEqual(result, "Janis Joplin")
 AssertionError: None != 'Janis Joplin'
 
@@ -169,7 +173,7 @@ Let's have a first go at the function code:
 ```python
 def formatted_name(first: str, last: str, middle: str | None="") -> str:
     """Generate a neatly formatted full name."""
-    full_name =  f"{first} {middle} {last}"
+    full_name = f"{first} {middle} {last}"
     return full_name.title()
 ```
 
@@ -182,7 +186,7 @@ FAIL: test_without_middle (__main__.NamesTestCase.test_without_middle)
 Do names like 'Janis Joplin' work?
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "...\01_testing_functions.py", line 29, in test_without_middle
+  File "...\01_testing_functions.py", line 36, in test_without_middle
     self.assertEqual(result, "Janis Joplin")
 AssertionError: 'Janis  Joplin' != 'Janis Joplin'
 - Janis  Joplin
@@ -253,4 +257,3 @@ OK
 At last, we see `..`, so our tests passed, and our function is debugged.
 
 ---
-

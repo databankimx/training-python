@@ -92,3 +92,5 @@ Hold the left arrow key, and the ship moves left. Hold both keys, and the ship s
 
 - `ship.py`: adds the `moving_left` flag, and moves the ship left in `update()`
 - `alien_invasion.py`: sets the left flag from key events
+
+---

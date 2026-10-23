@@ -21,7 +21,7 @@ def convert_f_string() -> None:
     print(f"{now!r}\n")
 
 def replace_invalid_f_string(invalid_string: str) -> str:
-    """Remove invalid characters from a string"""
+    """Escape non-ASCII characters in a string using ascii()"""
     return f"{invalid_string!a}"
 
 def main() -> None:

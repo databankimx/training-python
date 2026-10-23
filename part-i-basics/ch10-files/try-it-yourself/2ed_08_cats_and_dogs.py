@@ -21,7 +21,7 @@ def read_file(filename):
     """Read the selected file"""
     file_path = os.path.join(ROOT_DIR, "Files", filename)
     try:
-        with open(file_path, encoding="utf-8") as f:
+        with open(file_path, encoding="UTF-8") as f:
             content = f.read()
     except FileNotFoundError:
         print(f"\nFile [{filename}] not found!\n")
