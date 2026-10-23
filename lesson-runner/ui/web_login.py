@@ -1,11 +1,13 @@
 """The dialog that asks for the admin account's username and password, once per runner session."""
 
+# pylint: disable=line-too-long
+
 from __future__ import annotations
 
 import re
 
 from PySide6.QtWidgets import (QDialog, QDialogButtonBox, QFormLayout, QLabel, QLineEdit,  #pylint: disable=no-name-in-module #NOSONAR
-                               QMessageBox, QVBoxLayout)
+                               QMessageBox, QVBoxLayout, QWidget)
 
 from config import DARK
 
@@ -16,7 +18,7 @@ MIN_PASSWORD = 8
 class AdminLoginDialog(QDialog):
     """Asks for a username and a password, and checks them before accepting."""
 
-    def __init__(self, parent=None) -> None:
+    def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
         self.setWindowTitle("Admin account")
 
@@ -43,7 +45,7 @@ class AdminLoginDialog(QDialog):
         buttons.rejected.connect(self.reject)
         layout.addWidget(buttons)
 
-        # Style the buttons with the runner's accent colour, so they look clickable and react to the mouse.
+        # Style the buttons with the runner's accent color, so they look clickable and react to the mouse.
         self.setStyleSheet(
             "QPushButton {"
             f" background: {DARK['accent']}; color: #FFFFFF; border: none;"

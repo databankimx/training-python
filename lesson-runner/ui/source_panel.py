@@ -111,7 +111,7 @@ class SourcePanelMixin:
         """An exercise: every .py file in its folder, editable. Returns the main file's text."""
         self.stage = None
         folder = step.code_path.parent
-        base = {}
+        base: dict[str, str] = {}
         for path in sorted(folder.glob("*.py")):
             base[path.name] = path.read_text(encoding="utf-8")
         return self.show_file_set(base, step.code_path.name, step.code_path.name)

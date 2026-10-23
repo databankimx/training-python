@@ -1,11 +1,14 @@
 """Read-only change listings for web applications steps and exercises.
 
-For a lesson step, the listing shows what the step adds or changes compared with the step before it. For an
-exercise, it shows what the exercise adds or changes compared with the exercise it builds on. New files are shown
-in full. Changed files are shown as a diff, with unchanged parts collapsed to --snip--.
+For a lesson step, the listing shows what the step adds or changes compared with the
+step before it. For an exercise, it shows what the exercise adds or changes compared
+with the exercise it builds on. New files are shown in full. Changed files are shown
+as a diff, with unchanged parts collapsed to --snip--.
 
 The listings are made from the folders themselves, so they stay in step with the code.
 """
+
+#pylint: disable=line-too-long
 
 from __future__ import annotations
 
@@ -14,11 +17,15 @@ import importlib.util
 from functools import lru_cache
 from pathlib import Path
 from types import ModuleType
+from typing import TYPE_CHECKING
 
 from core.web_run import WEB_ROOT
 
-TEXT_SUFFIXES = {".py", ".html", ".txt", ".json", ".css", ".js"}
-IGNORED_FOLDERS = {"__pycache__", "lesson-images"}
+if TYPE_CHECKING:
+    from core.discovery import Step
+
+TEXT_SUFFIXES: set[str] = {".py", ".html", ".txt", ".json", ".css", ".js"}
+IGNORED_FOLDERS: set[str] = {"__pycache__", "lesson-images"}
 
 
 @lru_cache(maxsize=1)
@@ -76,7 +83,7 @@ def diff_text(old: str, new: str) -> str:
     return "\n".join(out)
 
 
-def lesson_step_listing(step) -> dict[str, str]:
+def lesson_step_listing(step: Step) -> dict[str, str]:
     """What a lesson step adds or changes, compared with the step before it."""
     build = build_module()
     chapter_prefix, number = step.web_build
@@ -86,7 +93,7 @@ def lesson_step_listing(step) -> dict[str, str]:
     return changes_between(before, after)
 
 
-def exercise_listing(step) -> dict[str, str]:
+def exercise_listing(step: Step) -> dict[str, str]:
     """What an exercise adds or changes, compared with the exercise it builds on."""
     build = build_module()
     folder = step.lesson_md.parent
@@ -97,7 +104,7 @@ def exercise_listing(step) -> dict[str, str]:
     return changes_between(before, after)
 
 
-def changes_for_step(step) -> dict[str, str]:
+def changes_for_step(step: Step) -> dict[str, str]:
     """The listing for a web step or exercise, keyed by file path. Empty when nothing changes."""
     _prefix, identifier = step.web_build
     if isinstance(identifier, str) and identifier.startswith("ex:"):

@@ -19,6 +19,8 @@ including the step named. This matches alien-invasion/build_stage.py, which stud
 from a terminal.
 """
 
+#pylint: disable=line-too-long
+
 from __future__ import annotations
 
 import re
@@ -31,8 +33,8 @@ from pathlib import Path
 
 CHAPTER_FOLDER = re.compile(r"^ch(\d+)-")
 STEP_FOLDER = re.compile(r"^\d+-")
-LESSON_ONLY_FILES = {"lesson.md"}
-LESSON_ONLY_FOLDERS = {"lesson-images"}
+LESSON_ONLY_FILES: set[str] = {"lesson.md"}
+LESSON_ONLY_FOLDERS: set[str] = {"lesson-images"}
 
 FILE_LINE = re.compile(r"^\s*-\s*([\w.\-]+):\s*(full|snipped)\s*$")
 CODE_BLOCK = re.compile(r"```python\n(.*?)```", re.DOTALL)
@@ -74,7 +76,7 @@ def read_front_matter(text: str) -> tuple[list[tuple[str, bool]], str]:
     end = next((i for i in range(1, len(lines)) if lines[i].strip() == "---"), None)
     if end is None:
         return [], text
-    declared = []
+    declared: list[tuple[str, bool]] = []
     for line in lines[1:end]:
         match = FILE_LINE.match(line)
         if match:
@@ -114,7 +116,7 @@ def load_stage(chapter: Path, number: int, folder: Path) -> StageInfo:
     declared, body = read_front_matter(text)
     blocks = CODE_BLOCK.findall(body)
 
-    files = []
+    files: list[StageFile] = []
     for index, (name, snipped) in enumerate(declared):
         path = folder / name
         snippet = blocks[index] if index < len(blocks) else None

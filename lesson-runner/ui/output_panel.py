@@ -1,5 +1,5 @@
 """
-Output pane: writes lines in their colours, clears them, and copies text.
+Output pane: writes lines in their colors, clears them, and copies text.
 Used as a mixin by MainWindow.
 """
 
@@ -21,7 +21,7 @@ class OutputMixin:
         self.write_output_line(text, kind)
 
     def write_output_line(self, text: str, kind: str) -> None:
-        """Write one line in the colour for its kind."""
+        """Write one line in the color for its kind."""
         cursor = self.output.textCursor()
         cursor.movePosition(QTextCursor.MoveOperation.End)
         cursor.insertText(text + "\n", self.output_formats.get(kind, self.output_formats["text"]))
