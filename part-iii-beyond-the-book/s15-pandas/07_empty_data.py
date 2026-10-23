@@ -17,7 +17,7 @@ def remove_rows(df: pd.DataFrame) -> None:
     print("Removed rows with missing columns (new DataFrame):")
     print(new_df.tail(10), "\n")
 
-def remove_in_place(df: pd.DataFrame) -> pd.DataFrame:
+def remove_and_return(df: pd.DataFrame) -> pd.DataFrame:
     """Remove rows with missing columns and return the result"""
     df = df.dropna()
     print("Removed rows with missing columns (reassigned, then returned):")
@@ -25,9 +25,10 @@ def remove_in_place(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 def fill_rows(df: pd.DataFrame) -> None:
-    """Fill missing column values"""
-    new_df = df.fillna(130)
-    print("Filled missing column values with 130 (new DataFrame):")
+    """Fill missing numeric column values"""
+    numeric_cols = df.select_dtypes("number").columns
+    new_df = df.fillna(dict.fromkeys(numeric_cols, 130))
+    print("Filled missing numeric column values with 130 (new DataFrame):")
     print(new_df.tail(10), "\n")
 
 def fill_in_place(df: pd.DataFrame) -> None:
@@ -65,7 +66,7 @@ def main() -> None:
     csv = file_path("bad_data.csv", "data")
     df = load_from_csv(csv, True)
     remove_rows(df)
-    remove_in_place(df)
+    remove_and_return(df)
     df = load_from_csv(csv)
     fill_rows(df)
     fill_in_place(df)

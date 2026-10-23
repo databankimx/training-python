@@ -83,17 +83,18 @@ Another strategy for handling missing data is to fill in the empty cells
 with default data:
 
 ```python
-new_df = df.fillna(130)
-print("Filled missing column values with 130 (new DataFrame):")
+numeric_cols = df.select_dtypes("number").columns
+new_df = df.fillna(dict.fromkeys(numeric_cols, 130))
+print("Filled missing numeric column values with 130 (new DataFrame):")
 print(new_df.tail(10))
 ```
 
 Output:
 
 ```
-Filled missing column values with 130 (new DataFrame):
+Filled missing numeric column values with 130 (new DataFrame):
     Duration          Date  Pulse  Maxpulse  Calories
-22        45           130    100       119     282.0
+22        45           NaN    100       119     282.0
 23        60  '2020/12/23'    130       101     300.0
 24        45  '2020/12/24'    105       132     246.0
 25        60  '2020/12/25'    102       126     334.5
@@ -105,8 +106,9 @@ Filled missing column values with 130 (new DataFrame):
 31        60  '2020/12/31'     92       115     243.0
 ```
 
-This is a little problematic, since the data we inserted for `Date` in row
-22 is invalid.
+Only the numeric columns are filled. Row 22 still has a missing `Date`, because
+the number 130 can't go into the text `Date` column (pandas 3 raises a `TypeError`
+if you try). The next section fills `Date` with a text value.
 
 > Note: We can modify the existing `DataFrame` instead of creating a new 
 > one by adding the `inplace=True` argument:
@@ -124,8 +126,8 @@ This is a little problematic, since the data we inserted for `Date` in row
 
 ### Replacing Missing Data by Column
 
-We can also specify the column where we are replacing data to avoid the
-issue we created in the previous attempt.
+We can also specify the column where we are replacing data, so that each column
+gets a value of the right type.
 
 > Note: In the tutorial I followed, a slightly different syntax was used
 > from what you'll see below in the example code.
