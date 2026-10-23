@@ -1,10 +1,11 @@
 """Delete documents from MongoDB collection"""
 
+from typing import Any
 from login import get_settings, get_client, server_connected
 from pymongo import MongoClient
 from pymongo.synchronous.collection import Collection
 
-def connect(settings: dict[str, any]=None) -> tuple[MongoClient, Collection]|None:
+def connect(settings: dict[str, Any] | None = None) -> tuple[MongoClient, Collection] | None:
     """Connect to MongoDB database"""
     if not settings:
         settings = get_settings()
@@ -22,13 +23,13 @@ def connect(settings: dict[str, any]=None) -> tuple[MongoClient, Collection]|Non
     print(f"Connected to collection: `{col.name}`\n")
     return (client, col)
 
-def delete_record(col: Collection, query: dict[str,str]) -> None:
+def delete_record(col: Collection, query: dict[str, Any]) -> None:
     """Delete a document from MongoDB collection"""
     print(f"Deleting document matching query: {query}")
     result = col.delete_one(query)
     print(f"Deleted {result.deleted_count} document(s)\n")
 
-def delete_multiple(col: Collection, query: dict[str,str]) -> None:
+def delete_multiple(col: Collection, query: dict[str, Any]) -> None:
     """Delete multiple documents from MongoDB collection"""
     print(f"Deleting document(s) matching query: {query}")
     result = col.delete_many(query)

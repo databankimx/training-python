@@ -14,7 +14,19 @@ The code for this lesson is in [shebang.py](./shebang.py):
 
 import sys
 
-print(f"Running Python {sys.version_info.major}.{sys.version_info.minor}")
+
+def version_example() -> None:
+    """Print the version of the Python that runs the script"""
+    print(f"Running Python {sys.version_info.major}.{sys.version_info.minor}")
+
+
+def main() -> None:
+    """Run the shebang example"""
+    version_example()
+
+
+if __name__ == "__main__":
+    main()
 ```
 
 ---

@@ -16,7 +16,7 @@ def connect() -> MongoClient|None:
     print()
     return client
 
-def make_db(client: MongoClient, db_name: str):
+def make_db(client: MongoClient, db_name: str) -> None:
     """Create a new database in MongoDB"""
     db = client[db_name]
     print(f"Created database: `{db.name}`")

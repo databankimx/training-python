@@ -9,8 +9,8 @@ from ranks import Ranks
 class Hand():
     """Models a hand of cards"""
 
-    def __init__(self, game: str=None, cards: list[Card]|None=None,
-                 hidden: list[int]|None=None) -> None:
+    def __init__(self, game: str | None = None, cards: list[Card] | None = None,
+                 hidden: list[int] | None = None) -> None:
         """Initialize"""
         if cards is None:
             cards = []
@@ -48,8 +48,7 @@ class Hand():
 
     value = property(
         fget=_get_value,
-        fset=_set_value,
-        doc="Hand total value"
+        doc="Hand total value (read-only)"
     )
 
     def __str__(self) -> str:
@@ -69,7 +68,7 @@ class Hand():
             "game": self.game
         }, indent=4)
 
-    def show(self, use_glyph: bool=False) -> None:
+    def show(self, use_glyph: bool = False) -> None:
         """Display the hand as ASCII art or glyphs"""
         back = Card(back=True)
         if use_glyph:

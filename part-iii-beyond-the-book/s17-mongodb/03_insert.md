@@ -33,7 +33,8 @@ data.
 
 ```python
 db = client[settings["db_name"]]
-print(f"Connected to database: `{db.name}`\n")
+print(f"Connected to database: `{db.name}`")
+print()
 col = db[settings["col_name"]]
 print(f"Connected to collection: `{col.name}`")
 ```
@@ -107,7 +108,7 @@ print("Inserting multiple documents into collection...")
 for doc in docs:
     print(f"• {doc}")
 _ = col.insert_many(docs)
-print("Documents inserted successfully.\n")
+print("Documents inserted successfully.")
 ```
 
 Output:
@@ -159,8 +160,6 @@ Available databases:
 
 Now that we have added a collection and a record, the database appears in
 the list.
-
-. . . . . . . . . .
 
 [Creating a Collection](./02_collection.py)
 

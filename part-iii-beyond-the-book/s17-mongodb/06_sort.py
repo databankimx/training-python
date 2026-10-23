@@ -1,11 +1,12 @@
 """Sort documents from MongoDB collection"""
 
+from typing import Any
 from login import get_settings, get_client, server_connected
 # pylint: disable=unused-import
 from pymongo import MongoClient, ASCENDING, DESCENDING
 from pymongo.synchronous.collection import Collection
 
-def connect(settings: dict[str, any]=None) -> tuple[MongoClient, Collection]|None:
+def connect(settings: dict[str, Any] | None = None) -> tuple[MongoClient, Collection] | None:
     """Connect to MongoDB database"""
     if not settings:
         settings = get_settings()

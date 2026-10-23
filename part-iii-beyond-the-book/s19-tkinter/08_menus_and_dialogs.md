@@ -23,8 +23,8 @@ window.config(menu=menubar)
 
 ### Dialogs
 
-Dialogs are small windows for a single job. The `tkinter` modules have ready-made
-ones:
+Dialogs are small windows for a single job. The `tkinter.simpledialog` and
+`tkinter.messagebox` modules have ready-made ones:
 
 ```python
 name = simpledialog.askstring("Your name", "What is your name?", parent=window)

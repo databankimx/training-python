@@ -9,7 +9,6 @@ The code is in this folder:
 * [`main.py`](./main.py) - an interactive program, plus a demo
 * [`morse.py`](./morse.py) - the encoder and decoder
 * [`node.py`](./node.py) - a node in the tree
-* [`range_char.py`](./range_char.py) - a helper that is no longer used
 
 The lesson on the tree is here:
 

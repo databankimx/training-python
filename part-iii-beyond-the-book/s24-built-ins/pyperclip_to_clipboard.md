@@ -16,12 +16,28 @@ The code for this lesson is in
 
 import pyperclip
 
-# Copies to the clipboard
-pyperclip.copy("Hello")
 
-# Pastes from the clipboard
-my_var = pyperclip.paste()
-print(my_var)
+def copy_example() -> None:
+    """Copy text to the clipboard"""
+    # Copies to the clipboard
+    pyperclip.copy("Hello")
+
+
+def paste_example() -> None:
+    """Paste text from the clipboard and print it"""
+    # Pastes from the clipboard
+    my_var = pyperclip.paste()
+    print(my_var)
+
+
+def main() -> None:
+    """Copy the text, then paste it back"""
+    copy_example()
+    paste_example()
+
+
+if __name__ == "__main__":
+    main()
 ```
 
 ---
@@ -44,8 +60,8 @@ script stores it in `my_var` and prints it.
 Hello
 ```
 
-The script copies `"Hello"` and then reads it back, so the output is the text it
-just copied. Because the clipboard is shared with other programs, pasting can
-return text you copied elsewhere. Copy something else between runs to see that.
+The script copies `"Hello"` and then reads it back, so the output is always the
+text it just copied. To see paste return text from elsewhere, comment out the
+`copy()` line, copy something in another program first, and then run the script.
 
 ---

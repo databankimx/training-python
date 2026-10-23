@@ -7,16 +7,16 @@ the trie.
 class TrieNode:
     """Models a node in a trie"""
 
-    def __init__(self, size: int=26) -> None:
+    def __init__(self, size: int = 26) -> None:
         """Initialize"""
-        self.children: list[TrieNode] = [None] * size
+        self.children: list[TrieNode | None] = [None] * size
         self.word_end: bool = False
 ```
 
 Here:
 
-* `children` is initialized as an empty array sized equivalent to the
-  character set in the trie.
+* `children` is initialized as a list of empty slots, one for each character
+  in the trie's character set.
     * I am using `None` to indicate that a child does not exist, but you
       can use any nothing-style value, like `0`, `False`, etc.
     * When populated, this will become a list of `TrieNode` objects

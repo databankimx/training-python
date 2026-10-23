@@ -31,7 +31,7 @@ MongoDB server is connected
 In `pymongo`, we can create a database exactly the same way we would access
 one that already exists.
 
-`MongoClient[database_name]` creates the database if it does not exist and 
+`client[database_name]` creates the database if it does not exist and 
 connects to it.
 
 ```python
@@ -58,7 +58,8 @@ databases = client.list_database_names()
 print("Available databases:")
 for database in databases:
     print(f"• {database}")
-print(f"\n{db_name}", end=" ")
+print()
+print(f"{db_name}", end=" ")
 if db_name in databases:
     print("exists")
 else:

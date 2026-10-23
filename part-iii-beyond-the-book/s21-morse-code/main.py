@@ -3,7 +3,7 @@
 import sys
 from morse import Morse
 
-def prog(morse):
+def prog(morse: Morse) -> None:
     """Run the interactive encoder/decoder until the user quits"""
     print("Morse code notes:")
     print("  * Letters are separated by a single space.")
@@ -20,7 +20,7 @@ def prog(morse):
         prefix = "en" if task == "e" else "de"
         print(action(input(f"Enter the message to {prefix}code:\n> ")))
 
-def demo(morse):
+def demo(morse: Morse) -> None:
     """Run a set of example encodings and decodings"""
     print(morse.decode("... --- ..."))
     print(morse.encode("SOS"))
@@ -30,7 +30,7 @@ def demo(morse):
     print(morse.encode("ABCDEFCHIJKLMNOPQRSTUVWXYZ1234567890.,?;:-/'\"()_"))
     print(morse.encode("~"))
 
-def main():
+def main() -> None:
     """Run the program, or the demo if 'demo' is given on the command line"""
     morse = Morse()
     if "demo" in sys.argv[1:]:

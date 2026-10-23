@@ -3,7 +3,7 @@
 From time to time, you will need to remove records from the database.
 
 The `Collection` object exposes the `delete_one()` and `delete_many()` 
-methods to accomplish this task:
+methods to accomplish this task.
 
 As usual, in all examples below, we will assume that we have already
 accessed the collection as `col`.
@@ -20,7 +20,8 @@ match the query, only one record will be removed.
 query = { "address": "Mountain 21" }
 print(f"Deleting document matching query: {query}")
 result = col.delete_one(query)
-print(f"Deleted {result.deleted_count} document(s)\n")
+print(f"Deleted {result.deleted_count} document(s)")
+print()
 print("Remaining documents in collection:")
 for doc in col.find({}, {"_id": 0}):
     print(doc)
@@ -58,7 +59,8 @@ except that it deletes all records matching the given query.
 query = {"address": {"$regex": "^S"}}
 print(f"Deleting document(s) matching query: {query}")
 result = col.delete_many(query)
-print(f"Deleted {result.deleted_count} document(s)\n")
+print(f"Deleted {result.deleted_count} document(s)")
+print()
 print("Remaining documents in collection:")
 for doc in col.find({}, {"_id": 0}):
     print(doc)

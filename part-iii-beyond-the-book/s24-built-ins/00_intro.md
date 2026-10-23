@@ -7,6 +7,9 @@ has its own short script that you can run on its own.
 * [`id()`](./the_id_function.md) - where an object lives in memory
 * [`copy()` and `deepcopy()`](./the_copy_module.md) - shallow and deep copies of lists
 * [`setdefault()`](./the_setdefault_function.md) - adding dictionary keys only when they are missing
+* [`collections`](./the_collections_module.md) - `Counter`, `defaultdict`, `deque`, and `namedtuple`
+* [`any()` and `all()`](./the_any_and_all.md) - testing whether some or every item is true
+* [`datetime`](./the_datetime_module.md) - dates, times, and calculating with them
 * [The clipboard](./pyperclip_to_clipboard.md) - copying to and pasting from the clipboard with `pyperclip`
 * [The shebang line](./shebang.md) - choosing which Python runs a script
 

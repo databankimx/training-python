@@ -24,12 +24,18 @@ about 60 frames a second:
 
 ```python
 def move_ball() -> None:
+    """Move the ball one step and bounce it off the edges"""
+    nonlocal speed
     canvas.move(ball, speed, 0)
+    left, _, right, _ = canvas.coords(ball)
+    if right >= WIDTH or left <= 0:
+        speed = -speed
     window.after(DELAY_MS, move_ball)
 ```
 
 `canvas.move()` shifts an item by a number of pixels, and `canvas.coords()`
-returns its edges. Checking those edges tells the ball when to bounce.
+returns its edges. Checking those edges tells the ball when to bounce, by
+reversing its speed.
 
 Use `after()` rather than `time.sleep()`. A sleep would freeze the window,
 because the event loop can't run while the program is waiting.

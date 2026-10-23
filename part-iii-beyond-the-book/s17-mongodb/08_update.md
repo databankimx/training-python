@@ -43,7 +43,8 @@ update = { "$set": { "address": "Canyon 123" } }
 print(f"Updating single document matching: `{query}`")
 print(f"  with new values: `{update['$set']}`")
 res = col.update_one(query, update)
-print(f"Updated {res.modified_count} document(s)\n")
+print(f"Updated {res.modified_count} document(s)")
+print()
 print("Documents in collection:")
 for doc in col.find({}, {"_id": 0}):
     print(doc)
@@ -79,10 +80,11 @@ all matching records will be updated.
 ```python
 query = { "address": { "$regex": "^O" } }
 update = { "$set": { "name": "Minnie" } }
-print(f"Updating multiple document matching: `{query}`")
+print(f"Updating multiple documents matching: `{query}`")
 print(f"  with new values: `{update['$set']}`")
 res = col.update_many(query, update)
-print(f"Updated {res.modified_count} document(s)\n")
+print(f"Updated {res.modified_count} document(s)")
+print()
 print("Documents in collection:")
 for doc in col.find({}, {"_id": 0}):
     print(doc)
