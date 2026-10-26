@@ -141,7 +141,7 @@ df.dropna(subset=["Date"], inplace=True)
 Or we could replace it with a static date:
 
 ```python
-df.fillna({"Date": pd.Timestamp("2024-12-22")}, inplace=True)
+df.fillna({"Date": pd.Timestamp("2020-12-22")}, inplace=True)
 ```
 
 But let's get a little clever, using the `shift()` function, which takes

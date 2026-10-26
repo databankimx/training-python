@@ -121,3 +121,5 @@ After signing in, the top bar greets you by name, and offers Log out.
 - `ll_project/settings.py`: adds the accounts app, and the redirect settings
 - `ll_project/urls.py`: includes the accounts addresses
 - `learning_logs/templates/learning_logs/base.html`: the sign-in links and the log out button
+
+---

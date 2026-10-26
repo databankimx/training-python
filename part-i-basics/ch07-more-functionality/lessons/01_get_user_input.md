@@ -1,11 +1,10 @@
 ## Getting User Input
 
-One of the most common requirements in programs is to obtain information from a
-user. Whether it's login credentials, payment information, or anything, 
-providing a means to allow the user to provide data to the program is a must.
+One of the most common needs in a program is to get information from the user. Whether it's
+login credentials, payment details, or a simple answer to a question, your program needs a way to
+accept data from the person running it.
 
-Python exposes the `input()` function to accomplish this in terminal 
-applications.
+Python gives you the `input()` function for this in terminal applications.
 
 Syntax:
 
@@ -13,19 +12,18 @@ Syntax:
 variable = input(prompt)
 ```
 
-When you use the `input()` function, it performs these tasks:
+When you call `input()`, it does four things:
 
 1. Displays the prompt you provided to the user
-2. Suspends the program until the user presses \<ENTER>
+2. Pauses the program until the user presses \<ENTER>
 3. Returns a string containing everything the user typed before \<ENTER>
-4. Resumes the program process
+4. Resumes the program
 
 ---
 
 ### The `input()` Function
 
-Let's look at a simple example, where we simply print whatever the user types
-at the prompt:
+Let's start with a simple example, where we print whatever the user types at the prompt:
 
 ```python
 message = input("Tell me something, and I will repeat it back to you:\n> ")
@@ -36,7 +34,7 @@ User Prompt:
 
 ```
 Tell me something, and I will repeat it back to you:
-> _ 
+> _
 ```
 
 We'll imagine that the user typed `Hello` + `<ENTER>`
@@ -47,11 +45,13 @@ Output After User Interaction:
 Hello
 ```
 
+---
+
 ### Using User Input
 
-More commonly, we will use the input data rather than immediately outputting it
+More often, you'll use the input rather than printing it right away.
 
-Here, we'll combine the user input with a greeting.
+Here, we'll combine the user's input with a greeting:
 
 ```python
 name = input("\nPlease enter your name:\n> ")
@@ -61,8 +61,8 @@ print(f"\nHello, {name.title()}!")
 User Prompt:
 
 ```
-Tell me something, and I will repeat it back to you:
-> _ 
+Please enter your name:
+> _
 ```
 
 We'll imagine that the user typed `john` + `<ENTER>`
@@ -77,14 +77,14 @@ Hello, John!
 
 ### Multiple Inputs
 
-Obviously, since we can store the user input in a variable, we can perform more
-than a single input before responding to the user.
+Since you can store each input in a variable, you can ask for more than one piece of information
+before you respond:
 
 ```python
-prompt = "If you tell us who you are, we can personalize a message."
-prompt += "What is your first name?\n> "
+prompt = "\nIf you tell us who you are, we can personalize the messages you see."
+prompt += "\nWhat is your first name?\n> "
 first_name = input(prompt)
-prompt = "What is your last name?\n> "
+prompt = "\nWhat is your last name?\n> "
 last_name = input(prompt)
 print(f"Hello, {first_name.title()} {last_name.title()}!")
 ```
@@ -92,9 +92,9 @@ print(f"Hello, {first_name.title()} {last_name.title()}!")
 First User Prompt:
 
 ```
-If you tell us who you are, we can personalize a message.
+If you tell us who you are, we can personalize the messages you see.
 What is your first name?
-> _ 
+> _
 ```
 
 Let's imagine that the user typed `jane` + `<ENTER>`
@@ -103,7 +103,7 @@ Second User Prompt:
 
 ```
 What is your last name?
-> _ 
+> _
 ```
 
 Let's imagine that the user typed `smith` + `<ENTER>`

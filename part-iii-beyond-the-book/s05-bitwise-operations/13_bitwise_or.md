@@ -34,7 +34,7 @@ Consider this scenario:
 > |-:|
 > |$a=1001~1100_2=156_{10}$|
 > |$b=0011~0100_2=~~52_{10}$|
-> |$a~\|~b=1011~1100_2=188_{10}$|
+> |$a~\mid~b=1011~1100_2=188_{10}$|
 
 Any position where either value's bit is $1$ (including when both are set) 
 will return a $1$.
@@ -89,9 +89,10 @@ We can use the bitwise OR operator (in this case, the combined assignment
 operator) to apply the permissions we need.
 
 ```python
-# -- SNIP --
+read = 1
+write = 2
+read_write = 3
 
-file_path = "C:\\Temp\\test.txt"
 need_to_write = True
 
 # Start with just read permission 0000_0001 (1 = read)
@@ -102,17 +103,25 @@ if need_to_write:
     permissions |= write
 
 print(f"{permissions:04b} = {permissions}")
+
+if permissions == read_write:
+    print("Success!")
 ```
 
 Output:
 
 ```
 0011 = 3
+Success!
 ```
-
-The script then checks the result against `read_write`, so it also prints `Success!`.
 
 Using a bitwise OR added on the `write` permission while retaining the 
 `read` permission, resulting in the `read_write` permission.
+
+> Note: the code file turns off a Sonar warning on the `if need_to_write:`
+> line. That comment stays in the code file.
+
+The full script runs both examples. It prints the first example's output, then a
+separator line, then the permissions example's output.
 
 ---

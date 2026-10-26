@@ -67,3 +67,5 @@ Run the 3rd Edition chapter 17 lesson **Checking API Limits** (lesson 1.5). The 
 - Don't commit it to version control.
 - If you think someone else has the token, delete it under **Tokens (classic)** and create a new one.
 - Set an expiration date, and create a new token when the old one expires.
+
+---

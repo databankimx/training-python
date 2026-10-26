@@ -9,6 +9,8 @@ def integer_grouping() -> None:
 def float_grouping() -> None:
     """Adding grouping separators to floating point numbers"""
     n = 1234567.89
+    print(f"{n:,f}\t{n:_f}")
+    print(f"{n:,}\t{n:_}")
     print(f"{n:,.2f}\t{n:_.2f}")
     print(f"{n:,}\t{n:_}\n")
 

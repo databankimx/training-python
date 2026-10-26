@@ -1,7 +1,7 @@
 """Lesson 9.4"""
 
 print("Chapter 9:")
-print("Exercise 4 - Overriding Parent Class Methods")
+print("Exercise 4 - Overriding Parent Class Methods\n")
 
 class Car:
     """Defines a car"""
@@ -12,7 +12,7 @@ class Car:
         self.model = model
         self.year = year
         self.odometer_reading = 0
-        self.fuel_level = None
+        self.fuel_level = 0.0
 
     def get_descriptive_name(self):
         """Describe the car"""
@@ -21,7 +21,7 @@ class Car:
 
     def read_odometer(self):
         """Get the odometer mileage"""
-        print(f"This car has {self.odometer_reading} miles on it.\n")
+        print(f"This car has {self.odometer_reading} miles on it.")
 
     def set_odometer(self, mileage):
         """Set the odometer mileage"""
@@ -56,7 +56,7 @@ class Car:
             fuel_state = "one quarter full"
         elif self.fuel_level > 0.0:
             fuel_state = "running on fumes"
-        print(f"Fuel Status: {fuel_state}\n")
+        print(f"Fuel Status: {fuel_state}")
 
 
 class ElectricCar(Car):
@@ -77,15 +77,17 @@ class ElectricCar(Car):
 
     def check_fuel_level(self):
         """Check the fuel level"""
-        print("This car doesn't contain any fuel!\n")
+        print("This car doesn't contain any fuel!")
 
 my_car = Car("dodge", "challenger", 2014)
 print(my_car.get_descriptive_name())
 my_car.fill_gas_tank()
 my_car.check_fuel_level()
+print()
 
 my_e_car = ElectricCar("nissan", "leaf", 2024)
 print(my_e_car.get_descriptive_name())
 my_e_car.describe_battery()
 my_e_car.fill_gas_tank()
 my_e_car.check_fuel_level()
+print()

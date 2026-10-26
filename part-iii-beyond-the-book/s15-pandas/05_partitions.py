@@ -18,7 +18,7 @@ def top_rows(df: pd.DataFrame) -> None:
     print("Top 5 rows:")
     print(df.head(), "\n")
 
-def top_n_rows(df: pd.DataFrame, n: int=10) -> None:
+def top_n_rows(df: pd.DataFrame, n: int = 10) -> None:
     """Display the first n rows of the DataFrame"""
     print(f"Top {n} rows:")
     print(df.head(n), "\n")
@@ -28,7 +28,7 @@ def bottom_rows(df: pd.DataFrame) -> None:
     print("Bottom 5 rows:")
     print(df.tail(), "\n")
 
-def bottom_n_rows(df: pd.DataFrame, n: int=10) -> None:
+def bottom_n_rows(df: pd.DataFrame, n: int = 10) -> None:
     """Display the last n rows of the DataFrame"""
     print(f"Bottom {n} rows:")
     print(df.tail(n), "\n")

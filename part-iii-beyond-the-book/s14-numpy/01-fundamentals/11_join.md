@@ -79,8 +79,6 @@ Joined 2D Array (by row):
  [7 8]]
 ```
 
-. . . . . . . . . .
-
 ##### Axis = 1
 
 ```python
@@ -107,6 +105,7 @@ Joined 2D Array (by column):
 [[1 2 5 6]
  [3 4 7 8]]
 ```
+
 ---
 
 ### Joining Arrays with `stack()`
@@ -118,7 +117,7 @@ separate elements in an additional dimension.
 
 #### Stacking 1D Arrays
 
-When we stack two one-dimensional arrays, the result is a single, 
+When we stack two one-dimensional arrays, the result is a single
 two-dimensional array. The shape of the resulting array, however, is
 dependent on which axis we set.
 
@@ -151,11 +150,9 @@ Stacked 2D Array (by row):
  [4 5 6]]
 ```
 
-. . . . . . . . . .
-
 ##### Axis = 1
 
-With `axis=1`, the resulting arrays in the first dimension will contain 
+With `axis=1`, the resulting arrays in the first dimension will contain
 the values from the two arrays grouped by index: `[arr1[0], arr2[0]]` and
 so on.
 
@@ -185,14 +182,15 @@ Stacked 2D Array (by column):
 
 ### Horizontal Stacking with `hstack()`
 
-Horizontal stacking using the `hstack()` function is identical to 
-stacking along columns.
+For 2D arrays, horizontal stacking with `hstack()` joins them along columns
+(`axis=1`), the same as `concatenate()` with `axis=1`.
 
 ---
 
-#### Horizontal Stacking 1d Arrays
+#### Horizontal Stacking 1D Arrays
 
-Here is an example using `hstack()` with 1D arrays:
+Here is an example using `hstack()` with 1D arrays. Since 1D arrays have no
+columns, `hstack()` joins them end to end:
 
 ```python
 import numpy as np
@@ -216,7 +214,7 @@ Horizontally Stacked 1D Array:
 
 ---
 
-#### Horizontal Stacking 2d Arrays
+#### Horizontal Stacking 2D Arrays
 
 Here is an example using `hstack()` with 2D arrays:
 
@@ -249,7 +247,7 @@ Horizontally Stacked 2D Array:
 
 ### Vertical Stacking with `vstack()`
 
-Vertical stacking `vstack()` is shorthand for stacking by row:
+Vertical stacking with `vstack()` is shorthand for stacking by row:
 
 ---
 
@@ -315,8 +313,9 @@ Vertically Stacked 2D Array:
 
 ### Depth Stacking with `dstack()`
 
-Depth stacking is based on the shape (number of elements) in the stacked
-arrays.
+Depth stacking joins arrays along a new third axis. Arrays with fewer than
+three dimensions are first given extra axes, so 1D arrays are treated as
+`(1, n, 1)` arrays and 2D arrays as `(rows, cols, 1)` arrays.
 
 ---
 
@@ -346,8 +345,8 @@ Depth Stacked 3D Array:
   [3 6]]]
 ```
 
-The resulting array is three-dimensional because the initial arrays
-contain three elements each.
+Each element of the result is a pair, one value from each input array, at the
+same position.
 
 ---
 
@@ -374,6 +373,7 @@ Array 1:
 Array 2:
 [[5 6]
  [7 8]]
+
 Depth Stacked 3D Array:
 [[[1 5]
   [2 6]]
@@ -382,7 +382,7 @@ Depth Stacked 3D Array:
   [4 8]]]
 ```
 
-Here, the shape is interpreted twice, as each dimension has a shape of
-two elements, resulting in a 3D array of 2x2 matrices.
+The result has shape `(2, 2, 2)`. Each position in the first two dimensions holds
+a pair of values, one from each input array, along the new third axis.
 
 ---

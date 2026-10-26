@@ -1,4 +1,6 @@
-"""Run a web applications step: build it with build_stage.py, then keep its development server running.
+"""
+Run a web applications step: build it with build_stage.py, then keep its development
+server running.
 
 The window polls ``WebRun.events`` in the same way as ``StepRun``. The events are:
 
@@ -6,6 +8,8 @@ The window polls ``WebRun.events`` in the same way as ``StepRun``. The events ar
 * ``("ready", url)``: the server has started at this address
 * ``("done", (returncode, seconds))``: the build or server has stopped
 """
+
+#pylint: disable=line-too-long
 
 from __future__ import annotations
 
@@ -23,14 +27,14 @@ from core.job_object import contain
 
 #pylint: disable=line-too-long
 
-WEB_ROOT = Path(__file__).resolve().parents[2] / "part-ii-projects" / "web-applications"
-NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0)
-DJANGO_MODULES = ("django", "django_bootstrap5")
-DJANGO_REQUIREMENTS = "ch20-styling-and-deploying\\lessons\\01-bootstrap-setup\\requirements.txt"
-FLASK_MODULES = ("flask", "sqlalchemy")
-FLASK_REQUIREMENTS = "..\\..\\part-iii-beyond-the-book\\s25-flask-learning-log\\01-flask-setup\\requirements.txt"
+WEB_ROOT: Path = Path(__file__).resolve().parents[2] / "part-ii-projects" / "web-applications"
+NO_WINDOW: int = getattr(subprocess, "CREATE_NO_WINDOW", 0)
+DJANGO_MODULES: tuple[str, ...] = ("django", "django_bootstrap5")
+DJANGO_REQUIREMENTS: str = "ch20-styling-and-deploying\\lessons\\01-bootstrap-setup\\requirements.txt"
+FLASK_MODULES: tuple[str, ...] = ("flask", "sqlalchemy")
+FLASK_REQUIREMENTS: str = "..\\..\\part-iii-beyond-the-book\\s25-flask-learning-log\\01-flask-setup\\requirements.txt"
 
-READY = re.compile(r"Starting development server at (http://\S+)")
+READY: re.Pattern[str] = re.compile(r"Starting development server at (http://\S+)")
 
 
 def web_python() -> str:
@@ -68,7 +72,7 @@ def web_environment_problem(modules: tuple[str, ...] = DJANGO_MODULES) -> str | 
     return None
 
 
-RECOVERY_INSTALL = (
+RECOVERY_INSTALL: str = (
     "  .venv\\Scripts\\python.exe -m pip install -r ch20-styling-and-deploying\\lessons\\01-bootstrap-setup\\requirements.txt"
 )
 
@@ -99,7 +103,7 @@ class WebRun:
     """One build-and-run of a web step, with the server's output streamed to the window."""
 
     def __init__(self, command: list[str], env: dict[str, str]) -> None:
-        self.events: queue.Queue = queue.Queue()
+        self.events: queue.Queue[tuple[str, object]] = queue.Queue()
         self._command = command
         self._extra_env = env
         self._proc: subprocess.Popen | None = None

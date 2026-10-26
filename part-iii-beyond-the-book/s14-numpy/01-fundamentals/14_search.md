@@ -34,7 +34,7 @@ Found 4 at indices: [3 6 7]
 ### Searching Using `where`
 
 NumPy exposes a `where` function that accepts an array and a condition
-and returns a tuple of the set(s) of indices where the condition is met 
+and returns a tuple of the set(s) of indices where the condition is met
 in the array.
 
 #### `where` by Value
@@ -72,8 +72,8 @@ arr = np.array([1, 2, 3, 4, 5, 6, 7, 8])
 print(f"Array: {arr}")
 odds = np.where(arr % 2 == 1)
 evens = np.where(arr % 2 == 0)
-print(f"Found Odd values at indices:", odds)
-print(f"Found Even values at indices:", evens)
+print(f"Found Odd values at indices: {odds}")
+print(f"Found Even values at indices: {evens}")
 ```
 
 Output:
@@ -88,14 +88,14 @@ Found Even values at indices: (array([1, 3, 5, 7]),)
 
 ### Searching with `searchsorted()`
 
-Provided an array is sorted, a binary search is much faster than a 
+Provided an array is sorted, a binary search is much faster than a
 linear search. NumPy exposes the `searchsorted()` method to perform
 a search using the binary search algorithm and return the index where
 a value exists.
 
 > Important Note!
 >
-> It is up to the programmer to verify that the list is sorted before
+> It is up to the programmer to verify that the array is sorted before
 > using the `searchsorted()` function.
 >
 > For this, I use a function like this one
@@ -107,7 +107,7 @@ a value exists.
 > ```
 
 The `searchsorted()` function accepts an optional argument,
-`side="left|right"` (default `"left"`) that does the following:
+`side="left|right"` (default `"left"`), which controls the index it returns.
 
 `searchsorted()` returns an index where the search value can be inserted without affecting the sorted state of the array.
 
@@ -163,8 +163,8 @@ vals = [2, 4, 5]
 print(f"Search Values: {np.array(vals)}")
 l = np.searchsorted(arr, vals)
 r = np.searchsorted(arr, vals, side="right")
-for i in range(len(vals)):
-    if l[i] == r[i]:
+for i, left in enumerate(l):
+    if left == r[i]:
         print(f"Can insert {vals[i]} at index {l[i]}")
         continue
     print(f"Can insert {vals[i]} from index {l[i]} to {r[i]}")

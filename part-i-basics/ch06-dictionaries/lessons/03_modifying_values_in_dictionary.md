@@ -1,7 +1,7 @@
 ## Modifying Values in a Dictionary
 
-Changing a value is just like adding a new one, except you specify a key that 
-already exists.
+Changing a value works just like adding one, except the key already exists. You name the key,
+and assign the new value to it:
 
 ```python
 alien = {"color" : "green", "points" : 5}
@@ -19,9 +19,10 @@ The alien is now yellow
 
 ---
 
-### Real_world Scenario : A Game
+### A Real-World Example: A Game
 
-Here's the book example for a real-world (game) scenario
+Dictionaries are a natural fit for game objects. Here's an alien that moves across the screen,
+with its position and speed stored together:
 
 ```python
 alien = {'x_position': 0, 'y_position': 25, 'speed': 'medium'}
@@ -47,5 +48,19 @@ Output:
 Start x-position: 0
 End   x-position: 2
 ```
+
+---
+
+### Shorthand with `+=`
+
+Updating a value from its own old value is common enough that Python has a shorthand for it.
+The last line of the example can be written this way:
+
+```python
+alien["x_position"] += x_increment
+```
+
+It means the same thing as `alien["x_position"] = alien["x_position"] + x_increment`. You'll see
+both forms in code, so it helps to recognize them.
 
 ---

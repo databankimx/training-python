@@ -22,14 +22,14 @@ def get_user_path() -> str:
 def read_user_file(file_path: str) -> dict[str, str] | None:
     """Reads the user JSON file and returns the `user` dictionary"""
     try:
-        with open(file_path, encoding="utf-8") as f:
+        with open(file_path, encoding="UTF-8") as f:
             return json.load(f)
     except FileNotFoundError:
         return None
 
 def write_user_file(user: dict[str, str], file_path: str) -> None:
     """Writes the `user` dictionary to the user JSON file"""
-    with open(file_path, "w", encoding="utf-8") as f:
+    with open(file_path, "w", encoding="UTF-8") as f:
         json.dump(user, f)
 
 def get_user_input() -> dict[str, str]:

@@ -111,3 +111,5 @@ The game looks and plays exactly as it did in exercise 14-5.
 - `alien_invasion.py`: adds `start_new_level()`, and uses `prep_images()` when a game starts
 - `scoreboard.py`: adds `prep_images()`, and calls it from `__init__()`
 - `settings.py`, `game_stats.py`, `ship.py`, `alien.py`, `bullet.py`, `button.py`: the fixes from exercise 14-5
+
+---

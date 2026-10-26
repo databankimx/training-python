@@ -6,14 +6,18 @@ We can even design decorators that accept arguments.
 
 ### Example
 
-Let's modify the `power()` function from our first closure example:
+This is a decorator version of the closure factory from the closures lesson. It
+takes the exponent as an argument, and the decorator it returns uses that
+exponent:
 
 ```python
-def power(exp: int) -> callable:
+from collections.abc import Callable
+
+def power(exp: int) -> Callable:
     """Generates a decorator (applying a non-local value for the exponent)"""
-    def _power(func: callable) -> callable:
+    def _power(func: Callable) -> Callable:
         """Calls the inner function, passing the function to execute"""
-        def _inner_power(*args: list[int]) -> int:
+        def _inner_power(*args: int) -> int:
             """Executes the called function, modifying its value n to be n ** exp"""
             base = func(*args)
             return base ** exp
@@ -79,7 +83,7 @@ function:
 Let's create a decorator to protect against division by zero:
 
 ```python
-def smart_divide(func: callable) -> float|None:
+def smart_divide(func: Callable) -> Callable:
     """Decorator to protect against division by zero"""
     def inner(a, b):
         print(f"I am going to divide {a} by {b}")
@@ -101,7 +105,8 @@ def divide(a: int, b: int) -> float:
 for tup in [(2, 5), (2, 0)]:
     x, y = tup
     z = divide(x, y)
-    if z: print(f"Returned {z}")
+    if z is not None:
+        print(f"Returned {z}")
     print()
 ```
 
@@ -114,5 +119,8 @@ Returned 0.4
 I am going to divide 2 by 0
 Whoops! cannot divide by zero
 ```
+
+We check `z is not None` rather than `if z:`. A valid result of zero, such as
+`divide(0, 5)`, is falsy, so a plain truth test would skip it.
 
 ---

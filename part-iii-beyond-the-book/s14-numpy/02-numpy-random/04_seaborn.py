@@ -20,7 +20,7 @@ def use_histplot(data: np.ndarray) -> None:
     plt.show()
 
 def use_kdeplot(data: np.ndarray) -> None:
-    """Plot a distribution using distplot"""
+    """Plot a distribution using kdeplot"""
     sns.kdeplot(data)
     plt.show()
 

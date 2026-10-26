@@ -1,13 +1,13 @@
 ## Using Dictionaries to Group Similar Objects
 
-While it is common to use a dictionary to keep track of a group of traits
-related to one object (as we'ce been doing thus far), dictionaries are often
-used to store one property across multiple objects.
+Earlier, we used a dictionary to hold several traits of one object, like an alien's color and
+points. Dictionaries are just as useful for the opposite job: storing one property for many
+objects.
 
 ### Linking Users to a Property
 
-In this example, we're storing a single property (favorite programming 
-language) for each of a group of people.
+In this example, each person is a key, and the property we care about is their favorite
+programming language:
 
 ```python
 favorite_languages = {
@@ -26,5 +26,8 @@ Output:
 ```
 Phil's favorite language is Python.
 ```
+
+Looking up one person by name is easy. Looking through everyone's answers takes a loop, and
+we'll get to looping over dictionaries in lessons 6.7 through 6.9.
 
 ---

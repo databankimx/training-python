@@ -156,3 +156,5 @@ destroy the aliens they hit.
 - `settings.py`: adds the alien speeds and spawn interval
 - `alien.py` (new): the `Alien` class
 - `sideways_shooter.py`: replaces `blue_sky.py`, with the spawning and the alien handling
+
+---

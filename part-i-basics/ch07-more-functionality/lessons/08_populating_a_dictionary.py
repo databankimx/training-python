@@ -11,8 +11,8 @@ while True:
 
     responses[name] = mountain
 
-    repeat = input("Would you like to let another person respond? (yes/no)\n> ").lower()[0]
-    if repeat == "n":
+    repeat = input("Would you like to let another person respond? (yes/no)\n> ").strip().lower()
+    if repeat == "n" or repeat == "no":
         break
 
 print("\n--- Poll Results ---")

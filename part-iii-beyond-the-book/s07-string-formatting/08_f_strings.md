@@ -1,7 +1,7 @@
 ## Python Formatted Literals (f-strings)
 
-The most recent major enhancement to string formatting is formatted literals
-(or *f-strings*), added in Python v3.6.
+The most recent major enhancement to string formatting, as of this writing, is
+formatted literals (or *f-strings*), added in Python 3.6.
 
 Often referred to as *string interpolation* (or variable substitution/
 expansion), f-strings allow us to place variable names and/or expressions
@@ -35,40 +35,55 @@ In each case the result value in `s` is:
 But with the inline variable names, the f-string is far and away the easiest 
 to understand.
 
-> ### Technical Note: (*Lazy Evaluation*)
->
-> While f-strings are far easier to read, they do have a downside:
-> F-strings are interpolated when the line of code is processed by
-> the Python interpreter. This means that even if a string is not used,
-> it will still be evaluated.
->
-> > ```python
-> > # F-strings are always evaluated
-> > status = False
-> > if status:
-> >     # Even though the print is never executed, the string is
-> >     # interpolated when the line is processed
-> >     print(f"The status is {status}")
-> > ```
->
-> By contrast. `string.format()` is evaluated when the line of code is
-> executed, meaning that if the string is not used, it will not be
-> evaluated.
->
-> > ```python
-> > # `string.format()` is not evaluated until/unless needed
-> > status = False
-> > if status:
-> >     # Because the print is not executed, the string is not
-> >     # evaluated
-> >     print("The status is {}".format(status))
-> > ```
->
-> The behavior in the `string.format()` example is called *lazy 
-> evaluation* and is less wasteful of resources in an example like this 
-> one. Because of this, a performance consideration must be made when
-> using f-strings, especially if there are use-cases where the string
-> may not require interpolation.
+> Note: Python 3.14 added template strings (`t"..."`), which are a related but
+> separate feature. They produce a template object that can be processed before it's
+> turned into a string, rather than a finished string.
+
+---
+
+### Technical Note: Evaluation Timing
+
+An f-string is filled in as soon as the line that contains it runs. Its value is
+fixed at that point, and the expressions inside the braces are evaluated then:
+
+```python
+name = "Scott"
+greeting = f"Hello, {name}!"
+name = "Saul"
+print(greeting)
+```
+
+Output:
+
+```
+Hello, Scott!
+```
+
+Changing `name` afterward doesn't change `greeting`, because the f-string was
+already filled in.
+
+A `.format()` call works the same way when you call it right away, but you can
+store the template itself and fill it in later:
+
+```python
+template = "Hello, {}!"
+name = "Scott"
+print(template.format(name))
+name = "Saul"
+print(template.format(name))
+```
+
+Output:
+
+```
+Hello, Scott!
+Hello, Saul!
+```
+
+The template is only a plain string until `.format()` is called, so one template
+can be reused with different values. An f-string can't be reused that way, since
+it's filled in where it's written. That's a design difference, not a speed
+difference, and both methods fill in the string when the line runs.
 
 ---
 
@@ -115,9 +130,11 @@ Like string formatting, f-strings support using the conversion operator to
 specify the `str()` or `repr()` string...
 
 ```python
+from datetime import datetime
+
 now = datetime.now()
 print(f"{now!s}")
-print(f"{now!r}\n")
+print(f"{now!r}")
 ```
 
 Output:
@@ -129,7 +146,7 @@ datetime.datetime(2024, 8, 18, 12, 22, 23, 902714)
 
 ---
 
-### Replacing Invalid Characters
+### Escaping Non-ASCII Characters
 
 ... or the `ascii()` string for that matter.
 

@@ -1,7 +1,7 @@
 ## MongoDB
 
 MongoDB is part of the new generation of database architectures known as
-*NoSQL* (not only SQL) that use non-tabular data instead of relational 
+*NoSQL* (Not only SQL) that use non-tabular data instead of relational 
 tables to provide improved ease of use, performance, and scalability. 
 
 ---
@@ -119,17 +119,12 @@ to the directory where your `secrets.json` file is stored.
 Use the following code to log in:
 
 ```python
-import json
-from sm_utils import file_path
 import pymongo
-
-def login():
-    with open(file_path("secrets.json")) as f:
-        return json.load(f)
+from login import get_settings
 
 def test_mongodb_connection() -> None:
     """Test connection to MongoDB"""
-    auth = login()
+    auth = get_settings()
     local = auth["use_local"]
     url = auth["local_url"] if local else auth["cloud_url"]
 
@@ -170,16 +165,17 @@ Since the initial connection is trivial, I have included a separate file:
 
 ```python
 import json
+from typing import Any
 from sm_utils import file_path
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 
-def get_settings() -> dict[str,any]:
+def get_settings() -> dict[str, Any]:
     """Retrieve MongoDB connection details from secrets.json"""
     with open(file_path("secrets.json"), encoding="utf-8") as f:
         return json.load(f)
 
-def get_client(settings: dict[str,any]=None) -> MongoClient|None:
+def get_client(settings: dict[str, Any] | None = None) -> MongoClient | None:
     """Obtain connection to MongoDB"""
     if not settings:
         settings = get_settings()
@@ -191,7 +187,7 @@ def get_client(settings: dict[str,any]=None) -> MongoClient|None:
         print("Failed to connect to MongoDB")
         return None
 
-def server_connected(client: MongoClient=None) -> bool:
+def server_connected(client: MongoClient | None = None) -> bool:
     """Check if MongoDB server is connected"""
     if not client:
         client = get_client()

@@ -58,7 +58,7 @@ not all the scalar values across all internal arrays:
 import numpy as np
 
 arr = np.array([[3, 2, 4], [5, 0, 1]])
-print("Original array:\n", arr, "\n")
+print("Original array:\n", arr)
 sorted_arr = np.sort(arr)
 print("Sorted array:\n", sorted_arr)
 ```

@@ -4,8 +4,9 @@ The *Poisson Distribution*, named for French mathematician Siméon Denis
 Poisson, is used to estimate the probability that an event will occur a
 specified number of times within some period of time.
 
-Another way to think of the time interval is the limit of a binomial 
-distribution.
+It can be derived as the limit of a binomial distribution: as the number of
+trials grows large while the expected number of successes stays fixed, the
+binomial distribution approaches the Poisson distribution.
 
 The formula for the Poisson distribution is:
 
@@ -78,7 +79,7 @@ Output:
 
 ### Comparing Poisson vs Normal Distributions
 
-Here is an example showing a Poisson distribution and a normal 
+Here is an example showing a Poisson distribution and a normal
 distribution with its mean equivalent to λ.
 
 > Note: These are not comparing the same data. The idea is to visually
@@ -94,6 +95,7 @@ poi = rng.poisson(lam=2, size=1000)
 norm = rng.normal(loc=2, scale=1, size=1000)
 sns.kdeplot(poi, fill=True, color="blue", label="Poisson")
 sns.kdeplot(norm, fill=True, color="red", label="Normal")
+plt.legend()
 plt.show()
 ```
 

@@ -1,10 +1,12 @@
 """Arguments with Decorators"""
 
-def power(exp: int) -> callable:
+from collections.abc import Callable
+
+def power(exp: int) -> Callable:
     """Generates a decorator (applying a non-local value for the exponent)"""
-    def _power(func: callable) -> callable:
+    def _power(func: Callable) -> Callable:
         """Calls the inner function, passing the function to execute"""
-        def _inner_power(*args: list[int]) -> int:
+        def _inner_power(*args: int) -> int:
             """Executes the called function, modifying its value n to be n ** exp"""
             base = func(*args)
             return base ** exp
@@ -21,7 +23,7 @@ def cube(n: int) -> int:
     """Cube an integer (using a decorator function)"""
     return n
 
-def smart_divide(func: callable) -> float|None:
+def smart_divide(func: Callable) -> Callable:
     """Decorator to protect against division by zero"""
     def inner(a, b):
         print(f"I am going to divide {a} by {b}")
@@ -41,7 +43,7 @@ def main() -> None:
     for tup in [(2, 5), (2, 0)]:
         x, y = tup
         z = divide(x, y)
-        if z:
+        if z is not None:
             print(f"Returned {z}")
         print()
 

@@ -1,7 +1,7 @@
 ## Sorting Dictionaries
 
-There are a number of ways to sort a dictionary. The most common is to sort
-only the keys, and then use those to access any element in the dictionary.
+There are a few ways to sort a dictionary. The most common is to sort only the keys, and then use
+them to look up values.
 
 ```python
 favorite_languages = {
@@ -26,7 +26,7 @@ Output:
 
 ### Looping over the Sorted Keys
 
-Like any list, the result of sorting the dictionary keys
+`sorted()` returns a list of the keys, so you can loop over the result like any other list:
 
 ```python
 favorite_languages = {
@@ -50,21 +50,20 @@ Sarah, thank you for taking the poll.
 
 ---
 
-### Sorting the Actual Dictionary
+### Sorting the Dictionary Itself
 
-Prior to Python v3.6, dictionaries were not ordered, meaning they were
-non-sortable. However, in current versions of Python, dictionary order is
-maintained, so it is possible to sort them.
+Sorting the keys has always worked. What's new is that dictionaries keep their insertion order
+(guaranteed since Python 3.7), so the order you create a dictionary in matters when you print it
+or loop over it.
 
-Unfortunately, dictionaries cannot be sorted in place. No matter what method 
-is used, a copy must be created using the `dict()` function for sorting.
+You can't sort a dictionary in place, though. `sorted()` gives you a list of the items, and to get
+a dictionary back, you build a new one with `dict()`. The original dictionary stays as it was.
 
 ---
 
 ### Sorting the Dictionary by Key
 
-Here is an example where we've sorted `items()` by key (or `item[0]` to be
-precise)
+Here, we sort the `items()` by key. Each item is a `(key, value)` tuple, so `item[0]` is the key:
 
 ```python
 people = {3: "Jim", 2: "Jack", 4: "Jane", 1: "Jill"}
@@ -81,12 +80,9 @@ Output:
 
 ### Sorting the Dictionary by Value
 
-To sort by the values instead, we must specify the `key` argument in the
-`sorted()` function. For this, I am using a `lambda`, which is an anonymous 
-function that can be passed as an argument or stored in a variable.
-
-> Don't worry about `lambda` functions for now. They are covered in the
-> Part III supplemental lessons.
+To sort by value instead, pass the `key` argument to `sorted()`. The argument is a small function
+that tells `sorted()` which part of each item to compare. Here we use a `lambda`, which is a short,
+unnamed function. Chapter 8 covers functions, and you'll see more of them there.
 
 ```python
 people = {3: "Jim", 2: "Jack", 4: "Jane", 1: "Jill"}

@@ -1,6 +1,8 @@
 """Lambdas as decorators"""
 
-def trace(func: callable) -> callable:
+from collections.abc import Callable
+
+def trace(func: Callable) -> Callable:
     """Decorator to trace function calls"""
     def _trace(*args, **kwargs):
         print(f"[TRACE] func: {func.__name__}, args: {args}, kwargs: {kwargs}")

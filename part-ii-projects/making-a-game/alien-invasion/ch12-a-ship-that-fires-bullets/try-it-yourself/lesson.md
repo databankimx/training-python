@@ -24,3 +24,5 @@ a game of your own.
 
 The rocket image, `rocket.bmp`, is used by exercises 12-2, 12-4 and 12-6. Each of those folders
 has its own `images` folder with a copy of the file.
+
+---

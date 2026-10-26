@@ -5,7 +5,7 @@ import numpy as np
 def iter_one_d() -> None:
     """Iterating over a one-dimensional array"""
     arr = np.array([1, 2, 3])
-    print(f"1D Array:\n{arr}\nLooping...")
+    print(f"1D Array:\n{arr}\n\nLooping...")
     for el in arr:
         print(el)
     print()
@@ -13,7 +13,7 @@ def iter_one_d() -> None:
 def iter_two_d() -> None:
     """Iterating over a two-dimensional array"""
     arr = np.array([[1, 2, 3], [4, 5, 6]])
-    print(f"2D Array:\n{arr}\nLooping...")
+    print(f"2D Array:\n{arr}\n\nLooping...")
     for el in arr:
         print(el)
     print()
@@ -21,7 +21,7 @@ def iter_two_d() -> None:
 def iter_two_d_elem() -> None:
     """Iterating over all two-dimensional array elements"""
     arr = np.array([[1, 2, 3], [4, 5, 6]])
-    print(f"2D Array:\n{arr}\nLooping rows...")
+    print(f"2D Array:\n{arr}\n\nLooping rows...")
     for row in arr:
         print(" Looping elements in row...")
         for el in row:
@@ -31,7 +31,7 @@ def iter_two_d_elem() -> None:
 def iter_three_d_elem() -> None:
     """Iterating over all three-dimensional array elements"""
     arr = np.array([[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]])
-    print(f"3D Array:\n{arr}\nLooping pages...")
+    print(f"3D Array:\n{arr}\n\nLooping pages...")
     for page in arr:
         print(" Looping rows in page...")
         for row in page:
@@ -39,7 +39,7 @@ def iter_three_d_elem() -> None:
             for el in row:
                 print(f"   {el}")
 
-def main():
+def main() -> None:
     """Main Function"""
     iter_one_d()
     iter_two_d()

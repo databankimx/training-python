@@ -79,7 +79,25 @@ print(f"{n}++ = {inner_increment(n)}")
 
 ... but here is where encapsulating the inner function plays a role.
 
+The code file wraps this call in a `try`/`except NameError` block, so the error is
+caught and reported:
+
+```python
+try:
+    print(f"{n}++ = {inner_increment(n)}")
+except NameError as e:
+    print(f"A NameError occurred!\n{e}")
+```
+
 Output:
+
+```
+A NameError occurred!
+name 'inner_increment' is not defined
+```
+
+Without the `try`/`except`, Python prints a traceback that ends with the same
+message:
 
 ```
 Traceback (most recent call last):
@@ -93,5 +111,8 @@ NameError: name 'inner_increment' is not defined
 
 We get a name error, because `inner_increment()` only exists within the scope
 of the `increment()` function, so it isn't accessible from an external call.
+
+> Note: the code file uses a `# type: ignore` comment on this call, so the type
+> checker accepts it. That comment stays in the code file.
 
 ---

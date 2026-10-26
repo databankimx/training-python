@@ -13,8 +13,8 @@ For this example, I have provided the following text file:
 Pi is an irrational number, meaning its decimal part continues forever without
 repeating. It is widely believed that every possible pattern of digits
 eventually occurs in pi, although this has not been proven. Here, we're going to
-check if a 6-digit pattern (a birthday)
-appears within the first million digits of pi.
+check if a 6-digit pattern (a birthday) appears within the first million digits
+of pi.
 
 > Note: the process to obtain file paths is covered here:  
 > [00_bonus_relative_paths.md](./00_bonus_relative_paths.md)
@@ -44,7 +44,7 @@ file_path = os.path.join(ROOT_DIR, "Files", "pi_million_digits.txt")
 
 pi_string = ""
 
-with open(file_path) as file_object:
+with open(file_path, encoding="UTF-8") as file_object:
     for line in file_object:
         pi_string += line.strip()
 
@@ -58,7 +58,7 @@ else:
 print()
 ```
 
-I'll pretend the user entered `010270`
+Let's pretend the user enters `010270`:
 
 Output:
 
@@ -67,6 +67,9 @@ Enter your birthday in the form MMDDYY:
 > 010270
 Yay! Your birthday appears in the first million digits of pi!
 ```
+
+The code file adds a blank line after the example, so the output is easier to
+read.
 
 </details>
 
@@ -89,7 +92,7 @@ file_path = get_path("pi_million_digits.txt", "Files")
 pi_string = ""
 
 path_object = Path(file_path)
-text = path_object.read_text()
+text = path_object.read_text(encoding="UTF-8")
 
 lines = text.splitlines()
 for line in lines:
@@ -103,7 +106,7 @@ else:
     print("Aww... Your birthday does not appear in the first million digits of pi.")
 ```
 
-I'll pretend the user entered `030470`
+Let's pretend the user enters `030470`:
 
 Output:
 
@@ -116,4 +119,3 @@ Aww... Your birthday does not appear in the first million digits of pi.
 </details>
 
 ---
-

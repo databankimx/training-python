@@ -9,7 +9,7 @@ def set_bit(word: int, pos: int, value: int) -> int:
         return word | mask
     return word
 
-def bitwise_not(n, num_bits=8) -> int:
+def bitwise_not(n: int, num_bits: int = 8) -> int:
     """Bitwise NOT fixed to work with Python signed integers"""
     return ~n & ((1 << num_bits) - 1)
 

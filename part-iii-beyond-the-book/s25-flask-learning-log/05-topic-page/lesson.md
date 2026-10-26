@@ -85,3 +85,5 @@ The topic page for Chess, with its two entries.
 - `flask_log/templates/topic.html` (new): one topic and its entries
 - `flask_log/templates/topics.html`: the links use `url_for`
 - `tests/test_topic_page.py` (new): tests for the topic page
+
+---

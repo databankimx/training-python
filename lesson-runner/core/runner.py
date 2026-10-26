@@ -1,6 +1,6 @@
 """Run one lesson step in a child process and stream its events to the window.
 
-The window polls ``StepRun.events`` on the Tk thread. Each event is a
+The window polls ``StepRun.events`` on the GUI thread. Each event is a
 ``(kind, value)`` tuple:
 
 * ``("out", text)``: a line of normal output
@@ -22,7 +22,9 @@ import sys
 import tempfile
 import threading
 import time
+from collections.abc import Callable
 from pathlib import Path
+from typing import IO
 
 from core.job_object import contain
 
@@ -38,11 +40,12 @@ class StepRun:
 
     def __init__(self, step_path: Path, source: str, args: list[str]) -> None:
         self.step_path = step_path
-        self.events: queue.Queue = queue.Queue()
+        self.events: queue.Queue[tuple[str, object]] = queue.Queue()
         self._source = source
         self._args = args
         self._temp: Path | None = None
         self._proc: subprocess.Popen | None = None
+        self._readers: list[threading.Thread] = []
         self._started = 0.0
         self.cancelled = False
         self._in_error = False
@@ -100,7 +103,7 @@ class StepRun:
 
     # Background threads -------------------------------------------------
 
-    def _pump(self, stream, handler) -> None:
+    def _pump(self, stream: IO[str], handler: Callable[[str], None]) -> None:
         for line in stream:
             handler(line.rstrip("\r\n"))
 

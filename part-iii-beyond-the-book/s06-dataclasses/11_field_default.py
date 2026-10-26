@@ -12,8 +12,8 @@ class Employee:
 
 def main() -> None:
     """Main Function"""
-    emp_1 = Employee("Scott", "smclean", 53)
-    emp_2 = Employee("Saul", "sgoodman", 47, "Albuquerque")
+    emp_1 = Employee("Scott McLean", "smclean", 53)
+    emp_2 = Employee("Saul Goodman", "sgoodman", 47, "Albuquerque")
 
     # pylint: disable=no-member
     print(emp_1.__dataclass_fields__["city"])

@@ -1,10 +1,11 @@
 """Create a new collection in MongoDB"""
 
+from typing import Any
 from login import get_settings, get_client, server_connected
 from pymongo import MongoClient
 from pymongo.synchronous.database import Database
 
-def connect(settings: dict[str, any]=None) -> tuple[MongoClient, Database]|None:
+def connect(settings: dict[str, Any] | None = None) -> tuple[MongoClient, Database] | None:
     """Connect to MongoDB database"""
     if not settings:
         settings = get_settings()
@@ -20,14 +21,14 @@ def connect(settings: dict[str, any]=None) -> tuple[MongoClient, Database]|None:
     print(f"Connected to database: `{db.name}`\n")
     return (client, db)
 
-def make_collection(db: Database, settings: dict[str, any]=None) -> None:
+def make_collection(db: Database, settings: dict[str, Any] | None = None) -> None:
     """Create a new collection in MongoDB"""
     if not settings:
         settings = get_settings()
     collection = db[settings["col_name"]]
     print(f"Created collection: `{collection.name}`\n")
 
-def get_collections(db: Database, settings: dict[str, any]=None) -> None:
+def get_collections(db: Database, settings: dict[str, Any] | None = None) -> None:
     """List collections in MongoDB"""
     if not settings:
         settings = get_settings()

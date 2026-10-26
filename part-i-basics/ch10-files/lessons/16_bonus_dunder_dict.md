@@ -1,11 +1,11 @@
-## Bonus Lesson : Classes and the `__dict__` Property
+## Bonus Lesson: Classes and the `__dict__` Property
 
 We previously discussed the various "magic" methods and properties provided in
-Python, but now that we've discussed classes and the use of JSON files to store data between executions, it's worth revisiting one specific property:
-`__dict__`.
+Python. Now that we've covered classes and using JSON files to store data between
+executions, it's worth revisiting one specific attribute: `__dict__`.
 
-This property is exposed by default on every class in Python and resolves to a
-dictionary containing the names and values of the class's attributes.
+Every instance of a class has a `__dict__` attribute. It holds a dictionary of the
+names and values of that instance's attributes.
 
 But why do we need it?
 
@@ -28,8 +28,8 @@ class Thing:
 I might wish to write a program that creates an instance of `Thing` and then retains
 it in a file so that I can reload it the next time the program is executed.
 
-Typically, the efficient way to do this is to store information as JSON, which
-can be easily loaded using the `json` library.
+Storing information as JSON is a common way to do this, and it can be easily loaded
+using the `json` library.
 
 But look at what happens if we try to do this with a class instance:
 
@@ -48,9 +48,9 @@ Output:
 
 ```
 Traceback (most recent call last):
-  File "...\16_bonus_dunder_dict.py", line 32, in <module>
+  File "...\16_bonus_dunder_dict.py", line 35, in <module>
     main()
-  File "...\16_bonus_dunder_dict.py", line 18, in main
+  File "...\16_bonus_dunder_dict.py", line 21, in main
     print(json.dumps(my_thing, indent=4))
   ...
   -- SNIP --
@@ -58,16 +58,19 @@ Traceback (most recent call last):
 TypeError: Object of type Thing is not JSON serializable
 ```
 
-Basically, this is telling us that we cannot create a JSON string representing 
-the instance of `Thing`
+The code file has this line commented out, so the rest of the file can run.
+Uncomment it to see the error.
+
+The error means `json` can't convert a `Thing` object into JSON.
 
 ---
 
 ### `__dict__` to the Rescue!
 
-Since the `dump` and `dumps` methods expect a dictionary as an argument, we
-can serialize the attributes of the object, even though we can't serialize the
-class type itself:
+The `json.dump()` and `json.dumps()` functions can serialize data such as
+dictionaries, lists, strings, and numbers. A `Thing` isn't one of those, but its
+`__dict__` is a dictionary. So we can serialize the attributes of the object, even
+though we can't serialize the class instance itself:
 
 ```python
 import json
@@ -119,5 +122,7 @@ Output:
 }
 ```
 
----
+The code file comments out this improved example, so only the `__dict__` example above
+runs. Uncomment it to see the output for yourself.
 
+---

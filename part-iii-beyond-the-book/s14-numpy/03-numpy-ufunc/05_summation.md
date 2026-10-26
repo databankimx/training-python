@@ -1,6 +1,6 @@
 ## Summation
 
-A common misconception in computation is conflating addition with 
+A common misconception in computation is conflating addition with
 summation.
 
 When we add arrays, the members are added at each index. When we perform
@@ -9,7 +9,8 @@ summation, however, the members are summed together across the array.
 So, if we had two arrays [1, 2, 3] and [4, 5, 6]:
 
 * Adding results in [5, 7, 9]
-* Summation results in [6, 15] or 21 depending on the axis of summation.
+* Summing each array separately results in [6, 15]
+* Summing all of the values together results in 21
 
 ---
 
@@ -63,10 +64,10 @@ np.sum(arr):          10
 
 ---
 
-### Summing Two Arrays on the Y Axis
+### Summing Two Arrays Without an Axis
 
-When we sum on the Y axis (`axis=0` - default), we obtain the sum of the
-sums of the arrays.
+If we don't specify an axis, `np.sum()` adds up every member of every array, so
+the result is a single scalar.
 
 ```python
 import numpy as np
@@ -87,6 +88,9 @@ arr_a:                [1 2 3 4]
 arr_b:                [5 6 7 8]
 np.sum([arr_a, arr_b]): 36
 ```
+
+Specifying `axis=0` instead sums down each column of the stacked arrays, giving
+`[6 8 10 12]`, one total per index.
 
 ---
 
@@ -134,8 +138,6 @@ We compute it like this:
 |3|1 + 2 + 3 + 4|10|
 
 Which results in `[1, 3, 6, 10]`
-
-. . . . . . . . . .
 
 NumPy provides the `cumsum()` function for cumulative summation:
 

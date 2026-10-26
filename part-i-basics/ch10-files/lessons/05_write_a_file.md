@@ -3,9 +3,8 @@
 Of course, file interaction would be meaningless without the ability to create,
 write, and edit files.
 
-For this lesson, you'll need to create a path to a file that doesn't exist.
-
-My code uses the relative path `.\Files\programming.txt`
+The examples in this lesson write to `programming.txt` in the `Files` folder. The
+file doesn't exist yet, and writing to it creates it.
 
 > Note: the process to obtain file paths is covered here:  
 > [00_bonus_relative_paths.md](./00_bonus_relative_paths.md)
@@ -40,7 +39,7 @@ There are also a couple of important rules to follow:
 * The `TextIOWrapper` doesn't expose a `write_line` method, so you need to
   append your own newline characters.
     * e.g.: `file.write("some line\n")`
-* Only strings can be written to file, so numerical data must be converted 
+* Only strings can be written to file, so numerical data must be converted
   first.
     * e.g.: `file.write(str(12345))`
 * Write mode `w` will create the file if it doesn't exist
@@ -49,7 +48,7 @@ There are also a couple of important rules to follow:
 
 ### Writing the File
 
-We will use this code to write the file
+We will use this code to write the file:
 
 ```python
 import os
@@ -57,7 +56,7 @@ import os
 ROOT_DIR = os.path.dirname(__file__)
 file_path = os.path.join(ROOT_DIR, "Files", "programming.txt")
 
-with open(file_path, "w") as file:
+with open(file_path, "w", encoding="UTF-8") as file:
     file.write("I love programming!\n")
     file.write("I love creating new games!\n")
 ```
@@ -70,7 +69,7 @@ verify that it contains the text we are expecting.
 ```python
 # -- SNIP --
 
-with open(file_path, "r") as file:
+with open(file_path, "r", encoding="UTF-8") as file:
     print(file.read())
 ```
 
@@ -79,19 +78,21 @@ Output:
 ```
 I love programming!
 I love creating new games!
+
 ```
 
 ---
 
-### Creating a `write_line` Function
+### Creating a `write_line()` Function
 
 Of course, since we know how to create functions now, it is relatively trivial
-to create a `write_line()` function ourselves, so that we don't need to 
+to create a `write_line()` function ourselves, so that we don't need to
 manually append newline characters every time we write to a file.
 
 ```python
-def write_line(file_object, text):
-    file_object.write(f"{text}\n")
+def write_line(output_file, text):
+    """Write a line to a file"""
+    output_file.write(f"{text}\n")
 ```
 
 Now we can perform our file writing (and verification) like this:
@@ -99,11 +100,11 @@ Now we can perform our file writing (and verification) like this:
 ```python
 # -- SNIP --
 
-with open(file_path, "w") as file:
+with open(file_path, "w", encoding="UTF-8") as file:
     write_line(file, "I love coding!")
     write_line(file, "I love creating new applications!")
 
-with open(file_path, "r") as file:
+with open(file_path, "r", encoding="UTF-8") as file:
     print(file.read())
 ```
 
@@ -112,6 +113,7 @@ Output:
 ```
 I love coding!
 I love creating new applications!
+
 ```
 
 ---
@@ -130,11 +132,11 @@ For this, we use the `a` mode.
 ```python
 # -- SNIP --
 
-with open(file_path, "a") as file_object:
+with open(file_path, "a", encoding="UTF-8") as file_object:
     file_object.write("I also love finding meaning in large datasets.\n")
     file_object.write("I love creating apps that can run in a browser.\n")
 
-with open(file_path, "r") as file_object:
+with open(file_path, "r", encoding="UTF-8") as file_object:
     print(file_object.read())
 ```
 
@@ -145,6 +147,7 @@ I love coding!
 I love creating new applications!
 I also love finding meaning in large datasets.
 I love creating apps that can run in a browser.
+
 ```
 
 </details>
@@ -167,30 +170,33 @@ file_path = get_path("programming.txt", "Files")
 
 file = Path(file_path)
 
-file.write_text("I love programming!\n")
+file.write_text("I love programming!\n", encoding="UTF-8")
 ```
 
 And then we can verify the text we wrote.
 
 ```python
-print(file.read_text())
+print(file.read_text(encoding="UTF-8"))
 ```
 
 Output:
 
 ```
 I love programming!
+
 ```
 
 ---
 
-### Creating a `write_line()` Function
+### Creating a `write_line_to_file()` Function
 
 Like we did with traditional files in the 2nd edition section, we can create
-a `write_line()` function for ourselves.
+a helper function for ourselves. This one is named `write_line_to_file()`, so it
+doesn't clash with the `write_line()` function from the 2nd edition section.
 
 ```python
-def write_line(path_object, text):
+def write_line_to_file(path_object, text):
+    """Write a line to a file"""
     path_object.write_text(f"{text}\n")
 ```
 
@@ -203,9 +209,9 @@ content = """I love programming!
 I love creating new games.
 I also love working with data."""
 
-write_line(file, content)
+write_line_to_file(file, content)
 
-print(file.read_text())
+print(file.read_text(encoding="UTF-8"))
 ```
 
 Output:
@@ -214,6 +220,7 @@ Output:
 I love programming!
 I love creating new games.
 I also love working with data.
+
 ```
 
 ---
@@ -239,10 +246,10 @@ opening with the `a` (append) mode.
 content = "I also love finding meaning in large datasets.\n"
 content += "I love creating apps that can run in a browser.\n"
 
-with file.open("a") as f:
+with file.open("a", encoding="UTF-8") as f:
     f.write(content)
 
-print(file.read_text())
+print(file.read_text(encoding="UTF-8"))
 ```
 
 Output:
@@ -253,9 +260,9 @@ I love creating new games.
 I also love working with data.
 I also love finding meaning in large datasets.
 I love creating apps that can run in a browser.
+
 ```
 
 </details>
 
 ---
-

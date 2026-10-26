@@ -1,23 +1,24 @@
 """Uniform Distribution"""
 
-from numpy import random, ndarray, float64, long
+from numpy import random, ndarray
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-def uniform_kde(uni: ndarray[float64]) -> None:
-    """Generate a uniform distribution with 1000 values"""
+def uniform_kde(uni: ndarray) -> None:
+    """Plot a uniform distribution's KDE curve"""
     sns.kdeplot(uni)
     plt.show()
 
-def uniform_hist(uni: ndarray[float64]) -> None:
-    """Generate a uniform distribution with 1000 values"""
+def uniform_hist(uni: ndarray) -> None:
+    """Plot a uniform distribution's histogram"""
     sns.histplot(uni)
     plt.show()
 
-def uniform_compare(uni: ndarray[float64], norm: ndarray[long]) -> None:
-    """Generate a uniform distribution with 1000 values"""
+def uniform_compare(uni: ndarray, norm: ndarray) -> None:
+    """Compare a uniform distribution to a normal distribution"""
     sns.kdeplot(uni, fill=True, color="blue", label="Uniform")
     sns.kdeplot(norm, fill=True, color="red", label="Normal")
+    plt.legend()
     plt.show()
 
 def main() -> None:

@@ -12,7 +12,8 @@ the content of an HTML page into easily consumable objects, saving us
 the effort of creating all of that functionality.
 
 `BeautifulSoup` is not in the Python Standard Library, so we'll have to
-install it before we can use it. Make sure you're in an active virtual
+install it before we can use it. Note that the package name is `beautifulsoup4`,
+but you import it as `bs4`. Make sure you're in an active virtual
 environment, and then run this command in the terminal:
 
 ```
@@ -26,7 +27,8 @@ python -m pip install beautifulsoup4
 The process for obtaining the HTML content is nearly identical to the
 manual method that we used previously. The one difference is that we'll 
 pass the raw HTML text content to `BeautifulSoup` and return the parser
-instead of the raw text.
+instead of the raw text. The function is the same as `scrape_page()` from the
+previous lesson, with the parser added.
 
 ```python
 from urllib.request import urlopen
@@ -90,7 +92,10 @@ Output:
 
 </details>
 
-As you can see, the `BeautifulSoup` object returns the HTML as its
-`repr()` and has a `prettify()` function to add indents.
+As you can see, the `prettify()` method adds indentation, which makes the
+structure of the page easy to read.
+
+> Note: the code file turns off a Sonar warning on the profiles URL. That comment
+> stays in the code file.
 
 ---

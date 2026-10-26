@@ -101,3 +101,5 @@ Hold the right arrow key. The ship moves steadily to the right, and stops when y
 
 - `ship.py`: adds the `moving_right` flag and `update()`
 - `alien_invasion.py`: sets the flag from key events, and calls `ship.update()` in the loop
+
+---

@@ -19,8 +19,8 @@ def parse_html(html: str, tag_to_find: str) -> str:
 def main() -> None:
     """Read web pages and print the titles"""
     pages = [
-        "http://olympus.realpython.org/profiles/aphrodite",
-        "http://olympus.realpython.org/profiles/poseidon"
+        "http://olympus.realpython.org/profiles/aphrodite", #NOSONAR
+        "http://olympus.realpython.org/profiles/poseidon"   #NOSONAR
     ]
 
     for page in pages:

@@ -6,7 +6,7 @@ exact amount of characters. When working with numerical data, this often
 means that you will need to pad the string with leading zeros.
 
 Zero-padding works a little differently from the fill patterns we saw in the
-previous example. While a pad character precedes the alignment indicator, the
+previous lesson. While a pad character precedes the alignment indicator, the
 `0` character for padding precedes the width value (after the alignment).
 
 ---

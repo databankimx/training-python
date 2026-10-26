@@ -71,3 +71,5 @@ The home page with the Travel posts, and the **Write a post** link beside the bl
 - `blogs/views.py`: requires sign-in for adding and editing, and checks the owner
 - `blogs/tests.py`: gives every blog an owner, and adds the protection tests
 - `seed.json`: the example blog, owned by user 1
+
+---

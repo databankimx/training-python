@@ -2,9 +2,10 @@
 
 import dis
 import traceback
+from collections.abc import Callable
 from utility_functions import pause, clear_terminal
 
-def higher_order_function(x: int, func: callable) -> int:
+def higher_order_function(x: int, func: Callable) -> int:
     """Returns `x` plus result of `func(x)`"""
     return x + func(x)
 

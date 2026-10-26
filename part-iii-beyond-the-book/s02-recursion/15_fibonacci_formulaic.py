@@ -5,11 +5,11 @@ from count_calls import CountCalls
 PHI = (1 + 5 ** 0.5) / 2
 
 @CountCalls
-def fibonacci(n):
+def fibonacci(n: int) -> int:
     """Return the nth Fibonacci number approximation (formulaic algorithm)"""
     if n in [0, 1]:
         return n
-    return int((PHI ** n - (1 - PHI) ** n) / (PHI - (1 - PHI)))
+    return round((PHI ** n - (1 - PHI) ** n) / (PHI - (1 - PHI)))
 
 def main() -> None:
     """Main program"""

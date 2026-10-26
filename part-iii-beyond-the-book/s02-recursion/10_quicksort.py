@@ -20,7 +20,7 @@ def quicksort(numbers: list[int]) -> list[int]:
     # Recursively reduce until the entire list is sorted
     return quicksort(items_less) + pivot_items + quicksort(items_greater)
 
-def generate_random_list(length: int=10, minimum: int=-100, maximum: int=100):
+def generate_random_list(length: int=10, minimum: int=-100, maximum: int=100) -> list[int]:
     """Generate a random, unsorted list of integers to sort"""
     return [randint(minimum, maximum) for _ in range(length)]
 

@@ -2,26 +2,27 @@
 
 import mysql.connector
 # pylint: disable=no-name-in-module
+from mysql.connector.connection import MySQLConnection
 from utility_functions import get_settings
 
-def connect(settings: dict[str, str]) -> mysql.connector.connection:
+def connect(settings: dict[str, str]) -> MySQLConnection:
     """Connect to MySQL Server"""
     conn = mysql.connector.connect(
         host=settings["host"],
         user=settings["username"],
         password=settings["password"],
-        database = settings["schema"]
+        database=settings["schema"]
     )
     print(f"Connected to {conn.server_host}: {conn.server_port}\n")
     return conn
 
-def disconnect(conn: mysql.connector.connection) -> None:
+def disconnect(conn: MySQLConnection) -> None:
     """Disconnect from MySQL Server"""
     if conn is not None and conn.is_connected():
         conn.disconnect()
-    print("Connection closed")
+        print("Connection closed")
 
-def update_rows(conn: mysql.connector.connection) -> None:
+def update_rows(conn: MySQLConnection) -> None:
     """Update rows in `customers`"""
     if not conn.is_connected():
         print("No active connection to MySQL Server!")
@@ -33,7 +34,7 @@ def update_rows(conn: mysql.connector.connection) -> None:
     conn.commit()
     print(cursor.rowcount, "record(s) affected\n")
 
-def parameterize(conn: mysql.connector.connection) -> None:
+def parameterize(conn: MySQLConnection) -> None:
     """Update rows in `customers`"""
     if not conn.is_connected():
         print("No active connection to MySQL Server!")

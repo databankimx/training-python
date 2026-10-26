@@ -40,3 +40,5 @@ There's no separate code for this exercise. The solution is the four templates f
 ## Output
 
 None. This exercise changes the templates, which the step 3 lesson already shows.
+
+---

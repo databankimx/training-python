@@ -21,35 +21,37 @@ predictable) behavior.
 A Note about Python:
 * Python implements integers with a dynamic number of bits.
 * This means that it is not possible to overflow an integer in Python.
-* The next several sections still apply to how Python represents integers
-  in binary, but since the bit size (and therefore the position of the
-  sign bit) can change dynamically, Python coders can ignore the effects of
-  overflow (for integers).
+* Python integers have no fixed size, and so no fixed sign bit. The next several
+  sections still apply to how integers are represented in binary in general, but
+  Python programmers can ignore the effects of overflow for integers.
 
 ---
 
 ### Overflowing an Unsigned Integer
 
 With an unsigned integer, we can imagine a condition where the value
-stored in an integer variable `b` is already all ones when we try
+stored in an integer variable `ub` is already all ones when we try
 to add `1` to it:
 
-Since Python is not vulnerable to overflow, let's consider this in C
+Since Python is not vulnerable to overflow, let's consider this in C.
+
+The code for this section is in [05_integer_overflow.c](./05_integer_overflow.c).
+To run it, compile it with a C compiler, such as `gcc 05_integer_overflow.c -o overflow`,
+and then run the program that the compiler creates.
 
 ```c
-
 #include <stdio.h>
 
 int main() {
-    unsigned char b = 255; // b = 1111 1111
-    b++;                   // b = ?
-    printf("b = %i", b);
+    unsigned char ub = 255; // ub = 1111 1111
+    ub++;                   // ub = ?
+    printf("\nub = %i\n", ub);
 
     return 0;
 }
 ```
 
-If we add ```1``` to our integer ```b```, the value (in real world
+If we add `1` to our integer `ub`, the value (in real world
 numbers) would be $256$
 
 > |||
@@ -76,7 +78,7 @@ $$255+1=0$$
 Output:
 
 ```
-b = 0
+ub = 0
 ```
 
 ---
@@ -87,17 +89,17 @@ The results of integer overflow can become even more surprising when
 we look at what happens with a signed integer.
 
 We can again imagine a condition where the value stored in a signed 
-integer variable ```s``` is already equal to the maximum value when we 
-try to add ```1``` to it.
+integer variable `sb` is already equal to the maximum value when we 
+try to add `1` to it.
 
 ```c
 #include <stdio.h>
 
 int main() {
                   //     ⌄--- remember, this is the sign bit
-    char b = 127; // b = 0111 1111
-    b++;          // b = ?
-    printf("b = %i", b);
+    char sb = 127; // sb = 0111 1111
+    sb++;          // sb = ?
+    printf("\nsb = %i\n\n", sb);
 
     return 0;
 }
@@ -119,18 +121,24 @@ into the sign bit.
 > |-:|-:|-|
 > |$0111~1111_2$|$127_{10}$||
 > |$\underline{+~0000~0001_2}$|$\underline{+~~~~~1_{10}}$||
-> |$1000~0000_2$|$-128_{10}$|(why ?)|  
+> |$1000~0000_2$|$-128_{10}$|(why ?)|
+
 $$127+1=-128~~???$$
 
 Output:
 
 ```
-b = -128
+sb = -128
 ```
 
-As expected, the result is a negative number. But the negative value
-isn't what we'd likely expect. It seems like the rest of the value
-after the sign bit should be zero. This is also explained over the next
-several topics.
+The `1000 0000` pattern is what we'd expect for 128 if the leftmost bit were just
+another bit. But because it's the sign bit, the pattern is read as a negative
+number. The exact negative value depends on how the computer stores negatives,
+which the next several topics explain.
+
+> Note: In C, overflowing a signed integer is undefined behavior. The C standard
+> doesn't say what happens, so a compiler is allowed to do something else. On most
+> current systems you'll see `-128`, but that isn't guaranteed. Unsigned overflow,
+> as in the first example, is defined: it wraps around to 0.
 
 ---

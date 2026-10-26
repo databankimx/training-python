@@ -5,12 +5,14 @@ from colors import Colors
 from suits import Suits
 from ranks import Ranks
 
+#pylint: disable=line-too-long
+
 class Card():
     """Models a playing card"""
 
-    # pylint: disable=too-many-arguments
-    def __init__(self, game: str=None, suit: Suits=None, rank: Ranks=None,
-                 color: Colors=Colors.WHITE, back: bool=False) -> None:
+    # pylint: disable=too-many-arguments, too-many-positional-arguments
+    def __init__(self, game: str | None = None, suit: Suits | None = None, rank: Ranks | None = None,
+                 color: Colors = Colors.WHITE, back: bool = False) -> None:
         """Initialize"""
         self.suit: Suits = Suits.SPADES if back else suit
         self.rank: Ranks = Ranks.BACK if back else rank
@@ -32,12 +34,12 @@ class Card():
             "suit": Suits.name(self.suit)
         }, indent=4)
 
-    def get_name(self):
+    def get_name(self) -> str:
         """Get the long name for the card"""
         return "Back" if self.rank == Ranks.BACK else \
             f"{Ranks.name(self.rank)} of {Suits.name(self.suit)}"
 
-    def get_value(self, game: str) -> int:
+    def get_value(self, game: str | None) -> int:
         """Get the value of the card"""
         if game is None or game == "":
             return self.rank.value

@@ -119,3 +119,5 @@ The topic list on the admin site, with the two topics you added.
 - `learning_logs/migrations/__init__.py`, `0001_initial.py`: the table for topics
 - `learning_logs/tests.py`: the tests for this step
 - `ll_project/settings.py`: adds `learning_logs` to the installed apps
+
+---

@@ -48,3 +48,5 @@ There's no code to submit. Your check is that each new project has the same file
 ## Output
 
 A new folder with `manage.py` and a `tg_project` folder inside it, and nothing more.
+
+---

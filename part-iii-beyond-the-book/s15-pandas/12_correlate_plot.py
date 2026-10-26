@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from utilities import file_path
 
-def load_from_csv(filepath: str, printout: bool=True) -> pd.DataFrame:
+def load_from_csv(filepath: str, printout: bool = True) -> pd.DataFrame:
     """Load data from a CSV file into a Pandas DataFrame"""
     df = pd.read_csv(filepath)
     if printout:

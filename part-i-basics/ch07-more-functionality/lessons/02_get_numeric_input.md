@@ -1,15 +1,14 @@
 ## Getting Numeric Input
 
-Getting numeric input from a user has an extra layer of challenge. The Python
-`input()` function accepts whatever a user types in, which could include any
-UTF-8 characters: letters, numbers, punctuation, or even emojis.
+Getting numeric input from a user comes with an extra wrinkle. Python's `input()` function accepts
+whatever the user types, which can include any UTF-8 characters: letters, numbers, punctuation, or
+even emojis.
 
-Because of this, user data is always read in as a string. And though Python is
-(as we've discussed before) only loosely typed (you can change the data type
-held by a variable on the fly, e.g.), values themselves are strongly typed. A
-string is a string and an int is an int.
+Because of that, user data always comes back as a string. Python is loosely typed, which means you
+can change the type of data a variable holds whenever you like. The values themselves are still
+strongly typed, though. A string is a string, and an integer is an integer.
 
-Consider this code that will result in an error:
+Consider this code, which causes an error:
 
 ```python
 num = input("Enter a number: ")
@@ -22,7 +21,7 @@ User Prompt:
 Enter a number: _
 ```
 
-Let's assume that the user enters a valid number, say `15` + `<ENTER>`
+Let's assume the user enters a valid number, such as `15` + `<ENTER>`.
 
 Even with a valid input, we get this output:
 
@@ -34,16 +33,15 @@ Traceback (most recent call last):
 TypeError: '>' not supported between instances of 'str' and 'int'
 ```
 
-This is an error because the input result is always of type `str`, and we 
-cannot perform the `>` comparison when the operands are of different types.
+The input is always a `str`, and Python won't compare a string with an integer using `>`. The two
+types don't match, so the comparison fails.
 
 ---
 
 ### The `int()` Function
 
-Python provides a set of functions that are used to cast one data type as
-another. We've already used some of these (like `set()` and `list()`). One such
-function `int()` casts another type as an integer.
+Python provides a set of functions for converting one type into another. We've already used a few of
+them, like `set()` and `list()`. The `int()` function converts a value into an integer:
 
 ```python
 age = input("How old are you?\n> ")
@@ -54,10 +52,11 @@ print(age >= 18)
 User Prompt:
 
 ```
-Enter a number: _
+How old are you?
+> _
 ```
 
-Let's assume that the user types `15` + `<ENTER>`
+Let's assume the user types `15` + `<ENTER>`.
 
 Output:
 
@@ -65,14 +64,23 @@ Output:
 False
 ```
 
+> **What can `int()` convert?**
+> 
+> `int()` accepts a string holding a whole number, and it raises a `ValueError` for a string with a
+> decimal point, such as `"3.5"`. For decimal input, use `float()` instead.
+> 
+> Technically, `int()` can accept other types:
+> * Strings holding a whole number, with an optional sign and surrounding spaces, such as `" -7 "`.
+>   Underscores are allowed too, so `"1_000"` works.
+> * Floats, which are truncated toward zero. `int(3.9)` is `3`, and `int(-3.9)` is `-3`.
+> * Booleans. `int(True)` is `1`, and `int(False)` is `0`.
+> * Any object that defines an `__int__` method. Custom types use this to support `int()`.
+
 ---
 
 ### Using `int()` on `input()`
 
-Although it ignores the case where a user enters non-numeric data (don't worry 
-— we'll cover that in a later chapter), we can apply the `int()` function
-directly to the `input()` rather than storing the string in an intermediate
-variable.
+You don't need the intermediate variable. You can call `int()` directly on the result of `input()`:
 
 ```python
 height = int(input("How tall are you in inches?\n> "))
@@ -89,7 +97,7 @@ How tall are you in inches?
 > _
 ```
 
-Let's assume the user types `66` + `<ENTER>`
+Let's assume the user types `66` + `<ENTER>`.
 
 Output:
 
@@ -97,12 +105,15 @@ Output:
 You're tall enough to ride!
 ```
 
+> Note: this code doesn't check for non-numeric input. If the user types `tall`, `int()` raises an
+> error and the program stops. We'll handle that in a later chapter.
+
 ---
 
 ### The `float()` Function
 
-Python also exposes the `float()` function for when the entered data may not
-be an integer (for example, when working with currency).
+Use the `float()` function when the value might not be a whole number, such as when you're working
+with money:
 
 ```python
 price = 1.75
@@ -122,7 +133,7 @@ Enter the amount paid:
 > _
 ```
 
-Let's assume the user types either `2.00` or `2` + `<ENTER>`
+Let's assume the user types either `2.00` or `2` + `<ENTER>`.
 
 Output:
 

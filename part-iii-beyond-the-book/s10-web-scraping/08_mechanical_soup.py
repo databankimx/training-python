@@ -1,8 +1,9 @@
 """Web scraping with `MechanicalSoup`"""
 
 import mechanicalsoup
+from bs4 import BeautifulSoup
 
-def log_in(url: str, un: str, pw: str) -> str:
+def log_in(url: str, un: str, pw: str) -> BeautifulSoup:
     """Log in to a website and return the HTML from the landing page"""
     browser = mechanicalsoup.Browser()
     login_page = browser.get(url)

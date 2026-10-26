@@ -1,12 +1,13 @@
 """Creating `ufunc` Functions"""
 
 import numpy as np
+from collections.abc import Callable
 
 def add_up(x: int|list[int], y: int|list[int]) -> int:
     """Add two integers or lists of integers"""
     return x + y
 
-def check_type(f: callable) -> None:
+def check_type(f: Callable) -> None:
     """Show the types of a function and a ufunc"""
     print(f"{f.__name__} type: {type(f).__name__}")
 

@@ -1,6 +1,8 @@
 """Lambdas as Closures"""
 
-def outer_func_function(x: int) -> callable:
+from collections.abc import Callable
+
+def outer_func_function(x: int) -> Callable:
     """Outer function"""
     y = 4
     def inner_func(z: int) -> int:
@@ -8,7 +10,7 @@ def outer_func_function(x: int) -> callable:
         return x + y + z
     return inner_func
 
-def outer_func_lambda(x: int) -> callable:
+def outer_func_lambda(x: int) -> Callable:
     """Outer function with lambda"""
     y = 4
     return lambda z: x + y + z

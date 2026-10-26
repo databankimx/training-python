@@ -608,3 +608,5 @@ shooting frames when you fire. Hit aliens explode, a hit on the ship plays the k
 - `scoreboard.py`: the half-size ship icons, and the text color
 - `sounds.py` (new): the background music, and the explosion and womp sound effects
 - `button.py`: the three difficulty buttons
+
+---

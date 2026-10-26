@@ -22,10 +22,14 @@ Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
-## [Unreleased]
+## [1.0.0] - 2026-10-23
 
 ### Added
 
+- `part-iii-beyond-the-book/s26-itertools/` - new chapter: an introduction and seven lessons on the `itertools` module (infinite iterators, `chain` and `islice`, `accumulate`, combinations and permutations, `groupby`, filtering, and `zip_longest` and `starmap`)
+- `part-iii-beyond-the-book/s27-functools/` - new chapter: an introduction and five lessons on the `functools` module (`lru_cache`, `partial`, `reduce`, `wraps`, and `singledispatch`)
+- `part-iii-beyond-the-book/s16-scipy/` - six new lessons: `09_integrate`, `10_linalg`, `11_stats_distributions`, `12_fft`, `13_signal_peaks`, and `14_special`. The introduction lists all fourteen lessons, and the study warning has been removed
+- `part-iii-beyond-the-book/s24-built-ins/` - three new lessons: `the_collections_module`, `any_and_all`, and `the_datetime_module`
 - `part-ii-projects/data-visualization/` - 2nd and 3rd Editions: lessons and try-it-yourself steps for Ch15 (generating data), Ch16 (downloading data), and Ch17 (working with APIs), with the matching data files and images
 - `part-ii-projects/data-visualization/github-token-setup.md` - guide to creating a classic GitHub token and setting the `GITHUB_TRAINING_TOKEN` user environment variable
 - Chapter 17 scripts that call the GitHub API read `GITHUB_TRAINING_TOKEN` when it is set, which raises the rate limit from 60 to 5,000 requests per hour. They run without it as before
@@ -53,6 +57,10 @@ Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- `sm-utils` 0.2.9 published to PyPI and Test PyPI. The `set_path()` fix and the call-time default resolution are described under Fixed. `part-iii-beyond-the-book/s13-publish-a-library/` is updated to match
+- Part III `s24-built-ins` examples restructured into named functions with a `main()` entry point and a double-quoted `__name__` guard, matching the `s26-itertools` and `s27-functools` scripts
+- Lesson runner: type hints added across `config.py`, `core/`, `render/`, and `ui/`, and `logo.py` no longer imports `tkinter`. The Tkinter-only helpers `draw_on_canvas()` and `icon_photo()` were removed, since nothing called them
+- `00_beyond_the_book.md`: the topic list now includes Tkinter, Flask, Itertools, and Functools, and the SciPy entry no longer shows the incomplete-lesson marker
 - Lesson runner: modules grouped into `core/`, `ui/` and `render/` packages, with `config.py` and `app.py` at the top. `discovery.py` finds the repository root from its new location
 - Lesson runner: Part II sits between Part I and Part III in the chapter tree
 - Lesson runner: top-level Part menus start collapsed
@@ -61,7 +69,7 @@ Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Lesson runner: warnings from a run (stderr that is not an uncaught error) appear in amber, not red
 - Lesson runner: the Visualize button appears only on algorithm steps
 - `part-iii-beyond-the-book/s04-big-o-complexity/html/` removed and replaced by `visualizations/`. The S04 lessons now point to the Visualize button instead of the old HTML files
-- Lesson runner: the Qt version replaces the Tkinter runner as the main runner. The Tkinter version is kept in `lesson-runner-tk/` for reference
+- Lesson runner: the Qt version replaces the earlier Tkinter runner as the main runner
 - Lesson runner: step titles use the lesson's first heading with Markdown markup removed; leading numbers and letter prefixes are dropped from file-name titles
 - Lesson runner: a Python script with a matching lesson file is a step, even without a `__main__` guard
 - Lesson runner: Part I lessons are attached to their scripts, including scripts that share one lesson file (for example S09 importing classes)
@@ -76,6 +84,15 @@ Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
+- Lesson runner: Part III chapters are in numerical order. The Flask chapter (S25) was listed after S24 and S26, and now sits in sequence
+- `s13-publish-a-library` / `sm-utils` 0.2.9: `set_path(folder)` returned without setting the default folder; `dir_path()` and `file_path()` captured the default when the module was imported; `RelativePath` raised `AttributeError` when no JSON file existed. All three are fixed
+- `s14-numpy/03-numpy-ufunc`: `ord_suffix()` in `utility_functions.py` returned `suf[n]` instead of `suf[m]`, so numbers such as 23 raised `IndexError`
+- `s15-pandas`: `clean_csv.py`'s `drop_duplicates()` did not modify the DataFrame (missing `inplace=True`), so duplicate rows stayed in the cleaned data
+- `s18-trie`: `list_words()` called without a prefix passed `None` to `show_all_words()`, which raised `TypeError`
+- `s20-card-games`: `Hand.value` had a setter that took no argument. The property is now read-only
+- `s21-morse-code`: `decode_code()` raised an error for input whose path runs off the tree (such as `......`) or ends at a node with no character (such as `----`). It now returns the unknown-character symbol `□`
+- `s24-built-ins`: the clipboard lesson said that pasting could return text copied elsewhere. The script copies `"Hello"` first, so the lesson now describes that behavior
+- `00_beyond_the_book.md`: the Filter link pointed to a folder that doesn't exist (`s19-filter`). It now points to `s19-tkinter`
 - Part II unittest step runs its tests: `unittest.main()` searched the runner's `__main__` module and found no tests. The script now runs its test case directly, with output to stdout
 - Part II plotly charts use the current title syntax (`title={"text": ..., "font": ...}`), because `titlefont` is no longer accepted
 - Part II data files are read from the lowercase `data` folder
@@ -92,13 +109,9 @@ Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Lesson runner: Python scripts without a numbered name or `__main__` guard (for example S24's built-in examples) show their code when they have a matching lesson file
 - Lesson runner: the Visualize button writes the chosen algorithm to `current-algorithm.js` before opening the player, because Windows drops query strings in file addresses
 - `s04-big-o-complexity/09_shell_sort.md`: the gap sequence text now matches the code (the smallest power of two at or above *n*, minus one)
-- Lesson runner: Python scripts without a numbered name or `__main__` guard (for example S24's built-in examples) show their code when they have a matching lesson file
-- Lesson runner: the Visualize button writes the chosen algorithm to `current-algorithm.js` before opening the player, because Windows drops query strings in file addresses
-- `s04-big-o-complexity/09_shell_sort.md`: the gap sequence text now matches the code (the smallest power of two at or above *n*, minus one)
-
 ---
 
-## [1.0.0] - 2026-10-10
+## [0.0.9] - 2026-10-10
 
 ### Added
 
@@ -108,5 +121,5 @@ Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `development-rules-of-engagement.md` - shared policy document covering custom code obligations
 - Migrated from personal repository (`python-crash-course`) to DataBank IMX organization
 
-[Unreleased]: https://github.com/databankimx/training-python/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/databankimx/training-python/releases/tag/v1.0.0
+[1.0.0]: https://github.com/databankimx/training-python/compare/v0.0.9...v1.0.0
+[0.0.9]: https://github.com/databankimx/training-python/releases/tag/v0.0.9

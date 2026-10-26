@@ -29,7 +29,7 @@ Because we are traversing the trie letter by letter until we either find
 the complete string or reach a dead end, the worst-case complexity for a
 search is O(*k*) where *k* is the number of letters in the word.
 
-In the image above, searching from the root, it requires three steps to locate
+Searching from the root, it requires three steps to locate
 the word "and" and only three steps to identify that "anbx" is not
 in the trie.
 
@@ -91,7 +91,7 @@ string data. However, the Trie has advantages over it as well.
 * No overhead of Hash functions in a Trie data structure.
 * Searching for a String even in the large collection of strings in a Trie 
   data structure can be done in O(L) Time complexity, Where L is the 
-  number of words in the query string. This searching time could be even 
+  length of the query string. This searching time could be even 
   less than O(L) if the query string does not exist in the trie.
 
 ---
@@ -101,7 +101,7 @@ string data. However, the Trie has advantages over it as well.
 OK - I'm sold! What are the properties of a trie?
 
 * Contains an empty root node, with links (or references) to other nodes.
-* Each node represents a string, and each edge represents a character.
+* Each path from the root represents a prefix, and each edge represents a character.
 * Every node consists of hashmaps or an array of pointers
     * with each index representing a character
     * and a flag to indicate if any string ends at the current node.
@@ -110,7 +110,7 @@ OK - I'm sold! What are the properties of a trie?
     * For the examples in this lesson, we'll focus solely on the English
       alphabet, so each node will contain:
         * Array of 26 character pointers
-        * A character will only be populated if children exist
+        * A child pointer is only populated when that child exists
 * Each path from the root to any node represents a word or string.
 
 ---

@@ -1,111 +1,99 @@
 ## Bonus: Virtual Environments
 
-Now that we've learned how to import a module, the next step will be to import 
-functionality from external libraries that we did not write ourselves.
+Now that you know how to import a module, the next step is to import functionality from external
+libraries that you didn't write yourself.
 
-Some of these libraries require installation.
+Some of these libraries have to be installed first.
 
-Different projects will require different libraries to be installed, and it's 
-important to keep track of what we're installing.
+Different projects need different libraries, so it's important to keep track of what you install.
 
-It's not a good idea to just use your local machine's instance of Python and 
-install everything there, because there would be no way to identify what is
-used by which project.
+It's a bad idea to use your computer's main Python installation for everything. You'd have no way of
+telling which project uses which library.
 
-Knowing what a given project uses is important, since Python provides a means 
-of creating a *requirements.txt* file that lists all the libraries that must be
-installed when deploying your project to another machine.
+Knowing what a project depends on matters, because Python can list those dependencies in a
+*requirements.txt* file. Anyone deploying your project to another machine can install everything from
+that file.
 
 ---
 
 ### Create a Virtual Environment
 
-Instead, it is preferable to create a virtual environment (venv) and install 
-only the libraries needed for your project.
+It's better to create a virtual environment (venv) for each project, and install only the libraries that
+project needs.
 
-Here's how we do that.
+Here's how:
 
 1. Open the project folder in VS Code
-2. Launch a terminal if one is not already open
-3. Create the virtual environment (venv) by running the following command in 
-   your terminal:  
+2. Open a terminal, if one isn't already open
+3. Create the virtual environment by running this command in the terminal:
    `python -m venv .venv`
-   * This will create a virtual environment called `.venv` in your project 
-     folder.
-   * It's not necessary to call it .venv (you can name it whatever you want), 
-     but it's customary
+   * This creates a virtual environment called `.venv` in your project folder.
+   * You don't have to call it `.venv`. You can name it anything you like, but `.venv` is the
+     customary choice.
 
-The newly created virtual environment contains its own complete installation 
-of Python.
+A virtual environment has its own Python launcher and its own set of installed packages. It still uses
+your base Python installation to run, but nothing you install inside it affects other projects.
 
 ---
 
 ### Activate the Virtual Environment
 
-When the virtual environment is inactive, you are still using your local 
-machine's Python instance, so it's important to activate it.
+While the virtual environment is inactive, you're still using your computer's main Python, so you need to
+activate it.
 
-Here's how:
-
-1. Run the following command in your terminal  
-   `.venv\scripts\activate`
-   * After this runs, your terminal prompt should show (.venv) at the left
-   * If you named yours something other than `.venv`, then the name you used 
-     should be substituted in the command and will appear in the terminal 
-     prompt
-   * You can run the command `deactivate` to deactivate the virtual 
-     environment at any time
+1. Run this command in the terminal:
+   `.venv\Scripts\activate`
+   * After it runs, the terminal prompt should show `(.venv)` at the left.
+   * If you named your environment something else, use that name in the command. It also appears in the
+     prompt.
+   * To turn the environment off, run `deactivate`.
 
 ---
 
-### Make Sure the Virtual Environment Interpreter is Selected
+### Select the Virtual Environment's Interpreter
 
-In Visual Studio Code, you need to ensure that the Python interpreter used
-for code testing is the one in the virtual environment.
+In Visual Studio Code, make sure the Python interpreter used for running and testing your code is the
+one in your virtual environment.
 
-1. Open the VS Code Command Palette by doing one of the following:
-    * Click the cog icon in the lower left and select "Command Palette"  
+1. Open the Command Palette by doing one of the following:
+    * Click the cog icon in the lower left, and select "Command Palette,"
       or
     * Press `CTRL`+`SHIFT`+`P`
-2. Select "Python: Select Interpreter" from the menu
-3. Select the interpreter associated with your virtual environment
+2. Select "Python: Select Interpreter" from the menu.
+3. Select the interpreter that belongs to your virtual environment.
 
 ---
 
-### Update the Virtual Environment and Install Libraries
+### Update pip and Install Libraries
 
-The PIP installer will likely be out of date in your virtual environment, so
-you should update it using the following command:
-
-```
-python.exe -m pip install --upgrade pip
-```
-
-After that, you can install whatever libraries you need to the virtual environment using the following command:
+The pip installer in a new virtual environment is probably out of date, so update it first:
 
 ```
-python.exe -m pip install library_name
+python -m pip install --upgrade pip
+```
+
+Then install whatever libraries your project needs:
+
+```
+python -m pip install library_name
 ```
 
 ---
 
-### Creating a Requirements File
+### Create a Requirements File
 
-After you have developed an application, you will need to deploy it,
-typically to a server other than where you wrote the code.
+After you finish an application, you'll usually deploy it to a server other than the one where you wrote
+it.
 
-This means that the server will automatically need to have the same modules
-installed that you used for testing.
+That server needs the same libraries you used while developing, so you need a list of them.
 
-To make this easier, you can create a requirements file using the following
-command:
+You can create one with this command:
 
 ```pwsh
-python -m pip freeze > requirements.txt
+python -m pip freeze | Out-File -Encoding utf8 requirements.txt
 ```
 
-... which will create a file called `requirements.txt` in which all of the
-installed module dependencies are listed, like this:
+This creates a file called `requirements.txt` that lists every installed library and its version, like this:
 
 ```
 colorama==0.4.6
@@ -115,5 +103,26 @@ pluggy==1.5.0
 pygame==2.6.0
 pytest==8.3.2
 ```
+
+> **Why `Out-File -Encoding utf8`?** In Windows PowerShell 5.1, the plain `>` redirect saves the file in
+> UTF-16 encoding. pip usually reads that without trouble, but many other tools expect plain UTF-8, so
+> writing the file as UTF-8 keeps it portable.
+
+---
+
+### Install from an Existing Requirements File
+
+The requirements file works in the other direction too. When you open a project that someone else has
+shared, or set up a fresh venv on a new machine, you can install everything the project needs in one step.
+
+Create and activate the new virtual environment as before, then run:
+
+```pwsh
+python -m pip install -r requirements.txt
+```
+
+Pip reads each line of the file and installs that exact version of each library. Because the versions are
+pinned, the new environment matches the one the project was built with. Run that command from the folder
+that contains `requirements.txt`, or give pip the full path to the file.
 
 ---

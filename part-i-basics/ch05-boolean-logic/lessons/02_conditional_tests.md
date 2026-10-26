@@ -1,36 +1,37 @@
 ## Conditional Tests (Comparisons)
 
-A conditional test is a comparison between two values. These tests come in
-several types:
+A conditional test compares two values, and it evaluates to `True` or `False`. Python
+has a handful of comparison operators:
 
 |Operator|Comparison|Result|
 |:-:|-|-|
-|`==`|equal|`True` when both operands contain the same value|
-|`!=`|not equal|`True` when the operands contain different values|
+|`==`|equal|`True` when both operands have the same value|
+|`!=`|not equal|`True` when the operands have different values|
 |`<`|less than|`True` when the left value is less than the right value|
 |`<=`|less than or equal|`True` when the left value is less than or equal to the right value|
-|`>`|greater than|`True` when the left value is more than the right value|
-|`>=`|greater than or equal|`True` when the left value is more than or equal to the right value|
+|`>`|greater than|`True` when the left value is greater than the right value|
+|`>=`|greater than or equal|`True` when the left value is greater than or equal to the right value|
 |`is`|same object|`True` when both operands point to the same object in memory|
 |`is not`|different object|`True` when the operands point to different objects in memory|
-|`not` or `!`|inverse/negation|`True` when the right (and only) operand is `False`|
+
+We'll cover `not` and the other logical operators in the next lesson.
 
 ---
 
 ### Equivalency (`==`)
 
-The most commonly used test is equivalency `==`, which tests to see whether
-two items contain identical data.
+The most common test is equivalency, `==`. It checks whether two values hold the same data.
 
-Since the data must be identical, the data types must be the same (e.g.:
-compare a number to a number or a string to a string).
+Python compares the values, not the types. Two numbers of different types can still be equal,
+as the example below shows. Comparing a number to a string is always `False`, because they
+don't hold the same data.
 
-To negate `==` we use the `!=` (not equal) operator
+To check the opposite, use `!=`, which means "not equal."
 
 #### Equivalency with Numbers
 
-Note: An integer can return `True` when compared with a float it the
-float's decimal part is zero (e.g.: `2 == 2.0` returns `True`)
+Note: an integer can be equal to a float if the float's decimal part is zero. For example,
+`2 == 2.0` returns `True`.
 
 ```python
 num = 1
@@ -53,10 +54,10 @@ True
 
 #### Equivalency with Strings
 
-String comparisons are case-sensitive (that is, 'A' is not the same as 'a')
+String comparisons are case-sensitive, so `'A'` is not the same as `'a'`.
 
-We can work around this by using the `upper()` or `lower()` functions to
-normalize the data so that both operands share a single case.
+You can work around this by using `upper()` or `lower()` to normalize both values, so they
+share a single case.
 
 ```python
 car = "bmw"
@@ -77,14 +78,11 @@ True
 
 ### Object Equivalency (`is`)
 
-Another form of equivalency checking uses the `is` keyword. Instead of 
-checking that the values are the same, this checks that the two operands
-point to the same object in memory.
+The `is` keyword checks something different. Instead of asking whether two values are the
+same, it asks whether two names point to the same object in memory.
 
-Consider this example, using the lesson we learned about list assignment
-versus copying.
-
-To negate `is`, we use the `not` keyword
+This builds on the list assignment and copying ideas from lesson 4.8. To check the opposite,
+use `is not`.
 
 ```python
 lst = [1, 2, 3]
@@ -107,14 +105,15 @@ False
 True
 ```
 
+The copy has the same values as the original, so `==` returns `True`. It's a different object,
+so `is` returns `False`.
+
 ---
 
 ### Inequalities (`>`, `>=`, `<`, `<=`)
 
-Often, we're more interested in where an item falls in relation to another as
-opposed to actual equivalency between the items.
-
-For these, we have the typical arithmetic comparisons.
+Often, we care more about where one item falls relative to another than whether they're equal.
+For that, we use the familiar comparison operators.
 
 #### Inequalities with Numbers
 
@@ -139,13 +138,11 @@ True
 
 #### Inequalities with Strings
 
-Strings complicate the inequality relationships, because they are evaluated
-based on the ASCII value of the characters, not by alphabetical order.
+Strings complicate inequalities, because Python compares them by the character codes behind
+each letter, not by alphabetical order.
 
-Any lower case letter will always evaluate as greater than any upper case 
-letter because of this.
-
-A quick look at the ASCII table will explain why:
+That means any lowercase letter is greater than any uppercase letter. A quick look at the
+ASCII table explains why:
 
 |Character|ASCII||Character|ASCII|
 |:-:|:-:|-|:-:|:-:|
@@ -176,14 +173,9 @@ A quick look at the ASCII table will explain why:
 |Y|89||y|121|
 |Z|90||z|122|
 
-As you can see, the ASCII value of any lower case character is 32 higher than
-its upper case counterpart.
-
-And since inequalities compare the ASCII values, that makes them
-case-sensitive. But as mentioned before, we can work around this limitation
-using the `upper()` or `lower()` functions.
-
----
+Each lowercase letter's code is exactly 32 higher than its uppercase counterpart. Since
+inequalities compare those codes, the comparison is case-sensitive. As before, `upper()` and
+`lower()` get you around that.
 
 ```python
 left = "apple"

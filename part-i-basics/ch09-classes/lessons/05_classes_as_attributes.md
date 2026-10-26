@@ -1,11 +1,15 @@
 ## Classes as Attributes
 
-Where the object-oriented programming model really gets powerful is when we 
+Where the object-oriented programming model really gets powerful is when we
 use classes as attributes of other classes.
 
-This design mode allows a developer to design highly granular object models
-and combine them to ensure that there is minimal waste data (unused 
-attributes or functions) in any object.
+This design approach lets a developer build highly granular object models and
+combine them, so there is minimal wasted data (unused attributes or functions)
+in any object.
+
+Breaking a large class into smaller classes that work together is called
+*composition*. You'll see that word in other people's code, and it's a good
+habit to reach for whenever one class starts doing too many jobs.
 
 ---
 
@@ -26,7 +30,7 @@ class Car:
         self.model = model
         self.year = year
         self.odometer_reading = 0
-        self.fuel_level = 0
+        self.fuel_level = 0.0
 
     def get_descriptive_name(self):
         """Describe the car"""
@@ -35,7 +39,7 @@ class Car:
 
     def read_odometer(self):
         """Get the odometer mileage"""
-        print(f"This car has {self.odometer_reading} miles on it.\n")
+        print(f"This car has {self.odometer_reading} miles on it.")
 
     def set_odometer(self, mileage):
         """Set the odometer mileage"""
@@ -71,16 +75,21 @@ class Car:
             fuel_state = "one quarter full"
         elif self.fuel_level > 0.0:
             fuel_state = "running on fumes"
-        print(f"Fuel Status: {fuel_state}\n")
+        print(f"Fuel Status: {fuel_state}")
 ```
 
 </details>
 
-<br>We'll create a new class to model a `Battery`
+The code file marks the `== 1.0` comparison with a `#NOSONAR` comment, which
+turns off a Sonar warning about comparing floats. That comment stays in the
+code file.
+
+We'll create a new class to model a `Battery`.
 
 ```python
 class Battery:
     """Defines a battery"""
+
     def __init__(self, battery_size=75):
         """Initialize a new instance of the Battery class"""
         self.battery_size = battery_size
@@ -91,20 +100,26 @@ class Battery:
 
     def get_range(self):
         """Get the range of the battery"""
-        range = "unknown"
+        battery_range = "unknown"
         if self.battery_size == 75:
-            range = 260
+            battery_range = 260
         elif self.battery_size == 100:
-            range = 315
+            battery_range = 315
         else:
             print(f"Range unknown for battery size: {self.battery_size}-kWh.")
             return
-        print(f"This car can go about {range} miles on a full charge.")
+        print(f"This car can go about {battery_range} miles on a full charge.")
 ```
 
-And we will modify the `ElectricCar` class `__init__()` function to create a
-new instance property `battery` that takes the `Battery` class instead of the
-existing `battery_size` attribute.
+The code file turns off a warning about the initial value of `battery_range`. Every path below it sets a new value, or returns early, so the
+starting value never gets used.
+
+This looks like a lot of extra work, but it means the battery details live in
+one place. Now `ElectricCar` doesn't need to know how batteries work.
+
+And we will modify the `ElectricCar` class `__init__()` method to create a new
+instance attribute called `battery` that holds a `Battery` object, instead of
+the plain `battery_size` attribute.
 
 ```python
 class ElectricCar(Car):
@@ -122,15 +137,21 @@ class ElectricCar(Car):
 
     def check_fuel_level(self):
         """Check the fuel level"""
-        print("This car doesn't contain any fuel!\n")
+        print("This car doesn't contain any fuel!")
 ```
+
+Where does a method like `get_range()` belong? Is range a property of the
+battery or of the car? If we're only describing one car, keeping `get_range()`
+on `Battery` is fine. If we're describing a whole line of cars, it might make
+more sense to move it up to `ElectricCar`. Either choice works, and there's no
+single right answer. Pick the one that matches the model you're building.
 
 ---
 
 ### Using the Class as an Attribute
 
-When a class attribute is itself an instance of another class, we use the
-same dot-syntax we have been using to access its attributes in turn.
+When an instance attribute is itself an instance of another class, we use the
+same dot syntax we've been using to reach its attributes, one step at a time.
 
 `main_class_object.attribute_that_is_a_class_object.attribute_of_attribute`
 

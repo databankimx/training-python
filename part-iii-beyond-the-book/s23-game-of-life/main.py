@@ -2,7 +2,7 @@
 
 from game import GameOfLife
 
-def main():
+def main() -> None:
     """Run the game of life"""
     # Create the game object
     game = GameOfLife()

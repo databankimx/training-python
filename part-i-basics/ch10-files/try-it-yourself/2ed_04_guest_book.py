@@ -18,8 +18,8 @@ while True:
     name = input("Please enter your name (or 'quit'):\n> ")
     if name.lower() == "quit":
         break
-    with open(file_path, "a", encoding="utf-8") as file:
+    with open(file_path, "a", encoding="UTF-8") as file:
         file.write(f"{name}\n")
 
-with open(file_path, "r", encoding="utf-8") as file:
+with open(file_path, "r", encoding="UTF-8") as file:
     print(file.read())

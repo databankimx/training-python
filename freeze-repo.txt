@@ -52,7 +52,7 @@ scipy==1.18.1
 seaborn==0.13.2
 shiboken6==6.12.0
 six==1.17.0
-sm_utils==0.2.7
+sm_utils==0.2.9
 soupsieve==3.0.3
 sqlparse==0.6.0
 statsmodels==0.15.0

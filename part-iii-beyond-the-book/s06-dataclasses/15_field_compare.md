@@ -40,8 +40,8 @@ Output:
 emp_1 > emp_2: True
 ```
 
-`True` because regardless of other fields, `name` is checked first, and
-`'Scott McLean' > 'Saul Goodman'`
+This is `True` because `name` is the first field, and `'Scott McLean' > 'Saul Goodman'`
+decides the result before `age` is ever compared.
 
 ---
 
@@ -74,5 +74,23 @@ emp_1 > emp_2: False
 
 Now the same comparison yields `False`, because we are only allowing `age` to 
 be evaluated.
+
+The code file has this modified version. The first example above comes from the
+ordering lesson, where the class is unmodified.
+
+`compare` also applies to `__eq__()`. With `compare=False` on `name`, `emp_id`,
+and `city`, two employees with the same age compare equal, even if their names
+differ:
+
+```python
+emp_3 = Employee("Jane Doe", "jdoe", 54, "Austin")
+print(f"emp_1 == emp_3: {emp_1 == emp_3}")
+```
+
+Output:
+
+```
+emp_1 == emp_3: True
+```
 
 ---

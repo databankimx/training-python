@@ -44,11 +44,12 @@ which progresses us towards the base case of `n == 0`.
 
 ---
 
-### Testing
+### Running It
 
-That meets both criteria for our standard pattern, so this function should eventually stop.
+That meets both criteria for our standard pattern, so this function will
+eventually stop.
 
-We can test it with code like this:
+We can run it with code like this:
 
 ```python
 # -- SNIP --
@@ -112,11 +113,19 @@ Traceback (most recent call last):
 RecursionError: maximum recursion depth exceeded
 ```
 
+> Note: each step sleeps for half a second, so this run takes several minutes
+> before it fails. The error comes after about 1000 steps, which is roughly 8
+> minutes. It isn't a hang.
+
 Even though we have a base case and progressively move toward it, our 
 algorithm is poorly designed for large numbers.
 
 We would probably be better off using an iterative algorithm with a loop 
 instead of recursion for this task.
+
+Some languages optimize a call that's the very last step of a function (a
+*tail call*) by reusing the current stack frame. Python doesn't do this, so
+rewriting `countdown()` in that style wouldn't avoid the limit.
 
 > Rule of thumb:
 > 

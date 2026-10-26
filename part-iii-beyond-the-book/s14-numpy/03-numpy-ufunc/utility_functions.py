@@ -1,8 +1,9 @@
 """Utility functions"""
 
 import timeit
+from collections.abc import Callable
 
-def timer(func: callable) -> callable:
+def timer(func: Callable) -> Callable:
     """Time the execution of a the decorated function"""
     def wrapped(*args, **kwargs):
         start = timeit.default_timer()
@@ -30,4 +31,4 @@ def ord_suffix(n: int) -> str:
     suf = ["th", "st", "nd", "rd"]
     m = n % 10
     th = 10 < n < 20 or m > 3
-    return suf[0] if th else suf[n]
+    return suf[0] if th else suf[m]

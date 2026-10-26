@@ -21,7 +21,7 @@ file_path = os.path.join(ROOT_DIR, "Files", "learning_python.txt")
 print("Try-it-Yourself:")
 print("Assignment 10.2\n")
 
-with open(file_path, encoding="utf-8") as file:
+with open(file_path, encoding="UTF-8") as file:
     for line in file:
         line = line.replace("Python", "C++")
         print(line.rstrip())

@@ -168,7 +168,6 @@ class RunMixin:
         credentials = self.web_credentials()
         if credentials is None:
             return
-        chapter, number = self.step.web_build
         username, password = credentials
         if port_in_use(8000):
             answer = QMessageBox.question(

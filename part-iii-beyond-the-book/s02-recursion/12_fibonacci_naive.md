@@ -27,7 +27,8 @@ print(f"Calculated F({n}) = {fibonacci(n):,}")
 print(f"call_count = {fibonacci.call_count:,}")
 ```
 
-> **Warning:** This code can take over a minute to run, and on some computers several minutes. Run it only when you're ready to wait.
+> **Warning:** This code can take several minutes to run, depending on your
+> computer. Run it only when you're ready to wait.
 
 Output:
 
@@ -36,11 +37,8 @@ Calculated F(40) = 102,334,155
 call_count = 331,160,281
 ```
 
-> Note: You may have to wait several minutes for this computation to complete.
-
-Holy cow! It took over two minutes and over 300 million recursive calls to
-compute  
-`F(40) = 102,334,155`
+It took a long time, and over 300 million recursive calls, to compute
+`F(40) = 102,334,155`.
 
 Why did it take so long?
 
@@ -105,8 +103,10 @@ We calculated `F(3)` twice, and `F(2)` three times, and so on.
 We're wasting calls recalculating values we've already computed, and that
 problem gets more severe the larger *n* becomes.
 
-In fact, this increases in what we call exponential time where the number of
-calls required to compute any `F(n)` is (worst case) `2ⁿ` function calls.
+The number of calls grows exponentially. For this algorithm, the number of calls
+for `F(n)` is `2 × F(n+1) - 1`. Since Fibonacci numbers grow by a factor of about
+1.618 each step, that's roughly `1.618ⁿ` calls. A check against the output above:
+`2 × F(41) - 1 = 2 × 165,580,141 - 1 = 331,160,281`.
 
 Surely we can do better...
 

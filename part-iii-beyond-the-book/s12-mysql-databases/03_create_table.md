@@ -48,7 +48,7 @@ if conn.is_connected():
     sql = "SHOW TABLES"
     cursor.execute(sql)
     print("TABLES:")
-    for table in cursor:
+    for table in cursor.fetchall():
         print(f" - {table[0]}")
 ```
 
@@ -67,7 +67,7 @@ In almost all circumstances, a table should include a column that acts as
 an identifier for each row's value(s). This is called a *primary key*.
 
 This identifier will be used when matching rows against other data tables.
-Obviously, as an identifier, the values in this column must be unique.
+As an identifier, the values in this column must be unique.
 
 The SQL syntax for adding a primary key looks like this:
 
@@ -92,10 +92,15 @@ Putting that into code, we'll do this:
 
 ```python
 if conn.is_connected():
-    sql = "ALTER TABLE customers " + \
-          "ADD COLUMN id INT AUTO_INCREMENT PRIMARY KEY"
     cursor = conn.cursor()
-    cursor.execute(sql)
+    cursor.execute("SHOW COLUMNS in customers")
+    existing = [column[0] for column in cursor.fetchall()]
+    if "id" in existing:
+        print("Column `id` already exists!")
+    else:
+        sql = "ALTER TABLE customers " + \
+              "ADD COLUMN id INT AUTO_INCREMENT PRIMARY KEY"
+        cursor.execute(sql)
 ```
 
 > Note: Running the `ALTER TABLE ... ADD COLUMN id` statement a second time fails,
@@ -122,7 +127,7 @@ if conn.is_connected():
     cursor = conn.cursor()
     cursor.execute(sql)
     print("COLUMNS in `customers`:")
-    for column in cursor:
+    for column in cursor.fetchall():
         print(f"- {column[0]} {column[1]}")
 ```
 
@@ -134,5 +139,9 @@ COLUMNS in `customers`:
 - address varchar(255)
 - id int
 ```
+
+> Note: when you disconnect, the code file prints `Connection closed`, but only if a
+> connection was actually open. The code file also has a Pylint comment
+> (`no-name-in-module`) on the `mysql.connector` import. That comment stays in the code file.
 
 ---

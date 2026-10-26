@@ -17,6 +17,8 @@ class Employee:
 
     def __eq__(self, value: object) -> bool:
         """Check if two Employee objects contain the same data"""
+        if not isinstance(value, Employee):
+            return NotImplemented
         return (self.name, self.emp_id, self.age, self.city) == \
             (value.name, value.emp_id, value.age, value.city)
 

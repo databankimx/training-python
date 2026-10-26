@@ -56,7 +56,7 @@ Maxpulse  0.009403  0.786535  1.000000  0.203813
 Calories  0.922717  0.025121  0.203813  1.000000
 ```
 
-Obviously, each column is a perfect 1.0 correlation to itself, but we can 
+Each column has a perfect 1.0 correlation with itself, but we can 
 see some other high correlations:
 
 * `Duration` and `Calories` have a 0.92 correlation, which suggests that 
@@ -87,6 +87,8 @@ We can call the `plot()` method with no arguments to plot all the columns
 at once.
 
 ```python
+import matplotlib.pyplot as plt
+
 df.plot()
 plt.show()
 ```
@@ -95,7 +97,7 @@ Output:
 
 <img src="./images/plot_all.png" style="width:300px">
 
-----
+---
 
 #### Plotting Specific Columns
 

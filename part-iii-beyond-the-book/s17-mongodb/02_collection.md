@@ -34,7 +34,8 @@ creating a MongoDB database from a client: `database[collection_name]`
 
 ```python
 db = client[settings["db_name"]]
-print(f"Connected to database: `{db.name}`\n")
+print(f"Connected to database: `{db.name}`")
+print()
 
 collection = db[settings["col_name"]]
 print(f"Created collection: `{collection.name}`")
@@ -64,9 +65,9 @@ print()
 col_name = settings["col_name"]
 print(f"Collection `{col_name}`", end=" ")
 if col_name in collections:
-    print("exists\n")
+    print("exists")
 else:
-    print("does not exist\n")
+    print("does not exist")
 ```
 
 Output:

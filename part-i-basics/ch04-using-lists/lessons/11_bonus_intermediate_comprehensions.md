@@ -1,13 +1,9 @@
 ## Intermediate and Advanced List Comprehensions
 
-We've already explored the use of list comprehensions as an alternative to
-loops when populating lists.
+We've already explored list comprehensions as an alternative to loops when populating
+lists. Here, we'll look at a few more examples and how they can be used.
 
-Here, we'll review a few more examples of comprehensions and how they can 
-be used.
-
-In each example, I will include the example as a loop and then as a 
-comprehension.
+In each example, I'll show the loop first, then the comprehension that does the same job.
 
 > Note: the efficiency section uses the `@timer` decorator from the
 > [sm_utils](https://pypi.org/project/sm-utils/) package. Install it with
@@ -17,8 +13,8 @@ comprehension.
 
 ### Basic List Comprehension
 
-As a review, here is an example of a basic list comprehension that creates
-a list of the numbers 1 through 10.
+As a review, here's a basic list comprehension that creates a list of the numbers 1
+through 10.
 
 ```python
 # Using a Loop
@@ -48,11 +44,11 @@ The output is the same from either code sample:
 
 ### List Comprehension with a Calculation
 
-Because an expression is treated the same as the value it produces, we can
-embed expressions in our list comprehensions.
+Anywhere a value can go in a comprehension, you can put an expression that computes it.
+The expression runs once for each item, and its result goes into the list.
 
-Here is an example of a list comprehension that uses an expression
-`i ** 2` to populate a list of the squares of the numbers 1 through 10.
+Here's a comprehension that uses the expression `i ** 2` to build a list of the squares of
+the numbers 1 through 10.
 
 ```python
 # Using a Loop
@@ -80,14 +76,13 @@ The output is the same from either code sample:
 
 ---
 
-### Filtering a List Comprehension using an `if` Statement
+### Filtering a List Comprehension Using an `if` Statement
 
-We can append a condition to the end of a comprehension to include only the
-values that match the condition as a filter.
+You can add a condition to the end of a comprehension, so only the values that match it
+make it into the list.
 
-This is an example of a list comprehension that uses a conditional
-`if i % 2 == 0` to populate a list of only the even squares of the numbers 
-1 through 10.
+This comprehension uses the conditional `if i % 2 == 0` to build a list of only the even
+squares of the numbers 1 through 10.
 
 ```python
 # Using a Loop
@@ -118,18 +113,22 @@ The output is the same from either code sample:
 
 ### Efficiency
 
-Looking at how comprehensions are structured, it's easy to assume that
-there isn't a measurable difference between explicitly using a loop and
-embedding the scope of the loop in a comprehension.
+It's easy to assume that a comprehension and an explicit loop run at the same speed, since
+they look so much alike. Assumptions are a bad idea in programming, so let's test it.
 
-But assumptions aren't ever wise in programming. Let's test the 
-proposition.
+You can use whatever timing method you like. In my example, we'll use the `@timer`
+decorator from the `sm_utils` library.
 
-You can use whatever timing mechanism you want, but in my example, we'll 
-use the `@timer` decorator from the `sm_utils` library.
+#### What's a Decorator?
 
-Here, we'll compare the time it takes to compute a list containing the
-squares of the first million integers using a loop versus a comprehension.
+A decorator is a function that wraps another function. The `@timer` line above `timed_for_loop`
+hands that function to `timer`, which runs it, measures how long it took, and reports the
+result. You don't have to change the function itself. Functions get their own chapter, and
+decorators come up there, so for now, think of `@timer` as a stopwatch you can clip onto
+any function.
+
+Here, we'll compare the time it takes to build a list of the squares of the first million
+integers, using a loop and then a comprehension.
 
 ```python
 from sm_utils import timer
@@ -167,18 +166,16 @@ Using list_comprehension...
 Execution Time: 41.93 ms
 ```
 
-In one test run, the list comprehension was slightly faster than the explicit
-loop. The gap is small and changes from run to run, so run the example yourself
-to see your own timings.
+In one test run, the list comprehension was slightly faster than the explicit loop. The gap
+is small and changes from run to run, so run the example yourself to see your own timings.
 
 ---
 
 ### Nested List Comprehensions
 
-Just like loops, we can nest comprehensions.
+Just like loops, comprehensions can nest.
 
-Here is an example of a nested list comprehension that produces a 3x3 2D 
-matrix.
+Here's a nested comprehension that produces a 3x3 two-dimensional matrix.
 
 ```python
 # Using a Loop
@@ -209,7 +206,16 @@ Output:
 [0, 2, 4]
 ```
 
-You can see that when nesting, the list comprehension takes much less code
-and is substantially more readable.
+The comprehension takes much less code, and once you're used to the pattern, it's easier to
+read too.
+
+---
+
+> **About the `.py` file:** the file wraps these examples in functions, and it uses `def`
+> and type hints such as `list[int]`. Functions are covered in Chapter 8, so for now, read
+> those parts as packaging. The loops and comprehensions are the same ones shown above.
+>
+> The file also calls `pause()` and `clear_terminal()` from `sm_utils`. `pause()` waits for you before it continues, and `clear_terminal()` clears the screen. In the
+> runner, expect a pause between examples, and a fresh screen when the example changes.
 
 ---

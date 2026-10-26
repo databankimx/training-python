@@ -20,7 +20,7 @@ class Car:
 
     def read_odometer(self):
         """Get the odometer mileage"""
-        print(f"This car has {self.odometer_reading} miles on it.\n")
+        print(f"This car has {self.odometer_reading} miles on it.")
 
     def set_odometer(self, mileage):
         """Set the odometer mileage"""
@@ -54,11 +54,13 @@ class ElectricCar(Car):
 
 my_e_car = ElectricCar("nissan", "leaf", 2024)
 
+print()
 print(my_e_car.get_descriptive_name())
 my_e_car.describe_battery()
 
 my_gas_car = Car("ford", "thunderbird", 1978)
 
+print()
 print(my_gas_car.get_descriptive_name())
 
 # This will result in an AttributeError

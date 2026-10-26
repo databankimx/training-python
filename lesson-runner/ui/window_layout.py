@@ -286,7 +286,7 @@ class LayoutMixin:
         return tab
 
     def bind_keys(self) -> None:
-        """Keyboard shortcuts, matching the tkinter runner."""
+        """Keyboard shortcuts."""
         QShortcut(QKeySequence("F5"), self, activated=self.start_run)
         QShortcut(QKeySequence("Escape"), self, activated=self.on_escape)
         QShortcut(QKeySequence("Ctrl+Shift+Return"), self, activated=self.continue_run)

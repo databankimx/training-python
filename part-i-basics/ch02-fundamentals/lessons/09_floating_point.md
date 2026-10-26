@@ -1,19 +1,20 @@
 ## Floating-Point Decimals
 
-Floating point (`float`) numbers are used for all non-integer numerical values (except for `complex`, which is beyond the scope of our course) in
-Python. The term "floating point" refers to the fact that the number of
-decimal places to the right of the decimal point is not a fixed value.
+Any number with a decimal point is a floating-point number, or `float`. (The
+complex numbers are the exception, and they're beyond the scope of this course.)
 
-Unlike integers, floating point numbers in Python are fixed-size, 64-bit, 
-signed values (equivalent to the `double` type in C#) and conform to the
-[IEEE-754](https://en.wikipedia.org/wiki/IEEE_754) standard.
+The name comes from how the number is stored. The decimal point isn't fixed in
+one spot. It "floats" to wherever it needs to be, based on the size of the
+number. That's a neat trick, and it's also the source of most float surprises.
+
+Unlike integers, floats in Python are fixed-size, 64-bit, signed values
+(equivalent to the `double` type in C#), and they follow the
+[IEEE-754](https://en.wikipedia.org/wiki/IEEE_754) standard. That fixed size is
+why integers can grow without limit and floats can't.
 
 ---
 
-In general, you can expect floating point numbers to behave as they do in
-normal arithmetic.
-
-For example:
+Most of the time, floats behave the way you'd expect from ordinary arithmetic:
 
 ```python
 print(f"0.1 + 0.1 = {0.1 + 0.1}")
@@ -33,8 +34,8 @@ Output:
 
 ---
 
-And, in Python, when you perform arithmetic operations, if any operand is a
-float, then the result will always be a float.
+Mix a float into an operation, and the result is always a float, even when the
+answer is a whole number:
 
 ```python
 x = 3
@@ -61,9 +62,11 @@ Output:
 
 ### Programmer Warning!
 
-However, because floating point numbers are always approximations when
-calculated in binary, sometimes, you'll see a seemingly arbitrary number of
-decimal places (this is explained in the next lesson):
+Here's the catch. Computers store floats in binary, and many decimal values
+can't be stored exactly in binary. `0.5` and `0.25` can, which is why they're
+tidy. `0.1` and `0.3` can't, so the computer keeps an approximation. Sometimes
+that approximation shows up in the output, with more decimal places than you
+expected. (The next lesson explains why.)
 
 ```python
 print(f"0.3 = {0.3}")
@@ -78,5 +81,8 @@ Output:
 0.2 + 0.1 = 0.30000000000000004
 3 * 0.1 = 0.30000000000000004
 ```
+
+Notice that `0.3` prints cleanly on its own, and the trouble only appears once
+arithmetic gets involved. That's the part that bites people.
 
 ---

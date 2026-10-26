@@ -111,3 +111,5 @@ The page for the Chess topic, at `http://127.0.0.1:8000/topics/`, with its entri
 - `learning_logs/templates/learning_logs/topic.html` (new): the topic page
 - `learning_logs/templates/learning_logs/topics.html`: links each topic to its page
 - `learning_logs/tests.py`: adds tests for the topic pages
+
+---

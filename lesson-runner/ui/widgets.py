@@ -7,16 +7,18 @@ and pop-out window.
 
 from __future__ import annotations
 
+from collections.abc import Callable
+
 from PySide6.QtCore import QRect, Qt #pylint: disable=no-name-in-module #NOSONAR
-from PySide6.QtGui import QColor, QPainter, QSyntaxHighlighter, QTextCharFormat #pylint: disable=no-name-in-module #NOSONAR
+from PySide6.QtGui import QColor, QPainter, QSyntaxHighlighter, QTextCharFormat, QTextDocument #pylint: disable=no-name-in-module #NOSONAR
 from PySide6.QtWebEngineCore import QWebEngineSettings #pylint: disable=no-name-in-module #NOSONAR
 from PySide6.QtWebEngineWidgets import QWebEngineView #pylint: disable=no-name-in-module #NOSONAR
 from PySide6.QtWidgets import (QAbstractButton, QHBoxLayout, QPlainTextEdit, QStyledItemDelegate, #pylint: disable=no-name-in-module #NOSONAR
-                               QToolButton, QVBoxLayout, QWidget) #pylint: disable=no-name-in-module #NOSONAR
+                               QToolButton, QTreeWidget, QVBoxLayout, QWidget) #pylint: disable=no-name-in-module #NOSONAR
 
 from config import DARK, FLUSH_ROLE
 from ui.icons import draw_icon
-from ui.syntax import SYNTAX_TAGS, c_spans, python_spans
+from ui.syntax import SYNTAX_TAGS, Span, c_spans, python_spans
 from ui.theme import code_font
 
 
@@ -52,17 +54,17 @@ class ThemeSwitch(QAbstractButton):
 
 
 class PythonHighlighter(QSyntaxHighlighter):
-    """Colours the source editor using the shared Python token rules."""
+    """Colors the source editor using the shared Python token rules."""
 
-    def __init__(self, document, colors: dict) -> None:
+    def __init__(self, document: QTextDocument, colors: dict[str, str]) -> None:
         super().__init__(document)
         self.formats: dict[str, QTextCharFormat] = {}
         self._text: str | None = None
-        self._spans: list = []
+        self._spans: list[Span] = []
         self.language = "python"
         self.apply_palette(colors)
 
-    def apply_palette(self, colors: dict) -> None:
+    def apply_palette(self, colors: dict[str, str]) -> None:
         """Rebuild the text formats for a new theme."""
         self.formats = {}
         for tag in SYNTAX_TAGS:
@@ -97,7 +99,7 @@ class PythonHighlighter(QSyntaxHighlighter):
 class LineGutter(QWidget):
     """The line-number strip beside the source editor. The editor does the painting."""
 
-    def __init__(self, editor) -> None:
+    def __init__(self, editor: QPlainTextEdit) -> None:
         super().__init__(editor)
         self.editor = editor
 
@@ -109,7 +111,7 @@ class LineGutter(QWidget):
 class SourceEditor(QPlainTextEdit):
     """Code editor with a line-number gutter."""
 
-    def __init__(self, colors: dict) -> None:
+    def __init__(self, colors: dict[str, str]) -> None:
         super().__init__()
         self.colors = colors
         self.setFont(code_font(11))
@@ -168,7 +170,7 @@ class SourceEditor(QPlainTextEdit):
 class TreeDelegate(QStyledItemDelegate):
     """Moves flagged items one indent step left, so their names line up with the nesting arrows."""
 
-    def __init__(self, tree) -> None:
+    def __init__(self, tree: QTreeWidget) -> None:
         super().__init__(tree)
         self.tree = tree
 
@@ -182,7 +184,7 @@ class TreeDelegate(QStyledItemDelegate):
 class PopoutWindow(QWidget):
     """The pop-out lesson window, with a dock control. Closing it also docks the lesson."""
 
-    def __init__(self, on_dock) -> None:
+    def __init__(self, on_dock: Callable[[], None]) -> None:
         super().__init__()
         self.on_dock = on_dock
         layout = QVBoxLayout(self)

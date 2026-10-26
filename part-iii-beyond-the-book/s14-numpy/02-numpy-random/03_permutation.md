@@ -61,4 +61,6 @@ Permuted Array: [10  9  3  2  5  6  8  4  7  1]
 Original Array: [ 1  2  3  4  5  6  7  8  9 10]
 ```
 
+> Note: the code file prints a title, "Permutations in NumPy", before the examples, and the lesson leaves it out. The code file also has a Sonar comment on the `shuffle()` and `permutation()` lines. Those comments stay in the code file.
+
 ---

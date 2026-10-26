@@ -1,10 +1,10 @@
 ## Using a Boolean Flag
 
-One of the common patterns to terminate a `while` loop is to use a Boolean
-variable as a flag and assign it as the condition for the loop.
+A *flag* is a Boolean variable that records a state, such as "the program is still running." One
+common way to end a `while` loop is to use a flag as its condition.
 
-With this pattern, you change the state of the flag when certain conditions are
-met, and the loop terminates only at that point.
+With this pattern, you change the flag when a certain condition is met, and the loop ends at that
+point.
 
 ```python
 prompt = "\nTell me something and I will repeat it back to you:\n> "
@@ -21,7 +21,7 @@ else:
     print(f"\nThe loop terminated because the 'active' flag is now '{active}'")
 ```
 
-Output:
+Output (the `...` marks the middle of the conversation, which is left out):
 
 ```
 Tell me something and I will repeat it back to you:
@@ -39,5 +39,12 @@ Tell me something and I will repeat it back to you:
 
 The loop terminated because the 'active' flag is now 'False'
 ```
+
+> **About the `else`:** this loop has an `else` block, which we first saw in lesson 5.5. The `else`
+> runs only when the loop ends normally, meaning its condition became `False` without a `break`. Here,
+> it's there to show the flag at work. Most of the time, you won't need an `else` on a loop.
+>
+> The `.py` file disables a Pylint warning about this `else`. Pylint is flagging a style issue, not an
+> error, and the example is clearer with the `else` left in.
 
 ---

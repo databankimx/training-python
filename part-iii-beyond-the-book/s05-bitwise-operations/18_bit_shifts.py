@@ -1,5 +1,25 @@
 """Bit Shifts"""
 
+from enum import IntFlag
+from random import randint
+
+class Settings(IntFlag):
+    """Define settings as a bit-flag"""
+    DebugMode = 1
+    InteractiveMode = 2
+    RememberSettings = 4
+    Optimize = 8
+
+def print_settings(settings: int) -> None:
+    """Print the name of each setting that is switched on"""
+    print(f"With Settings: {settings}, the following bits are set:")
+    current_value = 1
+    while settings > 0:
+        if settings & 1:
+            print(f"- {Settings(current_value).name}")
+        settings >>= 1
+        current_value <<= 1
+
 def main() -> None:
     """Main program"""
     x = 128
@@ -19,15 +39,11 @@ def main() -> None:
     x = 4
     b = x >> 3
     print(f"{x} >> 3 = {b}")
+    print()
 
-    flag = 0b01010101
-    print(f"In value [{flag}], the following bits are set:")
-    current_value = 1
-    while flag > 0:
-        if flag & 1:
-            print(current_value)
-        flag >>= 1
-        current_value <<= 1
+    print_settings(10)
+    print()
+    print_settings(randint(0, 15))
 
 if __name__ == "__main__":
     main()

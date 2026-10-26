@@ -1,8 +1,8 @@
 """Module for assignment 8.16"""
 
-def make_album(artist, album, songs = None):
+def make_album(artist, title, songs = None) -> dict[str, any]:
     """Create a new album"""
-    album = {"Artist": artist.title(), "Title": album.title()}
+    album = {"Artist": artist.title(), "Title": title.title()}
     if songs:
         album["Tracks"] = songs
     return album

@@ -25,7 +25,7 @@ class IntWeekday(IntEnum):
     SUNDAY = 7
     HUMP_DAY = 3
 
-def check_types():
+def check_types() -> None:
     """Review the data types"""
     print("type(Weekday.MONDAY):",
           type(Weekday.MONDAY))
@@ -44,7 +44,7 @@ def check_types():
     print("isinstance(IntWeekday.MONDAY.value, int):",
         isinstance(IntWeekday.MONDAY.value, int))
 
-def check_equivalency():
+def check_equivalency() -> None:
     """Perform equivalency `==` comparisons"""
     print("Weekday.MONDAY == IntWeekday.MONDAY:",
           Weekday.MONDAY == IntWeekday.MONDAY)
@@ -60,7 +60,7 @@ def check_equivalency():
           IntWeekday.MONDAY.value == 1)
 
 # pylint: disable=literal-comparison
-def check_identity():
+def check_identity() -> None:
     """Perform identity `is` comparisons"""
     print("Weekday.MONDAY is IntWeekday.MONDAY:",
           Weekday.MONDAY is IntWeekday.MONDAY)

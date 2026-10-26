@@ -52,3 +52,5 @@ The Blog home page, styled with the navigation bar, the blog list, and the post 
 - `blogs/templates/blogs/base.html`, `index.html`, `new_blog.html`, `new_post.html`, `edit_post.html`: the Bootstrap styles
 - `accounts/templates/registration/login.html`, `register.html`: the Bootstrap styles
 - `blogs/test_styling.py` (new): tests for the styling
+
+---

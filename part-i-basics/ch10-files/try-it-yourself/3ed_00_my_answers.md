@@ -2,7 +2,7 @@
 
 Here are my solutions for the chapter 10 try-it-yourself exercises.
 
-> Because the 2nd and 3rd editions of the textbook present different 
+> Because the 2nd and 3rd editions of the textbook present different
 > approaches to file system interaction, I will present separate solutions for
 > these editions for each problem. This file covers the 3rd edition answers.
 
@@ -20,20 +20,39 @@ from os import path
 
 ROOT_DIR = None
 
-def get_path(file_name: str, folder: str=None, parent_levels: int=0, debug: bool=False) -> str:
-    """Returns a relative path to a specified file"""
+def get_path(file_name: str, folder: str | None=None,
+             parent_levels: int | None=0, debug: bool | None=False) -> str:
+    """
+    Find the relative path to a specified file
+
+    Parameters:  
+    * **file_name**: The name of the file
+    * **folder**: The folder the file is stored in (optional - default: None)
+    * **parent_levels**: The number of levels above the current directory (optional - default: 0)
+    * **debug**: If True, print debug information (optional - default: False)
+
+    **Returns**:  
+    The file's relative path
+    """
     initialize(debug)
     for _ in range(parent_levels):
         file_name = path.join("..", file_name)
-    file_path = path.join(ROOT_DIR, file_name) if folder == None else path.join(ROOT_DIR, folder, file_name)
+    file_path = path.join(ROOT_DIR, file_name) if folder is None \
+                else path.join(ROOT_DIR, folder, file_name)
     if debug:
         print(f"Set file path: {file_path}")
     return file_path
 
-def initialize(debug: bool) -> None:
-    """Store the root directory"""
+def initialize(debug: bool | None=False) -> None:
+    """
+    Store the root directory
+
+    Parameters:  
+    * **debug**: If True, print debug information (optional - default: False)
+    """
     global ROOT_DIR
-    if ROOT_DIR != None: return
+    if ROOT_DIR is not None:
+        return
     ROOT_DIR = path.dirname(__file__)
     if debug:
         print(f"Set root directory: {ROOT_DIR}")
@@ -41,17 +60,14 @@ def initialize(debug: bool) -> None:
 
 </details>
 
+The code file turns off a Pylint warning about the `global` statement in
+`initialize()`. That comment stays in the module file.
+
 ---
 
 ### Assignment 10.1 - Learning Python
 
-Open a blank file in your text editor and write a few lines summarizing what
-you've learned about Python so far. Start each line with the phrase
-`In Python you can...` Save the file as `learning_python.txt` in the same 
-directory as your exercises from this chapter. Write a program that reads the 
-file and prints what you wrote three times. Print the contents once by 
-reading in the entire file, once by looping over the file object, and once by 
-storing the lines in a list and then working with them outside the with block.
+Open a blank file in your text editor and write a few lines summarizing what you've learned about Python so far. Start each line with the phrase `In Python you can. . . .` Save the file as `learning_python.txt` in the same directory as your exercises from this chapter. Write a program that reads the file and prints what you wrote two times: print the contents once by reading in the entire file, and once by storing the lines in a list and then looping over each line.
 
 <details>
 <summary>File Contents</summary>
@@ -67,7 +83,7 @@ In Python you can store the file's lines in a list.
 </details>
 <br>
 
-Solution
+Solution:
 
 <details>
 <summary>Spoiler Code</summary>
@@ -79,7 +95,7 @@ from pathlib import Path
 file_path = get_path("learning_python.txt", "Files")
 
 path_object = Path(file_path)
-text = path_object.read_text()
+text = path_object.read_text(encoding="UTF-8")
 print(text.rstrip())
 
 print()
@@ -87,12 +103,6 @@ print()
 lines = text.splitlines()
 for line in lines:
     print(line.rstrip())
-
-print()
-
-with Path(file_path).open(encoding="utf-8") as file:
-    for line in file:
-        print(line.rstrip())
 ```
 
 </details>
@@ -109,22 +119,15 @@ In Python you can store the file's lines in a list.
 In Python you can open a file.
 In Python you can read the file's lines.
 In Python you can store the file's lines in a list.
-
-In Python you can open a file.
-In Python you can read the file's lines.
-In Python you can store the file's lines in a list.
 ```
 
 </details>
-<br>
 
 ---
 
 ### Assignment 10.2 - Learning C
 
-You can use the `replace()` method to replace any word in a string with a 
-different word. Here's a quick example showing how to replace `dog` with 
-`cat` in a sentence:
+You can use the `replace()` method to replace any word in a string with a different word. Here's a quick example showing how to replace `dog` with `cat` in a sentence:
 
 ```python
 >>> message = "I really like dogs."
@@ -160,7 +163,7 @@ from pathlib import Path
 file_path = get_path("learning_python.txt", "Files")
 
 file = Path(file_path)
-text = file.read_text()
+text = file.read_text(encoding="UTF-8")
 for line in text.splitlines():
     print(line.rstrip().replace("Python", "C++"))
 ```
@@ -178,23 +181,19 @@ In C++ you can store the file's lines in a list.
 ```
 
 </details>
-<br>
 
 ---
 
 ### Assignment 10.3 - Simpler Code
 
-The program [`file_reader.py`](../Textbook%20Downloads/E3/reading_from_a_file/file_reader.py) in this section uses a temporary variable, lines, to show how 
-`splitlines()` works. You can skip the temporary variable and loop directly 
-over the list that `splitlines()` returns:
+The program [`file_reader.py`](../textbook-downloads/3rd-edition/reading_from_a_file/file_reader.py) in this section uses a temporary variable, lines, to show how `splitlines()` works. You can skip the temporary variable and loop directly over the list that `splitlines()` returns:
 
 ```python
 for line in contents.splitlines():
     ...
 ```
 
-Remove the temporary variable from each of the programs in this section, to 
-make them more concise.
+Remove the temporary variable from each of the programs in this section, to make them more concise.
 
 <details>
 <summary>File Contents</summary>
@@ -219,7 +218,7 @@ Solution:
 from relative_paths import get_path
 from pathlib import Path
 
-text = Path(get_path("pi_digits.txt", "Files")).read_text()
+text = Path(get_path("pi_digits.txt", "Files")).read_text(encoding="UTF-8")
 
 for line in text.splitlines():
     print(line.rstrip())
@@ -238,7 +237,6 @@ for line in text.splitlines():
 ```
 
 </details>
-<br>
 
 ---
 
@@ -260,9 +258,9 @@ file_path = get_path("guest.txt", "Files")
 file = Path(file_path)
 
 name = input("Please enter your name:\n> ")
-file.write_text(name + "\n")
+file.write_text(name + "\n", encoding="UTF-8")
 
-print(file.read_text())
+print(file.read_text(encoding="UTF-8"))
 ```
 
 </details>
@@ -287,19 +285,16 @@ Scott
 Please enter your name:
 > Scott
 Scott
+
 ```
 
 </details>
-<br>
 
 ---
 
 ### Assignment 10.5 - Guest Book
 
-Write a while loop that prompts users for their name. When they enter their 
-name, print a greeting to the screen and add a line recording their visit in 
-a file called `guest_book.txt`. Make sure each entry appears on a new line in 
-the file.
+Write a while loop that prompts users for their name. Collect all the names that are entered, and then write these names to a file called `guest_book.txt`. Make sure each entry appears on a new line in the file.
 
 Solution:
 
@@ -312,9 +307,6 @@ from pathlib import Path
 
 file_path = get_path("guest_book.txt", "Files")
 
-print("Try-it-Yourself:")
-print("Assignment 10.5\n")
-
 names = ""
 
 while True:
@@ -325,9 +317,9 @@ while True:
 
 file = Path(file_path)
 
-file.write_text(names, encoding="utf-8")
+file.write_text(names, encoding="UTF-8")
 
-print(file.read_text(encoding="utf-8"))
+print(file.read_text(encoding="UTF-8"))
 ```
 
 </details>
@@ -358,22 +350,16 @@ Please enter your name (or 'quit'):
 > quit
 Scott
 Talia
+
 ```
 
 </details>
-<br>
 
 ---
 
 ### Assignment 10.6 - Addition
 
-One common problem when prompting for numerical input occurs when people 
-provide text instead of numbers. When you try to convert the input to an 
-`int`, you'll get a `ValueError`. Write a program that prompts for two 
-numbers. Add them together and print the result. Catch the `ValueError` if 
-either input value is not a number, and print a friendly error message. Test 
-your program by entering two numbers and then by entering some text instead 
-of a number.
+One common problem when prompting for numerical input occurs when people provide text instead of numbers. When you try to convert the input to an `int`, you'll get a `ValueError`. Write a program that prompts for two numbers. Add them together and print the result. Catch the `ValueError` if either input value is not a number, and print a friendly error message. Test your program by entering two numbers and then by entering some text instead of a number.
 
 Solution:
 
@@ -385,7 +371,7 @@ numbers = []
 
 while len(numbers) < 2:
     response = input("Enter a number:\n> ")
-    if response == None or len(response) < 1:
+    if response is None or len(response) < 1:
         print("You cannot leave the entry blank.")
         continue
     try:
@@ -394,8 +380,8 @@ while len(numbers) < 2:
     except ValueError:
         print("Please only enter numbers.")
 
-sum = numbers[0] + numbers[1]
-print(f"\n{numbers[0]} + {numbers[1]} = {sum}")
+my_sum = numbers[0] + numbers[1]
+print(f"\n{numbers[0]} + {numbers[1]} = {my_sum}")
 ```
 
 </details>
@@ -437,15 +423,15 @@ Enter a number:
 ```
 
 </details>
-<br>
+
+> Note: the code file turns off a Sonar warning on the blank-entry check. That
+> comment stays in the code file.
 
 ---
 
 ### Assignment 10.7 - Addition Calculator
 
-Wrap your code from Exercise 10-6 in a while loop so the user can continue 
-entering numbers even if they make a mistake and enter text instead of a 
-number.
+Wrap your code from Exercise 10-6 in a while loop so the user can continue entering numbers, even if they make a mistake and enter text instead of a number.
 
 Solution:
 
@@ -462,7 +448,7 @@ while True:
 
     while len(numbers) < 2:
         response = input("Enter a number:\n> ")
-        if response == None or len(response) < 1:
+        if response is None or len(response) < 1:
             print("You cannot leave the entry blank.")
             continue
         if response.lower()[0] == "q":
@@ -473,12 +459,12 @@ while True:
             numbers.append(number)
         except ValueError:
             print("Please only enter numbers.")
-    
+
     if not active:
         break
 
-    sum = numbers[0] + numbers[1]
-    print(f"\n{numbers[0]} + {numbers[1]} = {sum}\n")
+    my_sum = numbers[0] + numbers[1]
+    print(f"\n{numbers[0]} + {numbers[1]} = {my_sum}\n")
 
 print("\nGoodbye...\n")
 ```
@@ -514,10 +500,13 @@ Enter a number:
 > q
 
 Goodbye...
+
 ```
 
 </details>
-<br>
+
+> Note: the code file turns off a Sonar warning on the blank-entry check. That
+> comment stays in the code file.
 
 ---
 
@@ -556,16 +545,16 @@ Solution:
 from relative_paths import get_path
 from pathlib import Path
 
-def read_file(file_name):
+def read_file(filename):
     """Read the selected file"""
-    file_path = get_path(file_name, "Files")
+    file_path = get_path(filename, "Files")
     try:
         file = Path(file_path)
-        content = file.read_text()
+        content = file.read_text(encoding="UTF-8")
     except FileNotFoundError:
-        print(f"File [{file_name}] not found!\n")
+        print(f"File [{filename}] not found!\n")
     else:
-        print(f"{file_name}:")
+        print(f"{filename}:")
         print(content)
 
 file_names = ["cats.txt", "dogs.txt", "pets.txt"]
@@ -592,17 +581,16 @@ rover
 spot
 
 File [pets.txt] not found!
+
 ```
 
 </details>
-<br>
 
 ---
 
 ### Assignment 10.9 - Silent Cats and Dogs
 
-Modify your except block in Exercise 10-8 to fail silently if either file is 
-missing.
+Modify your except block in Exercise 10-8 to fail silently if either file is missing.
 
 <details>
 <summary>File Contents</summary>
@@ -638,18 +626,17 @@ from pathlib import Path
 log_path = get_path("missing_files.log", "Files")
 log_file = Path(log_path)
 
-def read_file(file_name):
+def read_file(filename):
     """Read the selected file"""
-    file_path = get_path(file_name, "Files")
+    file_path = get_path(filename, "Files")
     try:
         file = Path(file_path)
-        content = file.read_text()
+        content = file.read_text(encoding="UTF-8")
     except FileNotFoundError:
-        with log_file.open("a") as l:
-            l.write(f"Missing File:\n{file_path}\n\n")
-        pass
+        with log_file.open("a", encoding="UTF-8") as log:
+            log.write(f"Missing File:\n{file_path}\n\n")
     else:
-        print(f"{file_name}:")
+        print(f"{filename}:")
         print(content)
 
 file_names = ["cats.txt", "dogs.txt", "pets.txt"]
@@ -669,6 +656,7 @@ In [`missing_files.log`](./Files/missing_files.log)
 ```
 Missing File:
 ...\Files\pets.txt
+
 ```
 
 </details>
@@ -687,21 +675,18 @@ dogs.txt:
 fido
 rover
 spot
+
 ```
 
 </details>
-<br>
 
 ---
 
 ### Assignment 10.10 - Common Words
 
-Visit [Project Gutenberg](https://gutenberg.org/) and find a few texts you'd 
-like to analyze. Download the text files for these works, or copy the raw 
-text from your browser into a text file on your computer. You can use the 
-`count()` method to find out how many times a word or phrase appears in a 
-string. For example, the following code counts the number of times `row` 
-appears in a string:
+Visit [Project Gutenberg](https://gutenberg.org) and find a few texts you'd like to analyze. Download the text files for these works, or copy the raw text from your browser into a text file on your computer.
+
+You can use the `count()` method to find out how many times a word or phrase appears in a string. For example, the following code counts the number of times `row` appears in a string:
 
 ```python
 >>> line = "Row, row, row your boat"
@@ -711,13 +696,9 @@ appears in a string:
 3
 ```
 
-Notice that converting the string to lowercase using `lower()` catches all 
-appearances of the word you're looking for, regardless of how it's formatted. 
-Write a program that reads the files you found at Project Gutenberg and 
-determines how many times the word `the` appears in each text. This will be 
-an approximation because it will also count words such as `then` and `there`. 
-Try counting `the `, with a space in the string, and see how much lower your 
-count is.
+Notice that converting the string to lowercase using `lower()` catches all appearances of the word you're looking for, regardless of how it's formatted.
+
+Write a program that reads the files you found at Project Gutenberg and determines how many times the word `the` appears in each text. This will be an approximation because it will also count words such as `then` and `there`. Try counting `the `, with a space in the string, and see how much lower your count is.
 
 <details>
 <summary>File Contents</summary>
@@ -727,7 +708,7 @@ See Files:
 
 * [frankenstein.txt](./Files/frankenstein.txt)
 * [little_fuzzy.txt](./Files/little_fuzzy.txt)
-* [star_hunter](./Files/star_hunter.txt)
+* [star_hunter.txt](./Files/star_hunter.txt)
 * snow_crash.txt (intentionally missing)
 * [the_republic.txt](./Files/the_republic.txt)
 
@@ -746,18 +727,18 @@ Solution:
 from relative_paths import get_path
 from pathlib import Path
 
-def examine_file(file_name, search_words):
+def examine_file(filename, search_words):
     """Count word occurrences in file passed"""
-    file_path = get_path(file_name, "Files")
+    file_path = get_path(filename, "Files")
     terminators = [" ", ".", ",", "?", "\n"]
 
     try:
         file = Path(file_path)
-        content = file.read_text()
-    except:
-        print(f"\nFile {file_name} could not be found!")
+        content = file.read_text(encoding="UTF-8").lower()
+    except FileNotFoundError:
+        print(f"\nFile {filename} could not be found!")
     else:
-        print(f"\nWord analysis in [{file_name}]:")
+        print(f"\nWord analysis in [{filename}]:")
         for word in search_words:
             num = 0
             for start_term in terminators:
@@ -767,7 +748,7 @@ def examine_file(file_name, search_words):
 
 file_names = ["frankenstein.txt", "little_fuzzy.txt",
               "star_hunter.txt", "snow_crash.txt", "the_republic.txt"]
-search_terms = ["man", "woman", "person"]
+search_terms = ["the", "man", "woman", "person"]
 
 for file_name in file_names:
     examine_file(file_name, search_terms)
@@ -780,17 +761,21 @@ for file_name in file_names:
 <summary>Output</summary>
 
 ```
+
 Word analysis in [frankenstein.txt]:
-man: 120
+the: 4539
+man: 122
 woman: 20
 person: 21
 
 Word analysis in [little_fuzzy.txt]:
-man: 60
+the: 3252
+man: 61
 woman: 7
 person: 9
 
 Word analysis in [star_hunter.txt]:
+the: 2518
 man: 107
 woman: 2
 person: 9
@@ -798,24 +783,22 @@ person: 9
 File snow_crash.txt could not be found!
 
 Word analysis in [the_republic.txt]:
+the: 7822
 man: 341
 woman: 19
 person: 47
+
 ```
 
 </details>
-<br>
 
 ---
 
 ### Assignment 10.11 - Favorite Number
 
-Write a program that prompts for the user's favorite number. Use json.dump() 
-to store this number in a file. Write a separate program that reads in this 
-value and prints the message,  
-`I know your favorite number! It's _____.`
+Write a program that prompts for the user's favorite number. Use `json.dumps()` to store this number in a file. Write a separate program that reads in this value and prints the message `I know your favorite number! It's _____.`
 
-Solution:
+Solution (part 1):
 
 <details>
 <summary>Spoiler Code</summary>
@@ -826,10 +809,10 @@ from pathlib import Path
 import json
 
 def get_favorite_number():
-    """Get the user's favorite number"""    
+    """Get the user's favorite number"""
     num = None
 
-    while num == None:
+    while num is None:
         response = input("Please enter your favorite number:\n> ")
         try:
             num = int(response)
@@ -837,19 +820,18 @@ def get_favorite_number():
             print("Your entry must be a number!")
 
     file = Path(file_path)
-    file.write_text(json.dumps(num))
+    file.write_text(json.dumps(num), encoding="UTF-8")
 
     print(f"I saved {num} as your favorite number!\n")
     return num
 
 def read_favorite_number():
-    """Read the user's favorite number from a file"""    
+    """Read the user's favorite number from a file"""
     file = Path(file_path)
     if file.exists():
-        num = json.loads(file.read_text())
+        num = json.loads(file.read_text(encoding="UTF-8"))
         return num
-    else:
-        return get_favorite_number()
+    return get_favorite_number()
 
 file_name = "favorite_number.json"
 file_path = get_path(file_name, "Files")
@@ -886,16 +868,51 @@ Please enter your favorite number:
 I saved 42 as your favorite number!
 
 I know your favorite number is 42.
+
+```
+
+</details>
+
+Solution (part 2):
+
+<details>
+<summary>Spoiler Code</summary>
+
+```python
+from relative_paths import get_path
+from pathlib import Path
+import json
+
+file_name = "favorite_number.json"
+file_path = get_path(file_name, "Files")
+
+file = Path(file_path)
+
+if file.exists():
+    num = json.loads(file.read_text(encoding="UTF-8"))
+    print(f"I know your favorite number is {num}.\n")
+else:
+    print("You haven't stored a favorite number yet!")
 ```
 
 </details>
 <br>
 
+<details>
+<summary>Output</summary>
+
+```
+I know your favorite number is 42.
+
+```
+
+</details>
+
 ---
 
 ### Assignment 10.12 - Favorite Number Remembered
 
-Combine the two programs from Exercise 10.11 into one file. If the number is already stored, report the favorite number to the user. If not, prompt for the user's favorite number and store it in a file. Run the program twice to see that it works.
+Combine the two programs you wrote in Exercise 10-11 into one file. If the number is already stored, report the favorite number to the user. If not, prompt for the user's favorite number and store it in a file. Run the program twice to see that it works.
 
 Solution:
 
@@ -907,28 +924,27 @@ from relative_paths import get_path
 from pathlib import Path
 import json
 
-def store_favorite_number(file_path):
+def store_favorite_number(filepath):
     """Get the user's favorite number and store it in a file"""
     num = None
-    while num == None:
+    while num is None:
         response = input("Please enter your favorite number:\n> ")
         try:
             num = int(response)
         except ValueError:
             print("Your entry must be a number!\n")
-    file = Path(file_path)
-    file.write_text(json.dumps(num))
+    file = Path(filepath)
+    file.write_text(json.dumps(num), encoding="UTF-8")
     print(f"I saved {num} as your favorite number!\n")
     return num
 
-def get_favorite_number(file):
+def get_favorite_number(filepath):
     """Attempt to read user's favorite number from a file"""
-    file = Path(file_path)
+    file = Path(filepath)
     if file.exists():
-        num = json.loads(file.read_text())
+        num = json.loads(file.read_text(encoding="UTF-8"))
         return num
-    else:
-        return store_favorite_number(file)
+    return store_favorite_number(filepath)
 
 file_name = "favorite_number_remembered.json"
 file_path = get_path(file_name, "Files")
@@ -943,17 +959,7 @@ else:
 </details>
 <br>
 
-<details>
-<summary>File Contents</summary>
-
-In [favorite_number_remembered.json](./Files/favorite_number_remembered.json)
-
-```
-
-```
-
-</details>
-<br>
+The file doesn't exist until the first run stores a number in it.
 
 <details>
 <summary>Output (No Saved File)</summary>
@@ -964,6 +970,7 @@ Please enter your favorite number:
 I saved 42 as your favorite number!
 
 I know your favorite number is 42.
+
 ```
 
 </details>
@@ -974,21 +981,16 @@ I know your favorite number is 42.
 
 ```
 I know your favorite number is 42.
+
 ```
 
 </details>
-<br>
 
 ---
 
 ### Assignment 10.13 - User Dictionary
 
-The [remember_me.py](../Textbook%20Downloads/E3/storing_data/remember_me.py) 
-example only stores one piece of information, the username. Expand this 
-example by asking for two more pieces of information about the user, then 
-store all the information you collect in a dictionary. Write this dictionary 
-to a file using `json.dumps()`, and read it back in using `json.loads()`. 
-Print a summary showing exactly what your program remembers about the user.
+The [remember_me.py](../textbook-downloads/3rd-edition/storing_data/remember_me.py) example only stores one piece of information, the username. Expand this example by asking for two more pieces of information about the user, then store all the information you collect in a dictionary. Write this dictionary to a file using `json.dumps()`, and read it back in using `json.loads()`. Print a summary showing exactly what your program remembers about the user.
 
 Solution:
 
@@ -1006,11 +1008,12 @@ file_path = get_path(file_name, "Files")
 file = Path(file_path)
 
 if file.exists():
-    user = json.loads(file.read_text())
+    user = json.loads(file.read_text(encoding="UTF-8"))
     print(f"Welcome back, {user['username']}!")
     print("Here's what I know about you:")
     for key, value in user.items():
-        if key == "username": continue
+        if key == "username":
+            continue
         print(f"{key.replace('_', ' ').title()}: {value}")
 else:
     user = {}
@@ -1020,7 +1023,7 @@ else:
 
     user["username"] = f"{user['first_name'][0]}{user['last_name']}".upper()
 
-    file.write_text(json.dumps(user))
+    file.write_text(json.dumps(user), encoding="UTF-8")
 
     print(f"We'll remember you when you come back, {user['username']}")
 ```
@@ -1071,19 +1074,12 @@ Location: Dallas
 ```
 
 </details>
-<br>
 
 ---
 
 ### Assignment 10.14 - Verify User
 
-The final listing for
-[remember_me.py](../Textbook%20Downloads/E3/storing_data/remember_me.py) 
-assumes either that the user has already entered their username or that the 
-program is running for the first time. We should modify it in case the 
-current user is not the person who last used the program. Before printing a 
-welcome back message in `greet_user()`, ask the user if this is the correct 
-username. If it's not, call `get_new_username()` to get the correct username.
+The final listing for [remember_me.py](../textbook-downloads/3rd-edition/storing_data/remember_me.py) assumes either that the user has already entered their username or that the program is running for the first time. We should modify it in case the current user is not the person who last used the program. Before printing a welcome back message in `greet_user()`, ask the user if this is the correct username. If it's not, call `get_new_username()` to get the correct username.
 
 Solution:
 
@@ -1103,7 +1099,7 @@ def store_user(file_path):
     username = f"{first_name[0]}{last_name}".upper()
 
     file = Path(file_path)
-    file.write_text(json.dumps(username))
+    file.write_text(json.dumps(username), encoding="UTF-8")
 
     return username
 
@@ -1112,10 +1108,10 @@ def get_stored_user(file_path):
     file = Path(file_path)
 
     if file.exists():
-        username = json.loads(file.read_text())
+        username = json.loads(file.read_text(encoding="UTF-8"))
         return username
-    else:
-        return None
+
+    return None
 
 def greet_user(file_path):
     """Show desired greeting to user"""
@@ -1154,6 +1150,7 @@ Enter your last name:
 > Smith
 
 We'll remember you when you come back, JSMITH
+
 ```
 
 </details>
@@ -1179,6 +1176,7 @@ Are you JSMITH? (Y|N)
 > y
 
 Welcome back, JSMITH
+
 ```
 
 </details>
@@ -1196,6 +1194,7 @@ Enter your last name:
 > Jones
 
 We'll remember you when you come back, JJONES
+
 ```
 
 </details>
@@ -1211,7 +1210,5 @@ In [username.json](./Files/username.json)
 ```
 
 </details>
-<br>
 
 ---
-

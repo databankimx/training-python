@@ -3,7 +3,7 @@
 from sm_utils import clear_terminal, pause
 
 print("Chapter 9:")
-print("Exercise 14 (Bonus) - Properties")
+print("Bonus - Properties\n")
 
 # pylint: disable=too-few-public-methods
 class Person:
@@ -39,12 +39,12 @@ class Human:
         self.__last_name = last_name
 
     @property
-    def first_name(self):
+    def first_name(self) -> str:
         """Return the first name of the person"""
         return self.__first_name.title()
 
     @property
-    def last_name(self):
+    def last_name(self) -> str:
         """Return the last name of the person"""
         return self.__last_name.title()
 
@@ -58,3 +58,6 @@ someone_else = Human("john", "doe")
 print(someone_else.first_name)
 print(someone_else.last_name)
 print(someone_else.full_name)
+
+# Name mangling isn't security: the raw attribute is still reachable
+print(someone_else._Human__first_name) #pylint: disable=protected-access

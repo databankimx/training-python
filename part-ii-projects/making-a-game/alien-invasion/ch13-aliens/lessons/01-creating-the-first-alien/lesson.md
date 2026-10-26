@@ -128,3 +128,5 @@ The alien appears at the top left of the window, near the corner, with a gap abo
 
 - `alien.py` (new): the `Alien` class
 - `alien_invasion.py`: imports `Alien`, creates the fleet, and draws the aliens
+
+---

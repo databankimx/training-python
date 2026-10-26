@@ -123,3 +123,5 @@ The new topic form, with the **Add topic** button.
 - `learning_logs/templates/learning_logs/new_topic.html` (new): the form page
 - `learning_logs/templates/learning_logs/topics.html`: adds the link to the form
 - `learning_logs/tests.py`: adds tests for the form
+
+---

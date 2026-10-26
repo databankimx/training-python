@@ -78,3 +78,5 @@ Viewing public topics: a visitor who isn't signed in opens the public topic from
 - `learning_logs/templates/learning_logs/topic.html`: shows the owner's links only to the owner, and a Public badge
 - `learning_logs/templates/learning_logs/index.html`: lists the public topics
 - `learning_logs/test_public.py` (new): tests for public topics
+
+---

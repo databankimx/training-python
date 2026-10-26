@@ -193,3 +193,5 @@ The score appears in the top right corner. It goes up as you shoot aliens, and i
 - `scoreboard.py` (new): the `Scoreboard` class
 - `settings.py`: adds the points for each alien, and the point increase
 - `alien_invasion.py`: creates the scoreboard, scores each hit, and draws the score
+
+---

@@ -145,3 +145,5 @@ then chapter 19 adds accounts, so each user sees only their own topics.
 - `learning_logs/templates/learning_logs/edit_entry.html` (new): the edit page
 - `learning_logs/templates/learning_logs/topic.html`: adds the edit link under each entry
 - `learning_logs/tests.py`: adds tests for editing entries
+
+---

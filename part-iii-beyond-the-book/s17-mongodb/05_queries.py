@@ -1,10 +1,11 @@
 """Perform queries on MongoDB collections"""
 
+from typing import Any
 from login import get_settings, get_client, server_connected
 from pymongo import MongoClient
 from pymongo.synchronous.collection import Collection
 
-def connect(settings: dict[str, any]=None) -> tuple[MongoClient, Collection]|None:
+def connect(settings: dict[str, Any] | None = None) -> tuple[MongoClient, Collection] | None:
     """Connect to MongoDB database"""
     if not settings:
         settings = get_settings()
@@ -22,7 +23,7 @@ def connect(settings: dict[str, any]=None) -> tuple[MongoClient, Collection]|Non
     print(f"Connected to collection: `{col.name}`\n")
     return (client, col)
 
-def simple_query(col: Collection, query: dict[str, any]) -> None:
+def simple_query(col: Collection, query: dict[str, Any]) -> None:
     """Perform a simple query on the collection"""
     print(f"Performing simple query: {query}")
     proj = {"_id": 0}
@@ -30,7 +31,7 @@ def simple_query(col: Collection, query: dict[str, any]) -> None:
         print(doc)
     print()
 
-def advanced_query(col: Collection, query: dict[str, any]) -> None:
+def advanced_query(col: Collection, query: dict[str, Any]) -> None:
     """Perform an advanced query on the collection"""
     print(f"Performing advanced query: {query}")
     proj = {"_id": 0}
@@ -38,7 +39,7 @@ def advanced_query(col: Collection, query: dict[str, any]) -> None:
         print(doc)
     print()
 
-def regex_query(col: Collection, query: dict[str, any]) -> None:
+def regex_query(col: Collection, query: dict[str, Any]) -> None:
     """Perform a regex query on the collection"""
     print(f"Performing regex query: {query}")
     proj = {"_id": 0}

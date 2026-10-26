@@ -1,7 +1,7 @@
 ## `while` Loops
 
-Unlike the `for` loop, a `while` loop does not require an incrementing value
-or range. Instead, the loop continues iterating as long as the condition associated with it remains true.
+Unlike a `for` loop, a `while` loop doesn't need an incrementing value or a range. Instead, it keeps
+going for as long as its condition remains `True`.
 
 Syntax:
 
@@ -12,21 +12,19 @@ while some_condition:
 
 ---
 
-### Make Sure To Avoid Infinite Loops
+### Make Sure to Avoid Infinite Loops
 
-Because the `while` loop executes as long as its condition is `True`, it is
-important to ensure that your code provides a mechanism to eventually make the
-condition `False`.
+Because a `while` loop runs as long as its condition is `True`, your code has to provide a way to
+make that condition `False`, or the loop never ends.
 
-> As your code gets more complex, it becomes increasingly more difficult to
-> identify possible infinite loops. You should assume that sooner or later
-> you **will** create one.
+> As your code gets more complex, it becomes harder to spot possible infinite loops. Assume that
+> sooner or later, you **will** create one.
 >
-> To escape from an infinite loop, place the cursor in the terminal pane and
-> type `CTRL`+`C` to terminate the program.
+> To escape from an infinite loop, click in the terminal pane and press `CTRL`+`C` to stop the
+> program.
 
-In this example, a counter is incremented in each iteration. This ensures that
-the condition `count < 5` will eventually become `False`
+In this example, a counter goes up in each iteration. That makes the condition `count <= 5` eventually
+`False`:
 
 ```python
 count = 1
@@ -49,8 +47,8 @@ Output:
 
 ### Integers Behave Like Booleans
 
-Since the integer value `0` behaves like `False` when evaluated as a condition,
-we can omit the `== 0` comparison operator when a zero value ends the loop.
+Since the integer `0` behaves like `False` when it's evaluated as a condition, you can leave out the
+`== 0` comparison when a zero value should end the loop.
 
 ```python
 count = 5
@@ -73,11 +71,10 @@ Output:
 
 ### Non-Numeric Conditions
 
-Since the condition governing the `while` loop is any expression that resolves 
-to a Boolean (or Boolean-like) value, there is no requirement for the condition
-to be numeric.
+A `while` condition can be any expression that resolves to a Boolean (or Boolean-like) value. It
+doesn't have to be numeric.
 
-Here, we'll iterate a loop until the user enters the value `quit`.
+Here, we'll keep the loop going until the user enters the word `quit`.
 
 ```python
 prompt = "\nTell me something and I will repeat it back to you:\n> "
@@ -87,7 +84,7 @@ while message.lower() != "quit":
     print(message)
 ```
 
-Output:
+Output (the loop continues for each message, and the output below shows the first and last exchanges):
 
 ```
 Tell me something and I will repeat it back to you:
@@ -98,7 +95,7 @@ Tell me something and I will repeat it back to you:
 > message 2
 message 2
 
-...
+(the loop continues with more messages)
 
 Tell me something and I will repeat it back to you:
 > quit
@@ -109,15 +106,13 @@ quit
 
 ### Modifying a List While in a Loop
 
-You may recall, way back in Lesson 4.1, we discussed the problem with 
-modifying an object we're looping across using `for`.
+Back in lesson 4.3, we saw the problem with changing a list while looping over it with `for`.
 
-With a while loop, since we are no longer iterating across the list, but 
-instead checking a condition, we can accomplish what we were trying to do in 
-that loop.
+A `while` loop doesn't iterate over the list. It checks a condition instead, so we can do the job we
+were attempting in that earlier loop.
 
-We're going to take advantage of the fact that, like `0` above, and empty list
-is a *falsy* value (evaluates as `False` in a conditional). 
+This works because an empty list is a *falsy* value, just like the `0` above. It evaluates as `False`
+in a condition.
 
 ```python
 numbers = [1, 2, 3, 4, 5]

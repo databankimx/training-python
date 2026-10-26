@@ -23,7 +23,7 @@ class Employee:
     city: str = field(init=False, default="Dallas")
 
 def main() -> None:
-    emp = Employee("Scott", 53, "smclean")
+    emp = Employee("Scott McLean", 53, "smclean")
     print(emp)
 
 if __name__ == "__main__":
@@ -33,7 +33,7 @@ if __name__ == "__main__":
 Output:
 
 ```
-Employee(name='Scott', age=53, emp_id='smclean', city='Dallas')
+Employee(name='Scott McLean', age=53, emp_id='smclean', city='Dallas')
 ```
 
 ---
@@ -48,7 +48,7 @@ This code would result in an error:
 ```python
 # -- SNIP --
 
-emp_2 = Employee("Saul", "sgoodman", 47, "Albuquerque")
+emp_2 = Employee("Saul Goodman", 47, "sgoodman", "Albuquerque")
 ```
 
 Output:
@@ -58,23 +58,27 @@ Traceback (most recent call last):
   File "...\13_field_init.py", line 29, in <module>
     main()
   File "...\13_field_init.py", line 22, in main
-    emp_2 = Employee("Saul", "sgoodman", 47, "Albuquerque")
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    emp_2 = Employee("Saul Goodman", 47, "sgoodman", "Albuquerque")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 TypeError: Employee.__init__() takes 4 positional arguments but 5 were given
 ```
+
+> Note: this call is commented out in the code file. Uncomment it to see the
+> error above.
 
 ---
 
 ### We Can Still Change the Value Though
 
-Of course, just because we can't include the value in the constructor does not mean that we're stuck with the default value.
+Of course, just because we can't include the value in the constructor does not
+mean that we're stuck with the default value.
 
 We can still do something like this:
 
 ```python
 # -- SNIP --
 
-emp_2 = Employee("Saul", 47, "sgoodman")
+emp_2 = Employee("Saul Goodman", 47, "sgoodman")
 emp_2.city = "Albuquerque"
 print(emp_2)
 ```
@@ -82,27 +86,40 @@ print(emp_2)
 Output:
 
 ```
-Employee(name='Saul', age=47, emp_id='sgoodman', city='Albuquerque')
+Employee(name='Saul Goodman', age=47, emp_id='sgoodman', city='Albuquerque')
 ```
 
 ---
 
 ### Effect on `__dataclass_fields__`
 
-Like the other field settings, setting the `init` attribute on a field 
-affects the `__dataclass_fields__`
+Like the other field settings, setting the `init` attribute on a field affects
+the `__dataclass_fields__` entry for that field. Printing it:
+
+```python
+print(emp.__dataclass_fields__["city"])
+```
+
+Output (formatted across lines for readability, and the memory address will
+vary):
 
 ```
-...
 Field(
     name='city',
     type=<class 'str'>,
     default='Dallas',
-    ...
+    default_factory=<dataclasses._MISSING_TYPE object at 0x0000013E2E2455D0>,
     init=False,
-    ...
+    repr=True,
+    hash=None,
+    compare=True,
+    metadata=mappingproxy({}),
+    kw_only=False,
+    _field_type=_FIELD
 )
-...
 ```
+
+> Note: the code file turns off a Pylint warning about `__dataclass_fields__`
+> (no-member). That comment stays in the code file.
 
 ---

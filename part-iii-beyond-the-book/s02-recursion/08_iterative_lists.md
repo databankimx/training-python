@@ -5,7 +5,8 @@ leaves in nested lists.
 
 Here, we follow the same process we would have in a recursive algorithm, but
 instead of pushing calls onto the recursion stack, we create a stack of lists
-and place each list there so that we can come back and iterate through it.
+(along with the position we were at in each one) and place them there so that
+we can come back and iterate through them.
 
 ```python
 def count_leaves(items: list[str | list]) -> int:
@@ -16,12 +17,11 @@ def count_leaves(items: list[str | list]) -> int:
     i = 0
     while True:
         if i == len(current_list):
-            if current_list == items:
+            if current_list is items:
                 return count
-            else:
-                current_list, i = stack.pop()
-                i += 1
-                continue
+            current_list, i = stack.pop()
+            i += 1
+            continue
         if isinstance(current_list[i], list):
             stack.append([current_list, i])
             current_list = current_list[i]
@@ -30,7 +30,24 @@ def count_leaves(items: list[str | list]) -> int:
             count += 1
             i += 1
 
-names = ["Adam", ["Bob", ["Chet", "Cat"], "Barb", "Bert"], "Alex", ["Bea", "Bill"], "Ann"]
+names = [
+    "Adam",
+    [
+        "Bob",
+        [
+            "Chet",
+            "Cat"
+        ],
+        "Barb",
+        "Bert"
+    ],
+    "Alex",
+    [
+        "Bea",
+        "Bill"
+    ],
+    "Ann"
+]
 num = count_leaves(names)
 print(f"The list contains {num} {'leaf' if num == 1 else 'leaves'}")
 ```
@@ -44,13 +61,18 @@ The list contains 10 leaves
 We got the same answer, but our code is more complicated and consequently 
 harder to maintain.
 
-We do still have to worry about the recursion stack maximum, but unlike the
-prior examples, that depth doesn't relate to the number of leaves we have to
-count but rather to the maximum depth of nesting that occurs in the list.
+The `is` check is worth a closer look. It asks whether `current_list` is the
+same object as the top-level `items` list. Asking whether they're equal would
+compare their contents, and that's both slower and less precise.
 
-It's very unlikely that a list would have a thousand levels of nesting, so in
-this case, the advantage goes to the easy to maintain recursive algorithm, not
-its iterative alternative (at least in my opinion).
+The iterative version doesn't use recursion at all, so the recursion limit
+doesn't apply to it. Its stack is a normal Python list, which grows with the
+depth of the nesting, not with the number of leaves.
+
+For the recursive version, the depth limit is the real constraint. It's very
+unlikely that a list would have a thousand levels of nesting, so in this case,
+the advantage goes to the easy to maintain recursive algorithm, not its
+iterative alternative (at least in my opinion).
 
 Try setting up some performance testing with these two algorithms, and see 
 which one performs better.

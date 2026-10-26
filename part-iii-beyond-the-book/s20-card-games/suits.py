@@ -11,7 +11,7 @@ class Suits(Enum):
     CLUBS = 3
 
     @classmethod
-    def glyph(cls, suit: Enum, color: Colors=Colors.WHITE) -> str:
+    def glyph(cls, suit: Enum, color: Colors = Colors.WHITE) -> str:
         """Gets the unicode character for the suit"""
         black = [0x0, 0x5, 0x6, 0x3]
         white = [0x4, 0x1, 0x2, 0x7]

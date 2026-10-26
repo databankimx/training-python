@@ -1,7 +1,8 @@
 """Enum Methods"""
 
-from enum import Enum
 from datetime import date
+from enum import Enum
+from typing import Self
 
 class Weekday(Enum):
     """Defines names for days of the week"""
@@ -14,7 +15,7 @@ class Weekday(Enum):
     SUNDAY = 7
 
     @classmethod
-    def from_date(cls, day: date) -> Enum:
+    def from_date(cls, day: date) -> Self:
         """Get weekday name of the given date"""
         return cls(day.isoweekday())
 

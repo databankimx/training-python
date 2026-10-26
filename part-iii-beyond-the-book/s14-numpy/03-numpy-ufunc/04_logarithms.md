@@ -104,8 +104,9 @@ Logₑ:  [0.00 0.69 1.10 1.39 1.61 1.79 1.95 2.08 2.20 2.30]
 
 ### Logs of Other Bases
 
-NumPy does not provide any function to take log at any base, so we can use 
-the `frompyfunc()` along with `math.log()` to create a custom `ufunc` for
+NumPy does not have a top-level function for logarithms of an arbitrary base.
+(`np.emath.logn()` computes logarithms in any base, but this example shows how to
+build a `ufunc` yourself.) So, here we use `frompyfunc()` along with `math.log()` to create a custom `ufunc` for
 handling other bases:
 
 ```python

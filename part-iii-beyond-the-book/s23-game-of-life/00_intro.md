@@ -41,7 +41,7 @@ import pygame
 
 ROOT_DIR = os.path.dirname(__file__)
 
-def load_json(name):
+def load_json(name: str) -> dict:
     """Load a JSON file stored alongside this module"""
     with open(os.path.join(ROOT_DIR, name), encoding="utf-8") as f:
         return json.load(f)
@@ -72,7 +72,7 @@ The game keeps its state in a `GameOfLife` object:
 class GameOfLife:
     """Implements Conway's Game of Life"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.settings = load_json("settings.json")
         if self.settings["debug"]:
             print(self.settings)
@@ -96,7 +96,7 @@ class GameOfLife:
 one is named, and otherwise fills the grid at random:
 
 ```python
-def create_grid(self):
+def create_grid(self) -> list[list[bool]]:
     """Use a preloaded pattern if available, otherwise a random grid"""
     s = self.settings
     if self.preload.lower() != "none":
@@ -126,7 +126,7 @@ the grid, it either skips the missing cells or, if `wraparound` is set in the
 settings, wraps around to the opposite edge:
 
 ```python
-def count_neighbors(grid, r, c, wrap):
+def count_neighbors(grid: list[list[bool]], r: int, c: int, wrap: bool) -> int:
     """Count the living cells around grid[r][c]"""
     rows, cols = len(grid), len(grid[0])
     count = 0
@@ -162,14 +162,14 @@ read naturally and save a line.
 state is decided from the old grid, so all the cells change at the same time:
 
 ```python
-def next_generation(self):
+def next_generation(self) -> list[list[bool]]:
     """Apply the rules to every cell at once"""
     return [[self.survives(alive, count_neighbors(self.grid, r, c, self.settings["wraparound"]))
              for c, alive in enumerate(row)]
             for r, row in enumerate(self.grid)]
 
 @staticmethod
-def survives(alive, neighbors):
+def survives(alive: bool, neighbors: int) -> bool:
     """Return whether a cell is alive in the next generation"""
     return neighbors == 3 or (alive and neighbors == 2)
 ```
@@ -188,7 +188,7 @@ window size and the grid size, leaving a one-pixel gap between cells. Each cell 
 drawn as a filled rectangle in the alive or dead color from the settings:
 
 ```python
-def draw(self):
+def draw(self) -> None:
     """Draw every cell in the grid"""
     s = self.settings
     rows, cols = len(self.grid), len(self.grid[0])
@@ -219,7 +219,7 @@ def draw(self):
 `play()` prepares the window before the main loop begins:
 
 ```python
-def play(self):
+def play(self) -> None:
     """Run the game until the window is closed"""
     s = self.settings
     pygame.init()

@@ -9,15 +9,16 @@ must be a standardized way to encode text as a binary number.
 
 <img src="./baudot-code.png" style="width: 200px">
 
-As far back as the 1888 patent of the Baudot Code (see above) for encoding the 
-alphabet as holes in punched paper tape, different encoding standards have 
-been introduced over time.
+As far back as the 1870s, Émile Baudot developed a five-bit code for telegraphy
+(see above). It encoded the alphabet as patterns of on and off signals, which
+were sent over a wire and punched onto paper tape. Different encoding standards
+have been introduced over time since then.
 
 ---
 
 ### ASCII Encoding
 
-Originally introduced in 1961 (but most recently updated in 1986), the 
+Originally introduced in 1963 (and most recently updated in 1986), the
 American Standard Code for Information Interchange (or **ASCII**) is still the
 default encoding for many computer applications today.
 
@@ -28,7 +29,7 @@ ASCII encodes 128 characters as 7-bit binary values (as seen below):
 
 |  Dec |  Hex  | Char  |     |  Dec |  Hex  |  Char   |     |  Dec |  Hex  | Char  |     |   Dec |  Hex  | Char  |
 | ---: | :---: | :---: | --- | ---: | :---: | :-----: | --- | ---: | :---: | :---: | --- | ----: | :---: | :---: |
-|  `0` | `00`  | `NUL` |     | `32` | `20`  | `Space` |     | `64` | `40`  |  `@`  |     |  `96` | `60`  | `｀`  |
+|  `0` | `00`  | `NUL` |     | `32` | `20`  | `Space` |     | `64` | `40`  |  `@`  |     |  `96` | `60`  | `` ` ``  |
 |  `1` | `01`  | `SOH` |     | `33` | `21`  |   `!`   |     | `65` | `41`  |  `A`  |     |  `97` | `61`  |  `a`  |
 |  `2` | `02`  | `STX` |     | `34` | `22`  |   `"`   |     | `66` | `42`  |  `B`  |     |  `98` | `62`  |  `b`  |
 |  `3` | `03`  | `ETX` |     | `35` | `23`  |   `#`   |     | `67` | `43`  |  `C`  |     |  `99` | `63`  |  `c`  |
@@ -37,7 +38,7 @@ ASCII encodes 128 characters as 7-bit binary values (as seen below):
 |  `6` | `06`  | `ACK` |     | `38` | `26`  |   `&`   |     | `70` | `46`  |  `F`  |     | `102` | `66`  |  `f`  |
 |  `7` | `07`  | `BEL` |     | `39` | `27`  |   `'`   |     | `71` | `47`  |  `G`  |     | `103` | `67`  |  `g`  |
 |  `8` | `08`  | `BS`  |     | `40` | `28`  |   `(`   |     | `72` | `48`  |  `H`  |     | `104` | `68`  |  `h`  |
-|  `9` | `09`  | `AB`  |     | `41` | `29`  |   `)`   |     | `73` | `49`  |  `I`  |     | `105` | `69`  |  `i`  |
+|  `9` | `09`  | `HT`  |     | `41` | `29`  |   `)`   |     | `73` | `49`  |  `I`  |     | `105` | `69`  |  `i`  |
 | `10` | `0A`  | `LF`  |     | `42` | `2A`  |   `*`   |     | `74` | `4A`  |  `J`  |     | `106` | `6A`  |  `j`  |
 | `11` | `0B`  | `VT`  |     | `43` | `2B`  |   `+`   |     | `75` | `4B`  |  `K`  |     | `107` | `6B`  |  `k`  |
 | `12` | `0C`  | `FF`  |     | `44` | `2C`  |   `,`   |     | `76` | `4C`  |  `L`  |     | `108` | `6C`  |  `l`  |
@@ -115,48 +116,49 @@ punctuation and symbols.
 
 </details><br>
 
-But this **ASCII (Upper Half)** (which expanded ASCII to 8-bits) was never 
-widely adopted, and to this day there are differences from system to system on 
-the implementation of this character set.
+The upper 128 values, often called **ASCII (Upper Half)**, extended ASCII to 8
+bits, but it was never standardized as a single character set. Different systems
+filled the upper half in differently, and to this day there are differences from
+system to system in how these characters are implemented.
 
-Furthermore this was still Euro- and mostly Anglo-centric. The character set 
-did not contain any non-European characters (like Cyrillic, Hebrew, Arabic, 
-Chinese, Japanese, etc.) and was even lacking characters for some European 
+Furthermore, this was still Euro- and mostly Anglo-centric. The character set
+did not contain any non-European characters (like Cyrillic, Hebrew, Arabic,
+Chinese, Japanese, etc.) and was even lacking characters for some European
 languages like Greek.
 
 ---
 
 ### The Dawn of Unicode
 
-After the arrival of ASCII and other English character encodings like EBCDIC 
-(Extended Binary-Coded Decimal Interchange Code), the computing world went 
-through a phase where there were literally hundreds of character encodings in 
-use, each with its own ISO (International Organization for Standardization) 
-standard, and it was necessary to indicate which encoding page was in use for 
+After the arrival of ASCII and other English character encodings like EBCDIC
+(Extended Binary-Coded Decimal Interchange Code), the computing world went
+through a phase where there were literally hundreds of character encodings in
+use, each with its own ISO (International Organization for Standardization)
+standard, and it was necessary to indicate which encoding page was in use for
 any text block in order to properly render content.
 
 A group of engineers began work in the 1980s on a 16-bit universal encoding
-that could encompass all living languages, and in 1991 the Unicode Consortium 
+that could encompass all living languages, and in 1991 the Unicode Consortium
 was founded. They published a 16-bit Unicode character set in 1991.
 
-In 1996, UCS-2
-([Unicode Character Set v2.0](https://www.columbia.edu/kermit/ucs2.html))
-was released, which included most characters in use today.
+By 1996, Unicode had moved past 16 bits with version 2.0, but the 16-bit set
+(known as UCS-2) already covered most characters in use. See
+[this overview of UCS-2](https://www.columbia.edu/kermit/ucs2.html) for more.
 
 Of course, this still left a couple of problems.
 
 First, this is wasteful, since it encodes every character as 16 bits, even when
-most are unnecessary (almost the entirety of this document is written in the 
+most are unnecessary (almost the entirety of this document is written in the
 7-bit characters available in ASCII for instance).
 
-And second, common Operating Systems (like Windows 95) predated the arrival of 
-Unicode.
+And second, common operating systems, like Windows 95, were built before Unicode
+was widely supported.
 
 ---
 
 ### UTF-8 Fixes the Problems
 
-Because there was a necessary period of conversion between pre- and 
+Because there was a necessary period of conversion between pre- and
 post-Unicode systems, there was an opportunity to address the limitations of
 UCS-2 before full adoption.
 
@@ -173,13 +175,18 @@ characters to the same values used in ASCII.
 
 ---
 
-### Python Defaults to ASCII
+### Python Uses the System Default Encoding
 
-Given that the vast majority of text is still ASCII-encodable, Python avoids
-wasting memory by defaulting to ASCII when decoding text file content.
+Given that the vast majority of text is still ASCII-encodable, many systems can
+read plain ASCII text without any trouble. But Python doesn't assume ASCII. When
+you open a file without specifying an encoding, Python uses your system's default
+encoding.
 
-But this can be a problem when encountering characters that aren't in the ASCII
-set.
+On many Windows computers, that default is `cp1252`, which is why the errors below
+mention `cp1252`. Other systems use a different default, so the same code can
+behave differently on another computer.
+
+Specifying the encoding yourself removes that guesswork.
 
 ---
 
@@ -231,24 +238,27 @@ with open(file_path) as f:
     print(len(contents))
 ```
 
-We'll encounter a `UnicodeDecodeError`
+We'll encounter a `UnicodeDecodeError`.
 
 Output:
 
 ```
 Traceback (most recent call last):
-  File "...\09_bonus_ascii_and_utf8.py", line 13, in <module>
+  File "...\09_bonus_ascii_and_utf8.py", line 20, in <module>
     contents = f.read()
                ^^^^^^^^
   File "...\cp1252.py", line 23, in decode
     return codecs.charmap_decode(input,self.errors,decoding_table)[0]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 UnicodeDecodeError: 'charmap' codec can't decode byte 0x9d in position 6589: character maps to <undefined>
 ```
 
+The code file has this example commented out, so the rest of the file can run.
+Uncomment it to see the error for yourself.
+
 ---
 
-### Fixing the Errors with `encoding="utf-8"`
+### Fixing the Errors with `encoding="UTF-8"`
 
 We can resolve this error by specifying the encoding type as UTF-8 when we
 open the file.
@@ -260,7 +270,7 @@ ROOT_DIR = os.path.dirname(__file__)
 file_name = "moby_dick.txt"
 file_path = os.path.join(ROOT_DIR, "Files", file_name)
 
-with open(file_path, encoding="utf-8") as f:
+with open(file_path, encoding="UTF-8") as f:
     contents = f.read()
     print(len(contents))
 ```
@@ -293,13 +303,13 @@ contents = file.read_text()
 print(len(contents))
 ```
 
-We'll encounter a `UnicodeDecodeError`
+We'll encounter a `UnicodeDecodeError`.
 
 Output:
 
 ```
 Traceback (most recent call last):
-  File "...\09_bonus_ascii_and_utf8.py", line 24, in <module>
+  File "...\09_bonus_ascii_and_utf8.py", line 37, in <module>
     contents = file.read_text()
                ^^^^^^^^^^^^^^^^
   File "...\pathlib.py", line 1059, in read_text
@@ -307,13 +317,16 @@ Traceback (most recent call last):
            ^^^^^^^^
   File "...\cp1252.py", line 23, in decode
     return codecs.charmap_decode(input,self.errors,decoding_table)[0]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 UnicodeDecodeError: 'charmap' codec can't decode byte 0x9d in position 6589: character maps to <undefined>
 ```
 
+The code file has this example commented out, so the rest of the file can run.
+Uncomment it to see the error for yourself.
+
 ---
 
-### Fixing the Errors with `encoding="utf-8"`
+### Fixing the Errors with `encoding="UTF-8"`
 
 We can resolve this error by specifying the encoding type as UTF-8 when we
 call `read_text()`, which opens the file under the covers.
@@ -325,7 +338,7 @@ from pathlib import Path
 file_name = "moby_dick.txt"
 file_path = get_path(file_name, "Files")
 file = Path(file_path)
-contents = file.read_text(encoding="utf-8")
+contents = file.read_text(encoding="UTF-8")
 print(len(contents))
 ```
 
@@ -338,4 +351,3 @@ Output:
 </details>
 
 ---
-

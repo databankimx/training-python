@@ -11,7 +11,7 @@ class Employee:
     city: str
     age_verified: bool = field(init=False)
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         min_age = 30
         self.age_verified = self.age > min_age
 

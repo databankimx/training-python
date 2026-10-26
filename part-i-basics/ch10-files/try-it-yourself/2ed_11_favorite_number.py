@@ -10,7 +10,7 @@ import os
 import json
 
 print("Try-it-Yourself:")
-print("Assignment 10.11 - part 1\n")
+print("Assignment 10.11\n")
 
 ROOT_DIR = os.path.dirname(__file__)
 
@@ -28,7 +28,7 @@ def get_favorite_number():
         except ValueError:
             print("Your entry must be a number!")
 
-    with open(file_path, "w", encoding="utf-8") as f:
+    with open(file_path, "w", encoding="UTF-8") as f:
         json.dump(num, f)
 
     print(f"I saved {num} as your favorite number!\n")
@@ -37,7 +37,7 @@ def get_favorite_number():
 def read_favorite_number():
     """Read the user's favorite number from a file"""
     try:
-        with open(file_path, encoding="utf-8") as f:
+        with open(file_path, encoding="UTF-8") as f:
             num = json.load(f)
             return int(num)
     except FileNotFoundError:

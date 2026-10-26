@@ -1,15 +1,14 @@
 ## Lambda Functions
 
-Based on Alonzo Church's "lambda calculus," (a stateless but 
-Turing-complete computational system invented in the 1930s), the lambda 
-concept allows the abstraction of functions.
+Based on Alonzo Church's lambda calculus (a stateless but Turing-complete
+computational system invented in the 1930s), the lambda concept allows the
+abstraction of functions.
 
-Unlike languages like Lisp, Haskell, and F#, Python is not natively a 
-*functional* programming language. Instead, it is an object-oriented 
-programming language.
+Python is a multi-paradigm language. It is mostly object-oriented and procedural,
+but it also has functional features. Unlike languages like Lisp, Haskell, and F#,
+Python is not natively a *functional* programming language.
 
-However, some concepts from functional languages are implemented in
-Python, specifically:
+Some concepts from functional languages are implemented in Python, specifically:
 
 * Functions are First-Class Objects
     * They can be bound to names (like local variables)
@@ -36,7 +35,9 @@ it).
 #### Identity As a Classic Function
 
 ```python
-def identity(x: any) -> any:
+from typing import Any
+
+def identity(x: Any) -> Any:
     """The identity function simply returns its argument"""
     return x
 ```
@@ -72,6 +73,10 @@ Output:
 (lambda x: x)(n) returns: 42
 ```
 
+> Note: the code file turns off a Pylint warning (`unnecessary-direct-lambda-call`)
+> on this call, and on the `plus_two` assignment below
+> (`unnecessary-lambda-assignment`). Those comments stay in the code file.
+
 ---
 
 #### Breaking Down the Identity Lambda
@@ -104,7 +109,7 @@ anonymous(n)
 
 ### A Second Example: Add One
 
-Obviously, the identity is a useless example, so keeping it simple, we'll
+The identity is a useless example, so keeping it simple, we'll
 create a function (and its equivalent lambda) that does something with
 the data.
 
@@ -125,13 +130,14 @@ plus_one(n) returns: 43
 (lambda x: x + 1)(n) returns: 43
 ```
 
-Python executes a reduction strategy to evaluate the lambda:
+As a conceptual model, the lambda call can be read as a series of substitutions
+(the same beta-reduction steps used in lambda calculus). This is a way to think
+about the call, not Python's internal evaluation:
 
 * `(lambda x: x + 1)(n)`
-* `(lambda x: x + 1)(42)` -> Sub in the value for `n`
-* `lambda 42: 42 + 1` -> Sub in the argument `n` for `x`
-* `42 + 1` -> Convert from lambda to plain expression
-* `43` -> Resolve the expression
+* `(lambda x: x + 1)(42)`: substitute the value of `n` (42)
+* `42 + 1`: substitute 42 for `x` in the body
+* `43`: resolve the expression
 
 ---
 
@@ -153,6 +159,9 @@ Output:
 ```
 plus_two(n) = (lambda x: x + 2)(n), returns: 44
 ```
+
+PEP 8, the Python style guide, recommends a `def` over assigning a lambda to a
+name, so treat this as a demonstration rather than a style to copy.
 
 ---
 
@@ -187,7 +196,7 @@ a variable and calling it like a function.
 * A lambda stored in a variable is called a **named lambda**
 
 The *anonymous lambda* is also what is called an *immediately invoked 
-function expression (IIFE)*, and although they work, Python discourages
-the use of immediately invoked lambdas.
+function expression (IIFE)*. The code works, but calling a lambda immediately is
+less common, and the Pylint warning in the code file flags it.
 
 ---

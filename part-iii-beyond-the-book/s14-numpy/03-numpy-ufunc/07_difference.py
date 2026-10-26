@@ -19,7 +19,7 @@ def difference(arr: np.ndarray) -> None:
     print(f"{np.diff(arr)}\n")
 
 def difference_repeat(arr: np.ndarray) -> None:
-    """Calculate the 2nd-degree difference of an array"""
+    """Calculate the difference of an array repeatedly, up to the array's length"""
     print("Higher-Degree Difference:")
     print(f"arr:    {arr}")
     for i in range(len(arr) - 1):

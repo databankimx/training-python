@@ -84,3 +84,5 @@ it to the right. A new drop starts on the side the wind blows from, so the slant
 The rain fills the window and keeps falling, with the drops slanted by the wind.
 
 ![Steady rain with wind](lesson-images/steady-rain.png)
+
+---

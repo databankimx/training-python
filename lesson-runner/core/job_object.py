@@ -1,8 +1,9 @@
 """Keeps the runner's child processes from outliving the runner.
 
-On Windows, each child process is added to a job object that is set to end its processes when the job closes. The
-job is closed when the runner exits, whether it closes normally or crashes, so no build or server is left running
-in the background. Other systems have no job objects, so nothing is done there.
+On Windows, each child process is added to a job object that is set to end its processes
+when the job closes. The job is closed when the runner exits, whether it closes normally
+or crashes, so no build or server is left running in the background. Other systems have
+no job objects, so nothing is done there.
 """
 
 from __future__ import annotations
@@ -10,15 +11,15 @@ from __future__ import annotations
 import subprocess
 import sys
 
-#pylint: disable=protected-access
+#pylint: disable=protected-access, line-too-long
 
-_job_handle = None
+_job_handle: int | None = None
 
 if sys.platform == "win32":
     import ctypes
     from ctypes import wintypes
 
-    class _BasicLimits(ctypes.Structure):
+    class _BasicLimits(ctypes.Structure): #pylint: disable=too-few-public-methods
         """JOBOBJECT_BASIC_LIMIT_INFORMATION."""
         _fields_ = [
             ("PerProcessUserTimeLimit", ctypes.c_int64),
@@ -32,13 +33,13 @@ if sys.platform == "win32":
             ("SchedulingClass", wintypes.DWORD),
         ]
 
-    class _IoCounters(ctypes.Structure):
+    class _IoCounters(ctypes.Structure): #pylint: disable=too-few-public-methods
         """IO_COUNTERS."""
         _fields_ = [(name, ctypes.c_uint64) for name in (
             "ReadOperationCount", "WriteOperationCount", "OtherOperationCount",
             "ReadTransferCount", "WriteTransferCount", "OtherTransferCount")]
 
-    class _ExtendedLimits(ctypes.Structure):
+    class _ExtendedLimits(ctypes.Structure): #pylint: disable=too-few-public-methods
         """JOBOBJECT_EXTENDED_LIMIT_INFORMATION."""
         _fields_ = [
             ("BasicLimitInformation", _BasicLimits),

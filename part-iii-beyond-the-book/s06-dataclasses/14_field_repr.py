@@ -8,11 +8,11 @@ class Employee:
     name: str
     age: int = field(repr=False)
     emp_id: str
-    city: str = field(init=False, default="Dallas", repr=True)
+    city: str = field(init=False, default="Dallas")
 
 def main() -> None:
     """Main Function"""
-    emp = Employee("Scott", 53, "smclean")
+    emp = Employee("Scott McLean", 53, "smclean")
     print(emp)
     # pylint: disable=no-member
     print(emp.__dataclass_fields__["age"])

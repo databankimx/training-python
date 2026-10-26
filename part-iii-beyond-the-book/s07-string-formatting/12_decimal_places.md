@@ -4,12 +4,12 @@ One of the most ubiquitous requirements developers encounter is that floating
 point numbers need to be displayed to a specific degree of precision (that 
 is, with a specific number of decimal places).
 
-Importantly, we frequently want to avoid rounding the numbers as that might
-introduce errors in our calculations.
-
 Python supports specifying decimal precision in the form `.nf` where `n` is
 the number of decimal places to display. This does not affect the value in the
 stored variable, just the displayed number.
+
+This suggests a general practice: keep the full value for calculations, and round
+only when you display the result.
 
 ---
 
@@ -21,6 +21,8 @@ an irrational number, it will always include greater precision than we want.
 Consider this code:
 
 ```python
+import math
+
 print(f"π = {math.pi}")
 print(f"π = {math.pi:.5f}")
 ```
@@ -34,8 +36,9 @@ Output:
 
 ---
 
-Interestingly unlike many numerical manipulations in Python, this will
-automatically round the decimal to the specified precision as opposed to truncating.
+The format specifier rounds the displayed value rather than truncating it. This
+is worth knowing, since `int()` truncates and a reader might expect the same
+from formatting.
 
 ```python
 print(f"π = {math.pi}")

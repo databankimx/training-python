@@ -42,7 +42,7 @@ from ui.theming import ThemeMixin  # noqa: E402  pylint: disable=wrong-import-po
 from ui.window_layout import LayoutMixin  # noqa: E402  pylint: disable=wrong-import-position
 
 #pylint: disable=no-name-in-module
-from PySide6.QtGui import QFont, QIcon
+from PySide6.QtGui import QCloseEvent, QFont, QIcon
 #pylint: disable=no-name-in-module
 from PySide6.QtWidgets import QApplication, QMainWindow
 
@@ -89,7 +89,7 @@ class MainWindow(LayoutMixin, ThemeMixin, NavigationMixin, SourcePanelMixin, Out
         self.apply_theme()
         self.tabs.setCurrentIndex(1)  # open on the Lesson tab, so the welcome lesson shows
 
-    def closeEvent(self, event) -> None:  # pylint: disable=invalid-name
+    def closeEvent(self, event: QCloseEvent) -> None:  # pylint: disable=invalid-name
         """Closing the window stops any running step or server, and closes a popped-out lesson."""
         if self.run is not None:
             self.run.cancel()

@@ -19,19 +19,19 @@ file_path = os.path.join(ROOT_DIR, "Files", "learning_python.txt")
 print("Try-it-Yourself:")
 print("Assignment 10.1\n")
 
-with open(file_path, encoding="utf-8") as file:
+with open(file_path, encoding="UTF-8") as file:
     result = file.read()
     print(result.rstrip())
 
 print()
 
-with open(file_path, encoding="utf-8") as file:
+with open(file_path, encoding="UTF-8") as file:
     for line in file:
         print(line.rstrip())
 
 print()
 
-with open(file_path, encoding="utf-8") as file:
+with open(file_path, encoding="UTF-8") as file:
     lines = file.readlines()
 for line in lines:
     print(line.rstrip())

@@ -2,7 +2,7 @@
 
 adj = "awesome"
 
-def use_global(use_adv: bool=False):
+def use_global(use_adv: bool=False) -> None:
     """Use a global variable"""
     infix = f"{adv} " if use_adv else ""
     print(f"Python is {infix}{adj}\n")

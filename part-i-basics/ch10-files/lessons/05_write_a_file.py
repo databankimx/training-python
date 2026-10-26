@@ -21,9 +21,9 @@ with open(file_path, "w", encoding="UTF-8") as file:
 with open(file_path, "r", encoding="UTF-8") as file:
     print(file.read())
 
-def write_line(write_file_object, text):
+def write_line(output_file, text):
     """Write a line to a file"""
-    write_file_object.write(f"{text}\n")
+    output_file.write(f"{text}\n")
 
 with open(file_path, "w", encoding="UTF-8") as file:
     write_line(file, "I love coding!")

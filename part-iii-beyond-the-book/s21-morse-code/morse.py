@@ -18,10 +18,12 @@ CODES = {
     "(": "-.--.", ")": "-.--.-", "_": "..--.-",
 }
 
+UNKNOWN = "□"
+
 class Morse:
     """Implement a Morse code encoder/decoder using a binary tree"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Build the tree by walking each character's code from the root"""
         self.tree = Node(None)
         for char, code in CODES.items():
@@ -33,7 +35,8 @@ class Morse:
                 node = getattr(node, attr)
             node.value = char
 
-    def decode(self, encoded, delimiter=" ", separator="_", invalid_char_sub="□", space_char_sub="■"):
+    def decode(self, encoded: str, delimiter: str = " ", separator: str = "_",
+               invalid_char_sub: str = UNKNOWN, space_char_sub: str = "■") -> str:
         """Decode Morse code to letters"""
         # Give every word break and unknown character its own token, so the
         # encoder's substitutions decode the same as the separator
@@ -50,22 +53,26 @@ class Morse:
                 words[-1] += self.decode_code(token)
         return " ".join(word for word in words if word)
 
-    def decode_code(self, code):
+    def decode_code(self, code: str) -> str:
         """Follow a dot or dash path from the root to find one character"""
         node = self.tree
         for symbol in code:
             assert symbol in ".-"
             node = node.left if symbol == "." else node.right
-        return node.value
+            if node is None:
+                return UNKNOWN
+        # Internal nodes that are not the end of any code have no character
+        return node.value if node.value is not None else UNKNOWN
 
-    def encode(self, message, delimiter=" ", invalid_char_sub="□", space_char_sub="■"):
+    def encode(self, message: str, delimiter: str = " ", invalid_char_sub: str = UNKNOWN,
+               space_char_sub: str = "■") -> str:
         """Encode letters to Morse code"""
         codes = []
         for char in message.upper():
             if char == " ":
                 codes.append(space_char_sub)
             elif char in CODES:
-                encoded = []
+                encoded: list[str] = []
                 self.get_code(self.tree, char, encoded)
                 codes.append("".join(encoded))
             else:
@@ -74,7 +81,7 @@ class Morse:
             .replace(f" {invalid_char_sub} ", invalid_char_sub) \
             .replace(f" {space_char_sub} ", space_char_sub)
 
-    def get_code(self, node, character, code):
+    def get_code(self, node: Node | None, character: str, code: list[str]) -> bool:
         """Search the tree for a character, building its code on the way back"""
         if node is None:
             return False

@@ -60,6 +60,10 @@ exist in most programming languages.
 When performing bitwise operations, we compare $0$ and $1$ at 
 each bit position instead of `true` and `false`.
 
+In Python, the bitwise operators are `~` (complement), `&` (AND), `|` (OR), and
+`^` (XOR). Python's `not`, `and`, and `or` are the logical operators from the
+first part of this lesson, not the bitwise ones.
+
 ---
 
 Complement (Negation)
@@ -73,7 +77,7 @@ Complement (Negation)
 
 Conjunction (AND)
 
-|b$1$|&|b2|
+|b1|&|b2|
 |:---|:-:|---:|
 |$1$|$1$|$1$|
 |$1$|$0$|$0$|
@@ -84,7 +88,7 @@ Conjunction (AND)
 
 Disjunction (OR)
 
-|b$1$|│|b2|
+|b1|$\mid$|b2|
 |:---|:-:|---:|
 |$1$|$1$|$1$|
 |$1$|$1$|$0$|
@@ -95,7 +99,7 @@ Disjunction (OR)
 
 Exclusive Disjunction (XOR)
 
-|b$1$|^|b2|
+|b1|^|b2|
 |:---|:-:|---:|
 |$1$|$0$|$1$|
 |$1$|$1$|$0$|

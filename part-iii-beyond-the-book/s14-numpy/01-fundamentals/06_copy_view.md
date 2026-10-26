@@ -2,13 +2,11 @@
 
 NumPy provides functions for creating views and copies of arrays.
 
-These functions exist in order to avoid the perplexing complexity of 
-creating copy slices from oddly shaped multidimensional arrays.
+Some NumPy operations return a view and others return a copy. The difference
+matters because a change to one array shows up in a view, but not in a copy.
 
-The difference between the two is that a `copy` creates a clone of the 
-array in memory and assigns it to a new variable, while a `view` creates
-only a reference to the original variable (similar to the way passing a
-mutable variable to a function only passes a reference).
+A `copy` creates a new array with its own data in memory. A `view` is a new
+array object that shares the same data in memory as the original array.
 
 ---
 
@@ -49,8 +47,8 @@ Making a change to the original array had no effect on the copy.
 
 Using the `array.view()` method produces exactly what you would expect.
 
-The new variable has the ability to access the original array, but it does
-not own any data, because no new data is created.
+The new array object shares the original's data, and it does not own any
+data of its own, because no new data is created.
 
 This means that modifying one (either the array or view) affects the
 other.
@@ -67,7 +65,7 @@ x = arr.view()
 arr[0] = 42
 print("Create view and change original:")
 print("array:", arr)
-print("view:", x, "\n")
+print("view:", x)
 ```
 
 Output:
@@ -78,8 +76,8 @@ array: [42  2  3  4  5]
 view: [42  2  3  4  5]
 ```
 
-As you can see, since they both point to the same object in memory, a
-modification affects both.
+As you can see, since both share the same data in memory, a modification
+affects both.
 
 ---
 
@@ -95,7 +93,7 @@ x = arr.view()
 x[0] = 31
 print("Create view and change view:")
 print("array:", arr)
-print("view:", x, "\n")
+print("view:", x)
 ```
 
 Output:
@@ -110,10 +108,9 @@ view: [31  2  3  4  5]
 
 ### The `base` Property
 
-When working with a view, the original array is exposed as `view.base`.
-
-A copy (or even the original array) has a `base` property, but when a 
-variable owns the data, the value of `base` is `None`
+A view's `base` property is the array whose data it shares. A copy owns its
+data, so its `base` is `None`. The original array also has a `base` of `None`,
+because it owns its data.
 
 Let's have a look:
 
@@ -126,7 +123,7 @@ y = arr.view()
 print("Copy versus view `base` property:")
 print("array base =", arr.base)
 print("copy base =", x.base)
-print("view base =", y.base, "\n")
+print("view base =", y.base)
 ```
 
 Output:

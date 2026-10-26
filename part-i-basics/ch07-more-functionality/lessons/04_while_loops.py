@@ -10,6 +10,7 @@ while count <= 5:
 
 print()
 
+count = 5
 while count:
     count -= 1
     print(count)

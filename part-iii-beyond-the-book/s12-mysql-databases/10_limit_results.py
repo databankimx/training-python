@@ -2,26 +2,27 @@
 
 import mysql.connector
 # pylint: disable=no-name-in-module
+from mysql.connector.connection import MySQLConnection
 from utility_functions import get_settings
 
-def connect(settings: dict[str, str]) -> mysql.connector.connection:
+def connect(settings: dict[str, str]) -> MySQLConnection:
     """Connect to MySQL Server"""
     conn = mysql.connector.connect(
         host=settings["host"],
         user=settings["username"],
         password=settings["password"],
-        database = settings["schema"]
+        database=settings["schema"]
     )
     print(f"Connected to {conn.server_host}: {conn.server_port}\n")
     return conn
 
-def disconnect(conn: mysql.connector.connection) -> None:
+def disconnect(conn: MySQLConnection) -> None:
     """Disconnect from MySQL Server"""
     if conn is not None and conn.is_connected():
         conn.disconnect()
-    print("Connection closed")
+        print("Connection closed")
 
-def get_five_rows(conn: mysql.connector.connection) -> None:
+def get_five_rows(conn: MySQLConnection) -> None:
     """Retrieve five rows from the `customers` table"""
     if not conn.is_connected():
         print("No active connection to MySQL Server!")
@@ -33,12 +34,24 @@ def get_five_rows(conn: mysql.connector.connection) -> None:
         print(row)
     print()
 
-def offset_five_rows(conn: mysql.connector.connection) -> None:
+def offset_five_rows(conn: MySQLConnection) -> None:
     """Retrieve five rows from the `customers` table"""
     if not conn.is_connected():
         print("No active connection to MySQL Server!")
         return
     sql = "SELECT * FROM customers LIMIT 5 OFFSET 2"
+    cursor = conn.cursor()
+    cursor.execute(sql)
+    for row in cursor.fetchall():
+        print(row)
+    print()
+
+def sort_five_rows(conn: MySQLConnection) -> None:
+    """Retrieve the first five rows from `customers` sorted by name"""
+    if not conn.is_connected():
+        print("No active connection to MySQL Server!")
+        return
+    sql = "SELECT * FROM customers ORDER BY name LIMIT 5"
     cursor = conn.cursor()
     cursor.execute(sql)
     for row in cursor.fetchall():
@@ -51,6 +64,7 @@ def main() -> None:
     conn = connect(settings)
     get_five_rows(conn)
     offset_five_rows(conn)
+    sort_five_rows(conn)
     disconnect(conn)
 
 if __name__ == "__main__":

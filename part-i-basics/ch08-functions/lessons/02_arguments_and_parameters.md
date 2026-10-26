@@ -1,32 +1,28 @@
 ## Function Arguments and Parameters
 
-It's great to have functions that avoid code redundancy, but they're not 
-really useful unless we can make them handle situational data as opposed to
-just executing.
+Functions are great for avoiding repeated code, but they're not very useful unless they can work with
+different data each time they run, instead of always doing the same thing.
 
-That's where function parameters and arguments come in.
+That's where parameters and arguments come in.
 
-When you define a function, you can specify **parameters** that the function
-expects to receive when it is called:  
+When you define a function, you can specify **parameters**, the values the function expects to
+receive when it's called:
 `def my_function(my_parameter, ...)`
 
-When you call a function, you add **arguments** to the call to fulfill the
-function's parameter expectations:  
+When you call a function, you supply **arguments** that fill in those parameters:
 `my_function(my_argument, ...)`
 
-You will often hear these two terms used interchangeably, but in technical
-terms:
+People often use the two terms interchangeably, but in technical terms:
 
 * **Parameters** are defined in the function signature
-* **Arguments** are the actual values passed when calling the function
+* **Arguments** are the actual values passed when the function is called
 
 ---
 
 ### A Function with a Parameter
 
-Using this principle, we can redefine our previous example so that it
-accepts a `name` parameter. This allows us to call the function and
-pass different `name` arguments to get different results.
+Using this idea, we can rewrite our earlier example so the function accepts a `name` parameter. Now
+we can call the function with different `name` arguments and get different results.
 
 ```python
 def greet_named_user(name):
@@ -50,7 +46,7 @@ Hello, Carlos
 
 ### List as a Parameter
 
-A parameter can be a list, not just a single variable.
+A parameter can be a list, not just a single value.
 
 ```python
 def greet_users(names):
@@ -75,9 +71,8 @@ Hello, Margot!
 
 ### Multiple Parameters
 
-You can pass multiple parameters to the function. The parameters in the
-function definition (and the arguments in the function call) are separated by
-commas `,`.
+A function can take more than one parameter. In the function definition, and in the function call,
+the parameters and arguments are separated by commas `,`.
 
 ```python
 def greet_full_name(first_name, last_name):

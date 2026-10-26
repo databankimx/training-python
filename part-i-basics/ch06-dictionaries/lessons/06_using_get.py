@@ -11,5 +11,9 @@ alien = {"color": "green", "speed": "slow"}
 point_value = alien.get("points", "No point value assigned")
 print(point_value)
 
+print(alien.get("color", "No color assigned"))
+
 point_value = alien.get("points")
 print(point_value)
+
+print(alien)

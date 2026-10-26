@@ -106,6 +106,6 @@ print(normaltest(v).pvalue)
 Run the script. The random samples use a fixed seed, so you will see the same
 numbers each time you run it. Then change the second sample in the t-test so it
 has a different mean, for example by adding 1 to every value. Check that the
-p-value gets smaller and eventually falls below alpha.
+p-value falls below alpha.
 
 ---

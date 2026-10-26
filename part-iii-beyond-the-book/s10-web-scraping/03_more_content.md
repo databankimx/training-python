@@ -60,6 +60,10 @@ This function allows us to pass in a search term and then capture the
 remaining information on the line on which the term appears (ignoring
 any trailing HTML tags).
 
+If the search term isn't on the page, `find()` returns `-1`, so the slice starts at
+a wrong position and the function returns unrelated text instead of an error. Check
+that the label matches the page before trusting the result.
+
 Let's test this:
 
 ```python
@@ -92,13 +96,7 @@ for page in pages:
     html = scrape_page(page)
     title = parse_html_tag(html, "title")
     print(title)
-    data = [
-        "Name",
-        "Hometown",
-        "Favorite Animal",
-        "Favorite Color"
-    ]
-    for datum in data:
+    for datum in ["Name", "Hometown", "Favorite Animal", "Favorite Color"]:
         item = parse_html_content(html, f"{datum}:")
         print(f" - {datum}: {item}")
     print()
@@ -126,8 +124,11 @@ Profile: Dionysus
  - Favorite Color: Wine
 ```
 
-Obviously this is a very simplified example, but we have effectively
+This is a very simplified example, but we have effectively
 scraped and reported on all meaningful data available on these web 
 pages.
+
+> Note: the code file turns off Sonar warnings on the return line of
+> `parse_html_tag()` and on the page URLs. Those comments stay in the code file.
 
 ---

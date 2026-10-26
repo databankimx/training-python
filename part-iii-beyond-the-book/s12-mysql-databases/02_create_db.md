@@ -27,7 +27,7 @@ if conn.is_connected():
     cursor = conn.cursor()
     cursor.execute(sql)
     conn.commit()
-    print(f"Database '{name}' created successfully!\n")
+    print(f"Database '{name}' created successfully!")
 ```
 
 Output:
@@ -37,7 +37,7 @@ Database 'mydatabase' created successfully!
 ```
 
 You'll notice one significant difference between this and the previous
-exercise: this call...
+lesson: this call...
 
 ```python
 conn.commit()
@@ -45,6 +45,13 @@ conn.commit()
 
 Whenever we write to or modify the database, we must call the `commit()`
 method to finalize the changes.
+
+> Note: the database name is placed directly into the SQL text, because placeholders
+> can't be used for identifiers such as database names. That's safe here, since the name
+> comes from our own settings file. Never build SQL this way from untrusted input.
+>
+> Note: the code file has a Pylint comment (`no-name-in-module`) on the `mysql.connector`
+> import. That comment stays in the code file.
 
 ---
 
@@ -57,7 +64,7 @@ lesson's list databases process:
 sql = "SHOW DATABASES"
 cursor.execute(sql)
 print("DATABASES:")
-for database in cursor:
+for database in cursor.fetchall():
     print(f" - {database[0]}")
 ```
 
@@ -74,5 +81,9 @@ DATABASES:
 ```
 
 We see our database in the list, so we have successfully created it.
+
+> Note: calling `fetchall()` in the loop is optional. The cursor can be iterated directly
+> (`for database in cursor:`), and that works at runtime. The code uses `fetchall()`
+> because the type checker doesn't accept the direct loop for a `MySQLCursor`.
 
 ---

@@ -1,6 +1,8 @@
 """Lambdas"""
 
-def identity(x: any) -> any:
+from typing import Any
+
+def identity(x: Any) -> Any:
     """The identity function simply returns its argument"""
     return x
 

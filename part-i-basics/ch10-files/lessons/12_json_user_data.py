@@ -26,14 +26,14 @@ user["last_name"] = input("Enter your last name:\n> ")
 user["username"] = \
     f"{user['first_name'][0]}{user['last_name']}".upper()
 
-with open(file_path, "w", encoding="utf-8") as f:
+with open(file_path, "w", encoding="UTF-8") as f:
     json.dump(user, f)
 print(f"We'll remember you when you come back, {user['username']}")
 
 pause()
 clear_terminal()
 
-with open(file_path, encoding="utf-8") as f:
+with open(file_path, encoding="UTF-8") as f:
     user = json.load(f)
 print(f"Welcome back, {user['username']}")
 
@@ -56,11 +56,11 @@ file_name = "user.json"
 file_path = get_path(file_name, "Files")
 
 file = Path(file_path)
-file.write_text(json.dumps(user), encoding="utf-8")
+file.write_text(json.dumps(user), encoding="UTF-8")
 print(f"We'll remember you when you come back, {user['username']}")
 
 pause()
 clear_terminal()
 
-user = json.loads(file.read_text(encoding="utf-8"))
+user = json.loads(file.read_text(encoding="UTF-8"))
 print(f"Welcome back, {user['username']}")

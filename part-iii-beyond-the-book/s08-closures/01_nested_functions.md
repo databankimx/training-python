@@ -1,11 +1,12 @@
 ## Nested Functions
 
-Inner (or nested) functions, also known as nested functions, are functions 
+Inner functions, also known as nested functions, are functions 
 that you define inside other functions.
 
-In Python, this kind of function has direct access to variables and names 
-defined in the enclosing function. That is, the inner function shares all
-items in the scope of the outer function (its environment).
+In Python, this kind of function can read variables and names defined in the
+enclosing function. The inner function sees the enclosing function's scope (its
+environment), so it can use those values without them being passed in. Assigning
+to one of those variables needs the `nonlocal` keyword, which a later lesson covers.
 
 Inner functions have many uses, most notably as closure factories and 
 decorator functions.
@@ -64,10 +65,13 @@ Hello Scott!
 We can pass a function as an argument to another function in Python.
 
 Since functions are first-class objects in Python, we can define a function
-that takes another function as an argument:
+that takes another function as an argument. The `Callable` type hint comes from
+`collections.abc`:
 
 ```python
-def calculate(func: callable, x: int, y: int) -> int:
+from collections.abc import Callable
+
+def calculate(func: Callable, x: int, y: int) -> int:
     """Calls the given function with the given arguments"""
     return func(x, y)
 ```
@@ -83,7 +87,7 @@ def add(x: int, y: int) -> int:
 We can then execute the `add()` function by passing it to `calculate()`:
 
 ```python
-x, y, = 2, 3
+x, y = 2, 3
 z = calculate(add, x, y)
 print(f"{x} + {y} = {z}")
 ```
@@ -103,10 +107,12 @@ also return them from functions.
 
 Here, we have a function that creates and returns another function. This
 type of function (where the result retains the locally scoped variables) is
-also called a *closure*, which we'll learn about in section 5.
+also called a *closure*, which the closures lesson covers in detail.
 
 ```python
-def greeting(name: str) -> callable:
+from collections.abc import Callable
+
+def greeting(name: str) -> Callable:
     """Returns a function that greets a user"""
     def hello() -> None:
         print(f"Hello {name.title()}!")

@@ -93,3 +93,5 @@ top centre.
 - `alien_invasion.py`: saves the high score on every exit
 - `settings.py`: fleet drop speed back to 10, and the speed-up on every level
 - `ship.py`: keeps the decimal position for smooth movement
+
+---

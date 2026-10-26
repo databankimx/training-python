@@ -1,12 +1,12 @@
 ## Testing Classes
 
 We can also use `pytest` to test classes. In order to accomplish this, we'll 
-have to do a couple of extra tasks to ensure that the tests use a shared 
-instance of the class.
+have to do a couple of extra tasks to give each test its own instance of the
+class.
 
 Let's imagine that we have the following class:
 
-<details open>
+<details>
 <summary>AnonymousSurvey Class</summary>
 
 ```python
@@ -37,16 +37,14 @@ class AnonymousSurvey:
 
 ---
 
-## Setting Up the Test
+### Setting Up the Test
 
 We still construct a test case the same way we did for function testing, by
 creating a `test_...` file.
 
-However, now we will add a special component to the class: `@pytest.fixture`.
-
-A *fixture* in pytest allows us to create a shared resource containing an 
-instance of the class being tested, which is accessible to all of the unit 
-test functions in the file.
+However, now we will add a *fixture*: a function decorated with `@pytest.fixture`
+that creates a resource for the tests to use. By default, pytest runs a fixture
+before each test that asks for it, so each test gets a new instance of the class.
 
 In this instance, we're creating an instance of our `AnonymousSurvey` class.
 
@@ -62,8 +60,8 @@ def language_survey():
     return survey
 ```
 
-After that you add unit test as normal, but the unit tests can use the shared
-resource by including the fixture as an argument in the test case functions:
+After that you add unit tests as normal, but the unit tests can use the
+fixture by including it as an argument in the test case functions:
 
 ```python
 def test_store_single_response(language_survey: AnonymousSurvey):
@@ -81,9 +79,16 @@ def test_store_three_responses(language_survey: AnonymousSurvey):
         assert response.lower() in language_survey.responses
 ```
 
-## Testing
+> Note: the test file turns off a Pylint warning about the fixture name being
+> redefined in the test functions. That comment stays in the test file.
 
-Like before, we run `pytest`
+### Testing
+
+Run the tests for this class with:
+
+```pwsh
+pytest test_survey_class.py
+```
 
 Output:
 
@@ -103,10 +108,10 @@ test results.
 
 ---
 
-## Multiple Tests
+### Multiple Tests
 
-Unlike `unittest`, where we were running a specific file, by default, `pytest`
-will execute all files in the directory with names starting with `test_...`.
+When you run `pytest` without a file name, it looks in the folder for every file
+whose name starts with `test_...`, and runs the tests in all of them.
 
 With both of the tests from this chapter in place, we would have this output:
 
@@ -121,8 +126,6 @@ test_survey_class.py ..                                [100%]
 
 ===================== 4 passed in 0.03s =====================
 ```
-
----
 
 However, we can specify a given file. If we run this:
 
@@ -168,8 +171,50 @@ test_survey_class.py::test_store_three_responses PASSED        [100%]
 ========================= 2 passed in 0.01s =========================
 ```
 
-Play around changing the expectations or the class behavior to see different
-test results.
-
 ---
 
+### Testing the Survey by Hand
+
+The file `02_testing_classes.py` runs the survey from the keyboard. Enter
+responses, then press `q` to see the results:
+
+```python
+def language_survey() -> None:
+    """Manually Test Anonymous Surveys"""
+    question = "What language did you first learn to speak?"
+    my_survey = AnonymousSurvey(question)
+
+    my_survey.show_question()
+    print("Enter 'q' at any time to quit.\n")
+    while True:
+        response = input("Language: ")
+        if response == "q":
+            break
+        my_survey.store_response(response)
+
+    print("\nThank you to everyone who participated in the survey!")
+    my_survey.show_results()
+```
+
+Run it from the terminal with `python 02_testing_classes.py`. A sample session
+looks like this:
+
+```
+What language did you first learn to speak?
+Enter 'q' at any time to quit.
+
+Language: English
+Language: Spanish
+Language: english
+Language: q
+
+Thank you to everyone who participated in the survey!
+Survey results:
+- English (2)
+- Spanish (1)
+```
+
+The order of the results can change from run to run, because a `set` doesn't
+keep its items in order.
+
+---

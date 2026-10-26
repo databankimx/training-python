@@ -1,6 +1,8 @@
 """Mutating the Closure State"""
 
-def mean() -> callable:
+from collections.abc import Callable
+
+def mean() -> Callable:
     """Creates a mutable mean function that updates as numbers are added"""
     sample = []
     def inner_mean(n: int) -> float:

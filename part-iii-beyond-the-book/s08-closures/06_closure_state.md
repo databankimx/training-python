@@ -13,7 +13,9 @@ the closure is called. Effectively, the closure becomes a mutable function.
 Let's create a closure-generating function:
 
 ```python
-def mean() -> callable:
+from collections.abc import Callable
+
+def mean() -> Callable:
     """Creates a mutable mean function that updates as numbers are added"""
     sample = []
     def inner_mean(n: int) -> float:
@@ -24,7 +26,7 @@ def mean() -> callable:
 
 Although `sample` exists in the outer function, because it is a mutable type,
 it is only initialized once. After that, on subsequent calls the elements
-previously added to the list will still be there:
+previously added to the list will still be there.
 
 ---
 
@@ -53,5 +55,18 @@ We can see that the value passed on each call was appended to the list.
 This is powerful, but it illustrates the need to be aware of how mutable
 objects behave, as accessing a modified closure can otherwise have unexpected 
 results.
+
+---
+
+### Mutation Versus Reassignment
+
+Appending to the list works without any special keyword, because the list is
+changed in place. The variable `sample` is never reassigned.
+
+Reassigning the variable is different. If the inner function did something like
+`total = total + n` with `total` from the outer function, Python would treat
+`total` as a new local variable inside the inner function, and the code would fail
+with an `UnboundLocalError`. Reassigning an outer variable needs the `nonlocal`
+keyword, which the [nested functions lesson](./01_nested_functions.md) mentions.
 
 ---

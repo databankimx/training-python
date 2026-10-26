@@ -70,3 +70,5 @@ from the last step's screenshot are the same here.
 ## Changed files
 
 - `alien_invasion.py`: removes bullets once they have left the top of the screen
+
+---

@@ -1,14 +1,15 @@
 ## Nesting Lists in a Dictionary
 
-In the same vein as dictionaries nested in lists, it's often useful to nest
-one or more lists in a dictionary.
+It's often useful to nest one or more lists inside a dictionary. In the same way you nested
+dictionaries in lists, you can give a dictionary's key a list as its value.
 
 ---
 
-### A Property of a Dictionary that has Multiple Values
+### A Property with Multiple Values
 
-One common example of this is where one or more properties os a dictionary 
-that describes an object can have multiple values.
+One common case is a property of a dictionary that describes an object, where the property can
+hold more than one value. A pizza is a good example. Its crust has one value, but it can have
+several toppings:
 
 ```python
 pizza = {
@@ -31,13 +32,15 @@ You ordered a thick-crust pizza with the following toppings:
         extra cheese
 ```
 
+The `if pizza["toppings"]:` check works because an empty list is `False`. If there are no toppings,
+the code takes the `else` path. We looked at that idea in lesson 5.6.
+
 ---
 
-### Dictionary Elements with Multiple Values
+### Dictionary Values That Hold Lists
 
-In the scenario where we are using a dictionary as a collection of like 
-objects, it is still possible for each one to have multiple values. In this
-case, we can make the value for each key a list.
+When a dictionary holds a collection of similar objects, each object can still have several values.
+In that case, make each key's value a list:
 
 ```python
 favorite_languages = {

@@ -3,7 +3,7 @@
 import numpy as np
 from numpy import ndarray
 
-def add_arr(arr_x: ndarray, arr_y: ndarray):
+def add_arr(arr_x: ndarray, arr_y: ndarray) -> None:
     """Add two arrays"""
     print("Addition:")
     print(f"arr_x:                {arr_x}")
@@ -11,7 +11,7 @@ def add_arr(arr_x: ndarray, arr_y: ndarray):
     print(f"np.add(arr_x, arr_y): {np.add(arr_x, arr_y)}")
     print(f"arr_x + arr_y:        {arr_x + arr_y}\n")
 
-def sub_arr(arr_x: ndarray, arr_y: ndarray):
+def sub_arr(arr_x: ndarray, arr_y: ndarray) -> None:
     """Subtract two arrays"""
     print("Subtraction:")
     print(f"arr_x:                     {arr_x}")
@@ -19,7 +19,7 @@ def sub_arr(arr_x: ndarray, arr_y: ndarray):
     print(f"np.subtract(arr_x, arr_y): {np.subtract(arr_x, arr_y)}")
     print(f"arr_x - arr_y:             {arr_x - arr_y}\n")
 
-def mult_arr(arr_x: ndarray, arr_y: ndarray):
+def mult_arr(arr_x: ndarray, arr_y: ndarray) -> None:
     """Multiply two arrays"""
     print("Multiplication:")
     print(f"arr_x:                     {arr_x}")
@@ -27,7 +27,7 @@ def mult_arr(arr_x: ndarray, arr_y: ndarray):
     print(f"np.multiply(arr_x, arr_y): {np.multiply(arr_x, arr_y)}")
     print(f"arr_x * arr_y:             {arr_x * arr_y}\n")
 
-def div_arr(arr_x: ndarray, arr_y: ndarray):
+def div_arr(arr_x: ndarray, arr_y: ndarray) -> None:
     """Divide two arrays"""
     print("Division:")
     print(f"arr_x:                   {arr_x}")
@@ -35,7 +35,7 @@ def div_arr(arr_x: ndarray, arr_y: ndarray):
     print(f"np.divide(arr_x, arr_y): {np.divide(arr_x, arr_y)}")
     print(f"arr_x / arr_y:           {arr_x / arr_y}\n")
 
-def int_div_arr(arr_x: ndarray, arr_y: ndarray):
+def int_div_arr(arr_x: ndarray, arr_y: ndarray) -> None:
     """Integer Divide two arrays"""
     print("Integer Division:")
     print(f"arr_x:                         {arr_x}")
@@ -43,7 +43,7 @@ def int_div_arr(arr_x: ndarray, arr_y: ndarray):
     print(f"np.floor_divide(arr_x, arr_y): {np.floor_divide(arr_x, arr_y)}")
     print(f"arr_x // arr_y:                {arr_x // arr_y}\n")
 
-def mod_arr(arr_x: ndarray, arr_y: ndarray):
+def mod_arr(arr_x: ndarray, arr_y: ndarray) -> None:
     """Compute modulo on two arrays"""
     print("Remainder:")
     print(f"arr_x:                      {arr_x}")
@@ -52,7 +52,7 @@ def mod_arr(arr_x: ndarray, arr_y: ndarray):
     print(f"np.remainder(arr_x, arr_y): {np.remainder(arr_x, arr_y)}")
     print(f"arr_x % arr_y:              {arr_x % arr_y}\n")
 
-def divmod_arr(arr_x: ndarray, arr_y: ndarray):
+def divmod_arr(arr_x: ndarray, arr_y: ndarray) -> None:
     """Compute integer division/modulo on two arrays"""
     print("Integer Division and Remainder:")
     print(f"arr_x:                   {arr_x}")
@@ -63,7 +63,7 @@ def divmod_arr(arr_x: ndarray, arr_y: ndarray):
         print(arr, end=" ")
     print("\n")
 
-def abs_arr(arr: ndarray):
+def abs_arr(arr: ndarray) -> None:
     """Compute absolute values of arrays"""
     print("Absolute Values:")
     print(f"arr:              {arr}")

@@ -41,7 +41,8 @@ names = [
 ```
 
 We want to count the number of names in the list. In tree terminology, these 
-are the leaves (elements containing a value, not another list).
+are the leaves (elements containing a value, not another list). Elements that
+contain another list are the branches.
 
 We can easily see that there are ten leaves:
 
@@ -63,11 +64,27 @@ The list contains 5 leaves
 
 What's going on?
 
-The `len()` function doesn't care that some of the elements themselves are 
-lists any more than Python does when you create it, and the `names` list does
-contain exactly five elements. The problem is that two of those elements are
-lists themselves, and they aren't treated any differently than the elements
-that contain values.
+The `len()` function counts only the top-level elements of the list. It doesn't
+look inside the elements that are lists. We can see the top-level elements
+themselves by looping over the list:
+
+```python
+for index, name in enumerate(names):
+    print(index, name)
+```
+
+Output:
+
+```
+0 Adam
+1 ['Bob', ['Chet', 'Cat'], 'Barb', 'Bert']
+2 Alex
+3 ['Bea', 'Bill']
+4 Ann
+```
+
+Two of those five elements are lists themselves. `len()` counts them as single
+elements, the same as the names, which is why the total is five and not ten.
 
 ---
 
@@ -104,13 +121,14 @@ process it the same way we're processing the current one. This can recurse to
 any number of levels.
 
 I've also included a bit of trace logging so we can see the process through
-its recursive calls.
+its recursive calls. That logging is for learning. Real code wouldn't print on
+every call.
 
 ---
 
-### Testing
+### Running It
 
-We can test our code like this:
+We can run our code like this:
 
 ```python
 num = count_leaves(names)
@@ -142,7 +160,7 @@ The list contains 10 leaves
 ### What's the Point?
 
 You may be asking why I am showing such an esoteric example and thinking, 
-"What's the point? I don't care about leaf-counting on trees structures."
+"What's the point? I don't care about leaf-counting on tree structures."
 
 But you're wrong. There is a real-world analog to this that you use every day,
 and figuring out a way to traverse its contents is a super-common programming

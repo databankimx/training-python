@@ -99,3 +99,5 @@ The topics page for the runner's account, showing Chess and Rock Climbing.
 - `seed.json`: the example topics, owned by user 1
 - `tests/test_ownership.py` (new): tests for ownership and restricted access
 - `tests/test_models.py`, `tests/test_topics_page.py`, `tests/test_topic_page.py`, `tests/test_new_topic.py`, `tests/test_new_entry.py`, `tests/test_edit_entry.py`: each signs in first
+
+---

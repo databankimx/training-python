@@ -6,16 +6,16 @@ NumPy exposes `ufuncs` (Universal Functions) that operate directly on the
 A ufunc can drastically improve performance when working with large arrays
 and array-like objects by *vectorizing* iterative algorithms.
 
-The *vectorization* process converts iterative processes (like `for` 
+The *vectorization* process converts iterative processes (like `for`
 loops) into vector-based operations. Since modern CPUs are optimized for
 vector operations, this not only reduces instruction complexity, but better
 leverages hardware advances.
 
-Additionally, `ufuncs` expose broadcasting and additional methods like 
-`reduce`, `accumulate`, etc. that are very helpful for computation and 
+Additionally, `ufuncs` expose broadcasting and additional methods like
+`reduce`, `accumulate`, etc. that are very helpful for computation and
 can accept extra arguments such as:
 
-* `where`: boolean array or condition defining how the operations should 
+* `where`: boolean array or condition defining how the operations should
   take place
 * `dtype`: defines the return type of elements
 * `out`: defines the array where the return value is copied
@@ -46,7 +46,7 @@ for x, y in zip(lx, ly):
 print("Traditional Zip:")
 print(f"List X: {lx}")
 print(f"List Y: {ly}")
-print(f"Result: {lz}\n")
+print(f"Result: {lz}")
 ```
 
 Output:
@@ -64,7 +64,7 @@ That works fine, but we can simplify this and...
 
 ### Use the NumPy `add` Function:
 
-With NumPy, we can abstract both the `zip` and the `for` loop into a 
+With NumPy, we can abstract both the `zip` and the `for` loop into a
 vectorized operation using the `add()` ufunc.
 
 ```python
@@ -76,7 +76,7 @@ az = np.add(lx, ly)
 print("NumPy Add:")
 print(f"List X: {lx}")
 print(f"List Y: {ly}")
-print(f"Result: {az}\n")
+print(f"Result: {az}")
 ```
 
 Output:
@@ -95,7 +95,7 @@ Or, we can even...
 ### Use the NumPy `add` Function on Arrays:
 
 One thing that the traditional `zip()` process cannot do is perform the
-same task using arrays as the source data instead of lists. The ufunc 
+same task using arrays as the source data instead of lists. The ufunc
 `add()` allows us to do that:
 
 ```python
@@ -107,7 +107,7 @@ az = np.add(ax, ay)
 print("NumPy Add Arrays:")
 print(f"Array X: {ax}")
 print(f"Array Y: {ay}")
-print(f"Result: {az}\n")
+print(f"Result: {az}")
 ```
 
 Output:

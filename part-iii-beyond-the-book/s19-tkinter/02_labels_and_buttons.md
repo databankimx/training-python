@@ -8,6 +8,9 @@ label = tk.Label(window, text="Hello, tkinter!", font=("Segoe UI", 14))
 button = tk.Button(window, text="Click me", command=on_click)
 ```
 
+The widgets don't appear until they're placed in the window. The code below uses
+`pack()` for that, which the next lesson covers in detail.
+
 The `command` option is the function to call. Pass the function itself, with
 no brackets: `command=on_click`, not `command=on_click()`. The brackets would
 run the function straight away.

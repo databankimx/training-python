@@ -76,11 +76,16 @@ from relative_paths import get_path
 
 def download_image(url: str) -> None:
     """Store an image file"""
-    image = requests.get(url, timeout=10).content
+    response = requests.get(url, timeout=10)
+    response.raise_for_status()
     filename = url.split("/")[-1]
     filepath = Path(get_path(filename, "images"))
-    filepath.write_bytes(image)
+    filepath.write_bytes(response.content)
 ```
+
+The `raise_for_status()` call matters. `requests.get()` doesn't raise an error for a
+404 or 500 response, so without it, the server's error page would be saved under the
+image's file name.
 
 ---
 
@@ -98,6 +103,12 @@ def scrape_images(url: str, soup: BeautifulSoup) -> None:
         print("   -", source)
         download_image(base_url + source)
 ```
+
+The `scrape_with_soup()`, `get_links()`, `parse_text_content()`, and `scrape_page()`
+functions come from the earlier lessons.
+
+> Note: the code file turns off a Sonar warning on the base URL lines in
+> `scrape_images()` and `main()`. Those comments stay in the code file.
 
 ---
 

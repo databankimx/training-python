@@ -3,7 +3,7 @@
 from full_car import Car, ElectricCar
 
 print("Chapter 9:")
-print("Exercise 6-c - Importing Multiple Classes")
+print("Exercise 6-c - Importing Multiple Classes\n")
 
 my_gas_car = Car("volkswagen", "beetle", 1967)
 print(my_gas_car.get_descriptive_name())

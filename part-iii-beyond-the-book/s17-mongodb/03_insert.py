@@ -1,10 +1,11 @@
 """Insert a document into a collection in MongoDB"""
 
+from typing import Any
 from login import get_settings, get_client, server_connected
 from pymongo import MongoClient
 from pymongo.synchronous.collection import Collection
 
-def connect(settings: dict[str, any]=None) -> tuple[MongoClient, Collection]|None:
+def connect(settings: dict[str, Any] | None = None) -> tuple[MongoClient, Collection] | None:
     """Connect to MongoDB database"""
     if not settings:
         settings = get_settings()
@@ -22,7 +23,7 @@ def connect(settings: dict[str, any]=None) -> tuple[MongoClient, Collection]|Non
     print(f"Connected to collection: `{col.name}`\n")
     return (client, col)
 
-def insert_doc(col: Collection, data: dict[str, any]) -> None:
+def insert_doc(col: Collection, data: dict[str, Any]) -> None:
     """Insert a document into the collection"""
     try:
         print(f"Inserting document into collection...\n{data}")
@@ -33,7 +34,7 @@ def insert_doc(col: Collection, data: dict[str, any]) -> None:
     except Exception as e:
         print(f"Failed to insert document: {str(e)}\n")
 
-def insert_multiple(col: Collection, data: list[dict[str, any]]) -> None:
+def insert_multiple(col: Collection, data: list[dict[str, Any]]) -> None:
     """Insert multiple documents into the collection"""
     try:
         print("Inserting multiple documents into collection...")

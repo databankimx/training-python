@@ -1,6 +1,6 @@
 ## Uniform Distribution
 
-In a *Uniform Distribution*, any value within the range is equally likely 
+In a *Uniform Distribution*, any value within the range is equally likely
 to occur.
 
 The formula for a uniform distribution is:
@@ -46,8 +46,9 @@ Output:
 
 <img src="../images/uniform_kde.png" style="width:300px">
 
-It's no surprise that the curve immediately leaps to a nearly flat peak
-at zero and remains there until the upper limit of one.
+The curve stays at roughly the same height across the whole range. The smoothing
+of the KDE makes the edges at zero and one drop off a little, but otherwise
+the curve is flat.
 
 ---
 
@@ -80,11 +81,11 @@ possible values showing similar frequency.
 
 ### Comparing Uniform and Normal Distributions
 
-Here is an example showing a Uniform distribution and a normal 
+Here is an example showing a uniform distribution and a normal
 distribution.
 
 > Note: These are not comparing the same data. The idea is to visually
-> understand how a Uniform plot compares to a normal distribution plot.
+> understand how a uniform plot compares to a normal distribution plot.
 
 ```python
 from numpy import random
@@ -96,6 +97,7 @@ uni = rng.uniform(size=1000)
 norm = rng.normal(size=1000)
 sns.kdeplot(uni, fill=True, color="blue", label="Uniform")
 sns.kdeplot(norm, fill=True, color="red", label="Normal")
+plt.legend()
 plt.show()
 ```
 

@@ -7,12 +7,12 @@ from ranks import Ranks
 from card import Card
 from hand import Hand
 
-class Deck(object):
+class Deck:
     """Models a deck of playing cards"""
     # pylint: disable=fixme
     # TODO: Add support for jokers #NOSONAR
 
-    def __init__(self, game: str=None, color: Colors=Colors.WHITE) -> None:
+    def __init__(self, game: str | None = None, color: Colors = Colors.WHITE) -> None:
         """Initialize the deck"""
         self.game = game
         self.back: Card = Card(back=True)
@@ -23,14 +23,14 @@ class Deck(object):
                 self.cards.append(Card(game, suit, rank, color))
         shuffle(self.cards)
 
-    def deal(self, hand: Hand, num_cards: int=1) -> None:
+    def deal(self, hand: Hand, num_cards: int = 1) -> None:
         """Deal cards"""
         for _ in range(num_cards):
             card = self.cards.pop(0)
             self.used.append(card)
             hand.cards.append(card)
 
-    def deal_hand(self, num_cards: int=1) -> Hand:
+    def deal_hand(self, num_cards: int = 1) -> Hand:
         """Deal a hand of cards"""
         hand = Hand(self.game)
         self.deal(hand, num_cards)

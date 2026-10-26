@@ -16,7 +16,7 @@ class User:
 
     def describe(self):
         """Describe the user"""
-        print(f"\nName:       {self.first_name.title()} {self.last_name.title()}")
+        print(f"Name:       {self.first_name.title()} {self.last_name.title()}")
         print(f"Username:   {self.username.upper()}")
 
     def increment_login_attempts(self):
@@ -29,4 +29,4 @@ class User:
 
     def get_login_attempts(self):
         """Read the login attempt counter"""
-        print(f"Login Attempts: {self.login_attempts}\n")
+        print(f"Login Attempts: {self.login_attempts}")

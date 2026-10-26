@@ -7,7 +7,7 @@ from trie_node import TrieNode
 class Trie:
     """Models a trie (alphabet only)"""
 
-    def __init__(self, size: int=26, base_char: str="a") -> None:
+    def __init__(self, size: int = 26, base_char: str = "a") -> None:
         """Initialize"""
         self.size = size
         self.root = TrieNode(self.size)
@@ -23,7 +23,7 @@ class Trie:
             current_node = current_node.children[index]
         current_node.word_end = True
 
-    def prefix_exists(self, key: str, get_node: bool=False) -> bool|TrieNode:
+    def prefix_exists(self, key: str, get_node: bool = False) -> bool | TrieNode | None:
         """Check if prefix exists in the trie"""
         current_node = self.root
         for c in key.lower():
@@ -73,9 +73,10 @@ class Trie:
         self.root.children[ord(key[0]) - self.offset] = None
         return True
 
-    def list_words(self, prefix: str=None) -> None:
+    def list_words(self, prefix: str | None = None) -> None:
         """List all words in the trie that start with the given prefix"""
-        current_node = self.root if prefix is None else self.prefix_exists(prefix, True)
+        prefix = prefix or ""
+        current_node = self.root if not prefix else self.prefix_exists(prefix, True)
         if current_node is None:
             return
         self.show_all_words(current_node, prefix)
@@ -90,7 +91,7 @@ class Trie:
                 continue
             self.show_all_words(node, prefix + chr(i + self.offset))
 
-    def load_words(self, file_name: str, folder: str = None) -> None:
+    def load_words(self, file_name: str, folder: str | None = None) -> None:
         """Load words from a file into the trie"""
         words = Path(file_path(file_name, folder)).read_text(encoding="UTF-8").splitlines()
         for word in words:

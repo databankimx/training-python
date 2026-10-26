@@ -1,9 +1,9 @@
-# Note: While we're including multiple classes in this file, it is because they are related.
-#       It's smart in the real world to separate unrelated classes in separate modules
-#       In lesson 9.11, we will separate these
-
-# Include a module-level doc string
 """A set of classes used to represent gas and electric cars"""
+
+# In this lesson, these classes are split into car.py and electric_car.py
+# to show how modules import each other. They're grouped here because
+# they're related. It's smart in the real world to separate unrelated
+# classes into their own modules.
 
 class Car:
     """Define a car"""
@@ -21,7 +21,7 @@ class Car:
         self.model = model
         self.year = year
         self.odometer_reading = 0
-        self.fuel_level = 0
+        self.fuel_level = 0.0
 
     def get_descriptive_name(self) -> str:
         """
@@ -35,7 +35,7 @@ class Car:
 
     def read_odometer(self) -> None:
         """Get the odometer mileage"""
-        print(f"This car has {self.odometer_reading} miles on it.\n")
+        print(f"This car has {self.odometer_reading} miles on it.")
 
     def set_odometer(self, mileage: int) -> None:
         """
@@ -64,11 +64,11 @@ class Car:
             print("You can't add negative miles!")
 
     def fill_gas_tank(self) -> None:
-        """Set the fuel level to full"""
+        """Fill the gas tank"""
         self.fuel_level = 1
 
     def check_fuel_level(self) -> None:
-        """Get the fuel level"""
+        """Check the fuel level"""
         fuel_state = "empty"
         if self.fuel_level == 1.0: #NOSONAR
             fuel_state = "full"
@@ -80,7 +80,7 @@ class Car:
             fuel_state = "one quarter full"
         elif self.fuel_level > 0.0:
             fuel_state = "running on fumes"
-        print(f"Fuel Status: {fuel_state}\n")
+        print(f"Fuel Status: {fuel_state}")
 
 
 class ElectricCar(Car):
@@ -99,12 +99,12 @@ class ElectricCar(Car):
         self.battery = Battery()
 
     def fill_gas_tank(self) -> None:
-        """Set the fuel level to full"""
+        """Explain that an electric car has no gas tank"""
         print("This car doesn't have a gas tank!")
 
     def check_fuel_level(self) -> None:
-        """Get the fuel level"""
-        print("This car doesn't contain any fuel!\n")
+        """Explain that an electric car has no fuel"""
+        print("This car doesn't contain any fuel!")
 
 
 class Battery:
@@ -125,12 +125,12 @@ class Battery:
 
     def get_range(self) -> None:
         """Get the battery range in miles"""
-        battery_range = "unknown"
+        battery_range = "unknown" #NOSONAR
         if self.battery_size == 75:
             battery_range = 260
         elif self.battery_size == 100:
             battery_range = 315
-        print(f"This car can go about {battery_range} miles on a full charge.\n")
+        print(f"This car can go about {battery_range} miles on a full charge.")
 
     def upgrade_battery(self) -> None:
         """Upgrade the battery"""

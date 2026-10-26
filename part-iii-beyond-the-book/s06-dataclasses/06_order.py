@@ -1,4 +1,4 @@
-"""DataClass `order` Argument"""
+"""Dataclass `order` argument"""
 
 from dataclasses import dataclass
 

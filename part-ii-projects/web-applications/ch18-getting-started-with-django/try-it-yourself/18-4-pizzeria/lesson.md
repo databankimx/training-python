@@ -91,3 +91,5 @@ The Pizzas list in the admin site, showing Hawaiian and Meat Lovers.
 - `pizzeria_project/`: the project settings, URLs, WSGI and ASGI files
 - `pizzas/`: the app, with its models, admin registration, migration and tests
 - `manage.py`: the command-line tool
+
+---

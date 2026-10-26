@@ -9,7 +9,7 @@ from mechanicalsoup import Browser
 import requests
 from bs4 import BeautifulSoup
 
-class WebScraper():
+class WebScraper:
     """Simple web scraping bot"""
 
     def __init__(self, config_loc: str="data",
@@ -55,14 +55,14 @@ class WebScraper():
 
     def scrape_with_soup(self, url: str) -> BeautifulSoup:
         """Returns soup object"""
-        page = urlopen(url)
-        html = page.read().decode("utf-8")
+        with urlopen(url) as page:
+            html = page.read().decode("utf-8")
         return BeautifulSoup(html, "html.parser")
 
     def get_links(self, url: str) -> list[str]:
         """Obtain the links to the profile pages"""
         soup = self.scrape_with_soup(self.full_url(url))
-        links = [l["href"] for l in soup.find_all("a")]
+        links = [link["href"] for link in soup.find_all("a")]
         if self.debug:
             self.debug_message(f"Obtained links: {links}\n")
         return links
@@ -75,10 +75,11 @@ class WebScraper():
 
     def download_image(self, url: str) -> None:
         """Store an image file"""
-        image = requests.get(self.full_url(url), timeout=10).content
+        response = requests.get(self.full_url(url), timeout=10)
+        response.raise_for_status()
         filename = url.split("/")[-1]
         filepath = Path(get_path(filename, self.img_folder))
-        filepath.write_bytes(image)
+        filepath.write_bytes(response.content)
         if self.debug:
             self.debug_message(f"Stored image: {filename}\n")
 

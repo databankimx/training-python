@@ -95,3 +95,5 @@ No output yet. The ship appears in the next step.
 
 - `ship.py` (new)
 - `images/ship.bmp` (added to this step's `images` folder, from the book's resources)
+
+---

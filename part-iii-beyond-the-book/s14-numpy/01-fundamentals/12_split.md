@@ -68,8 +68,8 @@ Split array:
 #### Splitting 1D Array into Unequal Parts
 
 When an array cannot be split into equal parts (for example, if we split
-a six-element array into four arrays), the imbalances will be included
-in the lowest index result arrays.
+a six-element array into four arrays), the extra elements go into the
+lowest index result arrays.
 
 ```python
 import numpy as np
@@ -111,6 +111,7 @@ Output:
 ```
 Original array:
 [1 2 3 4]
+
 Split array:
 [array([1]), array([2]), array([3]), array([4]), array([], dtype=int64)]
 ```
@@ -119,10 +120,10 @@ Split array:
 
 ### Splitting 2D Arrays
 
-When we split two-dimensional arrays, just like joining, we need to 
+When we split two-dimensional arrays, just like joining, we need to
 specify the axis on which we will split (default: `axis=0`).
 
-To get things to format nicely in the lesson output, I had to get a 
+To get things to format nicely in the lesson output, I had to get a
 little sneaky in printing by creating this function:
 
 ```python
@@ -130,7 +131,7 @@ import numpy as np
 
 def print_2d(arr: list[np.ndarray]) -> None:
     """Print out 2D split results"""
-    print(f"\nSplit array:\n[")
+    print("\nSplit array:\n[")
     for ar in arr:
         print(f" array({','.join(str(ar).splitlines())})")
     print("]")
@@ -140,7 +141,7 @@ def print_2d(arr: list[np.ndarray]) -> None:
 
 #### Splitting 2D Arrays by Row (`axis=0`)
 
-Here is an example where we're splitting a 2D array by columns:
+Here is an example where we split a 2D array by rows:
 
 ```python
 import numpy as np
@@ -174,7 +175,7 @@ Split array:
 
 #### Splitting 2D Arrays by Column (`axis=1`)
 
-Here is an example where we're splitting a 2D array by rows:
+Here is an example where we split a 2D array by columns:
 
 ```python
 import numpy as np
@@ -243,7 +244,7 @@ Split array:
 
 ### Vertical Splitting with `vsplit()`
 
-... and vertically:
+We can also split vertically with `vsplit()`:
 
 ```python
 import numpy as np

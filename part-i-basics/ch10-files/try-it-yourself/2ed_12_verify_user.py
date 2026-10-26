@@ -1,4 +1,4 @@
-"""Assignment 10.13 (2nd Edition)"""
+"""Assignment 10.12 (2nd Edition)"""
 
 # Verify User: The final listing for remember_me.py assumes either that the
 #              user has already entered their username or that the program is
@@ -20,7 +20,7 @@ def store_user(filepath):
 
     username = f"{first_name[0]}{last_name}".upper()
 
-    with open(filepath, "w", encoding="utf-8") as f:
+    with open(filepath, "w", encoding="UTF-8") as f:
         json.dump(username, f)
 
     return username
@@ -28,7 +28,7 @@ def store_user(filepath):
 def get_stored_user(filepath):
     """Attempt to retrieve the username from JSON file"""
     try:
-        with open(filepath, encoding="utf-8") as f:
+        with open(filepath, encoding="UTF-8") as f:
             username = json.load(f)
     except FileNotFoundError:
         return None
@@ -53,7 +53,7 @@ def greet_user(filepath):
         print(f"\nWe'll remember you when you come back, {username.upper()}\n")
 
 print("Try-it-Yourself:")
-print("Assignment 10.13\n")
+print("Assignment 10.12\n")
 
 file_name = "username.json"
 file_path = os.path.join(ROOT_DIR, "Files", file_name)

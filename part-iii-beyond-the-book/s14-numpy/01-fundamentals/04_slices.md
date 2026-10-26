@@ -10,10 +10,14 @@ array.
 Slices on one-dimensional arrays are identical to list slices.
 
 * We indicate a slice instead of an index like this: `[start:end]`
+* The `end` index is exclusive, so `[1:5]` includes indices 1 through 4
 * We can also define the step, like this: `[start:end:step]`
 * If we omit start it defaults to `0`
 * If we omit end it defaults to `len(array)`
 * If we omit step it defaults to `1`
+
+> Note: the code file prints a heading before each group of examples (for example,
+> "Simple Slices:"). Those headings are left out of the outputs here.
 
 #### Simple Slices
 
@@ -61,24 +65,27 @@ Output:
 
 ---
 
-#### Slice Copies
+#### Slice Views (Not Copies)
 
-Here is an example of the "copy" shorthand using a slice:
+A slice with `[::]` looks like a copy, but in NumPy it returns a *view*, which
+shares its data with the original array. Changing the view changes the original.
 
 ```python
 import numpy as np
 
 arr = np.array([1, 2, 3, 4, 5, 6, 7])
 print(arr)
-print("copy", arr[::])
+print("view", arr[::])
 ```
 
 Output:
 
 ```
 [1 2 3 4 5 6 7]
-copy [1 2 3 4 5 6 7]
+view [1 2 3 4 5 6 7]
 ```
+
+We'll look at copies and views in detail in the copies and views lesson.
 
 ---
 

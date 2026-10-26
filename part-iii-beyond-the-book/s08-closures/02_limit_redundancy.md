@@ -1,8 +1,8 @@
 ## Using an Inner Function to Limit Redundancy
 
-In the section covering [recursion](../s02-recursion/01_what_is_recursion.md),
-we covered the computation of a factorial as an example of a recursive 
-function defined thus:
+In the [recursive factorial lesson](../s02-recursion/03_recursive_factorial.md),
+we computed a factorial with a recursive function defined thus. This version
+adds `print` calls, so you can see the redundant checks:
 
 ```python
 def factorial(n: int) -> int | None:
@@ -16,6 +16,9 @@ def factorial(n: int) -> int | None:
         return 1
     return n * factorial(n - 1)
 ```
+
+This "before" version isn't in the code file for this lesson. It's here only for
+comparison.
 
 This function is wasteful, since it validates the input every time it is
 called.
@@ -60,13 +63,13 @@ def factorial(n: int) -> int | None:
     if not isinstance(n, int) or n < 0:
         print(f"Invalid input [{n}]! Must be a non-negative integer.")
         return None
-    
+
     def inner_factorial(n: int) -> int:
         print(f"inner_factorial called with {n}...")
         if n < 2:
             return 1
         return n * inner_factorial(n - 1)
-    
+
     return inner_factorial(n)
 ```
 

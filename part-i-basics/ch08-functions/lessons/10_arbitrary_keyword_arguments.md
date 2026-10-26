@@ -1,33 +1,32 @@
-## Passing an Arbitrary Amount of Keyword Arguments
+## Passing an Arbitrary Number of Keyword Arguments
 
-Like positional arguments, Python permits an arbitrary number of keyword
-arguments to be passed to a function.
+Just as Python lets you pass an arbitrary number of positional arguments, it lets you pass an arbitrary
+number of keyword arguments.
 
-To implement this pattern, you declare one of the function's parameters with
-two asterisks:
+To set this up, put two asterisks in front of one of the function's parameters:
 
 ```python
 def my_function(**kwargs):
     # Function code
 ```
 
-You can precede the arbitrary keyword argument parameter with any number of 
-positional arguments and (optionally) an arbitrary positional arguments
-parameter. However, like arbitrary positional arguments, only the last 
-parameter can be declared for arbitrary keyword arguments.
+You can place any number of standard positional parameters before the keyword parameter, and optionally
+an arbitrary positional parameter as well. As with arbitrary positional arguments, only the last
+parameter can collect arbitrary keyword arguments.
 
 ```python
 def my_function(arg1, arg2, ..., *args, **kwargs):
     # Function code
 ```
 
-Arbitrary keyword arguments are received by the function as a dictionary.
+The function receives arbitrary keyword arguments as a dictionary.
 
 ---
 
-### A Function Accepting Arbitrary Keyword Arguments
+### A Function that Accepts Arbitrary Keyword Arguments
 
-Here, we are passing two positional arguments and two keyword arguments. The function interprets the keyword arguments as a dictionary.
+Here, we pass two positional arguments and two keyword arguments. The function collects the keyword
+arguments into a dictionary.
 
 ```python
 def build_profile(first, last, **user_info):
@@ -48,26 +47,32 @@ Output:
 
 ---
 
-### Bonus: Reversing the Arbitrary Keywords Concept
+### Bonus: Reversing the Arbitrary Keyword Idea
 
-Consider a function that takes several arguments:
+Consider a function that takes three arguments:
 
 ```python
 def sum_up(x, y, z):
+    """Calculate the sum of three numbers."""
     print(f"{x} + {y} + {z} = {x + y + z}")
 ```
 
-#### Wrong Number of Arguments : TypeError
+#### Wrong Number of Arguments: TypeError
 
-If we have a dictionary containing two of the arguments by name, we cannot 
-simply pass the collection, even if it has the correct number of values, since 
-it would only pass the dictionary as a single argument.
+Suppose you have a dictionary that holds two of the values, keyed by parameter name:
+
+```python
+values = {"y": 3, "z": 4}
+```
+
+If you pass the dictionary as a single argument, Python treats it as the first value, `x`, and
+`z` has nothing to receive it:
 
 ```python
 sum_up(2, values)
 ```
 
-Output:
+Output (sample output; the file name and line number depend on your program):
 
 ```
 Traceback (most recent call last):
@@ -78,14 +83,14 @@ TypeError: sum_up() missing 1 required positional argument: 'z'
 
 ---
 
-#### Splitting Out the Key:Value Pairs
+#### Splitting Out the Key-Value Pairs
 
-When we prepend two asterisks to a dictionary, we're instructing Python to 
-split it into its component key:value pairs and pass them as keyword arguments.
+When you put two asterisks in front of a dictionary in a function call, Python splits it into its
+key-value pairs and passes each pair as a keyword argument.
 
-While `**param` in a function takes a group of separate variables and makes
-them a single dictionary, `**arg` in a function call takes a single dictionary 
-and splits it into separate keyword arguments.
+The two uses of the asterisks are related. In a function definition, `**param` gathers keyword arguments
+into a single dictionary. In a function call, `**arg` takes a single dictionary and splits it into
+separate keyword arguments.
 
 So this pattern works:
 
@@ -93,13 +98,16 @@ So this pattern works:
 sum_up(2, **values)
 ```
 
-The `2` is read into the function as positional argument `x`, and the
-dictionary is passed as two keyword arguments: `y` and `z`.
+The `2` goes to the positional parameter `x`, and the dictionary supplies `y` and `z` as keyword
+arguments.
 
 Output:
 
 ```
 2 + 3 + 4 = 9
 ```
+
+> **About the `.py` file:** the `TypeError` line is commented out, so the file runs to the end. Uncomment
+> it to see the error.
 
 ---

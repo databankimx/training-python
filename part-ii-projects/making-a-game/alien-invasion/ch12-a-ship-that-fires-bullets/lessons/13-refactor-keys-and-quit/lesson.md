@@ -83,3 +83,5 @@ The game looks the same as in the last step, so there's no screenshot for this s
 
 - `alien_invasion.py`: splits key handling into `_check_keydown_events()` and
   `_check_keyup_events()`, and adds Q to quit
+
+---

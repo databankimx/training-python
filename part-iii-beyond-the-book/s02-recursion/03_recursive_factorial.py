@@ -13,6 +13,7 @@ def main() -> None:
     """Main process to test factorial function"""
     for n in range(10):
         print(f"{n}! = {factorial(n)}")
+    print(factorial(-1))
 
 if __name__ == "__main__":
     main()

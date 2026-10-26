@@ -59,9 +59,9 @@ def mass_constants() -> None:
     print("grain:      ", sc.grain)       #6.479891e-05
     print("lb:         ", sc.lb)          #0.45359236999999997
     print("pound:      ", sc.pound)       #0.45359236999999997
-    print("blob:       ", sc.blob)        #
-    print("slinch:     ", sc.slinch)      #
-    print("slug:       ", sc.slug)        #
+    print("blob:       ", sc.blob)        #175.12683524647636
+    print("slinch:     ", sc.slinch)      #175.12683524647636
+    print("slug:       ", sc.slug)        #14.593902937206364
     print("oz:         ", sc.oz)          #0.028349523124999998
     print("ounce:      ", sc.ounce)       #0.028349523124999998
     print("stone:      ", sc.stone)       #6.3502931799999995
@@ -147,7 +147,7 @@ def area_constants() -> None:
     print("acre:   ", sc.acre)    #4046.8564223999992
     pause()
 
-def volume_constants():
+def volume_constants() -> None:
     """Display volume constants."""
     clear_terminal()
     print("Volume Constants (in m³):")

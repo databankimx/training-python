@@ -10,33 +10,32 @@ One obstacle in file handling is locating the path to a file.
 
 There are two different types of file paths to be aware of:
 
-* Absolute Path: complete path to the target file, typically starting with a 
-  drive letter, UNC, or URL
-* Relative Path: path to the target file relative to the location of the 
+* Absolute Path: complete path to the target file, typically starting with a
+  drive letter or a UNC path
+* Relative Path: path to the target file relative to the location of the
   script calling it
 
-In Visual Studio Code, when you execute a Python script, the starting 
-directory for a relative path is the directory you have navigated to in your 
+In Visual Studio Code, when you execute a Python script, the starting
+directory for a relative path is the directory you have navigated to in your
 terminal instance.
 
-You can target a file properly by making sure that the terminal is in a 
+You can target a file properly by making sure that the terminal is in a
 location where it is available.
 
 Or you can provide the full, absolute path to the target file in your code.
 
-Either will work. However, it's inconvenient to have to navigate in the 
-terminal or type in an entire disk path every time you want to interact with a 
+Either will work. However, it's inconvenient to have to navigate in the
+terminal or type in an entire disk path every time you want to interact with a
 file.
 
 ---
 
-### Accessing a Relative Path in Code:
+### Accessing a Relative Path in Code
 
-Alternately, you can come up with a method to obtain the location of the file 
+Alternately, you can come up with a method to obtain the location of the file
 relative to the script and start from there.
 
-This is my preferred mechanism, and I will use it throughout the lesson
-samples in this chapter.
+This is my preferred method, so the samples in this chapter use it.
 
 ### Resource Notes:
 
@@ -54,7 +53,8 @@ from os import path
 
 ROOT_DIR = None
 
-def get_path(file_name: str, folder: str | None=None, parent_levels: int | None=0, debug: bool | None=False) -> str:
+def get_path(file_name: str, folder: str | None=None,
+             parent_levels: int | None=0, debug: bool | None=False) -> str:
     """
     Find the relative path to a specified file
 
@@ -70,7 +70,8 @@ def get_path(file_name: str, folder: str | None=None, parent_levels: int | None=
     initialize(debug)
     for _ in range(parent_levels):
         file_name = path.join("..", file_name)
-    file_path = path.join(ROOT_DIR, file_name) if folder == None else path.join(ROOT_DIR, folder, file_name)
+    file_path = path.join(ROOT_DIR, file_name) if folder is None \
+                else path.join(ROOT_DIR, folder, file_name)
     if debug:
         print(f"Set file path: {file_path}")
     return file_path
@@ -83,13 +84,17 @@ def initialize(debug: bool | None=False) -> None:
     * **debug**: If True, print debug information (optional - default: False)
     """
     global ROOT_DIR
-    if ROOT_DIR != None: return
+    if ROOT_DIR is not None:
+        return
     ROOT_DIR = path.dirname(__file__)
     if debug:
         print(f"Set root directory: {ROOT_DIR}")
 ```
 
 </details><br>
+
+The code file turns off a Pylint warning about the `global` statement in
+`initialize()`. That comment stays in the module file.
 
 **Second Edition**  
 For examples related to the 2nd edition of the textbook, I have included a
@@ -134,12 +139,16 @@ demonstrate different methods to actually read the file itself.
 Both methods are valid, but within the lessons related to each edition, I will
 use that edition's method throughout the code samples.
 
+Both methods also take an `encoding` argument, set here to `"UTF-8"`. That tells
+Python how to turn the bytes in the file into characters. We'll look at encodings
+in more detail in the ASCII and UTF-8 bonus lesson.
+
 **Second Edition**  
 For examples related to the 2nd edition of the textbook, we use the following
 process based on `with open(file_path) as variable_name`:
 
 ```python
-with open(file_path) as file:
+with open(file_path, encoding="UTF-8") as file:
     text = file.read()
     print(text.rstrip())
 ```
@@ -162,7 +171,7 @@ process based on the `pathlib.Path` class:
 from pathlib import Path
 
 file = Path(file_path)
-contents = file.read_text()
+contents = file.read_text(encoding="UTF-8")
 print(contents.rstrip())
 ```
 
@@ -175,4 +184,3 @@ Output:
 ```
 
 ---
-

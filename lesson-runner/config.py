@@ -3,6 +3,8 @@ Shared settings for the lesson runner: paths, color palettes, fonts
 and the visualization table.
 """
 
+# pylint: disable=line-too-long
+
 from __future__ import annotations
 from pathlib import Path
 from PySide6.QtCore import Qt #pylint: disable=no-name-in-module #NOSONAR
@@ -12,7 +14,7 @@ VENDOR = HERE / "vendor"
 
 # Steps that have a step-through visualization, as "folder/stem" -> algorithm name.
 # The player in each chapter's visualizations/ folder loads the matching algorithm script.
-VISUALIZATIONS = {
+VISUALIZATIONS: dict[str, str] = {
     "s04-big-o-complexity/01_linear_search": "linear-search",
     "s04-big-o-complexity/02_binary_search": "binary-search",
     "s04-big-o-complexity/03_selection_sort": "selection-sort",
@@ -24,7 +26,7 @@ VISUALIZATIONS = {
     "s04-big-o-complexity/09_shell_sort": "shell-sort",
 }
 
-DARK = {
+DARK: dict[str, str] = {
     "bg": "#1E1E1E", "panel": "#252526", "border": "#3F3F46", "fg": "#D4D4D4",
     "accent": "#007ACC", "accent_hover": "#1C97EA", "success": "#4EC9B0",
     "error": "#F44747", "muted": "#858585", "selection": "#264F78",
@@ -32,7 +34,7 @@ DARK = {
     "typ": "#4EC9B0", "fn": "#DCDCAA", "var": "#9CDCFE",
     "badge": "#2D3B48", "warn": "#CCA700",
 }
-LIGHT = {
+LIGHT: dict[str, str] = {
     "bg": "#FFFFFF", "panel": "#F3F3F3", "border": "#CCCEDB", "fg": "#1E1E1E",
     "accent": "#007ACC", "accent_hover": "#1C97EA", "success": "#007F5F",
     "error": "#CC0000", "muted": "#717171", "selection": "#ADD6FF",
@@ -41,7 +43,7 @@ LIGHT = {
     "badge": "#DCE7F2", "warn": "#9A6700",
 }
 
-CODE_FAMILIES = ["Cascadia Mono", "Cascadia Code", "JetBrains Mono", "Consolas"]
-UI_FAMILY = "Segoe UI"
-FLUSH_ROLE = int(Qt.ItemDataRole.UserRole) + 1  # marks tree items to shift left to the arrow column
-C_NOTE = "// Note: this runner does not support compiling or executing C code.\n"
+CODE_FAMILIES: list[str] = ["Cascadia Mono", "Cascadia Code", "JetBrains Mono", "Consolas"]
+UI_FAMILY: str = "Segoe UI"
+FLUSH_ROLE: int = int(Qt.ItemDataRole.UserRole) + 1  # marks tree items to shift left to the arrow column
+C_NOTE: str = "// Note: this runner does not support compiling or executing C code.\n"

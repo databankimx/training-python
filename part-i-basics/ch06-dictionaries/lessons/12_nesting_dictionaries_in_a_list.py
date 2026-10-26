@@ -10,11 +10,25 @@ aliens = [alien_0, alien_1, alien_2]
 for alien in aliens:
     print(alien)
 
-print("---")
+print()
 
 num_aliens = 30
 aliens = []
-for alien_number in range(num_aliens):
+for _ in range(num_aliens):
+    new_alien = {"color": "green", "points": 5, "speed": "slow"}
+    aliens.append(new_alien)
+print(len(aliens), aliens[0])
+
+print()
+
+aliens = [{"color": "green", "points": 5}] * 3
+aliens[0]["color"] = "red"
+print(aliens)
+
+print()
+
+aliens = []
+for _ in range(num_aliens):
     new_alien = {"color": "green", "points": 5, "speed": "slow"}
     aliens.append(new_alien)
 
@@ -26,5 +40,3 @@ for alien in aliens[:3]:
 
 for alien in aliens[:5]:
     print(alien)
-print("...")
-print(f"Total aliens: {len(aliens)}")

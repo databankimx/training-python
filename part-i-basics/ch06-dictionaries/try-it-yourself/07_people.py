@@ -6,7 +6,7 @@
 print("Try-it-Yourself:")
 print("Assignment 6.7")
 
-person1 = {"first_name": "Scott", "last_name": "McLean", "age": 52, "city": "Lewisville"}
+person1 = {"first_name": "Marcus", "last_name": "Reyes", "age": 38, "city": "Toledo"}
 person2 = {"first_name": "Jeremy", "last_name": "McLean", "age": 47, "city": "Columbus"}
 person3 = {"first_name": "Hillary", "last_name": "Taylor", "age": 50, "city": "Twinsburg"}
 people = [person1, person2, person3]

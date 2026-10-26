@@ -1,37 +1,34 @@
 ## Looping over Lists
 
-If we look back at assignment 3.6, we spent a lot of time repeatedly printing 
-the members of a list, one at a time.
+Back in exercise 3.6, the guest list, we printed each guest on their own line,
+one `print()` after another. It worked, but it was tedious, and it broke a basic rule
+of good code: don't repeat yourself.
 
-That's really awful, and it violates the principle of not writing redundant 
-code.
+Wouldn't it be nice to look at every item in a list and run the same instructions
+on each one? Good news. You can.
 
-Wouldn't it be neat if we had a way to look at all the items in a list and 
-repeat an instruction on each one?
+### Looping with `for`
 
-Well, I have some good news for you!
-
-### Iterating Lists with `for`
-
-In Python a `for` loop is like a "foreach" loop in C#. The loop iterates over
-the list, capturing each element and performing some task(s) with it.
-
-The syntax is as follows:
+In Python, a `for` loop works a lot like a "foreach" loop in C#. The loop goes through
+the list one item at a time, and for each item it runs the code inside the loop:
 
 ```python
 for item in collection:
-    # Code to perform on each item
+    # Code to run on each item
 ```
 
-Across Python, a line ending in a colon indicates the start of a block 
-containing indented lines below it.
+That line ends with a colon. In Python, a colon means "a block of code starts here,"
+and the lines that belong to the block are indented below it.
 
-> Note: Indents are required for code blocks and follow specific rules:
+> **About indenting:** Indentation is how Python knows which lines belong together, so
+> it matters more than it looks.
 >
-> * The indentation must always be the same throughout the Python file<br>
->   e.g.: four spaces is not the same as a tab character
-> * Only indent inside a block
-> * If a block contains another block, indent twice inside the inner block
+> * Keep the indentation consistent within a block. Four spaces, every time.
+> * Mixing tabs and spaces causes an error in Python 3 when the indentation doesn't
+>   line up, even if it looks right on screen.
+> * Indent only inside a block.
+> * When a block sits inside another block, each level gets one more indent. Indent
+>   once for the outer block, and once more for the inner one.
 
 ---
 
@@ -42,7 +39,7 @@ containing indented lines below it.
 ```python
 magicians = ["alice", "david", "carolina"]
 for magician in magicians:
-    # Indented line executes on each loop iteration
+    # The indented line runs on each loop iteration
     print(magician)
 ```
 
@@ -58,17 +55,17 @@ carolina
 
 #### A more thorough example
 
-The code block within a `for` loop can contain multiple instructions.
+A loop's block can hold as many statements as you need.
 
-A non-indented line following the loop is executed after the loop completes.
+A line that isn't indented runs once, after the loop finishes:
 
 ```python
 magicians = ["alice", "david", "carolina"]
 for magician in magicians:
-    # Indented lines execute on each loop iteration
+    # The indented lines run on each loop iteration
     print(f"{magician.title()}, that was a great trick!")
     print(f"I can't wait to see your next one.\n")
-# Non-indented line executes after the loop is complete
+# This line isn't indented, so it runs after the loop is complete
 print("That was a great magic show!\n")
 ```
 
@@ -89,14 +86,17 @@ That was a great magic show!
 
 ---
 
-### Be Careful Indenting
+### Be Careful with Indenting
 
-One logic error that you absolutely ***will*** make is incorrectly indenting a block in a loop.
+Incorrect indentation is one of the most common mistakes in a loop, and Python
+won't always tell you about it. It just does what you wrote.
 
-#### Indenting a Line that Should Not Be indented
+#### Indenting a line that shouldn't be indented
 
-If you indent a line in a loop's block, that line will be repeated on each
-iteration, whether or not you want it to be:
+If you indent a line in a loop's block, that line runs on every iteration, whether
+you wanted it to or not. The example below uses `range()`, which produces a sequence
+of numbers. We'll cover it properly in the next lesson, so for now, just know that
+`range(3, 0, -1)` counts down from 3 to 1:
 
 ```python
 for i in range(3, 0, -1):
@@ -115,10 +115,8 @@ Blast off!
 Blast off!
 ```
 
-We indented the third line, so the second `print()` statement ran on each
-iteration.
-
-What we meant to do was this:
+We indented the second `print()`, so it ran on every iteration. What we meant was
+this:
 
 ```python
 for i in range(3, 0, -1):
@@ -137,11 +135,10 @@ Blast off!
 
 ---
 
-#### Not Indenting a Line That Should Be Indented
+#### Not indenting a line that should be indented
 
-Failing to indent a line that should be indented is also a problem. The
-opposite issue occurs. We have an action that should be taken on each
-iteration, but it only occurs at the end of the loop.
+The opposite mistake is just as easy. If a line should run on every iteration but
+isn't indented, it runs once, after the loop ends:
 
 ```python
 for i in range(3, 0, -1):
@@ -149,6 +146,7 @@ for i in range(3, 0, -1):
 print(message)
 print("Blast off!")
 ```
+
 Output:
 
 ```
@@ -156,10 +154,8 @@ Output:
 Blast off!
 ```
 
-We failed to indent the third line, so the message is only printed once:
-after the loop terminates.
-
-What we meant to do was this:
+The `message` line wasn't indented, so it ran after the loop, and only the last value
+survived. What we meant was this:
 
 ```python
 for i in range(3, 0, -1):
@@ -167,6 +163,7 @@ for i in range(3, 0, -1):
     print(message)
 print("Blast off!")
 ```
+
 Output:
 
 ```

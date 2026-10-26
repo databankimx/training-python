@@ -1,14 +1,12 @@
 """DataBank IMX logo, drawn from the two SVG paths in the WPF MainWindow.xaml.
 
-The paths are converted to polygons in a 1000 x 1000 coordinate space, which
-can then be drawn on a Canvas (nav header) or rasterised into a PhotoImage
-(window icon). Nothing is read from an image file.
+The paths are converted to polygons in a 1000 x 1000 coordinate space. The icons
+module draws them with Qt. Nothing is read from an image file.
 """
 
 from __future__ import annotations
 
 import math
-import tkinter as tk
 
 SIZE = 1000.0
 ARC_STEPS = 24
@@ -47,16 +45,17 @@ def _arc_points(x1: float, y1: float, rx: float, ry: float,
     elif sweep == 1 and delta < 0:
         delta += 2 * math.pi
 
-    points = []
+    points: list[tuple[float, float]] = []
     for step in range(1, ARC_STEPS + 1):
         theta = theta1 + delta * step / ARC_STEPS
         points.append((cx + rx * math.cos(theta), cy + ry * math.sin(theta)))
     return points
 
 
-def _cubic_points(p0, p1, p2, p3) -> list[tuple[float, float]]:
+def _cubic_points(p0: tuple[float, float], p1: tuple[float, float],
+                  p2: tuple[float, float], p3: tuple[float, float]) -> list[tuple[float, float]]:
     """Points along a cubic Bezier curve, start excluded."""
-    points = []
+    points: list[tuple[float, float]] = []
     for step in range(1, CUBIC_STEPS + 1):
         t = step / CUBIC_STEPS
         mt = 1 - t
@@ -87,45 +86,3 @@ def _second_shape() -> list[tuple[float, float]]:
 def shapes() -> list[list[tuple[float, float]]]:
     """The logo as a list of polygons in 1000 x 1000 units."""
     return [_first_shape(), _second_shape()]
-
-
-def draw_on_canvas(canvas: tk.Canvas, size: int, colour: str) -> None:
-    """Draw the logo filling a square canvas of the given pixel size."""
-    scale = size / SIZE
-    canvas.delete("all")
-    for polygon in shapes():
-        flat = []
-        for x, y in polygon:
-            flat.extend((x * scale, y * scale))
-        canvas.create_polygon(*flat, fill=colour, outline=colour)
-
-
-def _inside(px: float, py: float, polygon: list[tuple[float, float]]) -> bool:
-    """Even-odd point-in-polygon test."""
-    inside = False
-    count = len(polygon)
-    for index in range(count):
-        x1, y1 = polygon[index]
-        x2, y2 = polygon[(index + 1) % count]
-        if (y1 > py) != (y2 > py):
-            crossing = x1 + (py - y1) * (x2 - x1) / (y2 - y1)
-            if px < crossing:
-                inside = not inside
-    return inside
-
-
-def icon_photo(master: tk.Misc, size: int, foreground: str) -> tk.PhotoImage:
-    """A square icon: the logo in foreground colour, with a transparent background."""
-    photo = tk.PhotoImage(master=master, width=size, height=size)
-    polygons = shapes()
-    for row in range(size):
-        py = (row + 0.5) / size * SIZE
-        for col in range(size):
-            px = (col + 0.5) / size * SIZE
-            hit = any(_inside(px, py, polygon) for polygon in polygons)
-            if hit:
-                photo.put(foreground, to=(col, row))
-                photo.transparency_set(col, row, False)
-            else:
-                photo.transparency_set(col, row, True)
-    return photo

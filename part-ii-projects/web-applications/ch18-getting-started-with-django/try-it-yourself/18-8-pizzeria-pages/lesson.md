@@ -77,3 +77,5 @@ The list of pizzas at `http://127.0.0.1:8000/pizzas/`, with Hawaiian and Meat Lo
 The toppings page for Hawaiian, at `http://127.0.0.1:8000/pizzas/1/`, showing pineapple and Canadian bacon.
 
 ![The toppings page for Hawaiian](lesson-images/pizza-toppings.png)
+
+---

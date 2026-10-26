@@ -113,3 +113,5 @@ The home page with its banner, and a topic page with its entries as cards.
 - `learning_logs/templates/learning_logs/new_topic.html`, `new_entry.html`, `edit_entry.html`: the forms, with Bootstrap's form styling
 - `accounts/templates/registration/login.html`, `register.html`: the sign-in and registration forms
 - `learning_logs/test_styling.py` (new): tests for the styling
+
+---

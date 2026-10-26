@@ -3,7 +3,7 @@
 import pandas as pd
 from utilities import file_path
 
-def load_from_csv(filepath: str, printout: bool=False) -> pd.DataFrame:
+def load_from_csv(filepath: str, printout: bool = False) -> pd.DataFrame:
     """Load data from a CSV file into a Pandas DataFrame"""
     df = pd.read_csv(filepath)
     if printout:
@@ -21,7 +21,7 @@ def check_duplicates(df: pd.DataFrame) -> None:
         print(duplicates, "\n")
 
 def check_duplicate_dates(df: pd.DataFrame) -> None:
-    """Check for duplicate rows in the DataFrame"""
+    """Check for duplicate dates in the DataFrame"""
     duplicates = df[df.duplicated(subset=["Date"])]
     if duplicates.empty:
         print("No duplicate date rows found.")

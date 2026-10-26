@@ -1,8 +1,8 @@
 ## Introduction to tkinter
 
 Python includes a GUI toolkit called **tkinter**. It's part of the standard
-library, so there's nothing extra to install, and it runs on Windows, macOS,
-and Linux.
+library, so there's usually nothing extra to install (some Linux distributions
+ship it as a separate package), and it runs on Windows, macOS, and Linux.
 
 A tkinter program is a window that waits for things to happen. You create
 the window and its widgets (buttons, labels, text boxes, and so on), and then

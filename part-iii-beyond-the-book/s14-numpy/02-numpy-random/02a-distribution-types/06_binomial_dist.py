@@ -1,21 +1,21 @@
 """Binomial Distribution"""
 
-from numpy import ndarray, long
+from numpy import ndarray
 from numpy import random
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-def binomial_kde(binom: ndarray[long]) -> None:
+def binomial_kde(binom: ndarray) -> None:
     """Plot a binomial distribution's KDE curve"""
     sns.kdeplot(binom, fill=True, color="blue")
     plt.show()
 
-def binomial_hist(binom: ndarray[long]) -> None:
+def binomial_hist(binom: ndarray) -> None:
     """Plot a binomial distribution's histogram"""
     sns.histplot(binom)
     plt.show()
 
-def binomial_vs_normal(binom: ndarray[long], norm: ndarray[long]) -> None:
+def binomial_vs_normal(binom: ndarray, norm: ndarray) -> None:
     """Plot a binomial distribution compared with a normal distribution"""
     sns.kdeplot(binom, fill=True, color="blue", label="Binomial")
     sns.kdeplot(norm, fill=True, color="red", label="Normal")
