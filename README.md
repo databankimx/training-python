@@ -154,34 +154,42 @@ Several Beyond the Book chapters use only the standard library, including S19
 (`tkinter`), S26 (`itertools`), and S27 (`functools`). On Linux, tkinter must be installed separately, for example with
 `sudo apt install python3-tk`.
 
-### Licensing of libraries
+## Third Party Licenses
 
-The libraries in this repository are used under the following conditions.
+All libraries and third-party components used in this training repository are listed in the tables above. Usage terms vary, with some libraries approved for the training repository only, and others usable in closed-source commercial work.
 
-**Approved for the training repository only.** Development leadership has approved the
-following libraries for use in `training-python`, on the condition that there are no
-liabilities in how the solution is packaged:
+### Licensing Categories
 
-* PySide6 (LGPL/GPL, or commercial) - lesson runner
-* mysql-connector-python (GPL-2.0 with FOSS exception) - S12
-* pygame (LGPL-2.1) - S23, and Part II
+**Approved for the training repository only** — Development leadership has approved the following libraries for use in `training-python`, **only for running the tutorial and the lesson runner from this repository**. They may **not** be packaged, bundled, or delivered in closed-source products:
 
-This approval covers running the tutorial and the lesson runner from this repository.
-It does **not** cover packaged or delivered projects. Do not use these libraries, or
-code that depends on them, in an installer, a PyInstaller or other bundled build, a
-container image, a client deliverable, or any closed-source product. If you want to
-move any code out of this repository, stop and take it to development leadership first.
-The approval does not carry over to the new code.
+* **PySide6** (LGPL/GPL, or commercial) — lesson runner UI
+* **mysql-connector-python** (GPL-2.0 with FOSS exception) — S12 MySQL integration
+* **pygame** (LGPL-2.1) — S23 Game of Life, and Part II Alien Invasion project
 
-**Other libraries** in the tables above are under permissive licenses (MIT, BSD, or
-Apache 2.0), and can be used in closed-source work under the Development Rules of
-Engagement.
+Do not use these libraries or code that depends on them in:
+- Packaged installers (PyInstaller, cx_Freeze, py2exe)
+- Container images (Docker, Podman)
+- Client deliverables or production products
+- Any closed-source project
 
-**Vendored files.** MathJax (Apache 2.0) and Prism (MIT) are copied into the lesson
-runner's `vendor/` folder. Keep their license and notice files with them.
+**If you want to move any code out of this repository**, stop and take it to development leadership first. The approval does not carry over to new code.
 
-The full policy is in [Development Rules of Engagement](development-rules-of-engagement.md),
-section 12.
+**Permissive licenses** — Libraries in the tables above that are under MIT, BSD, or Apache 2.0 licenses can be used in closed-source work under the Development Rules of Engagement:
+
+- `sm-utils` (MIT)
+- `beautifulsoup4`, `requests`, `mechanicalsoup` (MIT/BSD)
+- `numpy`, `pandas`, `matplotlib`, `seaborn`, `scipy` (BSD/Apache 2.0)
+- `pymongo` (Apache 2.0)
+- `pyperclip` (BSD)
+- `build`, `twine` (MIT)
+- `markdown-it-py`, `mdit-py-plugins` (MIT)
+- Standard library and permissive third-party packages
+
+**Vendored files** — MathJax (Apache 2.0) and Prism (MIT) are copied into the lesson runner's `vendor/` folder. Keep their license and notice files with them.
+
+**Pytest** (MIT) is approved for testing in this repository and in projects using the Development Rules of Engagement.
+
+The full policy is in [Development Rules of Engagement](development-rules-of-engagement.md), section 12.
 
 ### VS Code settings
 

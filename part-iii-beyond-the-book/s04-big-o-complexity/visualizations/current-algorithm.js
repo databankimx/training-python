@@ -1,1 +1,1 @@
-window.CURRENT_ALGORITHM = "shell-sort";
+window.CURRENT_ALGORITHM = "linear-search";
