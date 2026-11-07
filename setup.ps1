@@ -95,6 +95,52 @@ function Install-WithWinget([string]$id, [string]$label) {
 
 # 1. Python ---------------------------------------------------------------------------------------
 
+Write-Step "0. Git and the repository"
+$gitPath = $null
+$gitCommand = Get-Command git -ErrorAction SilentlyContinue
+if ($gitCommand) {
+    $gitPath = $gitCommand.Source
+} elseif (Test-Path "C:\Program Files\Git\cmd\git.exe") {
+    $gitPath = "C:\Program Files\Git\cmd\git.exe"
+}
+if (-not $gitPath -and $InstallMissing) {
+    Write-Note "Git isn't installed, so it will be installed."
+    Install-WithWinget "Git.Git" "Git" | Out-Null
+    $gitCommand = Get-Command git -ErrorAction SilentlyContinue
+    if ($gitCommand) { $gitPath = $gitCommand.Source }
+    elseif (Test-Path "C:\Program Files\Git\cmd\git.exe") { $gitPath = "C:\Program Files\Git\cmd\git.exe" }
+}
+if (-not (Test-Path (Join-Path $root "QUICKSTART.md"))) {
+    # The script is running outside the repository. Clone it, or use the existing clone, then run its copy.
+    $defaultRepoPath = "C:\Development\training\training-python"
+    $repoUrl = "https://github.com/databankimx/training-python.git"
+    if (-not (Test-Path (Join-Path $defaultRepoPath "QUICKSTART.md"))) {
+        if (-not $gitPath) {
+            Stop-Setup "Git is needed to clone the repository. Run this script with -InstallMissing, or install Git from https://git-scm.com."
+        }
+        Write-Note "Cloning $repoUrl into $defaultRepoPath"
+        New-Item -ItemType Directory -Force -Path (Split-Path $defaultRepoPath -Parent) | Out-Null
+        & $gitPath clone --branch main $repoUrl $defaultRepoPath
+        if ($LASTEXITCODE -ne 0) {
+            Stop-Setup "git clone failed (exit code $LASTEXITCODE). Check the address, and your access to the repository."
+        }
+    } else {
+        Write-Note "Using the repository at $defaultRepoPath"
+    }
+    $childScript = Join-Path $defaultRepoPath "setup.ps1"
+    if (Test-Path $childScript) {
+        # The repository has its own copy of this script, so run that copy.
+        $childParams = @{}
+        if ($InstallMissing) { $childParams["InstallMissing"] = $true }
+        & $childScript @childParams
+        exit $LASTEXITCODE
+    }
+    # The repository doesn't have this script yet, so carry on here, using the clone's files.
+    Write-Note "The repository has no setup.ps1 yet, so this copy continues the setup."
+    $root = $defaultRepoPath
+    Set-Location $root
+}
+
 Write-Step "1. Python 3.12 or later"
 $pythonVersion = Get-PythonVersion
 if (-not $pythonVersion) {

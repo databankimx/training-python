@@ -20,6 +20,8 @@ powershell -ExecutionPolicy Bypass -File .\setup.ps1
 
 The `-ExecutionPolicy Bypass` part lets this one script run. It doesn't change any setting on your machine.
 
+If you don't have the repository yet, run the script from the folder where you saved it, not from inside a clone. It installs Git (with `-InstallMissing`), clones the repository into `C:\Development\training\training-python`, and continues from the clone.
+
 The script leaves three things to you:
 
 - **Installing Python and Node.js.** The script checks for them. Add `-InstallMissing` to have it install them with winget, using
