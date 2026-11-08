@@ -19,7 +19,7 @@
 #   powershell -ExecutionPolicy Bypass -File .\setup.ps1 -InstallMissing
 
 param(
-    [switch]$InstallMissing
+    [bool]$InstallMissing = $true
 )
 
 $ErrorActionPreference = "Stop"
@@ -130,8 +130,7 @@ if (-not (Test-Path (Join-Path $root "QUICKSTART.md"))) {
     $childScript = Join-Path $defaultRepoPath "setup.ps1"
     if (Test-Path $childScript) {
         # The repository has its own copy of this script, so run that copy.
-        $childParams = @{}
-        if ($InstallMissing) { $childParams["InstallMissing"] = $true }
+        $childParams = @{ InstallMissing = $InstallMissing }
         & $childScript @childParams
         exit $LASTEXITCODE
     }
@@ -304,6 +303,38 @@ if ($token) {
 }
 
 # Summary -------------------------------------------------------------------------------------------
+
+# VS Code and the Python extension ---------------------------------------------------------------------
+
+Write-Step "VS Code and the Python extension"
+$codeCommand = Get-Command code -ErrorAction SilentlyContinue
+if (-not $codeCommand -and $InstallMissing) {
+    Write-Note "VS Code isn't on PATH, so it will be installed with winget."
+    & winget install -e --id Microsoft.VisualStudioCode --accept-package-agreements --accept-source-agreements
+    if ($LASTEXITCODE -ne 0 -and $LASTEXITCODE -ne -1978335189) {
+        Add-Warning "VS Code couldn't be installed with winget (exit code $LASTEXITCODE). Install it from code.visualstudio.com, then run this script again."
+    }
+    foreach ($folder in @((Join-Path $env:LOCALAPPDATA "Programs\Microsoft VS Code\bin"), (Join-Path $env:ProgramFiles "Microsoft VS Code\bin"))) {
+        if (Test-Path (Join-Path $folder "code.cmd")) { $env:Path = "$folder;$env:Path" }
+    }
+    $codeCommand = Get-Command code -ErrorAction SilentlyContinue
+}
+if (-not $codeCommand) {
+    Add-Warning "VS Code isn't on PATH, so the Python extension wasn't installed. Install VS Code (winget install --id Microsoft.VisualStudioCode -e), open a new PowerShell window, and run this script again."
+    $script:results["VS Code"] = "missing"
+} else {
+    $script:results["VS Code"] = "ok"
+    $installedExtensions = (& code --list-extensions 2>$null)
+    if ($installedExtensions -contains "ms-python.python") {
+        Write-Note "The Python extension is already installed."
+    } else {
+        Write-Note "Installing the Python extension..."
+        & code --install-extension ms-python.python
+        if ($LASTEXITCODE -ne 0) {
+            Add-Warning "The Python extension couldn't be installed. In VS Code, install 'Python' (Microsoft) from the Extensions view."
+        }
+    }
+}
 
 Write-Step "Summary"
 foreach ($item in $script:results.GetEnumerator()) {
