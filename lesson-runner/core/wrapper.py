@@ -52,6 +52,25 @@ def _clear(*_args: object, **_kwargs: object) -> None:
     _emit("clear")
 
 
+def _prepare_audio(source: str) -> None:
+    """Let pygame's sound calls succeed on a machine with no sound device, such as a virtual machine.
+
+    If the lesson uses pygame and the sound device can't start, pygame is told to use its silent driver. The mixer
+    still starts, so music and sound calls work and play nothing. A machine with a sound device is unchanged.
+    """
+    if "pygame" not in source or "SDL_AUDIODRIVER" in os.environ:
+        return
+    try:
+        import pygame  # pylint: disable=import-outside-toplevel
+    except ImportError:
+        return
+    try:
+        pygame.mixer.init()
+        pygame.mixer.quit()
+    except pygame.error:
+        os.environ["SDL_AUDIODRIVER"] = "dummy"
+
+
 def _patch_sm_utils() -> None:
     """Route the sm_utils helpers used by the lessons to the runner."""
     try:
@@ -74,6 +93,7 @@ def main() -> int:
 
     with open(source_file, encoding="utf-8") as handle:
         source = handle.read()
+    _prepare_audio(source)
     namespace: dict[str, object] = {"__name__": "__main__", "__file__": original, "__builtins__": builtins}
     try:
         code = compile(source, original, "exec")
