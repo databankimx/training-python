@@ -223,6 +223,7 @@ You can skip all of these, and every lesson still runs.
 | Chapter 17 reports a GitHub rate limit | The token isn't set. Repeat step 5, then open a new PowerShell window. |
 | S12 or S17 reports a connection error | The database server isn't running. Those lessons need a server (see step 3). |
 | A Pylint or import error appears in the Making a Game files only in VS Code | Repeat step 6, and reload the window. |
+| `pygame.mixer not initialized`, or a sound error, when a lesson with music runs on a machine with no sound device (for example, a virtual machine) | The runner handles this for lessons it starts. For a run from VS Code, set the silent audio driver in the PowerShell window before you start VS Code: `$env:SDL_AUDIODRIVER = "dummy"`, then `code .`. Don't set it on a machine with sound, since the sound won't play. |
 | `Could not open requirements file` | Run the install command from the folder it names. The path is relative to where you are. |
 
 If a problem isn't listed here, note the step you were on and the full error text, then report it. Include the Output pane text, because the first error is
