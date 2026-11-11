@@ -12,7 +12,7 @@ Commands are for **Windows PowerShell**, and assume you're in the repository roo
 If you'd rather not type each command, `setup.ps1` in the repository root runs steps 2 to 7 below, in order. It's safe to run more than once: anything already
 in place is skipped.
 
-First, install **Python 3.12** and **Node.js** (steps 1 below). Then, from the repository root, run:
+The script installs Python 3.12 and Node.js if they're missing, so you don't need to install them first. Open **PowerShell as Administrator**, go to the repository root, and run:
 
 ```pwsh
 powershell -ExecutionPolicy Bypass -File .\setup.ps1
@@ -20,13 +20,11 @@ powershell -ExecutionPolicy Bypass -File .\setup.ps1
 
 The `-ExecutionPolicy Bypass` part lets this one script run. It doesn't change any setting on your machine.
 
-If you don't have the repository yet, run the script from the folder where you saved it, not from inside a clone. It installs Git (with `-InstallMissing`), clones the repository into `C:\Development\training\training-python`, and continues from the clone.
+If you don't have the repository yet, run the script from the folder where you saved it, not from inside a clone. It installs Git, clones the repository into `C:\Development\training\training-python`, and continues from the clone.
 
 The script leaves three things to you:
 
-- **Installing Python and Node.js.** The script checks for them. Add `-InstallMissing` to have it install them with winget, using
-  `powershell -ExecutionPolicy Bypass -File .\setup.ps1 -InstallMissing`. Without the switch, it stops and shows the winget commands. Company policy can block winget,
-  in which case the script says so and you'll need IT.
+- **Installing Python, Node.js, and VS Code.** The script installs them with winget if they're missing. This needs an Administrator PowerShell. To check only, without installing anything, run `powershell -ExecutionPolicy Bypass -File .\setup.ps1 -InstallMissing:$false`. The script then stops and shows the winget commands. Company policy can block winget, in which case the script says so and you'll need IT.
 - **The GitHub token (step 5).** The script tells you if it isn't set.
 - **The admin account.** The runner asks for it on the first web run (step 9).
 
@@ -41,7 +39,7 @@ or run one part by hand.
 |---|---|---|
 | **Python 3.12** (python.org) | Runs everything | `python --version` shows 3.12 or later |
 | **Node.js LTS** | Supplies MathJax and Prism, which typeset math and code in the lesson runner | `npm --version` prints a version |
-| **VS Code** (optional) | Editor, with the Python extension | |
+| **VS Code** (installed by the script) | Editor, with the Python extension | |
 | **Git** (optional) | Updating the repository | `git --version` |
 
 When you run the Python installer, tick **Add python.exe to PATH**, and tick **tcl/tk and IDLE**. The second option is what gives you `tkinter`, which the
@@ -223,6 +221,7 @@ You can skip all of these, and every lesson still runs.
 | Chapter 17 reports a GitHub rate limit | The token isn't set. Repeat step 5, then open a new PowerShell window. |
 | S12 or S17 reports a connection error | The database server isn't running. Those lessons need a server (see step 3). |
 | A Pylint or import error appears in the Making a Game files only in VS Code | Repeat step 6, and reload the window. |
+| `pygame.mixer not initialized`, or a sound error, when a lesson with music runs on a machine with no sound device (for example, a virtual machine) | The runner handles this for lessons it starts. For a run from VS Code, set the silent audio driver in the PowerShell window before you start VS Code: `$env:SDL_AUDIODRIVER = "dummy"`, then `code .`. Don't set it on a machine with sound, since the sound won't play. |
 | `Could not open requirements file` | Run the install command from the folder it names. The path is relative to where you are. |
 
 If a problem isn't listed here, note the step you were on and the full error text, then report it. Include the Output pane text, because the first error is
