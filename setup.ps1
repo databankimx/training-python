@@ -225,7 +225,13 @@ if ((Test-Path $mathJaxFile) -and (Test-Path $prismFile)) {
         if (-not (Test-Path (Join-Path $vendor "package.json"))) {
             Invoke-Checked "npm" @("init", "-y")
         }
-        Invoke-Checked "npm" @("install", "mathjax@3", "prismjs@1")
+        # Use the committed lock file, which pins MathJax 3.2.2 and Prism 1.30.0 with their sha512 integrity values.
+        # npm ci refuses to install anything that differs from the lock file. If there is no lock file, install the exact versions.
+        if (Test-Path (Join-Path $vendor "package-lock.json")) {
+            Invoke-Checked "npm" @("ci")
+        } else {
+            Invoke-Checked "npm" @("install", "mathjax@3.2.2", "prismjs@1.30.0")
+        }
     } finally {
         Pop-Location
     }

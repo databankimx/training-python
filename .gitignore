@@ -230,3 +230,6 @@ secrets.*
 
 # Claude working notes (not for the repo)
 claude-resume.md
+
+# Installed by npm ci in setup.ps1. Regenerated on each setup run, so not tracked.
+lesson-runner/vendor/node_modules/
