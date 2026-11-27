@@ -99,6 +99,21 @@ pip install sm-utils
 # Install chapter-specific libraries as needed (see below)
 ```
 
+### Start the lesson runner
+
+With the virtual environment activated, start the runner:
+
+```pwsh
+cd .\lesson-runner
+py app.py
+```
+
+If the virtual environment isn't activated, run the runner with the environment's Python directly from the repository root:
+
+```pwsh
+.venv\Scripts\python.exe lesson-runner\app.py
+```
+
 ### Libraries by section
 
 | Library | Section | Install |
@@ -227,11 +242,7 @@ Add these to your VS Code User Settings JSON (`Ctrl+Shift+P` -> `Preferences: Op
 
 The lesson runner is a Qt desktop application that lets you browse chapters, read lesson notes, and run code examples interactively. Lessons are rendered with MathJax for math and Prism for code.
 
-Setup (the `vendor/` MathJax and Prism files, and the Python packages) is in [lesson-runner/README.md](lesson-runner/README.md). Once it's set up, start the runner from the repository root:
-
-```pwsh
-python lesson-runner/app.py
-```
+Setup (the `vendor/` MathJax and Prism files, and the Python packages) is in [lesson-runner/README.md](lesson-runner/README.md). Once it's set up, start the runner as described in [Start the lesson runner](#start-the-lesson-runner) above.
 
 #### Finding lessons
 

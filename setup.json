@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 2,
+  "name": "Working With Python",
+  "folder": "training-python",
+  "repoUrl": "https://github.com/databankimx/training-python.git",
+  "branch": "dev",
+  "baseDirectory": "C:\\Development\\training",
+  "runTests": false,
+  "installs": {
+    "git": { "install": true, "winget": "Git.Git" },
+    "powershell7": { "install": true, "pinned": "7", "winget": "Microsoft.PowerShell" },
+    "python": {
+      "install": true,
+      "pinned": "3.12",
+      "sideBySide": true,
+      "winget": "Python.Python.3.12"
+    },
+    "node": { "install": true, "pinned": "24", "orNewer": true, "winget": "OpenJS.NodeJS.LTS" },
+    "vcRuntime": { "install": true },
+    "vscode": {
+      "install": true,
+      "winget": "Microsoft.VisualStudioCode",
+      "extensions": [ "ms-python.python" ]
+    },
+    "notepadPlusPlus": { "install": false, "winget": "Notepad++.Notepad++" },
+    "buildTools": { "install": false }
+  },
+  "steps": [
+    {
+      "name": "Repository environment (.venv)",
+      "type": "python-venv",
+      "folder": ".",
+      "path": ".venv",
+      "requirements": "lesson-runner\\requirements.txt",
+      "requires": [ "python" ]
+    },
+    {
+      "name": "Lesson libraries",
+      "type": "command",
+      "folder": ".",
+      "exe": ".venv\\Scripts\\python.exe",
+      "args": [
+        "-m", "pip", "install",
+        "pytest", "pygame", "matplotlib", "requests", "plotly", "sm-utils",
+        "beautifulsoup4", "mechanicalsoup", "numpy", "pandas", "seaborn", "scipy",
+        "pyperclip", "build", "twine", "pymongo", "mysql-connector-python"
+      ],
+      "requires": [ "python" ]
+    },
+    {
+      "name": "MathJax and Prism",
+      "type": "npm",
+      "folder": "lesson-runner\\vendor",
+      "command": "ci",
+      "requires": [ "node" ]
+    },
+    {
+      "name": "Web applications environment (.venv)",
+      "type": "python-venv",
+      "folder": "part-ii-projects\\web-applications",
+      "path": ".venv",
+      "requirements": "ch20-styling-and-deploying\\lessons\\01-bootstrap-setup\\requirements.txt",
+      "requires": [ "python" ]
+    },
+    {
+      "name": "Flask packages",
+      "type": "command",
+      "folder": "part-ii-projects\\web-applications",
+      "exe": ".venv\\Scripts\\python.exe",
+      "args": [
+        "-m", "pip", "install", "-r",
+        "..\\..\\part-iii-beyond-the-book\\s25-flask-learning-log\\01-flask-setup\\requirements.txt"
+      ],
+      "requires": [ "python" ]
+    },
+    {
+      "name": "VS Code settings",
+      "type": "copy",
+      "source": "resources\\vscode\\settings.json",
+      "dest": ".vscode\\settings.json",
+      "backup": true
+    },
+    {
+      "name": "GitHub token (Chapter 17)",
+      "type": "check-variable",
+      "variable": "GITHUB_TRAINING_TOKEN",
+      "message": "GITHUB_TRAINING_TOKEN isn't set. Chapter 17 needs it, or GitHub's rate limit will stop the exercises. See part-ii-projects\\data-visualization\\github-token-setup.md."
+    }
+  ],
+  "launch": {
+    "ide": "vscode",
+    "kind": "none"
+  }
+}
