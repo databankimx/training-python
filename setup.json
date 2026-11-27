@@ -3,7 +3,7 @@
   "name": "Working With Python",
   "folder": "training-python",
   "repoUrl": "https://github.com/databankimx/training-python.git",
-  "branch": "main",
+  "branch": "dev",
   "baseDirectory": "C:\\Development\\training",
   "runTests": false,
   "installs": {
@@ -22,7 +22,7 @@
       "winget": "Microsoft.VisualStudioCode",
       "extensions": [ "ms-python.python" ]
     },
-    "notepadPlusPlus": { "install": false, "winget": "Notepad++.Notepad++" },
+    "notepadPlusPlus": { "install": true, "winget": "Notepad++.Notepad++" },
     "buildTools": { "install": false }
   },
   "steps": [
