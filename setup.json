@@ -3,7 +3,7 @@
   "name": "Working With Python",
   "folder": "training-python",
   "repoUrl": "https://github.com/databankimx/training-python.git",
-  "branch": "dev",
+  "branch": "main",
   "baseDirectory": "C:\\Development\\training",
   "runTests": false,
   "installs": {
