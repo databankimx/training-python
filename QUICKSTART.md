@@ -9,29 +9,112 @@ Commands are for **Windows PowerShell**, and assume you're in the repository roo
 
 ## Quick setup with the script
 
-If you'd rather not type each command, `setup.ps1` in the repository root runs steps 2 to 7 below, in order. It's safe to run more than once: anything already
-in place is skipped.
+### What gets installed
 
-The script installs Python 3.12 and Node.js if they're missing, so you don't need to install them first. Open **PowerShell as Administrator**, go to the repository root, and run:
+By default, the setup installs:
+
+* Git
+* PowerShell 7
+* Python 3.12
+* Node.js 24 or newer
+* Microsoft Visual C++ runtime
+* VS Code, with the extensions ms-python.python
+* Notepad++
+
+The setup then runs these steps: Repository environment (.venv); Lesson libraries; MathJax and Prism; Web applications environment (.venv); Flask packages; VS Code settings; GitHub token (Chapter 17). At the end it opens the repository in VS Code.
+
+### Getting started
+
+There are three methods available to set up this tutorial. They are currently Windows-only.
+
+#### Full Automation (if you don't have Git currently set up)
+
+This process will install Git and copy the repository to a subfolder of `C:\Development\training` and install all necessary software and extensions for the tutorial's lesson runner.
+
+1. Obtain the tutorial's GitHub slug name, which is `training-python`
+2. Open PowerShell using "Run as Administrator"
+3. Run the script below
 
 ```pwsh
-powershell -ExecutionPolicy Bypass -File .\setup.ps1
+# Obtain the load tutorial script
+irm https://raw.githubusercontent.com/databankimx/training-shared-template/main/load-tutorial.ps1 -OutFile "$env:TEMP\load-tutorial.ps1"
+
+# Perform automated setup
+powershell -NoProfile -ExecutionPolicy Bypass -File "$env:TEMP\load-tutorial.ps1" -RepoUrl https://github.com/databankimx/training-python.git
 ```
 
-The `-ExecutionPolicy Bypass` part lets this one script run. It doesn't change any setting on your machine.
+#### Automated Setup from Local Repo (assumes you already have Git installed and set up)
 
-If you don't have the repository yet, run the script from the folder where you saved it, not from inside a clone. It installs Git, clones the repository into `C:\Development\training\training-python`, and continues from the clone.
+In this process, you pull the existing repository and then run its setup script, which installs all necessary software and extensions for the tutorial's lesson runner.
 
-The script leaves three things to you:
+1. Obtain the tutorial's GitHub slug name, which is `training-python`
+2. Open PowerShell using "Run as Administrator"
+3. If you will use the default base directory `C:\Development\training`, run the following:
 
-- **Installing Python, Node.js, and VS Code.** The script installs them with winget if they're missing. This needs an Administrator PowerShell. To check only, without installing anything, run `powershell -ExecutionPolicy Bypass -File .\setup.ps1 -InstallMissing:$false`. The script then stops and shows the winget commands. Company policy can block winget, in which case the script says so and you'll need IT.
-- **The GitHub token (step 5).** The script tells you if it isn't set.
-- **The admin account.** The runner asks for it on the first web run (step 9).
+```pwsh
+# Create the base folder if it doesn't exist yet
+New-Item -ItemType Directory -Force -Path C:\Development\training | Out-Null
+```
 
-When the script finishes, it prints a summary and any warnings. Then start the runner (step 8). Steps 1 to 9 below cover the same work, if you need to see what the script does
-or run one part by hand.
+4. Clone the repository. If you're using a different base directory, replace `C:\Development\training` with your path:
 
----
+```pwsh
+# Go there and clone the tutorial
+cd C:\Development\training
+git clone https://github.com/databankimx/training-python.git
+cd training-python
+```
+
+5. If desired, edit the setup configuration, which determines what software is installed automatically (see "Change what gets installed" below)
+
+```pwsh
+# Optional: edit setup.json before installations
+notepad setup.json
+```
+
+6. Save the configuration if you edited it, then run the setup script
+
+##### If using the default base path, run this:
+
+```pwsh
+# Run the setup
+powershell -NoProfile -ExecutionPolicy Bypass -File .\setup.ps1
+```
+
+##### If using a different base path, replace `<BASE_DIR>` with your path and run this:
+
+```pwsh
+# Run the setup
+powershell -NoProfile -ExecutionPolicy Bypass -File .\setup.ps1 -BaseDirectory <BASE_DIR>
+```
+
+#### Manual Setup from Local Repo
+
+If you want to do everything manually, you can pull the repository and set up software on your own.
+
+1. Obtain the tutorial's GitHub slug name, which is `training-python`
+2. Run the script below
+
+```pwsh
+git clone https://github.com/databankimx/training-python.git
+```
+
+3. Review README.md and QUICKSTART.md in the repository for instructions for manual setup.
+
+### Switches and notes
+
+* `-SkipInstall` checks what's installed and installs nothing.
+* `-NoLaunch` runs the setup but doesn't open VS Code or start the runner.
+* Installing uses winget. If winget isn't available, install **App Installer** from the Microsoft Store first. Company policy can block installs, in which case the script stops and you'll need IT.
+* If an install needs administrator rights, the script stops before installing anything and asks you to run it again from an Administrator PowerShell window.
+
+### Change what gets installed
+
+The settings are in `setup.json`, in the repository folder. Open it in any text editor:
+
+* Set an install's `"install"` to `true` to include it, or `false` to skip it.
+* `"pinned"` sets the version. `"extensions"` lists the VS Code extensions to add.
+* Save the file, then run `setup.ps1` again. It skips what's already installed.
 
 ## 1. Install the tools
 
