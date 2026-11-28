@@ -10,36 +10,48 @@ This repository is provided for training and reference purposes only. DataBank I
 
 ## What is this repository for?
 
-- Python developer training curriculum for DataBank IMX
-- Chapter-by-chapter lesson files, code samples, and exercises covering Python fundamentals through advanced topics, based on the *Python Crash Course* textbook (3rd edition) by Eric Matthes
-- Extended with a substantial "Beyond the Book" supplemental track covering topics not addressed in the textbook
-- Includes a Qt-based lesson runner for navigating, reading, and running lessons interactively
+* Python developer training curriculum for DataBank IMX
+* Chapter-by-chapter lesson files, code samples, and exercises covering Python fundamentals through advanced topics, based on the *Python Crash Course* textbook (3rd edition) by Eric Matthes
+* Extended with a substantial "Beyond the Book" supplemental track covering topics not addressed in the textbook
+* Includes a Qt-based lesson runner for navigating, reading, and running lessons interactively
+
+---
+
+---
+
+## Who is this for?
+
+* DataBank IMX developers who are new to Python but not new to programming
+* Developers who need to read, review, or maintain Python code at DataBank
+* Readers who are comfortable at a PowerShell (`pwsh`) prompt, since the command examples use it
 
 ---
 
 ## About
 
-- **Author:** [Scott McLean](mailto:smclean@databankimx.com)
-- **Purpose:** Internal developer training curriculum for DataBank IMX
+* **Author:** [Scott McLean](mailto:smclean@databankimx.com)
+* **Purpose:** Internal developer training curriculum for DataBank IMX
 
 ---
 
 ## DataBank Responsibilities for Custom Code
 
-All DataBank employees - including those working with AI-assisted tools - are bound by the [Development Rules of Engagement](development-rules-of-engagement.md). That document defines the rules for quoting, approving, developing, reviewing, scanning, storing, and delivering custom code for client work.
+All DataBank employees - including those working with AI-assisted tools - are bound by the Development Rules of Engagement, published as the [development-rules-of-engagement.pdf](https://databankimx.sharepoint.com/:b:/r/sites/Hub-PS/DevTools/Policies/development-rules-of-engagement.pdf?d=w1c01477e09e048acbe4c96eba851a183&csf=1&web=1&e=uL7JEw). That document defines the rules for quoting, approving, developing, reviewing, scanning, storing, and delivering custom code for client work.
 
 Key obligations that apply to everyone on every custom code engagement:
 
-- **You own the code you deliver.** This applies equally to hand-written code, AI-assisted code, and AI-generated code. "The AI wrote it" is not an acceptable explanation for a production issue, a failed review, a security finding, or a support problem.
-- **Code must be reviewed before delivery.** Review is interactive and must confirm that the code works, meets DataBank standards, is maintainable, and that the developer understands it well enough to explain, debug, and maintain it. Polished or well-formatted output - including AI-generated output - is not evidence of correctness.
-- **Code must be in source control before delivery.** All custom code must be committed to the appropriate DataBank GitHub Enterprise repository before it is delivered to a client, regardless of whether the client receives source code, compiled binaries, or deployed functionality.
-- **CI scanning must pass before delivery.** Required checks are the standards policy scan, SonarQube, and Snyk. A passing local run is not a substitute.
-- **All third-party dependencies must be license-vetted.** The license must permit closed-source commercial use. Copyleft or unclear licensing must be escalated before use. Dependencies must not be added simply because an AI tool suggested them.
-- **Only approved AI tools may be used.** Use only IT-approved tools through company accounts. All data entered into AI systems must be treated as confidential by default.
-- **Custom code is billable work.** Code must be tied to an approved quote or engagement before commitment or delivery. Development quotes require approval from the Development Director or delegated development leadership before being sent externally.
-- **Exceptions require explicit approval.** Time pressure alone is not a reason to bypass quote approval, source control, review, or CI scanning.
+* **You own the code you deliver.** This applies equally to hand-written code, AI-assisted code, and AI-generated code. "The AI wrote it" is not an acceptable explanation for a production issue, a failed review, a security finding, or a support problem.
+* **Code must be reviewed before delivery.** Review is interactive and must confirm that the code works, meets DataBank standards, is maintainable, and that the developer understands it well enough to explain, debug, and maintain it. Polished or well-formatted output - including AI-generated output - is not evidence of correctness.
+* **Code must be in source control before delivery.** All custom code must be committed to the appropriate DataBank GitHub Enterprise repository before it is delivered to a client, regardless of whether the client receives source code, compiled binaries, or deployed functionality.
+* **CI scanning must pass before delivery.** Required checks are the standards policy scan, SonarQube, and Snyk. A passing local build is not a substitute.
+* **All third-party dependencies must be license-vetted.** The license must permit closed-source commercial use. Copyleft or unclear licensing must be escalated before use. Dependencies must not be added simply because an AI tool suggested them.
+* **Only approved AI tools may be used.** Use only IT-approved tools through company accounts. All data entered into AI systems is subject to the [DataBank AI Acceptable Use Policy](https://workforcenow.adp.com/mascsr/wfncontenttools/file-management/file/JTJGc3RhdGljJTJGY2xpZW50cyUyRmNvbnRlbnQlMkZBSStBY2NlcHRhYmxlK1VzZStQb2xpY3kucGRmJTNGMTc3MTM0NzA4NjE4MQ==) and must be treated as confidential by default.
+* **Custom code is billable work.** Code must be tied to an approved quote or engagement before commitment or delivery. Development quotes require approval from the Development Director or delegated development leadership before being sent externally.
+* **Exceptions require explicit approval.** Time pressure alone is not a reason to bypass quote approval, source control, review, or CI scanning.
 
-See the [Development Rules of Engagement](development-rules-of-engagement.md) for the full policy, including billing and quoting rules, source-code delivery rules, the delivery readiness checklist, and the exception process.
+See the Development Rules of Engagement linked above for the full policy, including billing and quoting rules, source-code delivery rules, the delivery readiness checklist, and the exception process.
+
+> Policy document links point to DataBank internal locations. They may not open for readers outside DataBank IMX.
 
 ---
 
@@ -49,8 +61,8 @@ See the [Development Rules of Engagement](development-rules-of-engagement.md) fo
 ISBN: 978-1718502703 - [Amazon](https://www.amazon.com/dp/1718502703)
 
 Textbook resources:
-- [3rd Edition Downloads](https://github.com/ehmatthes/pcc_3e/archive/refs/heads/main.zip)
-- [2nd Edition Downloads](https://github.com/ehmatthes/pcc_2e/zipball/master/) (reference only - some exercise answers retained for comparison)
+* [3rd Edition Downloads](https://github.com/ehmatthes/pcc_3e/archive/refs/heads/main.zip)
+* [2nd Edition Downloads](https://github.com/ehmatthes/pcc_2e/zipball/master/) (reference only - some exercise answers retained for comparison)
 
 ### Why Python Crash Course?
 
@@ -60,9 +72,9 @@ Python Crash Course strikes the right balance between accessibility and depth fo
 
 ## Setup and requirements
 
-- Python 3.12 or later (3.15 is current and works fine; 3.12 is the minimum tested version)
-- VS Code with the Python extension (recommended), or any editor you prefer
-- A virtual environment (instructions below)
+* Python 3.12 or later (3.15 is current and works fine; 3.12 is the minimum tested version)
+* VS Code with the Python extension (recommended), or any editor you prefer
+* A virtual environment (instructions below)
 
 See [QUICKSTART.md](QUICKSTART.md) for a step-by-step guide that sets up everything the lesson runner needs to run every lesson example, including the separate environment for the web chapters. The guides in `resources/setup/` cover the workstation and Python installation in more detail:
 
@@ -71,15 +83,12 @@ See [QUICKSTART.md](QUICKSTART.md) for a step-by-step guide that sets up everyth
 
 ### Quick start
 
-```bash
+```pwsh
 # Create a virtual environment
 python -m venv .venv
 
-# Activate it (Windows)
+# Activate it
 .venv\Scripts\activate
-
-# Activate it (macOS / Linux)
-source .venv/bin/activate
 
 # Update pip
 python -m pip install --upgrade pip
@@ -88,6 +97,21 @@ python -m pip install --upgrade pip
 pip install sm-utils
 
 # Install chapter-specific libraries as needed (see below)
+```
+
+### Start the lesson runner
+
+With the virtual environment activated, start the runner:
+
+```pwsh
+cd .\lesson-runner
+py app.py
+```
+
+If the virtual environment isn't activated, run the runner with the environment's Python directly from the repository root:
+
+```pwsh
+.venv\Scripts\python.exe lesson-runner\app.py
 ```
 
 ### Libraries by section
@@ -127,7 +151,7 @@ get to the chapter that needs it.
 
 The Python packages for the runner are listed in `lesson-runner/requirements.txt`:
 
-```bash
+```pwsh
 python -m pip install -r lesson-runner/requirements.txt
 ```
 
@@ -156,42 +180,31 @@ Several Beyond the Book chapters use only the standard library, including S19
 
 ## Third Party Licenses
 
-All libraries and third-party components used in this training repository are listed in the tables above. Usage terms vary, with some libraries approved for the training repository only, and others usable in closed-source commercial work.
+Each library used in this repository is listed below. Check each library's license file before you use it outside this repository.
 
-### Licensing Categories
+| Component | License | Used for |
+|---|---|---|
+| PySide6 | LGPL/GPL, or commercial | Lesson runner window |
+| mysql-connector-python | GPL-2.0 with FOSS exception | S12 MySQL |
+| pygame | LGPL-2.1 | S23 and Making a Game |
+| sm-utils | MIT | Helper functions in lessons, S13 |
+| beautifulsoup4, mechanicalsoup | MIT | S10 web scraping |
+| requests | Apache 2.0 | S10 web scraping, Part II charts |
+| numpy, pandas, scipy, seaborn | BSD | S14 to S16, plotting |
+| matplotlib | Matplotlib License (PSF-based) | Part II and S14 to S15 plotting |
+| plotly | MIT | Part II charts |
+| pymongo | Apache 2.0 | S17 MongoDB |
+| pyperclip | BSD | S24 built-ins |
+| build | MIT | S13 publishing |
+| twine | Apache 2.0 | S13 publishing |
+| pytest | MIT | Ch11 testing |
+| markdown-it-py, mdit-py-plugins | MIT | Lesson runner Markdown |
+| MathJax | Apache 2.0 | Lesson runner math (vendored in `vendor/`) |
+| Prism | MIT | Lesson runner code highlighting (vendored in `vendor/`) |
 
-**Approved for the training repository only** — Development leadership has approved the following libraries for use in `training-python`, **only for running the tutorial and the lesson runner from this repository**. They may **not** be packaged, bundled, or delivered in closed-source products:
+PySide6, mysql-connector-python, and pygame are approved for this repository only. Do not package, bundle, or deliver them in closed-source work, and do not move code that uses them out of this repository without development leadership approval. The policy is in the [Development Rules of Engagement](https://databankimx.sharepoint.com/:b:/r/sites/Hub-PS/DevTools/Policies/development-rules-of-engagement.pdf?d=w1c01477e09e048acbe4c96eba851a183&csf=1&web=1&e=uL7JEw) (internal only).
 
-* **PySide6** (LGPL/GPL, or commercial) — lesson runner UI
-* **mysql-connector-python** (GPL-2.0 with FOSS exception) — S12 MySQL integration
-* **pygame** (LGPL-2.1) — S23 Game of Life, and Part II Alien Invasion project
-
-Do not use these libraries or code that depends on them in:
-- Packaged installers (PyInstaller, cx_Freeze, py2exe)
-- Container images (Docker, Podman)
-- Client deliverables or production products
-- Any closed-source project
-
-**If you want to move any code out of this repository**, stop and take it to development leadership first. The approval does not carry over to new code.
-
-**Permissive licenses** — Libraries in the tables above that are under MIT, BSD, or Apache 2.0 licenses can be used in closed-source work under the Development Rules of Engagement:
-
-- `sm-utils` (MIT)
-- `beautifulsoup4`, `requests`, `mechanicalsoup` (MIT/BSD)
-- `numpy`, `pandas`, `matplotlib`, `seaborn`, `scipy` (BSD/Apache 2.0)
-- `pymongo` (Apache 2.0)
-- `pyperclip` (BSD)
-- `build`, `twine` (MIT)
-- `markdown-it-py`, `mdit-py-plugins` (MIT)
-- Standard library and permissive third-party packages
-
-**Vendored files** — MathJax (Apache 2.0) and Prism (MIT) are copied into the lesson runner's `vendor/` folder. Keep their license and notice files with them.
-
-**Pytest** (MIT) is approved for testing in this repository and in projects using the Development Rules of Engagement.
-
-The full policy is in [Development Rules of Engagement](development-rules-of-engagement.md), section 12.
-
-### VS Code settings
+## VS Code settings
 
 The Making a Game and Data Visualization projects need the VS Code settings in `resources/vscode/settings.json`. They tell the editor where the game's files are, which Pylint checks to skip, and the spell-check word list. Without them, the editor reports import and Pylint errors in the game code.
 
@@ -229,11 +242,7 @@ Add these to your VS Code User Settings JSON (`Ctrl+Shift+P` -> `Preferences: Op
 
 The lesson runner is a Qt desktop application that lets you browse chapters, read lesson notes, and run code examples interactively. Lessons are rendered with MathJax for math and Prism for code.
 
-Setup (the `vendor/` MathJax and Prism files, and the Python packages) is in [lesson-runner/README.md](lesson-runner/README.md). Once it's set up, start the runner from the repository root:
-
-```bash
-python lesson-runner/app.py
-```
+Setup (the `vendor/` MathJax and Prism files, and the Python packages) is in [lesson-runner/README.md](lesson-runner/README.md). Once it's set up, start the runner as described in [Start the lesson runner](#start-the-lesson-runner) above.
 
 #### Finding lessons
 
@@ -290,7 +299,7 @@ The runner's source code is in the `lesson-runner/` folder.
 
 Every lesson step is a standalone `.py` file. You can run any of them directly:
 
-```bash
+```pwsh
 python part-i-basics/ch02-fundamentals/lessons/01_hello_with_variable.py
 ```
 
@@ -323,9 +332,9 @@ training-python/
 ### Part I - Basics (Chapters 1-11)
 
 Each chapter folder contains:
-- `lessons/` - numbered lesson `.md` and `.py` pairs, one concept per step
-- `try-it-yourself/` - exercise answers (Scott's solutions to the textbook exercises)
-- `textbook-downloads/` - adapted code from the textbook's downloadable samples
+* `lessons/` - numbered lesson `.md` and `.py` pairs, one concept per step
+* `try-it-yourself/` - exercise answers (Scott's solutions to the textbook exercises)
+* `textbook-downloads/` - adapted code from the textbook's downloadable samples
 
 | Chapter | Topic |
 |---|---|
@@ -395,8 +404,18 @@ Supplemental topics added by Scott that go beyond what the textbook covers.
 
 Several lessons use `sm-utils`, a small utility library published to PyPI by Scott McLean. It provides helper functions used throughout the training examples: a `@timer` decorator, relative path helpers, a `pause()` function, `clear_terminal()`, and execution counters.
 
-- PyPI: [sm-utils](https://pypi.org/project/sm-utils/)
-- Install: `pip install sm-utils`
+* PyPI: [sm-utils](https://pypi.org/project/sm-utils/)
+* Install: `pip install sm-utils`
+
+---
+
+## Known conflicts and compatibility notes
+
+* The command examples use PowerShell (`pwsh`) on Windows.
+* On Linux, tkinter (chapter S19) must be installed separately, for example with `sudo apt install python3-tk`.
+* Chapter S12 needs a MySQL server, and chapter S17 needs a MongoDB server. Their setup notes are in the chapter folders.
+* The Django chapters and the Flask chapter (S25) need their own virtual environment.
+* When Cascadia Mono is not installed, the lesson runner's code font falls back to Consolas.
 
 ---
 
@@ -408,7 +427,7 @@ This training curriculum was originally developed from my personal Python learni
 
 ---
 
-## Version history
+## Release version
 
 | Date | Changes |
 |---|---|
@@ -419,5 +438,5 @@ This training curriculum was originally developed from my personal Python learni
 
 ## Contact
 
-- [Scott McLean](mailto:smclean@databankimx.com)
-- [Dev Team](mailto:development@databankimx.com)
+* [Scott McLean](mailto:smclean@databankimx.com)
+* [Dev Team](mailto:development@databankimx.com)

@@ -228,5 +228,5 @@ secrets.*
 # Numbered signup and setup screenshots, kept for reference and not for the repo
 **/lesson-images/[0-9][0-9]-*.png
 
-# Claude working notes (not for the repo)
-claude-resume.md
+# npm packages for the lesson runner's vendored files
+lesson-runner/vendor/node_modules/
